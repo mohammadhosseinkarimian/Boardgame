@@ -1,0 +1,22 @@
+@media all and (min-width: 480px) {
+  .Signup {
+    padding: 60px 0;
+  }
+
+  .Signup form {
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 320px;
+    border: 1px solid black;
+    width: 500px;
+    height: 250px;
+
+  }
+  .uname , .email, .password,.c_password{
+    margin: 0 25%;
+padding: 5px; 
+display: block;   
+  }
+  
+
+}
