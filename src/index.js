@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from "./Signup";
-const myfirstelement = <Login />
+import Signup from "./Component/Signup/Signup";
+import 'antd/dist/antd.css';
+import './Style/Signup.css';
 
-ReactDOM.render(myfirstelement, document.getElementById('root'));
+ReactDOM.render(<Signup />, document.getElementById('root'));

@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+/* @media all and (min-width: 480px) {
   .Signup {
     padding: 60px 0;
   }
@@ -20,3 +20,9 @@ display: block;
   
 
 }
+ */
+
+ .Login_container{
+   width: 500px;
+   height: 500px;
+ }
