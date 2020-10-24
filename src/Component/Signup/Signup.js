@@ -1,184 +1,172 @@
-/* import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Signup.css";
-import {DataPicker} from 'antd'
-
-
-
-export default function Signup() {
-  const [username, setUname] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [c_password, setC_Password] = useState("");
-  function validateForm() {
-    return email.length > 0 &&
-     password.length >= 8 && 
-     c_password === password;
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setUname("test");
-
-  }
-  return (
-    <div className="Signup">
-      <form onSubmit={handleSubmit}>
-        <div className="uname">
-          <FormGroup controlId="username" bsSize="large">
-            <div><ControlLabel>UserName </ControlLabel></div>
-            <FormControl
-              autoFocus
-              type="text"
-              value={username}
-              onChange={(e) => setUname(e.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className="email">
-          <FormGroup controlId="email" bsSize="large">
-            <div><ControlLabel>Email </ControlLabel></div>
-            <FormControl
-              autoFocus
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className="password">
-        <FormGroup controlId="password" bsSize="large">
-          <div><ControlLabel>Password <h6 style={{display:"inline",color:"red"}}>(َat last 8 character)</h6>
-          </ControlLabel></div>
-          <FormControl
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup></div>
-        
-        <div className="c_password"><FormGroup controlId="c_password" bsSize="large">
-         <div> <ControlLabel>Confirm</ControlLabel></div>
-          <FormControl
-            value={c_password}
-            onChange={(e) => setC_Password(e.target.value)}
-            type="password"
-          />
-        </FormGroup></div>
-      <div className="botton">
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          SignUp
-        </Button></div>
-      </form>
-    </div>
-  );
-}
-
- */
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-const layout = {
+import {
+  Form,
+  Input,
+  Tooltip,
+  Select,
+  AutoComplete,
+  Button
+} from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+const { Option } = Select;
+const AutoCompleteOption = AutoComplete.Option;
+const formItemLayout = {
   labelCol: {
-    span: 8,
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
   },
   wrapperCol: {
-    span: 16,
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
   },
 };
-const tailLayout = {
+const tailFormItemLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
   },
 };
+
 class Signup extends React.Component {
   state = {
-    password: "",
     username: "",
+    email: "",
+    password: "",
+    confirm_password: "",
   };
-  onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  // [this.form] = Form.useForm();
 
-  onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  onFinish = (values) => {
+    console.log("Received values of form: ", values);
   };
   onChange = (e) => {
-    e.persist()
-    console.log(e.target.value)
-    console.log(e.target.name)
+    e.persist();
+    console.log(e.target.value);
+    console.log(e.target.name);
 
-    this.setState(a=>{
+    this.setState((a) => {
       return {
-        [e.target.name]:e.target.value
-      }
-    })
-    console.log(this.state)
+        [e.target.name]: e.target.value,
+      };
+    });
+    console.log(this.state);
+  };
+  onSubmit = (e) => {
+    const login = {
+      username: this.state.username,
+      password: this.state.password,
+      email:this.state.email
+    };
+    const login_json = JSON.stringify(login);
+    console.log(login_json);
+  };
 
-  };
-  onSubmit=(e)=>{
-    const login={
-      username:this.state.username,
-      password:this.state.password
-    }
-    const login_json=JSON.stringify(login)
-    console.log(login_json)
-  };
   render() {
     return (
-      <div className="Login_container">
+      <div className="Signup_container">
         {" "}
         <Form
-          {...layout}
-          name="basic"
-          initialValues={{
-            remember: true,
-          }}
+          {...formItemLayout}
+          // form={this.form}
+          name="register"
           onFinish={this.onSubmit}
-          onFinishFailed={this.onFinishFailed}
+          scrollToFirstError
         >
           <Form.Item
-            label="Username"
             name="username"
+            label={
+              <span>
+                Username&nbsp;
+                <Tooltip title="What do you want others to call you?">
+                  <QuestionCircleOutlined />
+                </Tooltip>
+              </span>
+            }
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: "Please input your nickname!",
+                whitespace: true,
               },
             ]}
           >
-            <Input
-            name="username"
-            onChange={this.onChange}
-
-            />
+            <Input name="username" onChange={this.onChange} />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}
+          >
+            <Input name="email" onChange={this.onChange} />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
+            label="Password"
             rules={[
               {
                 required: true,
                 message: "Please input your password!",
               },
             ]}
+            hasFeedback
           >
-            <Input.Password 
-            name="password"
-            onChange={this.onChange}
-            />
+            <Input.Password name="password" onChange={this.onChange} />
           </Form.Item>
 
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          <Form.Item
+            name="confirm"
+            label="Confirm Password"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
 
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" >
-              Submit
-            </Button>
+                  return Promise.reject(
+                    "The two passwords that you entered do not match!"
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
           </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          Register
+        </Button>
+      </Form.Item>
         </Form>
       </div>
     );

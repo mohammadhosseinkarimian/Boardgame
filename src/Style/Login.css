@@ -23,6 +23,18 @@ display: block;
  */
 
  .Login_container{
-   width: 500px;
-   height: 500px;
+   width: 350px;
+   height: 300px;
+  margin: 150px auto ;
+   border: 4px solid rgb(236, 236, 103);
+   padding:45px 45px ;
+   border-radius: 15px;
+ }
+ .Signup_container{
+  width: 500px;
+  height: 350px;
+   margin: 150px auto ;
+  border: 4px solid rgb(236, 236, 103);
+  padding:45px 45px ;
+  border-radius: 15px;
  }
