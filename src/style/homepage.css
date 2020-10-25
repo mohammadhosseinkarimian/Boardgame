@@ -1,0 +1,48 @@
+body{
+    margin:0px;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color:#eaf098;
+}
+.header{
+    width: auto;
+    height: 170px;
+    border-radius: 10px 0;
+    margin:10px;  
+    background-image: linear-gradient(to right,#626c74,#aebcc0, rgb(211, 211, 41),yellow);
+
+}
+.menu{ 
+    position: sticky;
+    top: 0px;
+    width: auto;
+    height: 35px;
+    background-image: linear-gradient(to left,#626c74,#aebcc0,white);
+    border-radius: 10px 0;
+    margin:0 10px;
+    
+}
+.all{
+    position: relative;
+    padding: 0 10px;
+}
+.main{
+    width: 90%;
+    height: 1700px;
+    border-radius: 10px 0;
+    border: 1px solid ; 
+    margin:10px;
+    background-color: #fff;
+    
+}
+
+.description
+{
+    width: 25%;
+    height: 300px;
+    border-radius: 10px 0;
+    border: 1px solid ; 
+    margin:10px;
+    background-color: #fff;
+
+}
