@@ -77,6 +77,7 @@ export default function Signup() {
  */
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
+import Axios from "axios";
 const layout = {
   labelCol: {
     span: 8,
@@ -116,11 +117,33 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
+  proxyurl= "https://cors-anywhere.herokuapp.com/";
   onSubmit=(e)=>{
     const login={
       username:this.state.username,
       password:this.state.password
     }
+    Axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
+    {
+      headers:{'Content-Type':'application/json'}
+    }).then((res)=>{
+      window.location.replace("https://www.google.com/")
+    })
+    .catch((error)=>{
+     if(JSON.stringify(error.response).includes("No active account found with the given credentials"))
+     {
+       alert("No active account found with the given credentials.");
+       window.location.reload();
+     }
+    else if(JSON.stringify(error.response).includes("Either the username or entry doesn't exist."))
+     {
+       alert("Either the username or password doesn't exist.");
+       window.location.reload();
+     }
+     
+     
+     // alert(JSON.stringify(error.response));
+    })
     const login_json=JSON.stringify(login)
     console.log(login_json)
   };

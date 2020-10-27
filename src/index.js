@@ -6,4 +6,4 @@ import 'antd/dist/antd.css';
 import './Style/Login.css';
 
 ReactDOM.render(<Login />, document.getElementById('root'));
-ReactDOM.render(<Signup />, document.getElementById('root'));
+//ReactDOM.render(<Signup />, document.getElementById('root'));
