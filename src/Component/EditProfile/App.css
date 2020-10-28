@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+
+
+ .EditProfile_container{
+    width: 50%;
+    height:auto;
+    margin: auto ;
+    border: 4px solid rgb(236, 236, 103);
+    padding:45px 45px ;
+    border-radius: 15px;
+ 
+ 
+  }
