@@ -1,6 +1,6 @@
 import React from "react";
 import "../style/homepage.css";
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -14,6 +14,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class HomePage extends React.Component {
   state = {
+    username:"",
     collapsed: false,
   };
 
@@ -30,24 +31,26 @@ class HomePage extends React.Component {
           collapsible
           collapsed={collapsed}
           onCollapse={this.onCollapse}
-          style={{backgroundImage:'linear-gradient(black,#626c74,black)' }}
+          style={{background:'#aebcc0' }}
         >
-          <Button className="edit-pro" type="dashed" icon={<EditTwoTone />}>
-            Edit
-          </Button>
+          
           <Menu
+           className="side-menu"
             theme="light"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["0"]}
             mode="inline"
-            style={{ position: "sticky", top: "0" }}
-          >
-            <Menu.Item className="m-item" key="1" icon={<PieChartOutlined />}>
+            style={{ position: "sticky", top: "-20px" }}>
+            <Menu.Item  className="edit-pro" key="0" icon={<EditTwoTone  twoToneColor="black"/>} style={{height:"55px" ,marginTop:"30px", marginBottom:"50px"}}>
+             <Avatar icon={<UserOutlined />} style={{margin:"15px"}} />
+            state.username()
+            </Menu.Item >
+            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined />}>
               Option 1
             </Menu.Item>
-            <Menu.Item className="m-item" key="2" icon={<DesktopOutlined />}>
+            <Menu.Item className="m-item" key="3" icon={<DesktopOutlined />}>
               Option 2
             </Menu.Item>
-            <SubMenu
+            {/* <SubMenu
               className="m-item"
               key="sub1"
               icon={<UserOutlined />}
@@ -65,7 +68,7 @@ class HomePage extends React.Component {
             >
               <Menu.Item key="6">Team 1</Menu.Item>
               <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
+            </SubMenu> */}
             <Menu.Item className="m-item" key="9" icon={<FileOutlined />}>
               Files
             </Menu.Item>
@@ -73,16 +76,16 @@ class HomePage extends React.Component {
         </Sider>
         <Layout
           className="site-layout"
-          style={{ background: "#eceaea", margin: "10px 0" }}
+          style={{ background: "#eceaea", margin: "0 0" }}
         >
-          <div className="header">
+         
             <Header
               className="site-layout-background"
-              style={{ padding: 0, height: "200px" }}
+              style={{height: "100px" }}
             >
-              Header
+              Gamology
             </Header>
-          </div>
+      
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
