@@ -78,6 +78,7 @@ export default function Signup() {
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import Axios from "axios";
+import {Link} from 'react-router-dom'
 const layout = {
   labelCol: {
     span: 8,
@@ -127,7 +128,10 @@ class Login extends React.Component {
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
-      window.location.replace("https://www.google.com/")
+      const refreshToken = res.data.refresh;
+      const accessToken = res.data.access;
+      localStorage.setItem('refresh', refreshToken);
+      localStorage.setItem('access', accessToken);
     })
     .catch((error)=>{
      if(JSON.stringify(error.response).includes("No active account found with the given credentials"))
@@ -203,6 +207,7 @@ class Login extends React.Component {
             </Button>
           </Form.Item>
         </Form>
+        <Link to="signup">Or you can signup</Link>
       </div>
     );
   }
