@@ -81,21 +81,21 @@ class HomePage extends React.Component {
          
             <Header
               className="site-layout-background"
-              style={{height: "100px" }}
+              style={{height: "100px", fontSize: "60px" }}
             >
               Gamology
             </Header>
       
           <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
+           <Breadcrumb style={{ margin: "16px 0" }}>
+             {/*   <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
+            </Breadcrumb> 
             <div
               className="site-layout-background"
               style={{ padding: 24, minHeight: 660 }}
             >
-              Bill is a cat.
+              
             </div>
           </Content>
           <Footer className="footer" style={{  textAlign: "center" }}>Footer</Footer>
