@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Form,
   Input,
@@ -217,9 +218,16 @@ class Signup extends React.Component {
             <Input.Password />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-        <Button type="button" onClick={this.handle} >
-          Register
-        </Button>
+          <button type="button" class="btn btn-primary"
+          onClick={this.handle}  name="submit">
+          <span
+           class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+            role={this.state.loggedIn==="logging in" ?"status":""}
+          aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+          </span>
+        {this.state.loggedIn==="logging in" ? "Loading...":"Submit" }
+      </button>
       </Form.Item>
       
       
