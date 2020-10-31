@@ -1,80 +1,3 @@
-/* import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Signup.css";
-import {DataPicker} from 'antd'
-
-
-
-export default function Signup() {
-  const [username, setUname] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [c_password, setC_Password] = useState("");
-  function validateForm() {
-    return email.length > 0 &&
-     password.length >= 8 && 
-     c_password === password;
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setUname("test");
-
-  }
-  return (
-    <div className="Signup">
-      <form onSubmit={handleSubmit}>
-        <div className="uname">
-          <FormGroup controlId="username" bsSize="large">
-            <div><ControlLabel>UserName </ControlLabel></div>
-            <FormControl
-              autoFocus
-              type="text"
-              value={username}
-              onChange={(e) => setUname(e.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className="email">
-          <FormGroup controlId="email" bsSize="large">
-            <div><ControlLabel>Email </ControlLabel></div>
-            <FormControl
-              autoFocus
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormGroup>
-        </div>
-        <div className="password">
-        <FormGroup controlId="password" bsSize="large">
-          <div><ControlLabel>Password <h6 style={{display:"inline",color:"red"}}>(َat last 8 character)</h6>
-          </ControlLabel></div>
-          <FormControl
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup></div>
-        
-        <div className="c_password"><FormGroup controlId="c_password" bsSize="large">
-         <div> <ControlLabel>Confirm</ControlLabel></div>
-          <FormControl
-            value={c_password}
-            onChange={(e) => setC_Password(e.target.value)}
-            type="password"
-          />
-        </FormGroup></div>
-      <div className="botton">
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          SignUp
-        </Button></div>
-      </form>
-    </div>
-  );
-}
-
- */
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import Axios from "axios";
@@ -97,6 +20,8 @@ class Login extends React.Component {
   state = {
     password: "",
     username: "",
+    loggedIn:"",
+    msg:""
   };
   onFinish = (values) => {
     console.log("Success:", values);
@@ -124,25 +49,31 @@ class Login extends React.Component {
       username:this.state.username,
       password:this.state.password
     }
+    this.setState({loggedIn:"logging in"})
     Axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
+      window.location.href="https://www.google.com/";
       const refreshToken = res.data.refresh;
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
+      this.setState({msg:"loged_in"});
+
     })
     .catch((error)=>{
      if(JSON.stringify(error.response).includes("No active account found with the given credentials"))
      {
-       alert("No active account found with the given credentials.");
-       window.location.reload();
+      this.setState({loggedIn:""});
+       this.setState({msg:"Username or Password is wrong."});
+     
      }
     else if(JSON.stringify(error.response).includes("Either the username or entry doesn't exist."))
      {
-       alert("Either the username or password doesn't exist.");
-       window.location.reload();
+      this.setState({loggedIn:""});
+      this.setState({msg:"Username or Password is wrong. try again!"});
+    
      }
      
      
@@ -200,14 +131,22 @@ class Login extends React.Component {
           <Form.Item {...tailLayout} name="remember" valuePropName="checked">
             <Checkbox >Remember me</Checkbox>
           </Form.Item>
-
+          <p className ="ant-form-item-extra" >
+            {this.state.msg==="Username or Password is wrong. try again!"?"Username or Password is wrong. try again!":""}</p>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" >
-              Submit
+            <Button type="primary" htmlType="submit" name="submit" onClick={this.onSubmit}>
+            <span
+           class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+            role={this.state.loggedIn==="logging in" ?"status":""}
+          aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+          </span>
+        {this.state.loggedIn==="logging in" ? "Loading...":"Submit" }
+      
             </Button>
           </Form.Item>
         </Form>
-        <Link to="signup">Or you can signup</Link>
+        <p>Don’t have an account? <Link to="signup">Sign up</Link></p>
       </div>
     );
   }
