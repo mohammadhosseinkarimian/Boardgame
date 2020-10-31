@@ -31,7 +31,7 @@ class HomePage extends React.Component {
           collapsible
           collapsed={collapsed}
           onCollapse={this.onCollapse}
-          style={{background:'#aebcc0' }}
+          style={{background:'#626c74' }}
         >
           
           <Menu
@@ -40,7 +40,7 @@ class HomePage extends React.Component {
             defaultSelectedKeys={["0"]}
             mode="inline"
             style={{ position: "sticky", top: "-20px" }}>
-            <Menu.Item  className="edit-pro" key="0" icon={<EditTwoTone  twoToneColor="black"/>} style={{height:"55px" ,marginTop:"30px", marginBottom:"50px"}}>
+            <Menu.Item  className="edit-pro" key="0" icon={<UserOutlined   twoToneColor="black"/>} style={{height:"55px" ,marginTop:"30px", marginBottom:"50px"}}>
              <Avatar icon={<UserOutlined />} style={{margin:"15px"}} />
             state.username()
             </Menu.Item >
@@ -76,7 +76,7 @@ class HomePage extends React.Component {
         </Sider>
         <Layout
           className="site-layout"
-          style={{ background: "#eceaea", margin: "0 0" }}
+          style={{ background: "#dfe8e8", margin: "0 0" }}
         >
          
             <Header
