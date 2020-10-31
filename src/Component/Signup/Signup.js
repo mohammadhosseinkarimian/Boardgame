@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import {
   Form,
   Input,
@@ -47,32 +48,77 @@ class Signup extends React.Component {
     email: "",
     password: "",
     confirm_password: "",
+    loggedIn:"",
+    msg:""
   };
+  proxyurl = "https://cors-anywhere.herokuapp.com/";
+  emailChange=e=>{
+   this.setState({email:e.target.value})
+  }
+  userChange=e=>{
+    this.setState({username:e.target.value})
+  }
+  passChange=e=>{
+    this.setState({password:e.target.value})
+  }
   // [this.form] = Form.useForm();
+  handle=e=>{
+    e.preventDefault();
+    this.setState({loggedIn:"logging in"})
+    
+    axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/register/',JSON.stringify(this.state) 
+    ,{
+      headers:
+      {'Content-Type': 'application/json',
+      }
+    }
+    ).then((res)=>{  
+       
+      window.location.href="https://www.google.com/";
+      this.setState({msg:"signed_in"});
+       
+    })
+    .catch((error)=>
+    {
+    if(JSON.stringify(error.response).substring(1,100).includes("A user with that username already exists."))
+    {
+      this.setState({loggedIn:""})
+      this.setState({msg:"A user with that username already exists."});
+       
+    }
+      //
+    else if(JSON.stringify(error.response).substring(1,100).includes("The fields email must make a unique set."))
+    {
+      this.setState({loggedIn:""})
+      this.setState({msg:"There is already an account with this email"});
+    }
+    else
+    {
+      this.setState({loggedIn:""})
+      this.setState({msg:"There was something wrong with the server please try again"})
+     
+    }
+    }
+    )
+  }
 
   onFinish = (values) => {
-    console.log("Received values of form: ", values);
+   //this.handle;
   };
   onChange = (e) => {
     e.persist();
-    console.log(e.target.value);
-    console.log(e.target.name);
 
     this.setState((a) => {
       return {
         [e.target.name]: e.target.value,
       };
     });
-    console.log(this.state);
   };
   onSubmit = (e) => {
-    const login = {
-      username: this.state.username,
-      password: this.state.password,
-      email:this.state.email
-    };
-    const login_json = JSON.stringify(login);
-    console.log(login_json);
+    
+      e.preventDefault();
+      e.target.reset();
+ 
   };
 
   render() {
@@ -83,9 +129,13 @@ class Signup extends React.Component {
           {...formItemLayout}
           // form={this.form}
           name="register"
+          ref={(el) => this.myFormRef = el}
           onFinish={this.onSubmit}
           scrollToFirstError
+          onSubmit={this.onSubmit.bind(this)}
         >
+           <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
+    "There was something wrong with the server please try again":""}</p>
           <Form.Item
             name="username"
             label={
@@ -104,8 +154,10 @@ class Signup extends React.Component {
               },
             ]}
           >
-            <Input name="username" onChange={this.onChange} />
+            <Input name="username" onChange={this.onChange , this.userChange} />
           </Form.Item>
+          <p className ="ant-form-item-extra" >{this.state.msg==="A user with that username already exists."? 
+    "A user with that username already exists.":""}</p>
           <Form.Item
             name="email"
             label="E-mail"
@@ -120,9 +172,10 @@ class Signup extends React.Component {
               },
             ]}
           >
-            <Input name="email" onChange={this.onChange} />
+            <Input name="email" onChange={this.onChange , this.emailChange} />
           </Form.Item>
-
+            <p className ="ant-form-item-extra" >{this.state.msg==="There is already an account with this email"?
+    "There is already an account with this email":""}</p>
           <Form.Item
             name="password"
             label="Password"
@@ -134,7 +187,7 @@ class Signup extends React.Component {
             ]}
             hasFeedback
           >
-            <Input.Password name="password" onChange={this.onChange} />
+            <Input.Password name="password" onChange={this.onChange,this.passChange} />
           </Form.Item>
 
           <Form.Item
@@ -156,6 +209,7 @@ class Signup extends React.Component {
                   return Promise.reject(
                     "The two passwords that you entered do not match!"
                   );
+
                 },
               }),
             ]}
@@ -163,10 +217,12 @@ class Signup extends React.Component {
             <Input.Password />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="button" onClick={this.handle} >
           Register
         </Button>
       </Form.Item>
+      
+      
         </Form>
       </div>
     );

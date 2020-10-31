@@ -32,10 +32,25 @@ display: block;
 
  }
  .Signup_container{
-  width: 500px;
-  height: 350px;
-   margin: 150px auto ;
-  border: 4px solid rgb(236, 236, 103);
-  padding:45px 45px ;
-  border-radius: 15px;
+  width: 60%;
+  height: 40%;
+   margin: 15% auto ;
+   margin-top: 4% ;
+   margin-bottom: 2%;
+  border: 2px solid rgb(236, 236, 103);
+  padding:4% 4% ;
+  border-radius: 1.5%;
+  border-spacing: 5%;
+ }
+
+ .ant-form-item-extra {
+  clear: both;
+  min-height: 2px;
+  padding-top: 0;
+  margin: 0;
+  color: rgba(180, 18, 18, 0.651);
+  font-size: 14px;
+  line-height: 1.5715;
+  -webkit-transition: color .3s cubic-bezier(.215,.61,.355,1);
+  transition: color .2s cubic-bezier(.215,.61,.355,1);
  }
