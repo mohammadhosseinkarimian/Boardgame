@@ -32,17 +32,27 @@ display: block;
    box-shadow: 1px 1px 0 1px #626c74 ;
   padding:4% 4% ;
   border-radius: 1.5%;
+  
 
  }
-
  .ant-form-item-extra {
   clear: both;
   min-height: 2px;
   padding-top: 0;
-  margin: 0;
+  margin-left: 33%;
+  justify-items:fixed;
   color: rgba(180, 18, 18, 0.651);
   font-size: 14px;
   line-height: 1.5715;
   -webkit-transition: color .3s cubic-bezier(.215,.61,.355,1);
   transition: color .2s cubic-bezier(.215,.61,.355,1);
+ }
+ .ant-form-item-change {
+  clear: both;
+  min-height: 3px;
+  padding-top: 0;
+  margin-left: 33%;
+  justify-items:fixed;
+  color: rgba(8, 4, 4, 0.651);
+  font-size: 18px;
  }

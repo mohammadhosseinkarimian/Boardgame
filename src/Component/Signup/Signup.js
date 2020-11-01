@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
+import background from "./bg.jpg"
 import {
   Form,
   Input,
@@ -10,6 +11,8 @@ import {
   Button
 } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+
+import {Link} from 'react-router-dom'
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 const formItemLayout = {
@@ -121,10 +124,13 @@ class Signup extends React.Component {
       e.target.reset();
  
   };
-
+  
   render() {
     return (
+      
+     
       <div className="Signup_container">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         {" "}
         <Form
           {...formItemLayout}
@@ -184,7 +190,18 @@ class Signup extends React.Component {
               {
                 required: true,
                 message: "Please input your password!",
-              },
+              },({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || JSON.stringify(value).length>=8) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    "Password is too short."
+                  );
+
+                },
+              }),
             ]}
             hasFeedback
           >
@@ -226,12 +243,13 @@ class Signup extends React.Component {
           aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
 
           </span>
-        {this.state.loggedIn==="logging in" ? "Loading...":"Submit" }
+        {this.state.loggedIn==="logging in" ? "Loading...":"Create account  " }
       </button>
       </Form.Item>
       
       
         </Form>
+        <p className ="ant-form-item-change"  >Already have an account? <Link to="login">Log in</Link></p>
       </div>
     );
   }
