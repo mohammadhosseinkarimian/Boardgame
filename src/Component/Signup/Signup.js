@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
-import background from "./bg.jpg"
+//import background from "./bg.jpg"
 import {
   Form,
   Input,

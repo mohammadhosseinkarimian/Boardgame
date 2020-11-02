@@ -72,7 +72,7 @@ class Login extends React.Component {
     else if(JSON.stringify(error.response).includes("Either the username or entry doesn't exist."))
      {
       this.setState({loggedIn:""});
-      this.setState({msg:"Username or Password is wrong. try again!"});
+      this.setState({msg:"Username or Password is wrong."});
     
      }
      
@@ -132,7 +132,7 @@ class Login extends React.Component {
             <Checkbox >Remember me</Checkbox>
           </Form.Item>
           <p className ="ant-form-item-extra" >
-            {this.state.msg==="Username or Password is wrong. try again!"?"Username or Password is wrong. try again!":""}</p>
+            {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong. try again!":""}</p>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" name="submit" onClick={this.onSubmit}>
             <span
