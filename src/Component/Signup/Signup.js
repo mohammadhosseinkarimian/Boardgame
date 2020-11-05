@@ -1,7 +1,6 @@
 import React from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
-//import background from "./bg.jpg"
 import {
   Form,
   Input,
@@ -53,7 +52,8 @@ class Signup extends React.Component {
     password: "",
     confirm_password: "",
     loggedIn:"",
-    msg:""
+    msg:"",
+    
   };
   proxyurl = "https://cors-anywhere.herokuapp.com/";
   emailChange=e=>{
@@ -65,8 +65,14 @@ class Signup extends React.Component {
   passChange=e=>{
     this.setState({password:e.target.value})
   }
+  confirmChange=e=>{
+    this.setState({confirm_password:e.target.value})
+  }
   // [this.form] = Form.useForm();
   handle=e=>{
+    if((this.state.email!=="")&&(this.state.username!=="")&&(this.state.password.length>=8)
+    &&(this.state.email.includes("@"))&&(this.state.email.includes(".com"))&&(this.state.password===this.state.confirm_password))
+   {
     e.preventDefault();
     this.setState({loggedIn:"logging in"})
     
@@ -77,7 +83,10 @@ class Signup extends React.Component {
       }
     }
     ).then((res)=>{  
-       
+      const refreshToken = res.data.refresh;
+      const accessToken = res.data.access;
+      localStorage.setItem('refresh', refreshToken);
+      localStorage.setItem('access', accessToken);
       window.location.href="https://www.google.com/";
       this.setState({msg:"signed_in"});
        
@@ -105,6 +114,7 @@ class Signup extends React.Component {
     }
     )
   }
+}
 
   onFinish = (values) => {
    //this.handle;
@@ -127,7 +137,7 @@ class Signup extends React.Component {
   
   render() {
     return (
-      
+      <div className="bg" >
      
       <div className="Signup_container">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -172,6 +182,7 @@ class Signup extends React.Component {
               {
                 type: "email",
                 message: "The input is not valid E-mail!",
+
               },
               {
                 required: true,
@@ -192,12 +203,13 @@ class Signup extends React.Component {
                 message: "Please input your password!",
               },({ getFieldValue }) => ({
                 validator(rule, value) {
-                  if (!value || JSON.stringify(value).length>=8) {
+                  if (!value || JSON.stringify(value).length>=10) {
+
                     return Promise.resolve();
                   }
 
                   return Promise.reject(
-                    "Password is too short."
+                    "Password is too short." 
                   );
 
                 },
@@ -232,11 +244,14 @@ class Signup extends React.Component {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password name="confirm" onChange={this.onChange,this.confirmChange}/>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-          <button type="button" class="btn btn-primary"
+          <button type="button" id="myBtn" class="btn btn-primary" 
+  
           onClick={this.handle}  name="submit">
+            
+          
           <span
            class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
             role={this.state.loggedIn==="logging in" ?"status":""}
@@ -250,6 +265,7 @@ class Signup extends React.Component {
       
         </Form>
         <p className ="ant-form-item-change"  >Already have an account? <Link to="login">Log in</Link></p>
+      </div>
       </div>
     );
   }

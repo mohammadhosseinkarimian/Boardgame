@@ -32,9 +32,6 @@ class Login extends React.Component {
   };
   onChange = (e) => {
     e.persist()
-    console.log(e.target.value)
-    console.log(e.target.name)
-
     this.setState(a=>{
       return {
         [e.target.name]:e.target.value
@@ -49,6 +46,9 @@ class Login extends React.Component {
       username:this.state.username,
       password:this.state.password
     }
+    if((this.state.username!=="")&&(this.state.password.length>=8)
+   )
+   {
     this.setState({loggedIn:"logging in"})
     Axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
     {
@@ -80,10 +80,11 @@ class Login extends React.Component {
      // alert(JSON.stringify(error.response));
     })
     const login_json=JSON.stringify(login)
-    console.log(login_json)
+  }
   };
   render() {
     return (
+      <div className="bg" >
       <div className="Login_container">
         {" "}
         <Form
@@ -147,6 +148,7 @@ class Login extends React.Component {
           </Form.Item>
         </Form>
         <p className ="ant-form-item-change"  >Don’t have an account? <Link to="signup">Sign up</Link></p>
+      </div>
       </div>
     );
   }
