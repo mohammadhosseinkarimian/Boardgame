@@ -54,11 +54,11 @@ class Login extends React.Component {
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
-      window.location.href="https://www.google.com/";
       const refreshToken = res.data.refresh;
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
+      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
       this.setState({msg:"loged_in"});
 
     })

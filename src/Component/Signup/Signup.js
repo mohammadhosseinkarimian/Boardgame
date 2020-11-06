@@ -9,9 +9,9 @@ import {
   AutoComplete,
   Button
 } from "antd";
+import HomePage from '../homepage';
 import { QuestionCircleOutlined } from "@ant-design/icons";
-
-import {Link} from 'react-router-dom'
+import {Link, Redirect, Route} from 'react-router-dom'
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 const formItemLayout = {
@@ -68,7 +68,7 @@ class Signup extends React.Component {
   confirmChange=e=>{
     this.setState({confirm_password:e.target.value})
   }
-  // [this.form] = Form.useForm();
+  
   handle=e=>{
     if((this.state.email!=="")&&(this.state.username!=="")&&(this.state.password.length>=8)
     &&(this.state.email.includes("@"))&&(this.state.email.includes(".com"))&&(this.state.password===this.state.confirm_password))
@@ -87,7 +87,7 @@ class Signup extends React.Component {
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
-      window.location.href="https://www.google.com/";
+      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
       this.setState({msg:"signed_in"});
        
     })
