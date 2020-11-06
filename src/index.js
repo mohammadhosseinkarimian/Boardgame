@@ -1,10 +1,11 @@
-  
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import { Button } from 'antd';
-//import 'antd/dist/antd.css';
-//import EditProfile from "./Component/EditProfile/EditProfile.js"
+import Home from './Component/homepage';
+import Login from "./Component/Login/Login";
+import Signup from "./Component/Signup/Signup";
+import 'antd/dist/antd.css';
+import Routes from "./Routes";
+import './Style/Login.css'
 import App from "./Component/EditProfile/EditProfile.js"
 
-
-ReactDOM.render(< App />, document.getElementById('root'));
+ReactDOM.render(<Routes />, document.getElementById('root'));
