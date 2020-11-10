@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
+import Av from './avatar.png';
+import {
+  UserOutlined
+} from "@ant-design/icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios'
 import FormItem from 'antd/lib/form/FormItem';
 import {
     Form,
     Input,
-    Tooltip,
-    Select,
     Tabs,
-    AutoComplete,
-    Button,
     DatePicker
 } from "antd";
 const formItemLayout = {
@@ -47,13 +49,19 @@ const { TabPane } = Tabs;
 
 class EditProfile extends React.Component {
     state = {
+        avatar:"",
         firstname: "",
         lastname: "",
         email: "",
         password: "",
         newPassword: "",
         confirm_password: "",
-        year:""
+        year:"",
+        loggedIn:"",
+         msg:"",
+         edit:"",
+         done:"",
+         img:""
     };
     onFinish = (values) => {
         console.log("Received values of form: ", values);
@@ -69,47 +77,198 @@ class EditProfile extends React.Component {
         });
         console.log(this.state);
     };
+    passChange=e=>{
+        this.setState({password:e.target.value})
+      }
+      newPassChange=e=>{
+        this.setState({newPassword:e.target.value})
+      }
+      confirmChange=e=>{
+        this.setState({confirm_password:e.target.value})
+      }
+      firstChange=e=>{
+        this.setState({firstname:e.target.value});
+        this.setState({edit:"true"});
+
+      }
+      lastChange=e=>{
+        this.setState({lastname:e.target.value});
+        this.setState({edit:"true"});
+
+      }
+      emailChange=e=>{
+        this.setState({email:e.target.value});
+        this.setState({edit:"true"});
+
+      }
     onyearChange=(date, dateString)=> {
-         this.year=dateString;
-        console.log(date, dateString);
+         this.state.year=dateString;
+         this.setState({edit:"true"});
+
+      }
+      Upload=async(e)=>{
+        const file=e.target.files[0];
+       const base64= await this.Convert(file)
+       this.setState({img:base64});
+       this.setState({edit:"true"})
+      }
+      Convert=(f)=>{
+        return new Promise((resolve,reject)=>{
+          const fileReader=new FileReader();
+          fileReader.readAsDataURL(f);
+          fileReader.onload=()=>{
+            resolve(fileReader.result);
+          };
+          fileReader.onerror=(err)=>{
+            reject(err);
+          };
+        }) ;
       }
 
-
+      proxyurl= "http://localhost:8010/proxy";
 
     onSaveGeneral = (e) => {
-        const changeddata = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            year: this.year,
-            email: this.state.email,
-            password: "",
-            newPassword:"", 
-             
-        };
-        const changeddata_json = JSON.stringify(changeddata);
-        console.log(changeddata_json);
-    };
+        if((this.state.edit==="true") &&(this.state.email.includes("@"))&&(this.state.email.includes(".com")))
+        {
+            e.preventDefault();
+            this.setState({loggedIn:"logging in"})
+        const data={
+            email:this.state.email,
+            first_name:this.state.firstname,
+            last_name:this.state.lastname,
+            avatar:this.state.img,
+            age:this.state.year
+        }
+        axios.put(this.proxyurl+'/auth/edit_profile/',JSON.stringify(data),{headers:{
+            'Content-Type' : 'application/json;charset=utf-8',
+            'Access-Control-Allow-Credentials':true,
+  'Accept' : 'application/json',
+  'Authorization' :`Bearer ${localStorage.getItem('access')}`
+        }}
+    ).then((res)=>{  
+        this.setState({edit:""});
+         this.setState({msg:"done"});
+         this.setState({loggedIn:""});
+         
+         localStorage.setItem('avatar',data.avatar);
+         localStorage.setItem('email',data.email);
+         this.setState({done:""});
 
+
+    } )
+    .catch((error)=>
+    {
+     this.setState({edit:""});
+     this.setState({loggedIn:""});
+     this.setState({msg:"something went wrong please try again."});
+            } 
+            )
+        
+        }
+
+
+        else
+        {
+            this.setState({msg:"You haven't changed any information."});
+            this.setState({loggedIn:""});
+        }
+
+        
+        }
+    getInfo=(e)=>
+    {
+        
+        if(this.state.done==="")
+        {
+
+        
+        
+        axios.get(this.proxyurl+'/auth/edit_profile/',{headers:{
+            'Content-Type' : 'application/json;charset=utf-8',
+            'Access-Control-Allow-Credentials':true,
+  'Accept' : 'application/json',
+  'Authorization' :`Bearer ${localStorage.getItem('access')}`
+        }}
+    ).then((res)=>{  
+        
+        this.setState({email:res.data.email});
+        this.setState({firstname:res.data.first_name});
+        this.setState({lastname:res.data.last_name});
+        this.setState({img:res.data.avatar});
+        this.setState({year:res.data.age});
+        this.setState({done:"yes"});
+
+    
+    } )
+    .catch((error)=>
+    {
+
+            } 
+            )
+        
+        }
+    
+    }
+    
     onSavePassword = (e) => {
-        const changeddata = {
-            firstname: "",
-            lastname: "",
-            year: "",
-            email: "",
-            password: this.state.password,
-            newPassword:this.state.newPassword,  
-        };
-        const changeddata_json = JSON.stringify(changeddata);
-        console.log(changeddata_json);
-    };
+        if((this.state.newPassword!=="")&&(this.state.password!=="")&&(this.state.newPassword.length>=8)
+  &&(this.state.newPassword===this.state.confirm_password))
+   {
+    
+    
+    e.preventDefault();
+    this.setState({loggedIn:"logging in"})
+    
+        const data={
+            old_password:this.state.password,
+            password:this.state.newPassword
+        }
+        if(this.state.password===localStorage.getItem('pass'))
+        {
 
+        
+        axios.put(this.proxyurl+'/auth/change_password/',JSON.stringify(data),{headers:{
+            'Content-Type' : 'application/json;charset=utf-8',
+            'Access-Control-Allow-Credentials':true,
+  'Accept' : 'application/json',
+  'Authorization' :`Bearer ${localStorage.getItem('access')}`
+        }}
+    ).then((res)=>{  
+        
+         
+         this.setState({msg:"done"});
+         this.setState({loggedIn:""});
+         localStorage.setItem('pass',data.password);
+    } )
+    .catch((error)=>
+    {
+
+     this.setState({loggedIn:""});
+     this.setState({msg:"something went wrong please try again."});
+     localStorage.setItem('pass',data.password);
+            } 
+            )
+        
+        }
+        else
+        {
+            this.setState({msg:"Password is not correct!"});
+            this.setState({loggedIn:""});
+        }
+    }
+}
+componentDidMount() {
+    this.getInfo();
+}
     render() {
         return (
+            
             <div className="EditProfile_container">
                
                 <Form
                     {...formItemLayout}
                     name="Edit"
+                    
                     onFinish={this.onSubmit}
                     scrollToFirstError
                 >
@@ -117,6 +276,12 @@ class EditProfile extends React.Component {
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="General" key="1">
+                            <FormItem><input type="file" onChange={this.Upload}  style={{display: 'none'}}
+                            ref={fileInput=>this.fileInput=fileInput}></input>
+                            <button  onClick={()=>this.fileInput.click()}
+                            style={{marginLeft: '15%'}}>choose image</button>
+       
+        <img src={this.state.img===''?Av:this.state.img} style={{marginLeft: '10%'}}height="50px" ></img></FormItem>
                         <Form.Item
                         name="firstname"
                         label="FirstName"
@@ -127,7 +292,7 @@ class EditProfile extends React.Component {
                             }
                         ]}
                     >
-                        <Input name="firstname" placeholder="(optional)" onChange={this.onChange} />
+                        <Input name="firstname" placeholder={this.state.firstname===""?"optional":this.state.firstname+" (optional)"} onChange={this.firstChange} />
                     </Form.Item>
 
                     <Form.Item
@@ -140,7 +305,7 @@ class EditProfile extends React.Component {
                             }
                         ]}
                     >
-                        <Input name="lastname" placeholder="(optional)" onChange={this.onChange} />
+                        <Input name="lastname" placeholder={this.state.lastname===""?"optional":this.state.lastname+" (optional)"} onChange={this.lastChange} />
                     </Form.Item>
 
 
@@ -157,7 +322,7 @@ class EditProfile extends React.Component {
                             },
                         ]}
                     >
-                        <Input name="email" onChange={this.onChange} />
+                        <Input name="email" placeholder={this.state.email} onChange={this.emailChange} />
                     </Form.Item>
 
 
@@ -175,15 +340,32 @@ class EditProfile extends React.Component {
                             },
                         ]}
                     >
-                         <DatePicker name="year" onChange={this.onyearChange} picker="year" />
+                         <DatePicker name="year"  onChange={this.onyearChange} picker="year" />
                     </Form.Item>
-                    <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" onClick={this.onSaveGeneral}>
-                            Save
-                        </Button>
-                    </Form.Item>
+                    <p className ="ant-form-item-extra" >{this.state.msg==="You haven't changed any information."?
+    "You haven't changed any information.":""}</p>
+    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
+    "Something went wrong please try again.":""}</p>
 
-                    </TabPane>
+                <Form.Item {...tailFormItemLayout}>
+                    <button type="button" class="btn btn-primary" 
+  
+                        onClick={this.onSaveGeneral}  name="submit">
+    
+  
+                        <span
+                        class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+                         role={this.state.loggedIn==="logging in" ?"status":""}
+                        aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+                        </span>
+                        {this.state.loggedIn==="logging in" ? "Loading...":"Save_changes" }
+                    </button>
+                    </Form.Item>
+                <p className ="ant-form-item-extra2 "  >{this.state.msg==="done"?
+                    "Changes have been saved successfuly":""}</p>
+
+                </TabPane>
 
 
 
@@ -198,7 +380,7 @@ class EditProfile extends React.Component {
                             },
                         ]}
                     >
-                        <Input.Password name="password" onChange={this.onChange} />
+                        <Input.Password name="password" onChange={this.passChange} />
                     </Form.Item>
 
                     <Form.Item
@@ -208,11 +390,23 @@ class EditProfile extends React.Component {
                             {
                                 required: true,
                                 message: "Please input your new password!",
-                            },
+                            },,({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                  if (!value || JSON.stringify(value).length>=10) {
+                
+                                    return Promise.resolve();
+                                  }
+                
+                                  return Promise.reject(
+                                    "Password is too short." 
+                                  );
+                
+                                },
+                              }),
                         ]}
                         hasFeedback
                     >
-                        <Input.Password name="newPassword" onChange={this.onChange} />
+                        <Input.Password name="newPassword" onChange={this.newPassChange} />
                     </Form.Item>
 
 
@@ -221,6 +415,7 @@ class EditProfile extends React.Component {
                         label="Confirm Password"
                         dependencies={["newPassword"]}
                         hasFeedback
+                        onChange={this.confirmChange}
                         rules={[
                             {
                                 required: true,
@@ -241,11 +436,28 @@ class EditProfile extends React.Component {
                     >
                         <Input.Password />
                     </Form.Item>
+                    <p className ="ant-form-item-extra" >{this.state.msg==="Password is not correct!"?
+    "Password is incorrect!":""}</p>
+    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
+    "Something went wrong please try again.":""}</p>
+
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" onClick={this.onSavePassword}>
-                            Save
-                        </Button>
+                    <button type="button" class="btn btn-primary" 
+  
+                        onClick={this.onSavePassword}  name="submit">
+    
+  
+                        <span
+                        class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+                         role={this.state.loggedIn==="logging in" ?"status":""}
+                        aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+                        </span>
+                        {this.state.loggedIn==="logging in" ? "Loading...":"Change password" }
+                    </button>
                     </Form.Item>
+                    <p className ="ant-form-item-extra2 "  >{this.state.msg==="done"?
+    "Password has successfuly changed.":""}</p>
                     </TabPane>
                 </Tabs>
                 </Form>

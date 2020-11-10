@@ -1,5 +1,8 @@
 import React from "react";
 import '../Style/homepage.css';
+import axios from 'axios'
+import Av from './EditProfile/avatar.png';
+
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import {
   DesktopOutlined,
@@ -9,20 +12,56 @@ import {
   UserOutlined,
   EditTwoTone,
 } from "@ant-design/icons";
+import {Link, Redirect, Route} from 'react-router-dom';
+const user="";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class HomePage extends React.Component {
   state = {
-    username:"",
     collapsed: false,
+    img:'',
+    username:localStorage.getItem('user')
   };
+  proxyurl= "http://localhost:8010/proxy";
 
+  getInfo=(e)=>
+  {
+      
+ 
+      
+      axios.get(this.proxyurl+'/auth/edit_profile/',{headers:{
+          'Content-Type' : 'application/json;charset=utf-8',
+          'Access-Control-Allow-Credentials':true,
+'Accept' : 'application/json',
+'Authorization' :`Bearer ${localStorage.getItem('access')}`
+      }}
+  ).then((res)=>{  
+      
+      localStorage.setItem('avatar',res.data.avatar);
+ 
+  
+  } )
+  .catch((error)=>
+  {
+  
+
+          } 
+          )
+      
+     
+  
+  }
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
-
+  edit=()=>{
+    window.location.href=window.location.origin + "/editProfile/:"+localStorage.getItem('id');
+  }
+  componentDidMount() {
+    this.getInfo();
+}
   render() {
     const { collapsed } = this.state;
     return (
@@ -40,9 +79,14 @@ class HomePage extends React.Component {
             defaultSelectedKeys={["0"]}
             mode="inline"
             style={{ position: "sticky", top: "-20px" }}>
-            <Menu.Item  className="edit-pro" key="0" icon={<UserOutlined   twoToneColor="black"/>} style={{height:"55px" ,marginTop:"30px", marginBottom:"50px"}}>
-             <Avatar icon={<UserOutlined />} style={{margin:"15px"}} />
-            state.username()
+               {localStorage.getItem('avatar')===''?<img src={Av} 
+            style={{marginLeft: '10%'}}height="50px" />:
+               <img src = {localStorage.getItem('avatar')} style={{marginLeft: '10%'}}height="50px"/>}
+               {'    '+this.state.username}
+            <Menu.Item  className="edit-pro" key="0"   onClick={this.edit}
+            style={{height:"55px" ,marginTop:"10px", marginBottom:"30px"}}>
+      
+            tap to edit
             </Menu.Item >
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined />}>
               Option 1
@@ -98,6 +142,7 @@ class HomePage extends React.Component {
               
             </div>
           </Content>
+          
           <Footer className="footer" style={{  textAlign: "center" }}>Footer</Footer>
         </Layout>
       </Layout>

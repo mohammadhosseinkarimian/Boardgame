@@ -40,7 +40,7 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
-  proxyurl= "https://cors-anywhere.herokuapp.com/";
+  proxyurl= "http://localhost:8010/proxy";
   onSubmit=(e)=>{
     const login={
       username:this.state.username,
@@ -50,7 +50,7 @@ class Login extends React.Component {
    )
    {
     this.setState({loggedIn:"logging in"})
-    Axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
+    Axios.post(this.proxyurl+'/auth/login/',JSON.stringify(this.state),
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
@@ -58,6 +58,10 @@ class Login extends React.Component {
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
+      localStorage.setItem('user', this.state.username);
+      localStorage.setItem('email', this.state.email);
+      localStorage.setItem('id',res.data.id);
+      localStorage.setItem('pass', this.state.password);
       window.location.href=window.location.origin + "/homePage/:"+res.data.id;
       this.setState({msg:"loged_in"});
 
@@ -74,6 +78,11 @@ class Login extends React.Component {
       this.setState({loggedIn:""});
       this.setState({msg:"Username or Password is wrong."});
     
+     }
+     else
+     {
+      this.setState({loggedIn:""});
+
      }
      
      
