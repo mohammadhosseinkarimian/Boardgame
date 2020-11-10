@@ -6,5 +6,6 @@ import Signup from "./Component/Signup/Signup";
 import 'antd/dist/antd.css';
 import Routes from "./Routes";
 import './Style/Login.css'
+import App from "./Component/EditProfile/EditProfile.js"
 
 ReactDOM.render(<Routes />, document.getElementById('root'));
