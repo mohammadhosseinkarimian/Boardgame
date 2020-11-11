@@ -17,6 +17,12 @@ import {
   Pagination 
 } from "antd";
 
+const paginationProps = {
+  showSizeChanger: false,
+  showQuickJumper: false,
+  pageSize: 5,
+  
+};
 
 class AllBoardGames extends React.Component {
   state={
@@ -51,7 +57,9 @@ class AllBoardGames extends React.Component {
     return(
     <div>
     <List
+    size="large"
     itemLayout="horizontal"
+    pagination={paginationProps}
     dataSource={this.state.games}
     renderItem={item => (
       <List.Item>
