@@ -1,19 +1,17 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox,Divider } from "antd";
 import Axios from "axios";
 import {Link} from 'react-router-dom'
 const layout = {
-  labelCol: {
-    span: 8,
-  },
+  
   wrapperCol: {
-    span: 16,
+    span: 0,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 0,
+    span: 24,
   },
 };
 class Login extends React.Component {
@@ -40,7 +38,7 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
-  proxyurl= "https://cors-anywhere.herokuapp.com/";
+  proxyurl= "http://localhost:8010/proxy";
   onSubmit=(e)=>{
     const login={
       username:this.state.username,
@@ -50,15 +48,19 @@ class Login extends React.Component {
    )
    {
     this.setState({loggedIn:"logging in"})
-    Axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
+    Axios.post(this.proxyurl+'/auth/login/',JSON.stringify(this.state),
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
-      window.location.href="https://www.google.com/";
       const refreshToken = res.data.refresh;
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
+      localStorage.setItem('user', this.state.username);
+      localStorage.setItem('email', this.state.email);
+      localStorage.setItem('id',res.data.id);
+      localStorage.setItem('pass', this.state.password);
+      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
       this.setState({msg:"loged_in"});
 
     })
@@ -75,6 +77,11 @@ class Login extends React.Component {
       this.setState({msg:"Username or Password is wrong."});
     
      }
+     else
+     {
+      this.setState({loggedIn:""});
+
+     }
      
      
      // alert(JSON.stringify(error.response));
@@ -88,16 +95,18 @@ class Login extends React.Component {
       <div className="Login_container">
         {" "}
         <Form
+        
           {...layout}
           name="basic"
           initialValues={{
             remember: true,
           }}
           onFinish={this.onSubmit}
+
           onFinishFailed={this.onFinishFailed}
+          
         >
           <Form.Item
-            label="Username"
             name="username"
             rules={[
               {
@@ -108,13 +117,14 @@ class Login extends React.Component {
           >
             <Input
             name="username"
+            placeholder='Username'
+            required
             onChange={this.onChange}
 
             />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
             rules={[
               {
@@ -125,17 +135,17 @@ class Login extends React.Component {
           >
             <Input.Password 
             name="password"
+            placeholder='password' 
+            required
             onChange={this.onChange}
             />
           </Form.Item>
 
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox >Remember me</Checkbox>
-          </Form.Item>
+          
           <p className ="ant-form-item-extra" >
             {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong. try again!":""}</p>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" name="submit" onClick={this.onSubmit}>
+            <Button type="primary" htmlType="submit" name="submit"  style={{width: "100%"}} onClick={this.onSubmit}>
             <span
            class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
             role={this.state.loggedIn==="logging in" ?"status":""}
@@ -146,7 +156,12 @@ class Login extends React.Component {
       
             </Button>
           </Form.Item>
+          <Form.Item {...tailLayout} name="remember" valuePropName="checked" style={{marginLeft: "25%"}}>
+            <Checkbox >Remember me</Checkbox>
+          </Form.Item>
         </Form>
+        <Divider style={{marginLeft: "0%" }}>OR</Divider>
+
         <p className ="ant-form-item-change"  >Don’t have an account? <Link to="signup">Sign up</Link></p>
       </div>
       </div>

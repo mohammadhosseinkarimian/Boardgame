@@ -7,28 +7,22 @@ import {
   Tooltip,
   Select,
   AutoComplete,
-  Button
+  Button,
+  Divider 
 } from "antd";
+import HomePage from '../homepage';
 import { QuestionCircleOutlined } from "@ant-design/icons";
-
-import {Link} from 'react-router-dom'
+import {Link, Redirect, Route} from 'react-router-dom'
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
+  
   wrapperCol: {
     xs: {
-      span: 24,
+      span: 0,
     },
     sm: {
-      span: 16,
+      span: 24,
     },
   },
 };
@@ -36,11 +30,11 @@ const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
-      offset: 0,
+      offset: 8,
     },
     sm: {
-      span: 16,
-      offset: 8,
+      span: 24,
+      offset: 0,
     },
   },
 };
@@ -55,7 +49,7 @@ class Signup extends React.Component {
     msg:"",
     
   };
-  proxyurl = "https://cors-anywhere.herokuapp.com/";
+  proxyurl= "http://localhost:8010/proxy";
   emailChange=e=>{
    this.setState({email:e.target.value})
   }
@@ -68,7 +62,7 @@ class Signup extends React.Component {
   confirmChange=e=>{
     this.setState({confirm_password:e.target.value})
   }
-  // [this.form] = Form.useForm();
+  
   handle=e=>{
     if((this.state.email!=="")&&(this.state.username!=="")&&(this.state.password.length>=8)
     &&(this.state.email.includes("@"))&&(this.state.email.includes(".com"))&&(this.state.password===this.state.confirm_password))
@@ -76,7 +70,7 @@ class Signup extends React.Component {
     e.preventDefault();
     this.setState({loggedIn:"logging in"})
     
-    axios.post(this.proxyurl+'http://gameboard.pythonanywhere.com/auth/register/',JSON.stringify(this.state) 
+    axios.post(this.proxyurl+'/auth/register/',JSON.stringify(this.state) 
     ,{
       headers:
       {'Content-Type': 'application/json',
@@ -87,7 +81,11 @@ class Signup extends React.Component {
       const accessToken = res.data.access;
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
-      window.location.href="https://www.google.com/";
+      localStorage.setItem('user', this.state.username);
+      localStorage.setItem('email', this.state.email);
+      localStorage.setItem('pass', this.state.password);
+      localStorage.setItem('id',res.data.id);
+      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
       this.setState({msg:"signed_in"});
        
     })
@@ -155,14 +153,7 @@ class Signup extends React.Component {
     "There was something wrong with the server please try again":""}</p>
           <Form.Item
             name="username"
-            label={
-              <span>
-                Username&nbsp;
-                <Tooltip title="What do you want others to call you?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
+            
             rules={[
               {
                 required: true,
@@ -171,13 +162,13 @@ class Signup extends React.Component {
               },
             ]}
           >
-            <Input name="username" onChange={this.onChange , this.userChange} />
+            <Input name="username" placeholder='Username' required onChange={this.onChange , this.userChange} />
           </Form.Item>
           <p className ="ant-form-item-extra" >{this.state.msg==="A user with that username already exists."? 
     "A user with that username already exists.":""}</p>
           <Form.Item
             name="email"
-            label="E-mail"
+            
             rules={[
               {
                 type: "email",
@@ -190,13 +181,12 @@ class Signup extends React.Component {
               },
             ]}
           >
-            <Input name="email" onChange={this.onChange , this.emailChange} />
+            <Input name="email" placeholder="E-mail" required onChange={this.onChange , this.emailChange} />
           </Form.Item>
             <p className ="ant-form-item-extra" >{this.state.msg==="There is already an account with this email"?
     "There is already an account with this email":""}</p>
           <Form.Item
             name="password"
-            label="Password"
             rules={[
               {
                 required: true,
@@ -217,12 +207,12 @@ class Signup extends React.Component {
             ]}
             hasFeedback
           >
-            <Input.Password name="password" onChange={this.onChange,this.passChange} />
+          <Input.Password name="password" placeholder='password' required onChange={this.onChange,this.passChange} />
           </Form.Item>
 
           <Form.Item
             name="confirm"
-            label="Confirm Password"
+            
             dependencies={["password"]}
             hasFeedback
             rules={[
@@ -244,11 +234,11 @@ class Signup extends React.Component {
               }),
             ]}
           >
-            <Input.Password name="confirm" onChange={this.onChange,this.confirmChange}/>
+            <Input.Password name="confirm"  placeholder="Confirm Password"required onChange={this.onChange,this.confirmChange}/>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
           <button type="button" id="myBtn" class="btn btn-primary" 
-  
+          style={{width: "100%"}}
           onClick={this.handle}  name="submit">
             
           
@@ -262,8 +252,9 @@ class Signup extends React.Component {
       </button>
       </Form.Item>
       
-      
+
         </Form>
+        <Divider style={{marginLeft: "0%" }}>OR</Divider>
         <p className ="ant-form-item-change"  >Already have an account? <Link to="login">Log in</Link></p>
       </div>
       </div>
