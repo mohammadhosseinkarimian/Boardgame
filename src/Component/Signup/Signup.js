@@ -22,7 +22,7 @@ const formItemLayout = {
       span: 0,
     },
     sm: {
-      span: 100,
+      span: 24,
     },
   },
 };
@@ -33,7 +33,7 @@ const tailFormItemLayout = {
       offset: 8,
     },
     sm: {
-      span: 100,
+      span: 24,
       offset: 0,
     },
   },
@@ -207,7 +207,7 @@ class Signup extends React.Component {
             ]}
             hasFeedback
           >
-            <Input.Password name="Password" placeholder='password' required onChange={this.onChange,this.passChange} />
+          <Input.Password name="password" placeholder='password' required onChange={this.onChange,this.passChange} />
           </Form.Item>
 
           <Form.Item
@@ -222,7 +222,7 @@ class Signup extends React.Component {
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
-                  if (!value || getFieldValue("Password") === value) {
+                  if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
 
