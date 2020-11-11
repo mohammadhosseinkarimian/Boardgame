@@ -1,7 +1,10 @@
 import React from 'react';
 import Signup from "./Component/Signup/Signup";
 import Login from "./Component/Login/Login";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useParams } from 'react-router-dom';
+import HomePage from './Component/homepage';
+import EditProfile from './Component/EditProfile/EditProfile';
+
 
 
 class Routes extends React.Component {
@@ -11,12 +14,18 @@ class Routes extends React.Component {
                 <Route exact path="/">
                     <Login />
                 </Route>
+                <Route path="/homePage/:id">
+                    <HomePage />
+                </Route>
+                <Route path="/editProfile/:id">
+                    <EditProfile />
+                </Route>
 
-                <Route exact path="/signup">
+                <Route path="/signup">
                     <Signup />
                 </Route>
 
-                <Route exact path="/login">
+                <Route path="/login">
                     <Login />
                 </Route>
             </Router>

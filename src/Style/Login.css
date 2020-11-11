@@ -21,13 +21,32 @@ display: block;
 
 }
  */
+.body , html {
+  height: 100%;
+}
+::placeholder {
+  color: rgb(54, 50, 50);
+  opacity: 0.85;
+}
+[required]::-webkit-input-placeholder { 
+  color: rgb(54, 50, 50);
+  opacity: 0.85;
+}
+[required]::-moz-placeholder { 
+  color: rgb(54, 50, 50);
+  opacity: 0.85;
+}
+[required]::-ms-input-placeholder {
+  color: rgb(54, 50, 50);
+  opacity: 0.85;
+}
 
  .Login_container,
  .Signup_container{
-  width: 60%;
-  height: 40%;
+  width: 28%;
+  height: 20%;
    margin: 15% auto ;
-   margin-top: 4% ;
+   margin-top: 2% ;
    margin-bottom: 2%;
    box-shadow: 1px 1px 0 1px #626c74 ;
   padding:4% 4% ;
@@ -39,8 +58,9 @@ display: block;
   clear: both;
   min-height: 2px;
   padding-top: 0;
-  margin-left: 33%;
+  margin-left: 0%;
   justify-items:fixed;
+  
   color: rgba(180, 18, 18, 0.651);
   font-size: 14px;
   line-height: 1.5715;
@@ -51,8 +71,19 @@ display: block;
   clear: both;
   min-height: 3px;
   padding-top: 0;
-  margin-left: 33%;
+  margin-left: 0%;
+  width: 100%;
   justify-items:fixed;
   color: rgba(8, 4, 4, 0.651);
   font-size: 18px;
  }
+ .bg {
+  min-height: 100%;
+  min-width: 400px;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  background-size: 100% 100%;
+    background-image: url("./bg.jpg");
+}
+
