@@ -1,19 +1,17 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox,Divider } from "antd";
 import Axios from "axios";
 import {Link} from 'react-router-dom'
 const layout = {
-  labelCol: {
-    span: 8,
-  },
+  
   wrapperCol: {
-    span: 16,
+    span: 0,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 0,
+    span: 24,
   },
 };
 class Login extends React.Component {
@@ -97,16 +95,18 @@ class Login extends React.Component {
       <div className="Login_container">
         {" "}
         <Form
+        
           {...layout}
           name="basic"
           initialValues={{
             remember: true,
           }}
           onFinish={this.onSubmit}
+
           onFinishFailed={this.onFinishFailed}
+          
         >
           <Form.Item
-            label="Username"
             name="username"
             rules={[
               {
@@ -117,13 +117,14 @@ class Login extends React.Component {
           >
             <Input
             name="username"
+            placeholder='Username'
+            required
             onChange={this.onChange}
 
             />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
             rules={[
               {
@@ -134,17 +135,17 @@ class Login extends React.Component {
           >
             <Input.Password 
             name="password"
+            placeholder='password' 
+            required
             onChange={this.onChange}
             />
           </Form.Item>
 
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox >Remember me</Checkbox>
-          </Form.Item>
+          
           <p className ="ant-form-item-extra" >
             {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong. try again!":""}</p>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" name="submit" onClick={this.onSubmit}>
+            <Button type="primary" htmlType="submit" name="submit"  style={{width: "100%"}} onClick={this.onSubmit}>
             <span
            class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
             role={this.state.loggedIn==="logging in" ?"status":""}
@@ -155,7 +156,12 @@ class Login extends React.Component {
       
             </Button>
           </Form.Item>
+          <Form.Item {...tailLayout} name="remember" valuePropName="checked" style={{marginLeft: "25%"}}>
+            <Checkbox >Remember me</Checkbox>
+          </Form.Item>
         </Form>
+        <Divider style={{marginLeft: "0%" }}>OR</Divider>
+
         <p className ="ant-form-item-change"  >Don’t have an account? <Link to="signup">Sign up</Link></p>
       </div>
       </div>
