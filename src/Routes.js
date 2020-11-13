@@ -4,6 +4,7 @@ import Login from "./Component/Login/Login";
 import { BrowserRouter as Router, Route, useParams } from 'react-router-dom';
 import HomePage from './Component/homepage';
 import EditProfile from './Component/EditProfile/EditProfile';
+import HomeGames from './Component/BoardGame/HomeGames'
 
 
 
@@ -28,6 +29,7 @@ class Routes extends React.Component {
                 <Route path="/login">
                     <Login />
                 </Route>
+                
             </Router>
         )
     }

@@ -2,7 +2,7 @@ import React from "react";
 import '../Style/homepage.css';
 import axios from 'axios'
 import Av from './EditProfile/avatar.png';
-
+import HomeGames from './BoardGame/HomeGames'
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import {
   DesktopOutlined,
@@ -130,16 +130,16 @@ class HomePage extends React.Component {
               Gamology
             </Header>
       
-          <Content style={{ margin: "0 16px" }}>
+          <Content style={{ margin: "0 0" }}>
            <Breadcrumb style={{ margin: "16px 0" }}>
              {/*   <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
             </Breadcrumb> 
             <div
               className="site-layout-background"
-              style={{ padding: 24, minHeight: 660 }}
+              style={{marginTop: "7%",  minHeight: 660 }}
             >
-              
+              <HomeGames/>
             </div>
           </Content>
           

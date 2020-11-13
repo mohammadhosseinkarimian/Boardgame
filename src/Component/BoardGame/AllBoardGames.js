@@ -40,9 +40,8 @@ class AllBoardGames extends React.Component {
       
       
   };
-  proxyurl="https://cors-anywhere.herokuapp.com/";
   componentDidMount() {
-    Axios.get(this.proxyurl+'http://gameboard.pythonanywhere.com/game/games_list/')
+    Axios.get('http://localhost:8010/proxy/game/games_list/')
        .then(res=>{
          const games_list=res.data;
          this.setState(prevState => {
@@ -64,7 +63,7 @@ class AllBoardGames extends React.Component {
     renderItem={item => (
       <List.Item>
         <List.Item.Meta
-          avatar={<Avatar src={item.image} />}
+          avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
           title={<Link to={`/boardgames/${item.id}`}>{item.name}</Link>}
           description={`rate:${item.rate}`}
         />
