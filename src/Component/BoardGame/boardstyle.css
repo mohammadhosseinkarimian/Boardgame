@@ -1,0 +1,19 @@
+.h3, h3 {
+   
+    color: honeydew;
+    margin-left: 5%;
+    margin-top: 5px;    
+}
+.h5, h5 {
+    color: rgb(184, 194, 184);
+    margin-left: 5%;
+    margin-top: 2px;    
+}
+.container{
+    width: 25%;
+    height: 30vh;
+    overflow: hidden;
+    position: relative;
+    max-height: "200px";
+    
+  }
