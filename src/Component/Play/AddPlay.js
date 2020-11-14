@@ -1,104 +1,136 @@
 import React from 'react';
 import antd from "antd";
+import Axios from 'axios';
+import './App.css';
+import { PlusOutlined } from '@ant-design/icons';
+import FormItem from 'antd/lib/form/FormItem';
 import {
   Form,
   Input,
-  Tooltip,
   Select,
-  AutoComplete,
+  Divider,
   Button,
   Mentions,
-  DatePicker, 
-  Checkbox, 
-  Space, 
-  TimePicker,
-  InputNumber
+  DatePicker,
+
 } from "antd";
-import './App.css';
-import FormItem from 'antd/lib/form/FormItem';
-import moment from 'moment';
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
+
+const layout = {
+
   wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
+    span: 0,
   },
 };
-const tailFormItemLayout = {
+const tailLayout = {
   wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
+    offset: 0,
+    span: 24,
   },
 };
 const { RangePicker } = DatePicker;
-const dateFormat = 'YYYY/MM/DD';
-const format = 'HH:mm';
-const { Option } = Mentions;
-
-
-
-
+const { Option } = Select;
+const proxyurl = "http://localhost:8010/proxy";
+let index = 0;
+class App extends React.Component {
+  state = {
+    items: ['Ava center', 'somewhere'],
+    name: '',
+  };
+}
 class AddPlay extends React.Component {
-  state={
-    date:"",
-    duration:"",
-    times:"",
-    playmates:"",
-    incoplete:""
+  state = {
+    date: "",
+    place: "",
+    msg: "",
+    players: [],
+    suggestlist_game: [],
+    suggestlist_user: [],
+    selected_game: "",
+    selected_user: "",
   }
 
 
-  onChangedate(date, dateString) {
-    console.log(date, dateString);
-  }
-  onChangenumber(value) {
-    console.log('changed', value);
+  onSelectuser = (value) => {
+
+    this.state.players.push(value)
+    this.setState({ selected_user: value }, () => {
+      console.log(this.state.selected_user, 'dealersOverallTotal1')
+    })
+
   }
 
-  onChangehour(value) {
-    console.log('changed', value);
-  }
-  onChangeminute(value) {
-    console.log('changed', value);
+  handleChange = (value) => {
+    Axios.get(proxyurl + "/game/search_user/username/?search=" + value)
+      .then(res => {
+
+        const tmp = res.data.results;
+
+
+
+        this.setState(prevState => {
+          return { suggestlist_user: tmp }
+        })
+      })
   }
 
-  onChangeMention(value) {
-    console.log('Change:', value);
+  onSelectgame = (value) => {
+    this.setState({ selected_game: value }, () => {
+      console.log(this.state.selected_game, 'dealersOverallTotal1')
+    })
+  }
+  onSearchgame = (value) => {
+    Axios.get(proxyurl + "/game/search_game/name?search=" + value)
+      .then(res => {
+        const tmp = res.data.results;
+        this.setState(prevState => {
+          return { suggestlist_game: tmp }
+        })
+      })
+  }
+  onyearChangedate = (val) => {
+    this.setState({ date: val })
+  }
+  onSave = () => {
+    const data = {
+      players: this.state.players,
+      game: this.state.selected_game,
+      date: this.state.date,
+      place: this.state.place,
+
+    }
+    Axios.post(proxyurl + '/game/create_play/', JSON.stringify(this.data)
+      , {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'Access-Control-Allow-Credentials': true,
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access')}`
+        }
+      }
+    )
+      .then((res) => {
+
+        this.setState({ msg: "done" });
+        console.log(this.state.msg)
+      })
+      .catch((error) => {
+        this.setState({ msg: "something went wrong please try again." });
+        console.log(this.state.msg)
+      }
+      )
+
+
+  }
+  onPlaceChange = (val) => {
+    this.setState({ place: val })
   }
 
-  onSelectMention(option) {
-    console.log('select', option);
-  }
-  
-   onChangeincomplete(e) {
-    console.log(`checked = ${e.target.checked}`);
-   
-  }
 
-  onSave(e){
-    console.log("save");
-  }
   render() {
+    const { items, name } = this.state;
     return (
       <div className="playLog_container">
-        <Form   {...formItemLayout}>
+        <Form   {...layout}>
           <Form.Item
             name="date"
             label="When did you play?"
@@ -114,39 +146,53 @@ class AddPlay extends React.Component {
           >
             <DatePicker name="date" onChange={this.onyearChangedate} picker="date" />
           </Form.Item>
+          <Form.Item>
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select a game"
+              optionFilterProp="children"
+              onSearch={this.onSearchgame}
+              onSelect={this.onSelectgame}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
 
-
-
-          <Form.Item label="How many times did you play?">
-            <div className="site-input-number-wrapper">
-              <InputNumber size="large" min={0} max={100000} defaultValue={0} onChange={this.onChangenumber} />
-            </div>
-          </Form.Item>
-
-
-
-          <Form.Item label="How long did you play?">
-            <InputNumber placeholder="hh" size="large" min={0} max={24} onChange={this.onChangehour} />
-            <InputNumber placeholder="mm" size="large" min={0} max={60} onChange={this.onChangeminute} />
-          </Form.Item>
-
-
-          <Form.Item label="Who played?">
-            <Mentions
-              style={{ width: '100%' }}
-              onChange={this.onChangeMention}
-              onSelect={this.onSelectMention}
-              defaultValue="@not a user"
             >
-            </Mentions>
+              {this.state.suggestlist_game.map(item => (
+                <Option value={item.id}>{item.name}</Option>
+              ))
+              }
+
+            </Select>
           </Form.Item>
 
-          <Form.Item >
-          <Checkbox onChange={this.onChangeincomplete}>Game incomplete?</Checkbox>
+          <Form.Item>
+            <Select
+              mode="multiple"
+              allowClear
+              style={{ width: '100%' }}
+              placeholder="Please select"
+              defaultValue={[]}
+              filterOption={false}
+              onChange={this.handleChange}
+              onSearch={this.handleChange}
+              onSelect={this.onSelectuser}
+            >
+              {
+                this.state.suggestlist_user.map(d => (
+                  <Option key={d.username}>{d.username}</Option>
+                ))}
+            </Select>
           </Form.Item>
 
+          <FormItem>
+            <Input onChange={this.onPlaceChange} placeholder="Where did you play?" />
+          </FormItem>
+
+
           <Form.Item >
-          <Button type="primary" shape="round" onClick={this.onSave} >Save</Button>
+            <Button type="primary" shape="round" onClick={this.onSave} >Save</Button>
           </Form.Item>
         </Form>
       </div>
