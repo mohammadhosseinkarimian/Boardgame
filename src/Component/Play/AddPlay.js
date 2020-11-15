@@ -1,7 +1,8 @@
 import React from 'react';
 import antd from "antd";
 import Axios from 'axios';
-import './App.css';
+import moment from 'moment';
+//import './App.css';
 import { PlusOutlined } from '@ant-design/icons';
 import FormItem from 'antd/lib/form/FormItem';
 import {
@@ -14,6 +15,7 @@ import {
   DatePicker,
 
 } from "antd";
+
 
 const layout = {
 
@@ -30,16 +32,12 @@ const tailLayout = {
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const proxyurl = "http://localhost:8010/proxy";
+const dateFormat = 'YYYY-MM-DD';
 let index = 0;
-class App extends React.Component {
-  state = {
-    items: ['Ava center', 'somewhere'],
-    name: '',
-  };
-}
+
 class AddPlay extends React.Component {
   state = {
-    date: "",
+    date: "2020-1-1",
     place: "",
     msg: "",
     players: [],
@@ -52,7 +50,8 @@ class AddPlay extends React.Component {
 
   onSelectuser = (value) => {
 
-    this.state.players.push(value)
+    var dict = { "username": value }
+    this.state.players.push(dict);
     this.setState({ selected_user: value }, () => {
       console.log(this.state.selected_user, 'dealersOverallTotal1')
     })
@@ -62,11 +61,7 @@ class AddPlay extends React.Component {
   handleChange = (value) => {
     Axios.get(proxyurl + "/game/search_user/username/?search=" + value)
       .then(res => {
-
         const tmp = res.data.results;
-
-
-
         this.setState(prevState => {
           return { suggestlist_user: tmp }
         })
@@ -87,10 +82,13 @@ class AddPlay extends React.Component {
         })
       })
   }
-  onyearChangedate = (val) => {
-    this.setState({ date: val })
+  onyearChangedate = (value) => {
+    if(value!=null)
+        this.setState({ date: value.format(dateFormat) })
   }
-  onSave = () => {
+  onSave = (e) => {
+    e.preventDefault();
+    e.persist()
     const data = {
       players: this.state.players,
       game: this.state.selected_game,
@@ -98,7 +96,8 @@ class AddPlay extends React.Component {
       place: this.state.place,
 
     }
-    Axios.post(proxyurl + '/game/create_play/', JSON.stringify(this.data)
+    console.log(JSON.stringify(data))
+    Axios.post(proxyurl + '/game/create_play/', JSON.stringify(data)
       , {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -122,7 +121,7 @@ class AddPlay extends React.Component {
 
   }
   onPlaceChange = (val) => {
-    this.setState({ place: val })
+    this.setState({ place: val.target.value })
   }
 
 
@@ -144,7 +143,7 @@ class AddPlay extends React.Component {
               },
             ]}
           >
-            <DatePicker name="date" onChange={this.onyearChangedate} picker="date" />
+            <DatePicker allowEmpty={false} name="date" format={dateFormat} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
           </Form.Item>
           <Form.Item>
             <Select
@@ -166,13 +165,12 @@ class AddPlay extends React.Component {
 
             </Select>
           </Form.Item>
-
           <Form.Item>
             <Select
               mode="multiple"
               allowClear
               style={{ width: '100%' }}
-              placeholder="Please select"
+              placeholder="players"
               defaultValue={[]}
               filterOption={false}
               onChange={this.handleChange}
@@ -192,7 +190,7 @@ class AddPlay extends React.Component {
 
 
           <Form.Item >
-            <Button type="primary" shape="round" onClick={this.onSave} >Save</Button>
+            <Button style={{ background: "yellow", borderColor: "yellow",color:"black" }} type="primary" shape="round" onClick={this.onSave} >Save</Button>
           </Form.Item>
         </Form>
       </div>
