@@ -1,0 +1,120 @@
+.body {
+    margin: 0
+  }
+.h3, h3 {
+   
+    color: honeydew;
+    margin-left: 2%;
+    margin-top: 5px;    
+}
+.h5, h5 {
+    color: rgb(184, 194, 184);
+    margin-left: 2%;
+    margin-top: 2px;    
+}
+.container{
+    width: 25%;
+    height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+    max-height: "200px";
+    
+  }
+  .member {
+    flex: 0 48%;
+    margin: 1% 1% 45px 1%;
+  }
+  
+  .member img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  @media (max-width:480px) {
+    .member {
+      flex: 0 100%
+    }
+}
+.name {
+    position: absolute;
+    bottom: 3px;
+}
+.ant-pagination{
+  width: 50%;
+  margin: auto;
+  margin-left: 5%;
+  margin-right: 35%;
+}
+.ant-pagination-jump-prev{
+  background-color: #949292;
+  color: #1c1d1e;
+}
+.ant-pagination-jump-prev-custom-icon{
+  color: #1c1d1e;
+}
+.ant-pagination-prev 
+{
+
+ background-color:#949292;
+}
+.ant-pagination-item {
+  background-color: #949292;
+  color:#1c1d1e;
+  border:transparent;
+}
+.ant-pagination-item-active{
+  background-color:#1c1d1e ;
+  color:#ffe400;
+}
+.ant-pagination-next button{
+  background-color: #949292;  
+}
+.ant-pagination-item-link button{
+  background: #949292;
+
+}
+.ant-collapse-header{
+  background-color: #1f2833;
+  color: whitesmoke;
+  border: transparent;
+  ;
+}.ant-collapse-header::before{
+  background-color: whitesmoke;
+}
+.ant-collapse-content-box{
+  background-color: #1f2833;;
+  color: whitesmoke;
+}
+.ant-collapse-content{
+  background-color: #1f2833;;
+  color: whitesmoke;
+border: transparent;
+}
+
+.ant-select-single {
+  background-color: #272727;color: whitesmoke
+}
+.ant-select-show-arrow {
+  background-color: #272727;color: whitesmoke
+}.ant-select-show-search{
+  background-color: #272727;
+  color: #272727;color: whitesmoke
+}
+.ant-select-dropdown{background-color: #272727;color: whitesmoke;
+
+} 
+
+.ant-select-selection-search{
+  background-color: #272727;
+}
+.ant-select-item-option-content{
+  color:rgb(136, 128, 128);
+
+}
+.ant-select-item-option-active{
+  color:black;
+  background-color: #747474;
+
+}
