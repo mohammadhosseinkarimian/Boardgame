@@ -19,7 +19,8 @@ import {
     List,
     Avatar,
     Skeleton,
-    Pagination
+    Pagination,
+    Alert
 } from "antd";
 
 
@@ -39,24 +40,51 @@ class HomeGames extends React.Component {
             })
             
             
+            
     }
     seeAll(){
         this.setState({vision:"true"});
 
     }
     caro(){
+        const rows = this.state.games.reduce(function (rows, key, index) { 
+            return (index % 4 == 0 ? rows.push([key]) 
+              : rows[rows.length-1].push(key)) && rows;
+          }, []);
         return(
       
-            <div style={{ backgroundColor: "black",paddingTop: "2%"}}>
-                <h3 >THE HOT GAMES</h3>
-                <h5 style={{fontSize: "9px"}}>Top 5 most rated games</h5>
-                <Carousel  infiniteLoop useKeyboardArrows autoPlay showThumbs={false} width="100%"   >
-                  {this.state.games.map(game => (
-                    <body style={{backgroundColor: 'black'}}>
+            <div style={{ backgroundColor: 'black',paddingTop: "2%",marginTop: "8%",height: '35vh'}}>
+
+                <h3 ><span> THE HOT GAMES
+                     < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
+</span>
+                </h3>
+
+                <h5 style={{fontSize: "13px"}}>Top 5 most rated games</h5>
+                
+                <Carousel  infiniteLoop useKeyboardArrows autoPlay showThumbs={false} width="100%"  >
+                    
+                  {rows.map(game => (
+                    <body style={{backgroundColor: 'black',height: '26vh'}}>
                     <div class="container" style={{marginRight: "80%"}}>
-                    <img src={game.image}  style={{ verticalAlign: "middle",width:"30%",height: "80%",marginLeft: "4%"}}/>
-                    <span style={{color: "yellow", marginLeft: "50px",marginTop: "200px",fontSize: "23px"}}>{game.name}</span>
-                    <Link style={{color: "violet",float: "right",marginRight: "2%",marginTop: "15%",fontSize: "20px"}}onClick={()=>this.seeAll()}>see all</Link>
+                    <div class="member" >
+                    <span>
+                   <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image} className="img-responsive" style={{ width:"18%",height: "60%"}}/></Link>
+                    <div class="name"  style={{fontSize: "11px",color: 'whitesmoke',width: '8%',marginLeft: '1%'}}>{game[0].name}</div></span>
+                    <span>
+                <Link to={'/allgames/:'+game[1].id}>  <img src={game[1].image} className="img-responsive " style={{ width:"18%",height: "60%",marginLeft: '25%'}}/></Link>  
+                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '20%',width: '8%'}}>{game[1].name}</div>
+                    </span>
+                    </div>
+                    <div class="member">
+                    <span>
+                    <Link to={'/allgames/:'+game[2].id}>    <img src={game[2].image} className="img-responsive " style={{ width:"18%",height: "60%"}}/></Link>  
+                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',width: '8%',marginLeft: '1%'}}>{game[2].name}</div></span>
+                    <span>
+                    <Link to={'/allgames/:'+game[3].id}>   <img src={game[3].image} className="img-responsive " style={{ width:"18%",height: "60%",marginLeft: '25%'}}/></Link>  
+                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '22%',width: '8%'}}>{game[3].name}</div>
+                    </span>
+                    </div>
                     </div>
                     
                      </body>
@@ -71,9 +99,8 @@ class HomeGames extends React.Component {
 
     render(){
         
-         if(this.state.vision==="")return this.caro();
-         else
-         {return <AllBoardGames></AllBoardGames>}
+         return this.caro();
+         
     }
 
 }
