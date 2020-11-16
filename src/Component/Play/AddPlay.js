@@ -2,7 +2,7 @@ import React from 'react';
 import antd from "antd";
 import Axios from 'axios';
 import moment from 'moment';
-//import './App.css';
+import '../../Style/addplay.css';
 import { PlusOutlined } from '@ant-design/icons';
 import FormItem from 'antd/lib/form/FormItem';
 import {
@@ -83,8 +83,8 @@ class AddPlay extends React.Component {
       })
   }
   onyearChangedate = (value) => {
-    if(value!=null)
-        this.setState({ date: value.format(dateFormat) })
+    if (value != null)
+      this.setState({ date: value.format(dateFormat) })
   }
   onSave = (e) => {
     e.preventDefault();
@@ -128,7 +128,7 @@ class AddPlay extends React.Component {
   render() {
     const { items, name } = this.state;
     return (
-      <div className="playLog_container">
+      <div className="Login_container">
         <Form   {...layout}>
           <Form.Item
             name="date"
@@ -188,9 +188,8 @@ class AddPlay extends React.Component {
             <Input onChange={this.onPlaceChange} placeholder="Where did you play?" />
           </FormItem>
 
-
           <Form.Item >
-            <Button style={{ background: "yellow", borderColor: "yellow",color:"black" }} type="primary" shape="round" onClick={this.onSave} >Save</Button>
+            <Button className="addbutton" type="primary" shape="round" onClick={this.onSave} >Add</Button>
           </Form.Item>
         </Form>
       </div>

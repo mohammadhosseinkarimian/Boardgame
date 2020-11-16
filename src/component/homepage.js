@@ -120,7 +120,7 @@ class HomePage extends React.Component {
               className="site-layout-background"
               style={{ padding: 24, minHeight: 660 }}
             >
-              <LogPlay />
+              <AddPlay />
             </div>
             
           </Content>
