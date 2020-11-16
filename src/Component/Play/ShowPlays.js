@@ -4,9 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlusOutlined } from '@ant-design/icons';
-import '@fortawesome/fontawesome-free/css/all.min.css';
- import'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
+import 'font-awesome/css/font-awesome.min.css';
 import FormItem from 'antd/lib/form/FormItem';
 import {
     Form,

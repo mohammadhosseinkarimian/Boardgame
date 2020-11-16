@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Redirect, Route,Link, useParams } from 'react-
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
-import ShowGameSearch from './Component/ShowGameSearch/ShowGameSearch';
-import {
+import AddPlay from './Component/Play/AddPlay';
+import{
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
@@ -110,7 +110,7 @@ class Routes extends React.Component {
       <Link to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</Link>
             </Menu.Item >
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined />}>
-              Create play
+           <Link to='/addplay/'>Create play</Link>   
             </Menu.Item>
             <Menu.Item className="m-item" key="3"  icon={<DesktopOutlined />}>
             <Link to="/homePage/:id"> Home</Link> 
@@ -151,6 +151,7 @@ class Routes extends React.Component {
        <Route exact path="/allgames" component={AllBoardGames} />
        <Route exact path="/allgames/:id" component={SingleGame} />
 
+       <Route exact path="/addplay/" component={AddPlay} />
 
        <Route exact path='/'>
          <Redirect to ="/homePage/:id" />

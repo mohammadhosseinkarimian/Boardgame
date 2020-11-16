@@ -253,8 +253,8 @@ class Signup extends React.Component {
       
 
         </Form>
-        <Divider style={{marginLeft: "0%" }}>OR</Divider>
-        <p className ="ant-form-item-change"  >Already have an account? <Link to="/">Log in</Link></p>
+        <Divider style={{marginLeft: "0%" ,color: "white" }}>OR</Divider>
+        <p className ="ant-form-item-change"style={{marginLeft: "0%",color: "white" }}  >Already have an account? <Link to="/">Log in</Link></p>
       </div>
       </div>
     );
