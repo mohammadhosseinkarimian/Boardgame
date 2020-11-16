@@ -12,7 +12,6 @@ import {
   UserOutlined,
   EditTwoTone,
 } from "@ant-design/icons";
-import {Link, Redirect, Route} from 'react-router-dom';
 const user="";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -139,7 +138,7 @@ class HomePage extends React.Component {
               className="site-layout-background"
               style={{marginTop: "7%",  minHeight: 660 }}
             >
-              <HomeGames/>
+           
             </div>
           </Content>
           

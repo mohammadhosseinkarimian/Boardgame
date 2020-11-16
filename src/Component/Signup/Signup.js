@@ -10,7 +10,6 @@ import {
   Button,
   Divider 
 } from "antd";
-import HomePage from '../homepage';
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import {Link, Redirect, Route} from 'react-router-dom'
 const { Option } = Select;
@@ -255,7 +254,7 @@ class Signup extends React.Component {
 
         </Form>
         <Divider style={{marginLeft: "0%" }}>OR</Divider>
-        <p className ="ant-form-item-change"  >Already have an account? <Link to="login">Log in</Link></p>
+        <p className ="ant-form-item-change"  >Already have an account? <Link to="/">Log in</Link></p>
       </div>
       </div>
     );
