@@ -92,3 +92,29 @@
   color: whitesmoke;
 border: transparent;
 }
+
+.ant-select-single {
+  background-color: #272727;color: whitesmoke
+}
+.ant-select-show-arrow {
+  background-color: #272727;color: whitesmoke
+}.ant-select-show-search{
+  background-color: #272727;
+  color: #272727;color: whitesmoke
+}
+.ant-select-dropdown{background-color: #272727;color: whitesmoke;
+
+} 
+
+.ant-select-selection-search{
+  background-color: #272727;
+}
+.ant-select-item-option-content{
+  color:rgb(136, 128, 128);
+
+}
+.ant-select-item-option-active{
+  color:black;
+  background-color: #747474;
+
+}

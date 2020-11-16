@@ -5,7 +5,8 @@ import './Style/homepage.css';
 import { BrowserRouter as Router, Redirect, Route,Link, useParams } from 'react-router-dom';
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
-import SingleGame from './Component/BoardGame/SingleGame'
+import SingleGame from './Component/BoardGame/SingleGame';
+import ShowGameSearch from './Component/ShowGameSearch/ShowGameSearch';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -77,6 +78,11 @@ class Routes extends React.Component {
     }).catch()
     
    }
+   exit=()=>{
+     this.setState({accessed:false})
+     localStorage.clear();
+    
+   }
 
     cntrl=()=>{
       const { collapsed } = this.state;
@@ -104,13 +110,13 @@ class Routes extends React.Component {
       <Link to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</Link>
             </Menu.Item >
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined />}>
-              Option 1
+              Create play
             </Menu.Item>
-            <Menu.Item className="m-item" key="3" icon={<DesktopOutlined />}>
-              Option 2
+            <Menu.Item className="m-item" key="3"  icon={<DesktopOutlined />}>
+            <Link to="/homePage/:id"> Home</Link> 
             </Menu.Item>
-            <Menu.Item className="m-item" key="9" icon={<FileOutlined />}>
-              Files
+            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined />}>
+              <Link to ='/'>Exit</Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -121,9 +127,13 @@ class Routes extends React.Component {
          
             <Header
               className="site-layout-background"
-              style={{ fontSize: "24px" }}
+              style={{ fontSize: "24px", height: "67px",
+              position: "relative" }}
             >
-              GoardBame
+             
+              <span style={{margin: "auto"}}> GoardBame</span>
+              
+             
             </Header>
       
           <Content style={{ margin: "0 0",background: "#1F2833" }}>
@@ -167,6 +177,10 @@ class Routes extends React.Component {
         <Route exact path='/'>
           <Login/>
         </Route>
+        <Route exact path="/homePage/:id">
+         <Redirect to = '/' />
+         </Route>
+
         <Route exact path='/signup'>
           <Signup/>
         </Route>

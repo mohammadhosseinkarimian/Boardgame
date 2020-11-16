@@ -3,9 +3,10 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import 'antd/dist/antd.css';
 import './boardstyle.css';
-import AllBoardGames from './AllBoardGames';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+
+
 
 import {
     Form,
@@ -54,7 +55,7 @@ class HomeGames extends React.Component {
         return(
       
             <div style={{ backgroundColor: 'black',paddingTop: "2%",marginTop: "8%",height: '35vh'}}>
-
+                
                 <h3 ><span> THE HOT GAMES
                      < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
 </span>
@@ -73,7 +74,7 @@ class HomeGames extends React.Component {
                     <div class="name"  style={{fontSize: "11px",color: 'whitesmoke',width: '8%',marginLeft: '1%'}}>{game[0].name}</div></span>
                     <span>
                 <Link to={'/allgames/:'+game[1].id}>  <img src={game[1].image} className="img-responsive " style={{ width:"18%",height: "60%",marginLeft: '25%'}}/></Link>  
-                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '20%',width: '8%'}}>{game[1].name}</div>
+                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '21%',width: '8%'}}>{game[1].name}</div>
                     </span>
                     </div>
                     <div class="member">
