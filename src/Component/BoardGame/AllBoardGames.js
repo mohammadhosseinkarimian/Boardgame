@@ -1,6 +1,8 @@
 import React from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
+import 'font-awesome/css/font-awesome.min.css';
+
 import 'antd/dist/antd.css';
 import {
   Form,
@@ -20,7 +22,7 @@ import {
 const paginationProps = {
   showSizeChanger: false,
   showQuickJumper: false,
-  pageSize: 5,
+  pageSize:20,
   
 };
 
@@ -36,11 +38,14 @@ class AllBoardGames extends React.Component {
       difficulty:"",
       proxyurl : "",
       rate:"",
-      games: []
+      games: [],
+      game:"",
+      vision:""
       
       
   };
   componentDidMount() {
+    
     Axios.get('http://localhost:8010/proxy/game/games_list/')
        .then(res=>{
          const games_list=res.data;
@@ -50,28 +55,37 @@ class AllBoardGames extends React.Component {
          })
        })
   }
-
   
-  render(){
+  
+  allBoard(){
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
+
     return(
-    <div>
-    <List
-    size="large"
-    itemLayout="horizontal"
-    pagination={paginationProps}
-    dataSource={this.state.games}
-    renderItem={item => (
-      <List.Item>
-        <List.Item.Meta
-          avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
-          title={<Link to={`/boardgames/${item.id}`}>{item.name}</Link>}
-          description={`rate:${item.rate}`}
-        />
-      </List.Item>
-    )}
-  />
-  </div>
-  );}
+
+      <div style={{background: '#1F2833',marginTop: '5%'}}>
+      <List
+      size="large"
+      itemLayout="horizontal"
+      pagination={paginationProps}
+      dataSource={this.state.games}
+      renderItem={item => (
+        <List.Item style={{border: 'transparent'}}>
+          <List.Item.Meta 
+            avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
+            title={<Link to={'/allgames/:'+item.id} style={{color: 'whitesmoke'}}  >{item.name}</Link>}
+            description={<p style={{color: 'silver',fontSize: '10'}}>{`${item.rate}`.substring(0,3)+" "}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
+
+/>
+        </List.Item>
+      )}
+    />
+    </div>
+    );
+  }
+  render(){
+     return this.allBoard();
+         
+    }
   }
   export default AllBoardGames;
   
