@@ -10,13 +10,15 @@ import {
   Select,
   Divider,
   TimePicker,
+  Upload,
+ message
 } from "antd";
 import "antd/dist/antd.css";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined,InboxOutlined  } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
 const { RangePicker } = TimePicker;
 const { Option } = Select;
-
+const { Dragger } = Upload;
 let index = 0;
 
 const formItemLayout = {
@@ -49,9 +51,25 @@ const tailFormItemLayout = {
     },
   },
 };
-
+const props = {
+  name: 'file',
+  multiple: true,
+  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 class Cafe extends React.Component {
   state = {
+    Avatar: "",
     name: "",
     Description: "",
     List_of_board_games: "",
@@ -60,6 +78,7 @@ class Cafe extends React.Component {
     Open_time: "00:00",
     Close_time: "00:00",
     Telephone: "",
+    img: "",
     loggedIn: "",
     msg: "",
   };
@@ -107,6 +126,12 @@ class Cafe extends React.Component {
   telephoneChange = (e) => {
     this.setState({ Telephone: e.target.value });
   };
+  Upload=async(e)=>{
+    const file=e.target.files[0];
+   const base64= await this.Convert(file)
+   this.setState({img:base64});
+   this.setState({edit:"true"})
+  }
   onSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
@@ -281,6 +306,15 @@ class Cafe extends React.Component {
               style={{ width: 240 }}
             />
           </Form.Item>
+          <Form.Item className="upload_img" >
+         <Dragger {...props}>
+    <p className="ant-upload-drag-icon">
+      <InboxOutlined />
+    </p>
+    <p className="ant-upload-text">Click or drag <b>image of cafe</b> to this area to upload</p>
+  </Dragger>,
+          </Form.Item>
+
           <Form.Item {...tailFormItemLayout}>
             <button
               type="button"
