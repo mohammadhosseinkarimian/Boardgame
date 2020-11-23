@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Style/Login.css';
+import './Style/map.css';
 import Mapir from 'mapir-react-component';
 const Map = Mapir.setToken({
     transformRequest: url => {
