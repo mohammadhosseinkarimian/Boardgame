@@ -11,10 +11,10 @@ import {
   Divider,
   TimePicker,
   Upload,
- message
+  message,
 } from "antd";
 import "antd/dist/antd.css";
-import { QuestionCircleOutlined,InboxOutlined  } from "@ant-design/icons";
+import { QuestionCircleOutlined, InboxOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
 const { RangePicker } = TimePicker;
 const { Option } = Select;
@@ -51,22 +51,36 @@ const tailFormItemLayout = {
     },
   },
 };
+const uploadButton = (
+  <div>
+    <PlusOutlined />
+    <div style={{ marginTop: 8 }}>Upload picture</div>
+  </div>
+);
 const props = {
-  name: 'file',
+  name: "file",
   multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange(info) {
     const { status } = info.file;
-    if (status !== 'uploading') {
+    if (status !== "uploading") {
       console.log(info.file, info.fileList);
     }
-    if (status === 'done') {
+    if (status === "done") {
       message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
+    } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);
     }
   },
 };
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
 class Cafe extends React.Component {
   state = {
     Avatar: "",
@@ -78,9 +92,12 @@ class Cafe extends React.Component {
     Open_time: "00:00",
     Close_time: "00:00",
     Telephone: "",
-    img: "",
     loggedIn: "",
     msg: "",
+    previewVisible: false,
+    previewImage: "",
+    previewTitle: "",
+    fileList: [],
   };
 
   onFinish = (values) => {};
@@ -93,6 +110,22 @@ class Cafe extends React.Component {
       };
     });
   };
+  handleCancel = () => this.setState({ previewVisible: false });
+
+  handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+    });
+  };
+  handleChange = ({ fileList }) => this.setState({ fileList });
+
   nameChange = (e) => {
     this.setState({ name: e.target.value });
   };
@@ -126,12 +159,12 @@ class Cafe extends React.Component {
   telephoneChange = (e) => {
     this.setState({ Telephone: e.target.value });
   };
-  Upload=async(e)=>{
-    const file=e.target.files[0];
-   const base64= await this.Convert(file)
-   this.setState({img:base64});
-   this.setState({edit:"true"})
-  }
+  Upload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await this.Convert(file);
+    this.setState({ img: base64 });
+    this.setState({ edit: "true" });
+  };
   onSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
@@ -139,6 +172,10 @@ class Cafe extends React.Component {
 
   render() {
     const { items } = this.state;
+    const previewVisible = this.state.previewVisible;
+    const previewImage = this.state.previewImage;
+    const fileList = this.state.fileList;
+    const previewTitle = this.state.previewTitle;
     return (
       <div className="Cafe_container">
         <meta
@@ -222,7 +259,7 @@ class Cafe extends React.Component {
             <Select
               required
               mode="multiple"
-              title={"Gameboards in cafe:"}
+              title={"Gameboards in cafe"}
               style={{ width: 240 }}
               placeholder="Gameboards"
               onSelect={(this.onChange, this.l_o_bgChange)}
@@ -285,6 +322,7 @@ class Cafe extends React.Component {
             <Input
               style={{ width: 240 }}
               name="Price"
+              placeholder="100,000"
               onChange={(this.onChange, this.pricechange)}
             />
           </Form.Item>
@@ -302,17 +340,24 @@ class Cafe extends React.Component {
           >
             <Input
               name="Telephone"
+              placeholder="021-00000000"
               onChange={(this.onChange, this.telephoneChange)}
               style={{ width: 240 }}
             />
           </Form.Item>
-          <Form.Item className="upload_img" >
-         <Dragger {...props}>
-    <p className="ant-upload-drag-icon">
-      <InboxOutlined />
-    </p>
-    <p className="ant-upload-text">Click or drag <b>image of cafe</b> to this area to upload</p>
-  </Dragger>,
+          <Form.Item className="upload_img">
+            <Upload
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              fileList={this.state.fileList}
+              onPreview={this.handlePreview}
+              onChange={this.handleChange}
+            >
+              <div className="upload-button">
+                {" "}
+                {fileList.length >= 20 ? null : uploadButton}
+              </div>{" "}
+            </Upload>
           </Form.Item>
 
           <Form.Item {...tailFormItemLayout}>
