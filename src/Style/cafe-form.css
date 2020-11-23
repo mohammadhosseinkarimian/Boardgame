@@ -10,10 +10,10 @@ body{margin: 0;}
     border-radius: 1.5%;
     
 }
-.upload_img{
-    width: 50%;
-  margin: 0 33.5%;
+.ant-upload .ant-upload-select .ant-upload-select-picture-card , .upload_img ,.ant-upload-list .ant-upload-list-picture-card{
+    display: inline;
 }
-.ant-upload-text{
-    padding: 0 5%;
+.ant-upload-list{
+    width: 100%;
+    margin-left: 50%;
 }
