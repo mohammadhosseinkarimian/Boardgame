@@ -54,7 +54,7 @@ class HomeGames extends React.Component {
           }, []);
         return(
       
-            <div style={{ backgroundColor: 'black',paddingTop: "2%",marginTop: "8%",height: '35vh'}}>
+            <div style={{ backgroundColor: '#303030',paddingTop: "2%",marginTop: "8%",height: '35vh'}}>
                 
                 <h3 ><span> THE HOT GAMES
                      < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
@@ -66,7 +66,7 @@ class HomeGames extends React.Component {
                 <Carousel  infiniteLoop useKeyboardArrows autoPlay showThumbs={false} width="100%"  >
                     
                   {rows.map(game => (
-                    <body style={{backgroundColor: 'black',height: '26vh'}}>
+                    <body style={{backgroundColor: '#303030',height: '26vh'}}>
                     <div class="container" style={{marginRight: "80%"}}>
                     <div class="member" >
                     <span>
