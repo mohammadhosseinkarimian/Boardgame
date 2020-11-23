@@ -2,7 +2,7 @@ import React from 'react';
 import Signup from "./Component/Signup/Signup";
 import Login from "./Component/Login/Login";
 import './Style/homepage.css';
-import { BrowserRouter as Router, Redirect, Route,Link, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route,Link, useParams, NavLink } from 'react-router-dom';
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
@@ -11,7 +11,8 @@ import{
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
-  EditOutlined
+  EditOutlined, 
+  MenuOutlined 
 } from "@ant-design/icons";
 import HomeGames from './Component/BoardGame/HomeGames';
 import EditProfile from './Component/EditProfile/EditProfile';
@@ -87,48 +88,50 @@ class Routes extends React.Component {
     cntrl=()=>{
       const { collapsed } = this.state;
       return (
-        <Layout style={{ minHeight: "100vh" }}>
+        <Layout style={{ minHeight: "100vh" ,backgroundColor: "#282828"}}>
           <Sider
             collapsible
             collapsed={collapsed}
             onCollapse={this.onCollapse}
+            style={{backgroundColor: "#282828"}}
+
           >
-            
             <Menu
              className="side-menu"
               theme="dark"
-              defaultSelectedKeys={["0"]}
+              defaultSelectedKeys={["3"]}
               mode="inline"
               style={{ position: "sticky" }}>
                  {localStorage.getItem('avatar')===''?<img src={Av} 
               style={{marginLeft: '1%',marginTop: '5%',width: '75px'}}height="44px" />:
                  <img src = {localStorage.getItem('avatar')} style={{marginLeft: '2%',marginTop: '5%',marginBottom: "2%",width: '75px'}}height="44px"/>}
                 
-              <Menu.Item  className="m-item" key="0"    icon={<EditOutlined />}
+              <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '-4px'}}/>}
               style={{height: "6%" ,marginTop: "4%", marginBottom: "5%"}}>
       
-      <Link to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</Link>
+      <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
             </Menu.Item >
-            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined />}>
-           <Link to='/addplay/'>Create play</Link>   
+            <Menu.Item className="m-item" key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '-3px'}}/>}>
+            <NavLink to="/homePage/:id"> Home</NavLink> 
             </Menu.Item>
-            <Menu.Item className="m-item" key="3"  icon={<DesktopOutlined />}>
-            <Link to="/homePage/:id"> Home</Link> 
+            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-6px'}}/>}>
+           <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
-            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined />}>
-              <Link to ='/'>Exit</Link>
+            
+            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
+              <NavLink to ='/'>Exit</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout
           className="site-layout"
-          style={{ background: "white", margin: "0 0" }}
+          style={{ background: "#212121", margin: "0 0" }}
         >
          
             <Header
               className="site-layout-background"
               style={{ fontSize: "24px", height: "67px",
-              position: "relative" }}
+              position: "relative" ,backgroundColor: "#303030" }}
             >
              
               <span style={{margin: "auto"}}> GoardBame</span>
@@ -136,14 +139,14 @@ class Routes extends React.Component {
              
             </Header>
       
-          <Content style={{ margin: "0 0",background: "#1F2833" }}>
+          <Content style={{ margin: "0 0",background: "#212121" }}>
            <Breadcrumb style={{ margin: "0px 0" }}>
              {/*   <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
             </Breadcrumb> 
             <div
               className="site-layout-background"
-              style={{marginTop: "4%", minHeight: "100vh", }}
+              style={{marginTop: "4%", minHeight: "100vh",backgroundColor: "#212121" }}
             >
       <switch>
        <Route exact path="/homePage/:id"   component={HomeGames}/>
