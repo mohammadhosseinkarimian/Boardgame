@@ -1,0 +1,19 @@
+body{margin: 0;}
+.Cafe_container{
+    width: 60%;
+    height: 40%;
+     margin: 15% auto ;
+     margin-top: 4% ;
+     margin-bottom: 2%;
+     box-shadow: 1px 1px 0 1px #626c74 ;
+    padding:4% 4% ;
+    border-radius: 1.5%;
+    
+}
+.ant-upload .ant-upload-select .ant-upload-select-picture-card , .upload_img ,.ant-upload-list .ant-upload-list-picture-card{
+    display: inline;
+}
+.ant-upload-list{
+    width: 100%;
+    margin-left: 50%;
+}
