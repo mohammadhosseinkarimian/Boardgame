@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import CafeMap from '../Map/Map'
 import {
   Form,
   Input,
@@ -380,6 +381,9 @@ class Cafe extends React.Component {
                 ? "Loading..."
                 : "Add Caffe"}
             </button>
+          </Form.Item>
+          <Form.Item>
+            <CafeMap />
           </Form.Item>
         </Form>
       </div>

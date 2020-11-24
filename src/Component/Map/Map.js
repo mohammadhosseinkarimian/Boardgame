@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Style/map.css';
+import '../../Style/map.css';
 import Mapir from 'mapir-react-component';
 const Map = Mapir.setToken({
     transformRequest: url => {
@@ -12,7 +12,7 @@ const Map = Mapir.setToken({
         };
     }
 });
-export default class Map extends React.Component {
+ class CafeMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,10 +57,10 @@ export default class Map extends React.Component {
                 >
                     {this.state.markerArray}
                 </Mapir>
-                <p>test</p>
             </div >
             
            
         )
     }
 }
+export default CafeMap;
