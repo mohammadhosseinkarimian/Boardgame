@@ -25,6 +25,7 @@ class Routes extends React.Component {
         accessed:false,
         collapsed: false,
         img:'',
+        disp:'none',
         username:localStorage.getItem('user')
       };
      
@@ -87,19 +88,29 @@ class Routes extends React.Component {
 
     cntrl=()=>{
       const { collapsed } = this.state;
+      var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("head").style.top = "0";
+  } else {
+    document.getElementById("head").style.top = "-67px";
+  }
+  prevScrollpos = currentScrollPos;
+}
       return (
         <Layout style={{ minHeight: "100vh" ,backgroundColor: "#282828"}}>
           <Sider
             collapsible
+            
             collapsed={collapsed}
             onCollapse={this.onCollapse}
-            style={{backgroundColor: "#282828"}}
+            style={{backgroundColor: "#282828" ,display: this.state.disp}}
 
           >
             <Menu
              className="side-menu"
               theme="dark"
-              defaultSelectedKeys={["3"]}
               mode="inline"
               style={{ position: "sticky" }}>
                  {localStorage.getItem('avatar')===''?<img src={Av} 
@@ -111,8 +122,9 @@ class Routes extends React.Component {
       
       <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
             </Menu.Item >
-            <Menu.Item className="m-item" key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '-3px'}}/>}>
+            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '-3px'}}/>}>
             <NavLink to="/homePage/:id"> Home</NavLink> 
+
             </Menu.Item>
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-6px'}}/>}>
            <NavLink to='/addplay/'>Create play</NavLink>   
@@ -129,11 +141,14 @@ class Routes extends React.Component {
         >
          
             <Header
+              id="head"
               className="site-layout-background"
-              style={{ fontSize: "24px", height: "67px",
-              position: "relative" ,backgroundColor: "#303030" }}
+              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%",
+             backgroundColor: "#303030" }}
             >
-             
+             <span style={{float: 'left',marginTop: 'auto'}}>
+             <MenuOutlined className='bar' style={{verticalAlign: 'middle'}} onClick={()=>this.setState({disp: 'inline'})} />
+             </span>
               <span style={{margin: "auto"}}> GoardBame</span>
               
              
