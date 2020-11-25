@@ -1,19 +1,52 @@
-body{margin: 0;}
-.Cafe_container{
-    width: 60%;
-    height: 40%;
-     margin: 15% auto ;
-     margin-top: 4% ;
-     margin-bottom: 2%;
-     box-shadow: 1px 1px 0 1px #626c74 ;
-    padding:4% 4% ;
-    border-radius: 1.5%;
-    
+body {
+  margin: 0;
+  background-color: #212121;
 }
-.ant-upload .ant-upload-select .ant-upload-select-picture-card , .upload_img ,.ant-upload-list .ant-upload-list-picture-card{
-    display: inline;
+.ant-form-item-label > label{
+    color: aliceblue;
 }
-.ant-upload-list{
-    width: 100%;
-    margin-left: 50%;
+.Cafe_container {
+   background-color:  #333333;
+  width: 40%;
+  height: 40%;
+  max-height: 100;
+  margin: 15% auto;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  box-shadow: 1px 1px 0 1px #626c74;
+  padding: 4% 4%;
+  border-radius: 1.5%;
+}
+.ant-input, .ant-input-focuse-visible-added,
+ .ant-select-input , 
+.ant-picker ,.ant-picker-time-panel,
+.ant-picker-ranges,.ant-select-selector,
+.ant-upload.ant-upload-select-picture-card,
+.ant-upload ,.ant-picker-time-panel-cell-inner,
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner
+,.ant-select, .ant-select-selectoin-placeholder,
+.ant-picker-input > input{
+    background-color:#515151;
+    color: #fff;
+}
+.ant-picker-time-panel-column:not(:first-child){
+    border-left:1px solid #212121;
+}
+
+.ant-upload .ant-upload-select .ant-upload-select-picture-card,
+.upload_img,
+.ant-upload-list .ant-upload-list-picture-card {
+  display: inline;
+}
+.ant-upload-list {
+  width: 100%;
+  margin-left: 50%;
+}
+.cafe_map {
+  margin-left: 33%;
+}
+.btn-primary{
+    color: #fff;
+    background-color: #212121;
+    border-color: #212121;
 }
