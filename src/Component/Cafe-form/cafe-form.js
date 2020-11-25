@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import CafeMap from '../Map/Map'
+import CafeMap from "../Map/Map";
 import {
   Form,
   Input,
@@ -346,7 +346,10 @@ class Cafe extends React.Component {
               style={{ width: 240 }}
             />
           </Form.Item>
-          <Form.Item className="upload_img">
+          <Form.Item
+            style={{ display: "inline"}}
+            className="upload_img"
+          >
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
@@ -357,10 +360,12 @@ class Cafe extends React.Component {
               <div className="upload-button">
                 {" "}
                 {fileList.length >= 20 ? null : uploadButton}
-              </div>{" "}
+           <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
             </Upload>
           </Form.Item>
-
+          <Form.Item className="cafe_map">
+            <CafeMap />
+          </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <button
               type="button"
@@ -381,9 +386,6 @@ class Cafe extends React.Component {
                 ? "Loading..."
                 : "Add Caffe"}
             </button>
-          </Form.Item>
-          <Form.Item>
-            <CafeMap />
           </Form.Item>
         </Form>
       </div>
