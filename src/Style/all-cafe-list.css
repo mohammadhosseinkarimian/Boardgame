@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background-color: #212121;
+}
+.cafelist_container {
+  background-color: #333333;
+  color: #fff;
+  width: 80%;
+  height: 100%;
+  margin: 15% auto;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  box-shadow: 1px 1px 0 1px #626c74;
+  padding: 4% 4%;
+  border-radius: 1.5%;
+  overflow: auto;
+}
+.ant-card-body,
+.ant-card-bordered,
+ul.ant-card-actions,
+.navbar-link {
+  background-color: #212121;
+  color: #fff;
+  text-align: center;
+}
+.cafe_card {
+  display: block;
+  float: left;
+  margin: 1%;
+  border: 2px solid #212121;
+  border-radius: 1%;
+}
