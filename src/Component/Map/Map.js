@@ -44,12 +44,12 @@ const Map = Mapir.setToken({
         </Mapir.Marker>);
         this.setState({ cafe_lat: e.lngLat.lat, cafe_lon: e.lngLat.lng });
         this.setState({ markerArray: array, lat: e.lngLat.lat, lon: e.lngLat.lng });
-        console.log( this.state.cafe_lat)
+       // console.log( this.state.cafe_lat)
     }
     render() {
         return (
             
-            <div >
+            <div className="container_map" >
                 <Mapir className="map"
                     center={[this.state.lon, this.state.lat]}
                     Map={Map}
