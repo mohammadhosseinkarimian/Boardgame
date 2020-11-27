@@ -14,6 +14,7 @@ import {
   Upload,
   message,
 } from "antd";
+import axios from 'axios';
 import "antd/dist/antd.css";
 import { QuestionCircleOutlined, InboxOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
@@ -87,7 +88,9 @@ class Cafe extends React.Component {
     Avatar: "",
     name: "",
     Description: "",
-    List_of_board_games: "",
+    selected_game:"",
+    List_of_board_games: [],
+    suggestlist_game:[],
     items: ["Chess", "tic-tac-toe", "monopoly"],
     Price: 0,
     Open_time: "00:00",
@@ -123,9 +126,10 @@ class Cafe extends React.Component {
       previewVisible: true,
       previewTitle:
         file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
-    });
-  };
-  handleChange = ({ fileList }) => this.setState({ fileList });
+   
+      });;
+    };
+  handleChange = ({ fileList }) => {this.setState({ fileList })}
 
   nameChange = (e) => {
     this.setState({ name: e.target.value });
@@ -161,14 +165,57 @@ class Cafe extends React.Component {
     this.setState({ Telephone: e.target.value });
   };
   Upload = async (e) => {
+    console.log(this.fileList);
     const file = e.target.files[0];
     const base64 = await this.Convert(file);
-    this.setState({ img: base64 });
+    this.setState({ fileList: base64 });
     this.setState({ edit: "true" });
   };
+ 
+  proxyurl= "http://localhost:8010/proxy";
   onSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
+     e.preventDefault();
+    // e.target.reset();
+    const data={
+      name:this.state.name,
+      description:this.state.description,
+      price:this.state.Price,
+      open_time:this.state.Open_time,
+      close_time:this.state.Close_time,
+      phone_number:this.state.Telephone,
+      games:this.state.List_of_board_games,
+      gallery:this.state.fileList
+  }
+    axios.post(this.proxyurl+'/cafe/create_cafe/',JSON.stringify(data),{headers:{
+      'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
+      'Accept' : 'application/json',
+      'Authorization' :`Bearer ${localStorage.getItem('access')}`
+    }}
+  ).then((res)=>{
+    console.log(res.data+"reeee")
+  })
+  .catch((error)=>
+    {
+      console.log(error.respose+"errrr")
+    })
+  };
+
+  onSearchgame = (value) => {
+    axios.get(this.proxyurl + "/game/search_game/name?search=" + value)
+      .then(res => {
+        const tmp = res.data.results;
+        this.setState(prevState => {
+          return { suggestlist_game: tmp }
+        })
+      })
+  };
+
+  onSelectgame = (value) => {
+    var dict = { "id": value }
+    this.state.List_of_board_games.push(dict);
+    this.setState({ selected_game: value }, () => {
+      console.log(this.state.selected_game, 'dealersOverallTotal1')
+    })
   };
 
   render() {
@@ -239,7 +286,7 @@ class Cafe extends React.Component {
               onChange={(this.onChange, this.descriptionChange)}
             />
           </Form.Item>
-          <Form.Item
+           <Form.Item
             label={
               <span>
                 Board games&nbsp;
@@ -250,25 +297,29 @@ class Cafe extends React.Component {
             }
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Select Board games of caffe",
                 whitespace: true,
               },
             ]}
             onChange={this.onChange}
           >
-            <Select
-              required
-              mode="multiple"
-              title={"Gameboards in cafe"}
-              style={{ width: 240 }}
-              placeholder="Gameboards"
-              onSelect={(this.onChange, this.l_o_bgChange)}
+           <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select a game"
+              optionFilterProp="children"
+              onSearch={this.onSearchgame}
+              onSelect={this.onSelectgame}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+
             >
-              {this.state.items.map((item) => (
-                <Option key={item}>{item}</Option>
-              ))}
-            </Select>
+              {this.state.suggestlist_game.map(item => (
+                <Option value={item.id}>{item.name}</Option>
+              ))
+              }</Select>
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
@@ -367,10 +418,9 @@ class Cafe extends React.Component {
             <CafeMap />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <button
-              type="button"
+            <Button
               class="btn btn-primary"
-              onClick={(this.handle, this.onChange)}
+              onClick={(this.onSubmit)}
               name="submit"
             >
               <span
@@ -385,7 +435,7 @@ class Cafe extends React.Component {
               {this.state.loggedIn === "logging in"
                 ? "Loading..."
                 : "Add Caffe"}
-            </button>
+            </Button>
           </Form.Item>
         </Form>
       </div>
