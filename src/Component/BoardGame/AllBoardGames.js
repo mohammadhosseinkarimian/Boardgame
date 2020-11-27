@@ -2,6 +2,7 @@ import React from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
+import './boardstyle.css';
 
 import 'antd/dist/antd.css';
 import {
@@ -22,7 +23,8 @@ import {
 const paginationProps = {
   showSizeChanger: false,
   showQuickJumper: false,
-  pageSize:20,
+  pageSize:20
+  
   
 };
 
@@ -62,7 +64,7 @@ class AllBoardGames extends React.Component {
 
     return(
 
-      <div style={{background: '#1F2833',marginTop: '5%'}}>
+      <body style={{background: 'transparent',marginTop: '5%',clear: 'both'}} >
       <List
       size="large"
       itemLayout="horizontal"
@@ -79,7 +81,7 @@ class AllBoardGames extends React.Component {
         </List.Item>
       )}
     />
-    </div>
+    </body>
     );
   }
   render(){
