@@ -161,7 +161,7 @@ var currentScrollPos = window.pageYOffset;
             </Breadcrumb> 
             <div
               className="site-layout-background"
-              style={{marginTop: "4%", minHeight: "100vh",backgroundColor: "#212121" }}
+              style={{marginTop: "4%", minHeight: "100vh",backgroundColor: "#212121" ,overflow: 'hidden',height: 'max-content'}}
             >
       <switch>
        <Route exact path="/homePage/:id"   component={HomeGames}/>
