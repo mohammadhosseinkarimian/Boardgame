@@ -1,15 +1,16 @@
+
 .body {
-    margin: 0
+    margin: 0;
+    width:100%;
+    overflow: hidden;
   }
 .h3, h3 {
    
     color: honeydew;
-    margin-left: 2%;
     margin-top: 5px;    
 }
 .h5, h5 {
     color: rgb(184, 194, 184);
-    margin-left: 2%;
     margin-top: 2px;    
 }
 .container{
@@ -22,15 +23,7 @@
     max-height: "200px";
     
   }
-  .member {
-    flex: 0 48%;
-    margin: 1% 1% 45px 1%;
-  }
-  
-  .member img {
-    max-width: 100%;
-    display: block;
-  }
+
   
   @media (max-width:480px) {
     .member {
@@ -117,4 +110,53 @@ border: transparent;
   color:black;
   background-color: #747474;
 
+}
+.img-with-text {
+  text-align: justify;
+}
+
+.img-with-text img {
+  display: block;
+  margin: 0 auto;
+  margin-top: 13%;
+}
+.carousel-status{
+  visibility: hidden;
+}
+
+.carousel .control-next.control-arrow, .carousel .control-next.control-arrow:hover{
+  background-color: wheat;
+  margin-top: 10%;
+  
+}
+
+.carousel .control-prev.control-arrow, .carousel .control-prev.control-arrow:hover {
+  background-color: wheat;
+  margin-top: 40px;
+
+}
+
+.carousel .control-arrow, .carousel.carousel-slider .control-arrow{
+  margin-top: 40px;
+
+  background-color: wheat;
+}
+
+.carousel .control-next.control-arrow:before {
+  content: '';
+  border: solid #0135AD;
+  border-width: 0 8px 8px 0;
+  display: inline-block;
+  padding: 4px;
+  background-color: wheat;
+}
+
+.carousel .control-prev.control-arrow:before {
+  content: '';
+  border: solid #0135AD;
+  border-width: 0 8px 8px 0;
+  display: inline-block;
+  padding: 14px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
