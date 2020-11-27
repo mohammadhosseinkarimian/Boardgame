@@ -9,19 +9,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 
 import {
-    Form,
-    Input,
-    Tooltip,
-    Select,
-    AutoComplete,
-    Button,
-    Collapse,
-    Card,
-    List,
-    Avatar,
-    Skeleton,
-    Pagination,
-    Alert
+    Row, Col 
 } from "antd";
 
 
@@ -53,40 +41,53 @@ class HomeGames extends React.Component {
               : rows[rows.length-1].push(key)) && rows;
           }, []);
         return(
-      
-            <div style={{ backgroundColor: '#303030',paddingTop: "2%",marginTop: "8%",height: '35vh'}}>
+            
+            <div style={{ backgroundColor: 'transparent',paddingTop: "2%",marginTop: "8%",height: '35vh',width: '90%',marginLeft: '5%'}}>
                 
                 <h3 ><span> THE HOT GAMES
                      < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
 </span>
                 </h3>
 
-                <h5 style={{fontSize: "13px"}}>Top 5 most rated games</h5>
+                <h5 style={{fontSize: "13px"}}>Top 20 most rated games</h5>
                 
-                <Carousel  infiniteLoop useKeyboardArrows autoPlay showThumbs={false} width="100%"  >
+                <Carousel infiniteLoop  autoPlay  width="100%"  >
                     
                   {rows.map(game => (
-                    <body style={{backgroundColor: '#303030',height: '26vh'}}>
-                    <div class="container" style={{marginRight: "80%"}}>
-                    <div class="member" >
-                    <span>
-                   <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image} className="img-responsive" style={{ width:"18%",height: "60%"}}/></Link>
-                    <div class="name"  style={{fontSize: "11px",color: 'whitesmoke',width: '8%',marginLeft: '1%'}}>{game[0].name}</div></span>
-                    <span>
-                <Link to={'/allgames/:'+game[1].id}>  <img src={game[1].image} className="img-responsive " style={{ width:"18%",height: "60%",marginLeft: '25%'}}/></Link>  
-                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '21%',width: '8%'}}>{game[1].name}</div>
-                    </span>
-                    </div>
-                    <div class="member">
-                    <span>
-                    <Link to={'/allgames/:'+game[2].id}>    <img src={game[2].image} className="img-responsive " style={{ width:"18%",height: "60%"}}/></Link>  
-                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',width: '8%',marginLeft: '1%'}}>{game[2].name}</div></span>
-                    <span>
-                    <Link to={'/allgames/:'+game[3].id}>   <img src={game[3].image} className="img-responsive " style={{ width:"18%",height: "60%",marginLeft: '25%'}}/></Link>  
-                    <div class="name" style={{fontSize: "11px",color: 'whitesmoke',marginLeft: '22%',width: '8%'}}>{game[3].name}</div>
-                    </span>
-                    </div>
-                    </div>
+                    <body style={{backgroundColor: '#303030',height: '35vh'}}>
+                    <Row style={{marginLeft: '4%'}} justify='start'>
+                    <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
+                    <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image} height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    {game[0].name}
+                    </figcaption>
+                        </figure>
+                        </Col>
+                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
+                    <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}} /></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    {game[1].name}
+                    </figcaption>
+                        </figure>
+                        </Col>
+                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
+                    <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    {game[2].name}
+                    </figcaption>
+                        </figure>
+                        </Col>
+                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
+                    <Link to={'/allgames/:'+game[3].id}> <img src={game[3].image} height='54%' style={{width: '30%',minHeight: '100px',width: '100%'}} /></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    {game[3].name}
+                    </figcaption>
+                        </figure>
+                        </Col>
+                    </Row>
+                   
+                   
+                   
                     
                      </body>
                      
