@@ -184,7 +184,7 @@ class Cafe extends React.Component {
       close_time:this.state.Close_time,
       phone_number:this.state.Telephone,
       games:this.state.List_of_board_games,
-      gallery:this.state.fileList
+     // gallery:this.state.fileList
   }
     axios.post(this.proxyurl+'/cafe/create_cafe/',JSON.stringify(data),{headers:{
       'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
@@ -305,6 +305,7 @@ class Cafe extends React.Component {
             onChange={this.onChange}
           >
            <Select
+           mode="multiple"
               showSearch
               style={{ width: 200 }}
               placeholder="Select a game"

@@ -18,17 +18,28 @@ body {
   border-radius: 1.5%;
 }
 .ant-input, .ant-input-focuse-visible-added,
- .ant-select-input , 
+ .ant-select-input ,
 .ant-picker ,.ant-picker-time-panel,
 .ant-picker-ranges,.ant-select-selector,
 .ant-upload.ant-upload-select-picture-card,
-.ant-upload ,.ant-picker-time-panel-cell-inner,
-.ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner
-,.ant-select, .ant-select-selectoin-placeholder,
-.ant-picker-input > input{
+.ant-upload ,.ant-select-selector,
+.ant-select-dropdown .ant-select-dropdown-empty .ant-select-dropdown-placement-bottomLeft .ant-select-dropdown-hidden,
+.ant-select-multiple .ant-select-selector
+{
     background-color:#515151;
     color: #fff;
+    border: 1px solid black;
+} 
+ .ant-picker-suffix,
+.ant-select-selection-placeholder,
+.ant-picker-input > input,
+.ant-picker-time-panel-cell-inner,
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner,
+.ant-picker-now-btn{
+  background-color:#515151;
+  color: #fff;
 }
+
 .ant-picker-time-panel-column:not(:first-child){
     border-left:1px solid #212121;
 }
@@ -45,8 +56,15 @@ body {
 .cafe_map {
 margin-left:1%;
 }
-.btn-primary{
-    color: #fff;
+.btn-primary,.ant-btn-primary, .ant-btn-primary:focus
+,.ant-btn-primary:hover
+{
+    
     background-color: #212121;
     border-color: #212121;
+    color: #fff;
+}
+.ant-picker-now-btn:hover{
+  border-color: #212121;
+  color: #fff;
 }
