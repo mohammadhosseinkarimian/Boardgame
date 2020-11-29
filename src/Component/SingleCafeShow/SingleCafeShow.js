@@ -1,11 +1,11 @@
 import React from "react";
 import Axios from "axios";
 import Mapir from 'mapir-react-component';
-import { Link } from "react-router-dom";
 import 'antd/dist/antd.css';
 import { GiTwoCoins } from "react-icons/gi";
 import { FaChess } from "react-icons/fa";
-import { Row, Col,Image, Carousel} from 'antd';
+import { Row, Col, Image, Carousel } from 'antd';
+import '../../Style/SingleCafeShow.css'
 const Map = Mapir.setToken({
     transformRequest: (url) => {
         return {
@@ -22,28 +22,58 @@ const Map = Mapir.setToken({
 
 class SingleCafeShow extends React.Component {
     state = {
-        // id:"",
-        // name:"",
-        // owner:"",
-        // description:"",
-        // games:[],
-        // price:"",
-        // latitude:"",
-        // longitude:""
+        id: "62",
+        name: "",
+        owner: "",
+        description: "",
+        games: [],
+        price: "",
+        open_time: "",
+        close_time: "",
+        phone_number: "",
+        gallery: "",
+        latitude: "",
+        longitude: ""
 
-        id: "02",
-        name: "lamiz",
-        owner: "rajabi",
-        description: "asdfghjkl;oiuytrexcvbnm,;lkjuytredtyuio.,mdedrtuiop;lkjgfdyui",
-        games: ["monopoly", "pantagon", "mench"],
-        images: ["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png", "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],
-        price: "12000",
-        latitude: "35.6892",
-        longitude: "51.3890"
+        // id: "02",
+        // name: "lamiz",
+        // owner: "rajabi",
+        // description: "asdfghjkl;oiuytrexcvbnm,;lkjuytredtyuio.,mdedrtuiop;lkjgfdyui",
+        // games: ["monopoly", "pantagon", "mench"],
+        // images: ["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png", "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],
+        // price: "12000",
+        // latitude: "35.6892",
+        // longitude: "51.3890"
     }
-    
 
-    
+
+    componentDidMount() {
+        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/'+this.state.id, {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Access-Control-Allow-Credentials': true,
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
+            }
+        }
+        )
+            .then(res => {
+                const cafe = res.data;
+                console.log(cafe);
+                this.setState({ name: cafe.name });
+                this.setState({ owner: cafe.owner });
+                this.setState({ description: cafe.description });
+                this.setState({ games: cafe.games });
+                this.setState({ gallery: cafe.gallery });
+                this.setState({ price: cafe.price });
+                this.setState({ open_time: cafe.open_time });
+                this.setState({ close_time: cafe.close_time });
+                this.setState({ phone_number: cafe.phone_number });
+                this.setState({ latitude: cafe.latitude });
+                this.setState({ longitude: cafe.longitude });
+
+            })
+    }
 
 
 
@@ -75,26 +105,26 @@ class SingleCafeShow extends React.Component {
                             <h2><FaChess />  {this.state.games.join(' , ')}</h2>
                             <h3><GiTwoCoins /> {this.state.price}</h3>
                             <h4>   {this.state.description}</h4>
-                            
+
                             <div>
-                             <Mapir  className="map" 
-                                center={[this.state.longitude, this.state.latitude]}
-                                Map={Map}
-                            >
-                                
-                                 <Mapir.Layer
-                                    type="symbol"
-                                    layout={{ "icon-image": "harbor-15" }}>
-                                </Mapir.Layer> 
-                                <Mapir.Marker
-                                    coordinates={[this.state.longitude, this.state.latitude]}
-                                    anchor="bottom">
-                                </Mapir.Marker>
-                            </Mapir> 
+                                <Mapir className="map"
+                                    center={[this.state.longitude, this.state.latitude]}
+                                    Map={Map}
+                                >
+
+                                    <Mapir.Layer
+                                        type="symbol"
+                                        layout={{ "icon-image": "harbor-15" }}>
+                                    </Mapir.Layer>
+                                    <Mapir.Marker
+                                        coordinates={[this.state.longitude, this.state.latitude]}
+                                        anchor="bottom">
+                                    </Mapir.Marker>
+                                </Mapir>
                             </div>
-                            </div>
-                        
-                      
+                        </div>
+
+
                     </Col>
                 </Row>
             </div>
