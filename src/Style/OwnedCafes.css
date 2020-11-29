@@ -1,0 +1,15 @@
+.ant-card-body {
+    background-color:  #333333;
+}
+.ant-card-head{
+    background-color:  #333333 !important;
+}
+.ant-card-head-wrapper{
+    background-color:  #333333;
+}
+p{
+    color: white;
+}
+.ant-card-head-title{
+color: white;
+}
