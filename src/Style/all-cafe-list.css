@@ -23,10 +23,21 @@ ul.ant-card-actions,
   color: #fff;
   text-align: center;
 }
-.cafe_card {
+.ant-card-head-title{
+  color: #fff;
+
+}.cafe_card {
   display: block;
   float: left;
   margin: 1%;
   border: 2px solid #212121;
   border-radius: 1%;
+}
+.ant-card-cover > *{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-top: 10%;
+}
+.cafe_img{
+  margin-top: 10%;
 }
