@@ -1,8 +1,8 @@
 import React from "react";
 import Axios from "axios";
-import {Link} from "react-router-dom";
+import { Link } from "react-bootstrap/lib/Navbar";
 //import 'font-awesome/css/font-awesome.min.css';
-
+import {ClockCircleFilled ,PhoneFilled,CoffeeOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import {
   Form,
@@ -16,13 +16,13 @@ import {
   List,
   Avatar, 
   Skeleton,
-  Pagination 
+  Pagination ,
+  Divider
 } from "antd";
-
 const paginationProps = {
   showSizeChanger: false,
   showQuickJumper: false,
-  pageSize:20,
+  pageSize:10,
   
 };
 
@@ -47,10 +47,10 @@ class AllCafe extends React.Component {
     Axios.get("http://localhost:8010/proxy/cafe/cafe_list/")
        .then(res=>{
         //alert("reeeee")
-        const games_list=res.data;
+        const cafe_list=res.data;
          this.setState(prevState => {
-          console.log(games_list)
-           return {cafe: games_list}
+          console.log(cafe_list)
+           return {cafe: cafe_list}
          })
        })
        .catch(error=>{
@@ -60,13 +60,17 @@ class AllCafe extends React.Component {
   }
   
   
-  allBoard(){
-    //<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
+  allCafe(){
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
 
     return(
 
-      <div className="cafelist_container" style={{marginTop: '5%'}}>
-      <List
+      <div className="cafelist_container"
+       style={{marginTop: '5%', fontSize:'20px'}}
+      dataSource={this.state.cafe}
+      Pagination={paginationProps}>Cafe In Site<CoffeeOutlined  style={{marginTop:'0', marginLeft: '0.5%', fontSize:'20px'}}/>
+ 
+               {     <List
       size="large"
       itemLayout="horizontal"
       pagination={paginationProps}
@@ -74,28 +78,44 @@ class AllCafe extends React.Component {
       renderItem={item => (
         <List.Item style={{border: 'transparent'}}>
           <List.Item.Meta 
-            avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
-            title={<p style={{color: 'whitesmoke'}}>{item.name}</p>}
-            // title={<Link to={'/allcafes/:'+item.id} style={{color: 'whitesmoke'}}  >{item.name}</Link>}
-            description={<p key={item.id} style={{color: 'silver',fontSize: '10'}}>{`${item.games.id}`}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
-
-/>
+            avatar={<img src={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"} style={{width: "120px",height: "80px"}} className="cafe_img"/>}
+            title={<p style={{color: 'whitesmoke' , fontSize:'20px'}}>{item.name}</p>}
+            description={<p key={item.close_time} style={{color: 'whitesmoke',fontSize: '15px'}}><ClockCircleFilled  /> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p><PhoneFilled /> {`${item.phone_number}`}</p><i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
+          
+/>  <Divider style={{background:'white'}} />
         </List.Item>
       )}
-    />
-    </div>
+    /> }
+ </div>
     );
   }
   render(){
-     return this.allBoard();
+     return this.allCafe();
          
     }
   }
   export default AllCafe;
 
 
-
-
+/* { this.state.cafe.map(item =>
+              <Card className="cafe_card" 
+              hoverable
+              Pagination={paginationProps}
+              title={item.name}
+              cover={<img src={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"}/>}   
+              style={{ width: 240 ,border: 'transparent'}}
+                //cover={<img  src={this.state.cafe_img} />}
+                actions={[
+                  <div style={{color:'#fff'}}>
+                    see cafe details <CoffeeOutlined />
+                  </div>,
+                ]}
+               
+              >
+             
+              </Card> )}
+ 
+ */
 // import React from "react";
 // import { Card, List} from "antd";
 // import "antd/dist/antd.css";
