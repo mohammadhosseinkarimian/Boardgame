@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
-import './boardstyle.css';
+import '../../Style/design.scss';
 
 import 'antd/dist/antd.css';
 import {
