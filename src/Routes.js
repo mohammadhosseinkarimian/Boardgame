@@ -1,7 +1,7 @@
 import React from 'react';
 import Signup from "./Component/Signup/Signup";
 import Login from "./Component/Login/Login";
-import './Style/homepage.css';
+import './Style/design.scss';
 import { BrowserRouter as Router, Redirect, Route,Link, useParams, NavLink } from 'react-router-dom';
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
@@ -137,14 +137,13 @@ var currentScrollPos = window.pageYOffset;
         </Sider>
         <Layout
           className="site-layout"
-          style={{ background: "#212121", margin: "0 0" }}
+          style={{ margin: "0 0" }}
         >
          
             <Header
               id="head"
-              className="site-layout-background"
-              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%",
-             backgroundColor: "#303030" }}
+              className="ant-layout-header"
+              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%" }}
             >
              <span style={{float: 'left',marginTop: 'auto'}}>
              <MenuOutlined className='bar' style={{verticalAlign: 'middle'}} onClick={()=>this.setState({disp: 'inline'})} />
@@ -154,14 +153,14 @@ var currentScrollPos = window.pageYOffset;
              
             </Header>
       
-          <Content style={{ margin: "0 0",background: "#212121" }}>
+          <Content className="ant-layout-content" style={{ margin: "0 0" }}>
            <Breadcrumb style={{ margin: "0px 0" }}>
              {/*   <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
             </Breadcrumb> 
             <div
               className="site-layout-background"
-              style={{marginTop: "4%", minHeight: "100vh",backgroundColor: "#212121" ,overflow: 'hidden',height: 'max-content'}}
+              style={{marginTop: "4%", minHeight: "100vh" ,overflow: 'hidden',height: 'max-content'}}
             >
       <switch>
        <Route exact path="/homePage/:id"   component={HomeGames}/>
