@@ -78,7 +78,7 @@ class AllCafe extends React.Component {
       renderItem={item => (
         <List.Item style={{border: 'transparent'}}>
           <List.Item.Meta 
-            avatar={<img src={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"} style={{width: "120px",height: "80px"}} className="cafe_img"/>}
+            avatar={<img src={item.gallery.split('***')[0]} style={{width: "120px",height: "80px"}} className="cafe_img"/>}
             title={<p style={{color: 'whitesmoke' , fontSize:'20px'}}>{item.name}</p>}
             description={<p key={item.close_time} style={{color: 'whitesmoke',fontSize: '15px'}}><ClockCircleFilled  /> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p><PhoneFilled /> {`${item.phone_number}`}</p><i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
           
