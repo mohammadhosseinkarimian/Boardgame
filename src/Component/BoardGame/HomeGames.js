@@ -2,10 +2,9 @@ import React from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import 'antd/dist/antd.css';
-import './boardstyle.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-
+import '../../Style/design.scss';
 
 
 import {
