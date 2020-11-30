@@ -13,7 +13,9 @@ import {
   TimePicker,
   Upload,
   message,
+  Modal
 } from "antd";
+import Picture from "./pic-upload"
 import axios from 'axios';
 import "antd/dist/antd.css";
 import { QuestionCircleOutlined, InboxOutlined } from "@ant-design/icons";
@@ -22,7 +24,7 @@ const { RangePicker } = TimePicker;
 const { Option } = Select;
 const { Dragger } = Upload;
 let index = 0;
-
+let base64="";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -54,27 +56,12 @@ const tailFormItemLayout = {
   },
 };
 const uploadButton = (
-  <div>
+  <div >
     <PlusOutlined />
     <div style={{ marginTop: 8 }}>Upload picture</div>
   </div>
 );
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -91,7 +78,7 @@ class Cafe extends React.Component {
     selected_game:"",
     List_of_board_games: [],
     suggestlist_game:[],
-    items: ["Chess", "tic-tac-toe", "monopoly"],
+    //items: ["Chess", "tic-tac-toe", "monopoly"],
     Price: 0,
     Open_time: "00:00",
     Close_time: "00:00",
@@ -115,10 +102,11 @@ class Cafe extends React.Component {
     });
   };
   handleCancel = () => this.setState({ previewVisible: false });
-
   handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
+      base64=base64+ "***"+file.preview;
+      console.log(base64.substring(1));
     }
 
     this.setState({
@@ -129,7 +117,9 @@ class Cafe extends React.Component {
    
       });;
     };
-  handleChange = ({ fileList }) => {this.setState({ fileList })}
+  handleChange = ({ fileList }) => {
+    //console.log(base64);
+    this.setState({ fileList })}
 
   nameChange = (e) => {
     this.setState({ name: e.target.value });
@@ -164,12 +154,13 @@ class Cafe extends React.Component {
   telephoneChange = (e) => {
     this.setState({ Telephone: e.target.value });
   };
-  Upload = async (e) => {
-    console.log(this.fileList);
-    const file = e.target.files[0];
-    const base64 = await this.Convert(file);
-    this.setState({ fileList: base64 });
-    this.setState({ edit: "true" });
+  Upload =  async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+      base64=file.preview;
+      console.log(file.preview);
+    }
+
   };
  
   proxyurl= "http://localhost:8010/proxy";
@@ -178,14 +169,15 @@ class Cafe extends React.Component {
     // e.target.reset();
     const data={
       name:this.state.name,
-      description:this.state.description,
+      description:this.state.Description,
       price:this.state.Price,
       open_time:this.state.Open_time,
       close_time:this.state.Close_time,
       phone_number:this.state.Telephone,
       games:this.state.List_of_board_games,
-     // gallery:this.state.fileList
+      gallery:base64.substring(1)
   }
+
     axios.post(this.proxyurl+'/cafe/create_cafe/',JSON.stringify(data),{headers:{
       'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
       'Accept' : 'application/json',
@@ -402,7 +394,8 @@ class Cafe extends React.Component {
             style={{ display: "inline"}}
             className="upload_img"
           >
-            <Upload
+           {/* <Picture></Picture> */}
+             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={this.state.fileList}
@@ -413,7 +406,14 @@ class Cafe extends React.Component {
                 {" "}
                 {fileList.length >= 20 ? null : uploadButton}
            <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
-            </Upload>
+          <Modal
+                        visible={previewVisible}
+                        title={previewTitle}
+                        footer={null}
+                        onCancel={this.handleCancel}
+                    >
+                        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal> </Upload> 
           </Form.Item>
           <Form.Item className="cafe_map">
             <CafeMap />
