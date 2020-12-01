@@ -11,8 +11,8 @@ import {
     Input,
     Select,
     Button,
-    Table,
-    List, Typography, Divider
+    Modal,
+    List, Divider
 } from "antd";
 const proxyurl = "http://localhost:8010/proxy";
 const columns = [
@@ -39,7 +39,8 @@ const columns = [
 class LogPlay extends React.Component {
     state = {
         dataSource: [],
-        allgames: {}
+        allgames: {},
+        editbool:false
     }
 
     componentDidMount() {
@@ -74,53 +75,69 @@ class LogPlay extends React.Component {
             )
     }
 
-onClickdelete = (id) => {
-    alert(id)
-    axios.delete(proxyurl + "/game/edit_play/" + id+"/", {
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Credentials': true,
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access')}`
+    onClickdelete = (id) => {
+        axios.delete(proxyurl + "/game/edit_play/" + id + "/", {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Access-Control-Allow-Credentials': true,
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
+            }
         }
+        ).then((res) => {
+
+            alert("play was deleted succesfully")
+            axios.get(proxyurl + '/game/plays_list/', {
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    'Access-Control-Allow-Credentials': true,
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access')}`
+                }
+            }
+            ).then((res) => {
+                const tmp = res.data;
+                console.log(tmp)
+                this.setState({ dataSource: tmp })
+
+            })
+                .catch((error) => {
+                    console.log("errror")
+                }
+                )
+
+        })
+            .catch((error) => {
+                alert("cant delete play try again")
+            }
+            )
+
     }
-    ).then((res) => {
 
-        alert("ok")
 
-    })
-        .catch((error) => {
-            alert("nooooo")
-        }
+    render() {
+        return (
+            <div >
+                <List
+                    size="large"
+                    itemLayout="horizontal"
+                    dataSource={this.state.dataSource}
+                    renderItem={item => (
+                        <List.Item
+                            actions={[<a onClick={() => this.onClickdelete(item.id)} >delete</a>]}
+                        >
+                            <List.Item.Meta
+                                title={`${this.state.allgames[item.game]}`}
+                                description={`${item.place} ${item.date}  `}
+                            />
+                        </List.Item>
+                    )}
+                />
+            </div>
+
+
         )
-
-}
-
-
-render()
-{
-    return (
-        <div >
-            <List
-                size="large"
-                itemLayout="horizontal"
-                dataSource={this.state.dataSource}
-                renderItem={item => (
-                    <List.Item
-                        actions={[<a >edit</a>, <a onClick={()=>this.onClickdelete(item.id)} >delete</a>]}
-                    >
-                        <List.Item.Meta
-                            title={`${this.state.allgames[item.game]}`}
-                            description={`${item.place} ${item.date}  `}
-                        />
-                    </List.Item>
-                )}
-            />
-        </div>
-
-
-    )
-}
+    }
 }
 
 export default LogPlay;
