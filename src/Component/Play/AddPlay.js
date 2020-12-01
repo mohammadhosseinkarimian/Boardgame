@@ -111,10 +111,12 @@ class AddPlay extends React.Component {
 
         this.setState({ msg: "done" });
         console.log(this.state.msg)
+        alert("play was created succesfully")
       })
       .catch((error) => {
         this.setState({ msg: "something went wrong please try again." });
         console.log(this.state.msg)
+        alert(this.state.msg)
       }
       )
 

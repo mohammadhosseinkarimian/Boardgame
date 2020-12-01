@@ -66,7 +66,7 @@ class LogPlay extends React.Component {
             const tmp = res.data;
             console.log(tmp)
             this.setState({ dataSource: tmp })
-            
+
         })
             .catch((error) => {
                 console.log("errror")
@@ -74,26 +74,53 @@ class LogPlay extends React.Component {
             )
     }
 
-    render() {
-        return (
-            <div >
-                <List
-                    size="large"
-                    itemLayout="horizontal"
-                    dataSource={this.state.dataSource}
-                    renderItem={item => (
-                        <List.Item>
-                            <List.Item.Meta
-                                title={`${this.state.allgames[item.game]}`}
-                                description={`${item.place}        ${item.date}    `}
-                            />
-                        </List.Item>
-                    )}
-                />
-            </div>
-
-
-        )
+onClickdelete = (id) => {
+    alert(id)
+    axios.delete(proxyurl + "/game/edit_play/" + id+"/", {
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Credentials': true,
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access')}`
+        }
     }
+    ).then((res) => {
+
+        alert("ok")
+
+    })
+        .catch((error) => {
+            alert("nooooo")
+        }
+        )
+
 }
+
+
+render()
+{
+    return (
+        <div >
+            <List
+                size="large"
+                itemLayout="horizontal"
+                dataSource={this.state.dataSource}
+                renderItem={item => (
+                    <List.Item
+                        actions={[<a >edit</a>, <a onClick={()=>this.onClickdelete(item.id)} >delete</a>]}
+                    >
+                        <List.Item.Meta
+                            title={`${this.state.allgames[item.game]}`}
+                            description={`${item.place} ${item.date}  `}
+                        />
+                    </List.Item>
+                )}
+            />
+        </div>
+
+
+    )
+}
+}
+
 export default LogPlay;
