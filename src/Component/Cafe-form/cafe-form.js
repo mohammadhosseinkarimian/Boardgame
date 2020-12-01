@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import "bootstrap/dist/css/bootstrap.min.css";
 import CafeMap from "../Map/Map";
 import {
   Form,
@@ -15,16 +16,16 @@ import {
   message,
   Modal
 } from "antd";
-import Picture from "./pic-upload"
 import axios from 'axios';
 import "antd/dist/antd.css";
-import { QuestionCircleOutlined, InboxOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
 const { RangePicker } = TimePicker;
 const { Option } = Select;
 const { Dragger } = Upload;
 let index = 0;
 let base64="";
+const mapdetail={CafeMap}
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -79,16 +80,19 @@ class Cafe extends React.Component {
     List_of_board_games: [],
     suggestlist_game:[],
     //items: ["Chess", "tic-tac-toe", "monopoly"],
-    Price: 0,
+    Price: "",
     Open_time: "00:00",
     Close_time: "00:00",
     Telephone: "",
-    loggedIn: "",
+    lat:"",
+    lon:"",
     msg: "",
     previewVisible: false,
     previewImage: "",
     previewTitle: "",
     fileList: [],
+    necessary_inputs:"",
+    massage:""
   };
 
   onFinish = (values) => {};
@@ -106,7 +110,7 @@ class Cafe extends React.Component {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
       base64=base64+ "***"+file.preview;
-      console.log(base64.substring(1));
+     // console.log(base64.substring(3));
     }
 
     this.setState({
@@ -154,6 +158,12 @@ class Cafe extends React.Component {
   telephoneChange = (e) => {
     this.setState({ Telephone: e.target.value });
   };
+  mapChange=(e)=>{
+  console.log(e.target.geom)
+  console.log(e.target.value.longitude)
+    this.setState({ lat: e.target.geom , lon: e.target.value.longitude });
+  
+  };
   Upload =  async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -166,8 +176,7 @@ class Cafe extends React.Component {
   proxyurl= "http://localhost:8010/proxy";
   onSubmit = (e) => {
      e.preventDefault();
-    // e.target.reset();
-    const data={
+     const data={
       name:this.state.name,
       description:this.state.Description,
       price:this.state.Price,
@@ -175,9 +184,16 @@ class Cafe extends React.Component {
       close_time:this.state.Close_time,
       phone_number:this.state.Telephone,
       games:this.state.List_of_board_games,
-      gallery:base64.substring(1)
+      gallery:base64.substring(1),
+      latitude:localStorage.getItem('lat'),
+      longitude:localStorage.getItem('lng'),
+      city:localStorage.getItem('city')
+
   }
 
+     if((this.state.name!=="") && (this.state.description!=="")&&(this.state.Price!==0)&&(this.state.Telephone!=="")){
+    // e.target.reset();
+    this.setState({necessary_inputs:"Ok"})
     axios.post(this.proxyurl+'/cafe/create_cafe/',JSON.stringify(data),{headers:{
       'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
       'Accept' : 'application/json',
@@ -190,6 +206,9 @@ class Cafe extends React.Component {
     {
       console.log(error.respose+"errrr")
     })
+  }
+else
+this.setState({necessary_inputs:"!Ok"})
   };
 
   onSearchgame = (value) => {
@@ -251,8 +270,7 @@ class Cafe extends React.Component {
               onChange={(this.onChange, this.nameChange)}
             />
           </Form.Item>
-          {/* <p className ="ant-form-item-extra" >{this.state.msg==="A cafe with that name already exists."? 
-        "A cafe with that name already exists.":""}</p> */}
+          
           <Form.Item
             name="Description"
             label={
@@ -266,7 +284,7 @@ class Cafe extends React.Component {
             rules={[
               {
                 required: true,
-                message: "Please input cafename!",
+                message: "Please input cafe address and some necessary description !",
                 whitespace: true,
               },
             ]}
@@ -277,7 +295,7 @@ class Cafe extends React.Component {
               name="Description"
               onChange={(this.onChange, this.descriptionChange)}
             />
-          </Form.Item>
+            </Form.Item>
            <Form.Item
             label={
               <span>
@@ -363,6 +381,13 @@ class Cafe extends React.Component {
                 </Tooltip>
               </span>
             }
+            rules={[
+              {
+                required: true,
+                message: "Please input cafe address and some necessary description !",
+                whitespace: true,
+              },
+            ]}
           >
             <Input
               style={{ width: 240 }}
@@ -393,8 +418,8 @@ class Cafe extends React.Component {
           <Form.Item
             style={{ display: "inline"}}
             className="upload_img"
-          >
-           {/* <Picture></Picture> */}
+          ><p style={{color:'white', width:'640px'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
+             </p>
              <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
@@ -406,17 +431,10 @@ class Cafe extends React.Component {
                 {" "}
                 {fileList.length >= 20 ? null : uploadButton}
            <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
-          <Modal
-                        visible={previewVisible}
-                        title={previewTitle}
-                        footer={null}
-                        onCancel={this.handleCancel}
-                    >
-                        <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal> </Upload> 
+ </Upload> 
           </Form.Item>
-          <Form.Item className="cafe_map">
-            <CafeMap />
+          <Form.Item className="cafe_map" onChange={this.onChange}>
+            <CafeMap onSelect={this.mapChange} {...this.state}/>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button
@@ -426,17 +444,28 @@ class Cafe extends React.Component {
             >
               <span
                 class={
-                  this.state.loggedIn === "logging in"
+                  this.state.necessary_inputs === "Ok"
                     ? "spinner-border spinner-border-sm"
-                    : ""
+                    : "all"
                 }
-                role={this.state.loggedIn === "logging in" ? "status" : ""}
-                aria-hidden={this.state.loggedIn === "logging in" ? "true" : ""}
+                role={this.state.necessary_inputs === "Ok"
+                ? "spinner-border spinner-border-sm"
+                : "all"}
+                aria-hidden={this.state.necessary_inputs === "Ok"
+                ? "spinner-border spinner-border-sm"
+                : "all"}
               ></span>
-              {this.state.loggedIn === "logging in"
+              {this.state.necessary_inputs === "Ok"
                 ? "Loading..."
                 : "Add Caffe"}
             </Button>
+            <p style={{color:"red"}}>{
+                  this.state.necessary_inputs === "Ok"
+                    ? ""
+                    : ""
+            }{ this.state.necessary_inputs === "!Ok"
+            ? "*all nessecory inputs should write"
+            : ""}</p>
           </Form.Item>
         </Form>
       </div>
