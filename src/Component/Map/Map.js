@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../../Style/map.css';
 import Mapir from 'mapir-react-component';
+import axios from 'axios';
 const Map = Mapir.setToken({
     transformRequest: url => {
         return {
@@ -13,6 +14,7 @@ const Map = Mapir.setToken({
     }
 });
  class CafeMap extends React.Component {
+  proxyurl= "http://localhost:8010/proxy";
     constructor(props) {
         super(props);
         this.state = {
@@ -23,10 +25,13 @@ const Map = Mapir.setToken({
         this.reverseFunction = this.reverseFunction.bind(this);
     }
     state={
-        cafe_lon:"",
-        cafe_lat:""
+        cafe_lon:"111",
+        cafe_lat:"",
+        cafe_city:""
 }
     reverseFunction(map, e) {
+        this.setState({cafe_lat:e.lngLat.lat})
+        this.setState({cafe_lon:e.lngLat.lng})
         var url = `https://map.ir/reverse/no?lat=${e.lngLat.lat}&lon=${e.lngLat.lng}`
         fetch(url,
             {
@@ -36,7 +41,22 @@ const Map = Mapir.setToken({
                 }
             })
             .then(response => response.json())
-            .then(data => { console.log(data) })
+            .then(data => { 
+              this.setState({cafe_city:data.address.split('،')[1]})
+              this.setState({cafe_lat:e.lngLat.lat})
+              this.setState({cafe_lon:e.lngLat.lng})
+                const mapdata={
+                    latitude: e.lngLat.lat,
+                    longitude: e.lngLat.lng,
+                    city:this.state.cafe_city
+                }
+                console.log(data.address.split('،')[1])
+                localStorage.setItem('lat',e.lngLat.lat)
+                localStorage.setItem('lng',e.lngLat.lng)
+                localStorage.setItem('city',data.address.split('،')[1])
+
+               
+            })
         const array = [];
         array.push(<Mapir.Marker
             coordinates={[e.lngLat.lng, e.lngLat.lat]}
