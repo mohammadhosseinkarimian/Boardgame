@@ -24,22 +24,6 @@ display: block;
 .body , html {
   height: 100%;
 }
-::placeholder {
-  color: rgb(54, 50, 50);
-  opacity: 0.85;
-}
-[required]::-webkit-input-placeholder { 
-  color: rgb(54, 50, 50);
-  opacity: 0.85;
-}
-[required]::-moz-placeholder { 
-  color: rgb(54, 50, 50);
-  opacity: 0.85;
-}
-[required]::-ms-input-placeholder {
-  color: rgb(54, 50, 50);
-  opacity: 0.85;
-}
 
  .Login_container,
  .Signup_container{

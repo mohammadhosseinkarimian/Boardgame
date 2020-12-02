@@ -1,7 +1,8 @@
 import React from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import './boardstyle.css';
+import '../../Style/design.scss';
+
 import 'antd/dist/antd.css';
 import {
     Form,

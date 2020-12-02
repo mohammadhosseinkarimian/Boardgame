@@ -117,20 +117,20 @@ var currentScrollPos = window.pageYOffset;
               style={{marginLeft: '1%',marginTop: '5%',width: '75px'}}height="44px" />:
                  <img src = {localStorage.getItem('avatar')} style={{marginLeft: '2%',marginTop: '5%',marginBottom: "2%",width: '75px'}}height="44px"/>}
                 
-              <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '-4px'}}/>}
+              <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '2px'}}/>}
               style={{height: "6%" ,marginTop: "4%", marginBottom: "5%"}}>
       
       <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
             </Menu.Item >
-            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '-3px'}}/>}>
+            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
             <NavLink to="/homePage/:id"> Home</NavLink> 
 
             </Menu.Item>
-            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-6px'}}/>}>
+            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
            <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
             
-            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
+            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
               <NavLink to ='/'>Exit</NavLink>
             </Menu.Item>
           </Menu>
