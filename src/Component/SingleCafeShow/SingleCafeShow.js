@@ -3,7 +3,7 @@ import Axios from "axios";
 import Mapir from 'mapir-react-component';
 import 'antd/dist/antd.css';
 import { GiTwoCoins } from "react-icons/gi";
-import { FaChess } from "react-icons/fa";
+import { FaChess, FaMapMarkerAlt } from "react-icons/fa";
 import { Row, Col, Image, Carousel } from 'antd';
 import '../../Style/SingleCafeShow.css'
 const Map = Mapir.setToken({
@@ -22,7 +22,7 @@ const Map = Mapir.setToken({
 
 class SingleCafeShow extends React.Component {
     state = {
-        id: "62",
+        id: "105",
         name: "",
         owner: "",
         description: "",
@@ -33,22 +33,17 @@ class SingleCafeShow extends React.Component {
         phone_number: "",
         gallery: "",
         latitude: "",
-        longitude: ""
+        longitude: "",
+        Gamestring: "",
 
-        // id: "02",
-        // name: "lamiz",
-        // owner: "rajabi",
-        // description: "asdfghjkl;oiuytrexcvbnm,;lkjuytredtyuio.,mdedrtuiop;lkjgfdyui",
-        // games: ["monopoly", "pantagon", "mench"],
-        // images: ["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png", "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],
-        // price: "12000",
-        // latitude: "35.6892",
-        // longitude: "51.3890"
     }
 
 
     componentDidMount() {
-        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/'+this.state.id, {
+        const id=window.location.href.substring(32);
+        //const id = this.props.match.params.id
+        console.log(id)
+        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + id+"/", {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Credentials': true,
@@ -64,6 +59,9 @@ class SingleCafeShow extends React.Component {
                 this.setState({ owner: cafe.owner });
                 this.setState({ description: cafe.description });
                 this.setState({ games: cafe.games });
+                this.state.games.forEach(element => {
+                    this.setState({Gamestring: this.state.Gamestring+ element.name + ","}) 
+                });
                 this.setState({ gallery: cafe.gallery });
                 this.setState({ price: cafe.price });
                 this.setState({ open_time: cafe.open_time });
@@ -71,6 +69,7 @@ class SingleCafeShow extends React.Component {
                 this.setState({ phone_number: cafe.phone_number });
                 this.setState({ latitude: cafe.latitude });
                 this.setState({ longitude: cafe.longitude });
+                console.log(this.state.gallery)
 
             })
     }
@@ -83,28 +82,26 @@ class SingleCafeShow extends React.Component {
                 <Row>
                     <Col span={8}>
                         <Carousel autoplay className="Gallery">
-                            <div>
-                                <Image
-                                    width="auto"
-                                    height="auto"
-                                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                />
-                            </div>
-                            <div>
-                                <Image
-                                    width="auto"
-                                    height="auto"
-                                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                />
-                            </div>
+                            {
+                                this.state.gallery.split('**').forEach(element => {
+                                    <div>
+                                        <Image
+                                            width="auto"
+                                            height="auto"
+                                            src={this.state.gallery.split('**')[0]}
+                                        />
+
+                                    </div>
+                                })
+                            }
                         </Carousel>
                     </Col>
                     <Col span={16}>
                         <div className="cafe_info">
                             <h1 >{this.state.name}</h1>
-                            <h2><FaChess />  {this.state.games.join(' , ')}</h2>
+                            <h2><FaChess /> {this.state.Gamestring}</h2>
                             <h3><GiTwoCoins /> {this.state.price}</h3>
-                            <h4>   {this.state.description}</h4>
+                            <h4> <FaMapMarkerAlt />  {this.state.description}</h4>
 
                             <div>
                                 <Mapir className="map"
