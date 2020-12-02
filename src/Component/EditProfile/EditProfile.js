@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import '../../Style/design.scss';
 import Av from './avatar.png';
 import {
   UserOutlined
@@ -15,20 +15,13 @@ import {
     DatePicker
 } from "antd";
 const formItemLayout = {
-    labelCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 8,
-        },
-    },
+ 
     wrapperCol: {
         xs: {
-            span: 24,
+            span: 0,
         },
         sm: {
-            span: 16,
+            span: 24,
         },
     },
 };
@@ -36,11 +29,11 @@ const tailFormItemLayout = {
     wrapperCol: {
         xs: {
             span: 24,
-            offset: 0,
+            offset: 8,
         },
         sm: {
-            span: 16,
-            offset: 8,
+            span: 24,
+            offset: 0,
         },
     },
 };
@@ -268,23 +261,23 @@ componentDidMount() {
                 <Form
                     {...formItemLayout}
                     name="Edit"
-                    
+                     autocomplete="off"
+
                     onFinish={this.onSubmit}
                     scrollToFirstError
                 >
 
 
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="General" key="1">
+                    <Tabs defaultActiveKey="1"  >
+                        <TabPane tab="General" key="1" >
                             <FormItem><input type="file" onChange={this.Upload}  style={{display: 'none'}}
                             ref={fileInput=>this.fileInput=fileInput}></input>
                             <button  onClick={()=>this.fileInput.click()}
-                            style={{marginLeft: '15%'}}>choose image</button>
+                            style={{float: 'left'}}>choose image</button>
        
-        <img src={this.state.img===''?Av:this.state.img} style={{marginLeft: '10%'}}height="50px" ></img></FormItem>
+        <img src={this.state.img===''?Av:this.state.img} style={{float: 'right'}}height="50px" ></img></FormItem>
                         <Form.Item
                         name="firstname"
-                        label="FirstName"
                         rules={[
                             {
                                 required: false,
@@ -292,12 +285,11 @@ componentDidMount() {
                             }
                         ]}
                     >
-                        <Input name="firstname" placeholder={this.state.firstname===""?"optional":this.state.firstname+" (optional)"} onChange={this.firstChange} />
+                        <Input name="firstname" placeholder={this.state.firstname===""?"first name":this.state.firstname+" (optional)"} onChange={this.firstChange} />
                     </Form.Item>
 
                     <Form.Item
                         name="lastname"
-                        label="LastName"
                         rules={[
                             {
                                 required: false,
@@ -305,13 +297,12 @@ componentDidMount() {
                             }
                         ]}
                     >
-                        <Input name="lastname" placeholder={this.state.lastname===""?"optional":this.state.lastname+" (optional)"} onChange={this.lastChange} />
+                        <Input name="lastname" placeholder={this.state.lastname===""?"last name":this.state.lastname+" (optional)"} onChange={this.lastChange} />
                     </Form.Item>
 
 
                     <Form.Item
                         name="email"
-                        label="E-mail"
                         rules={[
                             {
                                 type: "email",
@@ -326,10 +317,9 @@ componentDidMount() {
                     </Form.Item>
 
 
-
-                    <Form.Item
+                <span >
+                    <Form.Item 
                         name="year"
-                        label="Birth Year"
                         rules={[
                             {
                                 type:"date" ,
@@ -340,15 +330,10 @@ componentDidMount() {
                             },
                         ]}
                     >
-                         <DatePicker name="year"  onChange={this.onyearChange} picker="year" />
-                    </Form.Item>
-                    <p className ="ant-form-item-extra" >{this.state.msg==="You haven't changed any information."?
-    "You haven't changed any information.":""}</p>
-    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
-    "Something went wrong please try again.":""}</p>
-
-                <Form.Item {...tailFormItemLayout}>
-                    <button type="button" class="btn btn-primary" 
+                         <DatePicker style={{width: '100%'}} name="year"  onChange={this.onyearChange} picker="year" />
+                    </Form.Item></span>
+                    <Form.Item {...tailFormItemLayout}>
+                    <button type="button"  class="btn btn-primary" style={{width: '100%', marginLeft: '0%'}}
   
                         onClick={this.onSaveGeneral}  name="submit">
     
@@ -359,9 +344,15 @@ componentDidMount() {
                         aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
 
                         </span>
-                        {this.state.loggedIn==="logging in" ? "Loading...":"Save_changes" }
+                        {this.state.loggedIn==="logging in" ? "Loading...":"Save changes" }
                     </button>
                     </Form.Item>
+                    <p className ="ant-form-item-extra" >{this.state.msg==="You haven't changed any information."?
+    "You haven't changed any information.":""}</p>
+    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
+    "Something went wrong please try again.":""}</p>
+
+                
                 <p className ="ant-form-item-extra2 "  >{this.state.msg==="done"?
                     "Changes have been saved successfuly":""}</p>
 
@@ -369,10 +360,9 @@ componentDidMount() {
 
 
 
-                    <TabPane tab="Password" key="2">
+                    <TabPane tab="Password" key="2" style={{float: 'right'}}>
                     <Form.Item
                         name="password"
-                        label="Password"
                         rules={[
                             {
                                 required: true,
@@ -380,12 +370,11 @@ componentDidMount() {
                             },
                         ]}
                     >
-                        <Input.Password name="password" onChange={this.passChange} />
+                        <Input.Password name="password" placeholder='current password' onChange={this.passChange} />
                     </Form.Item>
 
                     <Form.Item
                         name="newPassword"
-                        label="NewPassword"
                         rules={[
                             {
                                 required: true,
@@ -406,13 +395,12 @@ componentDidMount() {
                         ]}
                         hasFeedback
                     >
-                        <Input.Password name="newPassword" onChange={this.newPassChange} />
+                        <Input.Password name="newPassword" placeholder='new password' onChange={this.newPassChange} />
                     </Form.Item>
 
 
                     <Form.Item
                         name="confirm"
-                        label="Confirm Password"
                         dependencies={["newPassword"]}
                         hasFeedback
                         onChange={this.confirmChange}
@@ -434,7 +422,7 @@ componentDidMount() {
                             }),
                         ]}
                     >
-                        <Input.Password />
+                        <Input.Password placeholder='repeat password' />
                     </Form.Item>
                     <p className ="ant-form-item-extra" >{this.state.msg==="Password is not correct!"?
     "Password is incorrect!":""}</p>
@@ -442,7 +430,7 @@ componentDidMount() {
     "Something went wrong please try again.":""}</p>
 
                     <Form.Item {...tailFormItemLayout}>
-                    <button type="button" class="btn btn-primary" 
+                    <button type="button" class="btn btn-primary" style={{width: '100%'}}
   
                         onClick={this.onSavePassword}  name="submit">
     
