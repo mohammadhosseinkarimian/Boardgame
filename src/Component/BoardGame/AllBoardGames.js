@@ -3,7 +3,7 @@ import Axios from "axios";
 import {Link} from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
 import '../../Style/design.scss';
-
+import StarRatings from 'react-star-ratings';
 import 'antd/dist/antd.css';
 import {
   Form,
@@ -27,7 +27,6 @@ const paginationProps = {
   
   
 };
-
 class AllBoardGames extends React.Component {
   state={
       id:"",
@@ -65,18 +64,28 @@ class AllBoardGames extends React.Component {
     return(
 
       <body style={{background: 'transparent',marginTop: '5%',clear: 'both'}} >
-      <List
+        <h4 style={{ letterSpacing: '1.2px',marginLeft: '5%'}}>Choose the gameboard you want from the list below(Sorted by BGG Rating Descending).</h4>
+        <h6 style={{ letterSpacing: '1.1px',marginLeft: '5%'}}>Tap on image to view boardgame's profile.</h6>
+      <List style={{marginTop: '3%'}}
       size="large"
       itemLayout="horizontal"
       pagination={paginationProps}
       dataSource={this.state.games}
       renderItem={item => (
-        <List.Item style={{border: 'transparent'}}>
+        <List.Item >
           <List.Item.Meta 
-            avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
-            title={<Link to={'/allgames/:'+item.id} style={{color: 'whitesmoke'}}  >{item.name}</Link>}
-            description={<p style={{color: 'silver',fontSize: '10'}}>{`${item.rate}`.substring(0,3)+" "}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
-
+            avatar={<img src={item.image} style={{width: "100px",height: "110px"}}/>}
+            title={<Link to={'/allgames/:'+item.id}   ><h5>{item.name} </h5></Link>}
+            description={<div>
+              
+              <StarRatings
+              rating={parseFloat( item.rate)}
+              starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+              numberOfStars={10}
+              name='rating' 
+            />
+            <h7></h7>
+             </div>}
 />
         </List.Item>
       )}
