@@ -1,5 +1,5 @@
 $primary:hsl(22, 100%, 50%);
-
+$extra: rgb(245, 176, 72);
 $background:#212121;//main background
 $layout1:#282828;//sider
 $layout2:#303030;//header
@@ -10,7 +10,7 @@ $layout7:#676767;
 $layout8:#818181;
 $layout9:#949494; //pagination next key
 
-$maintext:white;
+$maintext:rgb(255, 255, 255);
 $secondtext:rgb(218, 212, 212);
 $bar:white;
 $barOnhover:silver;
@@ -26,8 +26,19 @@ $barOnhover:silver;
     margin-top: 5px;    
 }
 .h5, h5 {
-    color:$secondtext;
+    color:$maintext;
     margin-top: 2px;    
+}
+.h4, h4{
+  color:$maintext !important;
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+}
+.h6, h6{
+  color:$maintext !important;
+  opacity: 0.9;
+  font-size: 17px;
+  font-family: "Times New Roman", Times, serif;
 }
 .container{
     width: 25%;
@@ -40,7 +51,24 @@ $barOnhover:silver;
     
   }
 
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
   
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $layout4;  
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $layout6;  border-radius: 40px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $layout7; 
+  }
   @media (max-width:480px) {
     .member {
       flex: 0 100%
@@ -199,12 +227,22 @@ $barOnhover:silver;
     background: $background;
     min-height: 100%;
   }
-  
-  .ant-list-item-meta{
-    border: transparent;
-    color: $maintext !important;
+  .ant-list-lg .ant-list-item {
+    padding: 1% 1%;
+}
+.ant-list-split .ant-list-item {
+  border: 1px solid $layout6;
+  width: 90%;
+  margin-left: 5%;
+}
+  .ant-list-items{
   }
-
+  .ant-list-item{
+    border-color: $layout5 !important;
+  }
+  .ant-list-item-meta{
+    margin-left: 0px;
+  }
 //edit profile
 
  .EditProfile_container{
