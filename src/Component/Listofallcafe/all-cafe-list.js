@@ -54,7 +54,7 @@ class AllCafe extends React.Component {
          })
        })
        .catch(error=>{
-         alert("qqqqq")
+         //alert("qqqqq")
          console.log(error.response)
        })
   }
@@ -76,11 +76,11 @@ class AllCafe extends React.Component {
       pagination={paginationProps}
       dataSource={this.state.cafe}
       renderItem={item => (
-        <List.Item style={{border: 'transparent'}}>
+        <List.Item style={{border: 'transparent'}} className="cafe_part">
           <List.Item.Meta 
-            avatar={<img src={item.gallery.split('**')[1]} style={{width: "120px",height: "80px"}} className="cafe_img"/>}
-            title={<p style={{color: 'whitesmoke' , fontSize:'20px'}}>{item.name}</p>}
-            description={<p key={item.close_time} style={{color: 'whitesmoke',fontSize: '15px'}}><ClockCircleFilled  /> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p><PhoneFilled /> {`${item.phone_number}`}</p><i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
+            avatar={<img src={item.gallery.split('***')[0]} style={{width: "200px",height: "150px"}} className="cafe_img"/>}
+            title={<p style={{color: 'whitesmoke' } }className="cafe_name">{item.name}</p>}
+            description={<p key={item.close_time} className="cafe_desc" style={{color: 'whitesmoke', marginTop:'2px'}}><ClockCircleFilled  className="icon"/> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p className="cafe_desc"><PhoneFilled  className="icon"/>{`${item.phone_number}`}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p></p>}
           
 />  <Divider style={{background:'white'}} />
         </List.Item>
