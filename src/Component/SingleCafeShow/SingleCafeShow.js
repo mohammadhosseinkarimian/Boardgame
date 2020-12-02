@@ -40,7 +40,10 @@ class SingleCafeShow extends React.Component {
 
 
     componentDidMount() {
-        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + this.state.id, {
+        const id=window.location.href.substring(32);
+        //const id = this.props.match.params.id
+        console.log(id)
+        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + id+"/", {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Credentials': true,
@@ -57,7 +60,7 @@ class SingleCafeShow extends React.Component {
                 this.setState({ description: cafe.description });
                 this.setState({ games: cafe.games });
                 this.state.games.forEach(element => {
-                    this.state.Gamestring += element.name + ","
+                    this.setState({Gamestring: this.state.Gamestring+ element.name + ","}) 
                 });
                 this.setState({ gallery: cafe.gallery });
                 this.setState({ price: cafe.price });

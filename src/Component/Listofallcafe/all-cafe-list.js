@@ -5,18 +5,7 @@ import { Link } from "react-bootstrap/lib/Navbar";
 import {ClockCircleFilled ,PhoneFilled,CoffeeOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import {
-  Form,
-  Input,
-  Tooltip,
-  Select,
-  AutoComplete,
-  Button,
-  Collapse,
-  Card ,
   List,
-  Avatar, 
-  Skeleton,
-  Pagination ,
   Divider
 } from "antd";
 const paginationProps = {
@@ -79,7 +68,7 @@ class AllCafe extends React.Component {
         <List.Item style={{border: 'transparent'}}>
           <List.Item.Meta 
             avatar={<img src={item.gallery.split('**')[1]} style={{width: "120px",height: "80px"}} className="cafe_img"/>}
-            title={<p style={{color: 'whitesmoke' , fontSize:'20px'}}>{item.name}</p>}
+            title={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke' , fontSize:'20px'}}>{item.name}</p></Link>}
             description={<p key={item.close_time} style={{color: 'whitesmoke',fontSize: '15px'}}><ClockCircleFilled  /> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p><PhoneFilled /> {`${item.phone_number}`}</p><i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
           
 />  <Divider style={{background:'white'}} />
