@@ -184,7 +184,7 @@ class Cafe extends React.Component {
       close_time:this.state.Close_time,
       phone_number:this.state.Telephone,
       games:this.state.List_of_board_games,
-      gallery:base64.substring(1),
+      gallery:base64.substring(3),
       latitude:localStorage.getItem('lat'),
       longitude:localStorage.getItem('lng'),
       city:localStorage.getItem('city')
