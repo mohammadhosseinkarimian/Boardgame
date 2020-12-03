@@ -3,8 +3,8 @@ import Axios from "axios";
 import Mapir from 'mapir-react-component';
 import 'antd/dist/antd.css';
 import { GiTwoCoins,GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
-import {  FaMapMarkerAlt,FaClock } from "react-icons/fa";
-import { Row, Col,  Carousel ,Tag} from 'antd';
+import {  FaMapMarkerAlt,FaClock,FaPenNib } from "react-icons/fa";
+import { Row,  Carousel ,Tag} from 'antd';
 import '../../Style/SingleCafeShow.css'
 import '../../Style/design.scss';
 const Map = Mapir.setToken({
@@ -23,7 +23,7 @@ const Map = Mapir.setToken({
 
 class SingleCafeShow extends React.Component {
     state = {
-        id: "110",
+        id: "",
         name: "",
         owner: "",
         description: "",
@@ -43,9 +43,9 @@ class SingleCafeShow extends React.Component {
 
 
     componentDidMount() {
-        //const id=window.location.href.substring(32);
+        const id=window.location.href.substring(32);
         //const id = this.props.match.params.id
-        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + this.state.id + "/", {
+        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + id + "/", {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Credentials': true,
@@ -85,10 +85,9 @@ window.location.href='/allgames/:'+id
     render() {
         return (
             <div className="SingleCafeShow_container">
-
-                
                     <div className="cafe_info">
-                        <h2 >{this.state.name}</h2>
+                        <h2  >{this.state.name}</h2>
+                        <Row>
                         <div className="carousel_container">
                             <Carousel autoplay className="Gallery">
                                 {
@@ -98,19 +97,21 @@ window.location.href='/allgames/:'+id
                                 }
                             </Carousel>
                         </div>
-                        <h5 display='inline'> <GiPerspectiveDiceSixFacesSix  />  Board Games</h5>
+                       
+                        <div >
                         {
                             this.state.games.map(item=>
 
-                                <Tag onClick={()=>this.onclicktag(item.id)}> {item.name} </Tag>
+                            <Tag icon={<GiPerspectiveDiceSixFacesSix  />} onClick={()=>this.onclicktag(item.id)}>  {item.name} </Tag>
                             )
                         }
-                         
+                        <h6><FaPenNib /> {this.state.description}</h6>
                         <h5><GiTwoCoins /> {this.state.price}</h5>
                         <h6> <FaMapMarkerAlt />  {this.state.city}</h6>
                         <h6> <FaClock />{this.state.open_time} to {this.state.close_time}</h6>
-                        <h6> {this.state.description}</h6>
-
+                       
+                        </div>
+                        </Row>
                         <div>
                             <Mapir className="map"
                                 center={[this.state.longitude, this.state.latitude]}
