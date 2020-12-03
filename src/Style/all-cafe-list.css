@@ -15,29 +15,23 @@ body {
   border-radius: 1.5%;
   overflow: auto;
 }
-.ant-card-body,
-.ant-card-bordered,
-ul.ant-card-actions,
-.navbar-link {
-  background-color: #212121;
-  color: #fff;
-  text-align: center;
-}
-.ant-card-head-title{
-  color: #fff;
 
-}.cafe_card {
-  display: block;
-  float: left;
-  margin: 1%;
-  border: 2px solid #212121;
-  border-radius: 1%;
-}
-.ant-card-cover > *{
-  width: 95%;
-  margin-left: 2.5%;
-  margin-top: 10%;
+.cafe_name{
+margin-left: 10%;
+margin-top: 20%;
+display: inline;
+font-size: 30px;
 }
 .cafe_img{
-  margin-top: 10%;
+margin-bottom: 15%;
+margin-left: 10%;
+}
+.cafe_desc{
+  font-size: 17px;
+  margin-left: 10%;
+  display: inline;
+}
+.icon{
+ 
+  margin-right: 1%;
 }

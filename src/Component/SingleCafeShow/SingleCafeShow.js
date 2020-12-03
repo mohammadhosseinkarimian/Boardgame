@@ -6,6 +6,7 @@ import { GiTwoCoins,GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
 import {  FaMapMarkerAlt,FaClock } from "react-icons/fa";
 import { Row, Col,  Carousel ,Tag} from 'antd';
 import '../../Style/SingleCafeShow.css'
+import '../../Style/design.scss';
 const Map = Mapir.setToken({
     transformRequest: (url) => {
         return {
@@ -84,7 +85,6 @@ window.location.href='/allgames/:'+id
     render() {
         return (
             <div className="SingleCafeShow_container">
-
 
                 
                     <div className="cafe_info">

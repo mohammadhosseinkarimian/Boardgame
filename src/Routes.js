@@ -1,44 +1,244 @@
 import React from 'react';
 import Signup from "./Component/Signup/Signup";
 import Login from "./Component/Login/Login";
-import { BrowserRouter as Router, Route, useParams } from 'react-router-dom';
-import HomePage from './Component/homepage';
+import './Style/design.scss';
+import { BrowserRouter as Router, Redirect, Route,Link, useParams, NavLink } from 'react-router-dom';
+import Av from './Component/EditProfile/avatar.png';
+import AllBoardGames from './Component/BoardGame/AllBoardGames'
+import SingleGame from './Component/BoardGame/SingleGame';
+import AddPlay from './Component/Play/AddPlay';
+import{
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  EditOutlined, 
+  MenuOutlined 
+} from "@ant-design/icons";
+import HomeGames from './Component/BoardGame/HomeGames';
 import EditProfile from './Component/EditProfile/EditProfile';
-import AllCafe from './Component/Listofallcafe/all-cafe-list'
-import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow'
+import AllCafe from './Component/Listofallcafe/all-cafe-list';
+import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow';
+import Cafe from './Component/Cafe-form/cafe-form';
 import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
-
+import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
+import './Component/BoardGame/allStyle.css';
+import Axios from 'axios';
+const { Header, Content, Footer, Sider } = Layout;
 class Routes extends React.Component {
-    render() {
-        return (
-            <Router>
-                <Route exact path="/">
-                    <Login />
-                </Route>
-                <Route path="/homePage/:id">
-                    <HomePage />
-                </Route>
-                <Route path="/editProfile/:id">
-                    <EditProfile />
-                </Route>
+    state = {
+        accessed:false,
+        collapsed: false,
+        img:'',
+        disp:'none',
+        username:localStorage.getItem('user')
+      };
+     
+    data={
+      refresh:localStorage.getItem('refresh')
+    }
+    edit=()=>{
+      <Link to={"/editProfile/:"+localStorage.getItem('id')}/>
+    }
+    proxyurl= "http://localhost:8010/proxy";
 
-                <Route path="/signup">
-                    <Signup />
-                </Route>
+  getInfo=(e)=>
+  {
+      
+ 
+      
+      Axios.get(this.proxyurl+'/auth/edit_profile/',{headers:{
+          'Content-Type' : 'application/json;charset=utf-8',
+          'Access-Control-Allow-Credentials':true,
+'Accept' : 'application/json',
+'Authorization' :`Bearer ${localStorage.getItem('access')}`
+      }}
+  ).then((res)=>{  
+      
+      localStorage.setItem('avatar',res.data.avatar);
+ 
+  
+  } )
+  .catch((error)=>
+  {
+  
 
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <switch>
-                <Route exact path="/allcafes" component={AllCafe} />
-                <Route exact path="/allcafes/:id" component={SingleCafeShow} / >
-                </switch>
+          } 
+          )
+      
+     
+  
+  }
+  onCollapse = (collapsed) => {
+    this.setState({ collapsed });
+  };
+   componentDidMount(){
+      
+     Axios.post('http://localhost:8010/proxy/auth/token/refresh/',JSON.stringify(this.data),
+    {
+      headers:{'Content-Type':'application/json'}
+    }).then((res)=>{
+      localStorage.setItem('access',res.data.access);
+      this.setState({accessed:true});
+      this.getInfo();
+
+    }).catch()
+    
+   }
+   exit=()=>{
+     this.setState({accessed:false})
+     localStorage.clear();
+    
+   }
+
+    cntrl=()=>{
+      const { collapsed } = this.state;
+      var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("head").style.top = "0";
+  } else {
+    document.getElementById("head").style.top = "-67px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+      return (
+        <Layout style={{ minHeight: "100vh" ,backgroundColor: "#282828"}}>
+          <Sider
+            collapsible
+            
+            collapsed={collapsed}
+            onCollapse={this.onCollapse}
+            style={{backgroundColor: "#282828" ,display: this.state.disp}}
+
+          >
+            <Menu
+             className="side-menu"
+              theme="dark"
+              mode="inline"
+              style={{ position: "sticky" }}>
+                 {localStorage.getItem('avatar')===''?<img src={Av} 
+              style={{marginLeft: '1%',marginTop: '5%',width: '75px'}}height="44px" />:
+                 <img src = {localStorage.getItem('avatar')} style={{marginLeft: '2%',marginTop: '5%',marginBottom: "2%",width: '75px'}}height="44px"/>}
                 
-            </Router>
-        )
+              <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '2px'}}/>}
+              style={{height: "6%" ,marginTop: "4%", marginBottom: "5%"}}>
+      
+      <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
+            </Menu.Item >
+            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
+            <NavLink to="/homePage/:id"> Home</NavLink> 
+
+            </Menu.Item>
+            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
+           <NavLink to='/addplay/'>Create play</NavLink>   
+            </Menu.Item>
+            
+            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
+              <NavLink to ='/'>Exit</NavLink>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout
+          className="site-layout"
+          style={{ margin: "0 0" }}
+        >
+         
+            <Header
+              id="head"
+              className="ant-layout-header"
+              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%" }}
+            >
+             <span style={{float: 'left',marginTop: 'auto'}}>
+             <MenuOutlined className='bar' style={{verticalAlign: 'middle'}} onClick={()=>this.setState({disp: 'inline'})} />
+             </span>
+              <span style={{margin: "auto"}}> GoardBame</span>
+              
+             
+            </Header>
+      
+          <Content className="ant-layout-content" style={{ margin: "0 0" }}>
+           <Breadcrumb style={{ margin: "0px 0" }}>
+             {/*   <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
+            </Breadcrumb> 
+            <div
+              className="site-layout-background"
+              style={{marginTop: "4%", minHeight: "100vh" ,overflow: 'hidden',height: 'max-content'}}
+            >
+      <switch>
+       <Route exact path="/homePage/:id"   component={HomeGames}/>
+       <Route exact path="/editProfile/:id" component={EditProfile} />
+       <Route exact path="/allgames" component={AllBoardGames} />
+       <Route exact path="/allgames/:id" component={SingleGame} />
+       <Route exact path="/allcafes" component={AllCafe} />
+       <Route exact path="/allcafes/:id" component={SingleCafeShow} />
+       <Route exact path="/cafeform" component={Cafe} />
+       <Route exact path="/ownedcafe" component={OwnedCafe} />
+
+       <Route exact path="/addplay/" component={AddPlay} />
+
+       <Route exact path='/'>
+         <Redirect to ="/homePage/:id" />
+         </Route>
+         <Route exact path='/signup'>
+         <Redirect to ="/homePage/:id" />
+         </Route>
+     
+       </switch>
+   
+    </div>
+  </Content>
+  
+  </Layout>
+</Layout>);
+  
+}
+    render() {
+     if(!this.state.accessed)
+     {
+       return(
+        <Router>
+        <switch>
+        <Route exact path='/'>
+          <Login/>
+        </Route>
+        <Route exact path="/homePage/:id">
+         <Redirect to = '/' />
+         </Route>
+
+        <Route exact path='/signup'>
+          <Signup/>
+        </Route>
+        </switch>
+        </Router>
+       )
+      }
+      else{
+
+      }
+      return(
+     
+      <Router>
+          <switch>
+          <Route component={this.cntrl}/>
+          
+
+          </switch>
+       
+    
+    </Router>
+          
+      );
+
+      }
+       
+               
+            
+        
     }
 
-}
+
 
 export default Routes;
