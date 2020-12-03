@@ -1,0 +1,404 @@
+$primary:hsl(22, 100%, 50%);
+$extra: rgb(245, 176, 72);
+$background:#212121;//main background
+$layout1:#282828;//sider
+$layout2:#303030;//header
+$layout4:#333;//on hover
+$layout5:#414141;//on selection
+$layout6:#575757;
+$layout7:#676767;
+$layout8:#818181;
+$layout9:#949494; //pagination next key
+
+$maintext:rgb(255, 255, 255);
+$secondtext:rgb(218, 212, 212);
+$bar:white;
+$barOnhover:silver;
+
+.body {
+    margin: 0;
+    width:100%;
+    overflow: hidden;
+  }
+.h3, h3 {
+   
+    color: $maintext;
+    margin-top: 5px;    
+}
+.h5, h5 {
+    color:$maintext;
+    margin-top: 2px;    
+}
+.h4, h4{
+  color:$maintext !important;
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+}
+.h6, h6{
+  color:$maintext !important;
+  opacity: 0.9;
+  font-size: 17px;
+  font-family: "Times New Roman", Times, serif;
+}
+.container{
+    width: 25%;
+    height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+    max-height: "200px";
+    
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $layout4;  
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $layout6;  border-radius: 40px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $layout7; 
+  }
+  @media (max-width:480px) {
+    .member {
+      flex: 0 100%
+    }
+}
+.name {
+    position: absolute;
+    bottom: 3px;
+}
+
+//pagkinate
+.ant-pagination{
+  width: 100% !important;
+  margin: auto;
+  text-align: center !important;
+}
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link,
+.ant-pagination-item,.ant-pagination-jump-prev,.ant-pagination-jump-next {
+    background-color:$layout2;
+  border-radius:6px 50%;
+  border-color: $layout4;
+  color: $secondtext !important;
+}
+.anticon svg ,.ant-pagination-item-ellipsis {
+    margin-bottom: 50%;
+   color: $secondtext !important;
+}
+.ant-pagination-prev .ant-pagination-item-link:hover, .ant-pagination-next .ant-pagination-item-link:hover,.ant-pagination-item:hover
+,.ant-pagination-jump-prev:hover,.ant-pagination-jump-next:hover {  
+   color: $secondtext !important;
+    border-color: $layout6!important;
+}
+.ant-pagination-prev .ant-pagination-item-link:active, .ant-pagination-next .ant-pagination-item-link:active,.ant-pagination-item:active
+,.ant-pagination-jump-prev:active,.ant-pagination-jump-next:active {  
+   color: $secondtext !important;
+    background-color: $layout5!important;
+}
+.ant-pagination-item-active{
+  background-color:$primary;
+  color:$maintext;
+  border-color: $primary !important;
+}
+
+//image in carousel
+.img-with-text {
+  text-align: justify;
+}
+
+.img-with-text img {
+  display: block;
+  margin: 0 auto;
+  margin-top: 13%;
+}
+//carousel
+.carousel-status{
+  visibility: hidden;
+}
+
+.carousel .control-next.control-arrow {
+  right: 42.3% !important;
+  margin-top: 0.1% !important;
+}
+.carousel.carousel-slider .control-arrow {
+  background: $layout2 !important;
+  padding: 1% !important;
+  top: 65% !important;
+  font-size: 24px !important;
+}
+
+.carousel .control-prev.control-arrow{
+  left: 42% !important;
+}
+//home
+.bar{
+    color: $bar;
+    size: 17px;
+    font-size: 20px;
+    margin-bottom: 12px;
+  
+  }
+  .bar:hover{
+    color: $barOnhover;
+    transform: scale(1.3);
+    transform: scale(1.05);
+    transition: 0.5s;
+  }
+  .ant-layout{
+    background-color: $layout1;
+  
+  }
+  .ant-menu{
+    background-color: $layout1;
+  }
+  .ant-menu-item.m-item.ant-menu-item{
+    color: $maintext;
+    background-color: $layout1;
+  }
+  
+  
+  .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline,
+  .ant-menu.ant-menu-dark.ant-menu-inline-collapsed.ant-menu-root.ant-menu-vertical {
+    background:  $layout1;
+  }
+  
+  .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline :hover{
+    background-color: $layout4;
+  }
+  .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline :focus-within{
+   background-color: $layout5;
+  }
+  .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline ::selection{
+    background-color: $layout5 !important;
+   }
+  .ant-menu-item-selected{
+    background-color: $layout5 !important;
+  
+   }
+  /* li.ant-menu-item.m-item.ant-menu-item-active.ant-menu-item-selected {
+    background: #fff;
+  } */
+  
+ 
+  .ant-layout-sider .ant-layout-sider-trigger {
+    appearance: 1s;
+    background: $layout1;  color:$maintext;
+  }
+  
+  /*****************/
+  
+  /******header*****/
+  .ant-layout-header{
+    text-align: center;
+      width: 100%;
+      top: 0;
+    display: block;
+    transition: top 0.3s;
+    position: fixed;
+      margin:0px;
+      font-style: italic;
+      height: 53px;
+      z-index: 99;
+      color: $maintext !important  ;
+    background-color: $layout2 !important;
+  }
+  .site-layout-background {
+    width: 100%;  
+    display: block;
+    background: $background;
+    color:$maintext;
+    }
+    .ant-layout .site-layout {
+      margin:0px;
+    }
+  /*****************/
+  .ant-layout-content{
+    background: $background;
+    min-height: 100%;
+  }
+  .ant-list-lg .ant-list-item {
+    padding: 1% 1%;
+}
+.ant-list-split .ant-list-item {
+  border: 1px solid $layout6;
+  width: 90%;
+  margin-left: 5%;
+}
+  .ant-list-items{
+  }
+  .ant-list-item{
+    border-color: $layout5 !important;
+  }
+  .ant-list-item-meta{
+    margin-left: 0px;
+  }
+//edit profile
+
+ .EditProfile_container{
+    width: 30%;
+    height:auto;
+    position: relative;
+    border: 2px solid $layout5;
+    margin: 15% auto ;
+    margin-top: 10% ;
+    margin-bottom: 2%;
+    padding:4% 4% ;
+    background-color: $layout4;
+ 
+ 
+  }
+.ant-input::placeholder {
+  color: $maintext !important;
+}
+.ant-input:focus, .ant-input-focused ,.ant-form-item-has-error .ant-input, .ant-form-item-has-error .ant-input-affix-wrapper,
+ .ant-form-item-has-error .ant-input:hover, .ant-form-item-has-error .ant-input-affix-wrapper:hover{
+  background-color: $layout6 !important;
+    border-color: $layout7 !important;
+    color: $maintext !important;
+}
+.ant-input{
+  background-color: $layout6;
+  border-color: $layout7;
+  color: $maintext;
+  
+}
+.ant-form-item :hover  {
+  border-color: $layout9 !important;
+}
+::placeholder {
+  color: $maintext !important;
+  opacity: 0.85;
+}
+[required]::-webkit-input-placeholder { 
+  color: $maintext !important;  opacity: 0.85;
+}
+[required]::-moz-placeholder { 
+  color: $maintext !important;  opacity: 0.85;
+}
+[required]::-ms-input-placeholder {
+  color: $maintext !important;  opacity: 0.85;
+}
+
+.ant-picker , .ant-picker-clear{
+  background-color: $layout6;
+  border-color: $layout6;
+}
+.ant-picker :hover{
+  border-color: $layout7 !important;
+}
+.ant-picker-input > input{
+  color: $maintext;
+}
+.ant-picker-panel{
+  background-color: $layout7 !important;
+}
+
+.ant-picker-header{
+  color: $secondtext !important;
+}
+.ant-picker-header :hover{
+  color: $maintext !important;
+}
+.ant-picker-super-next-icon{
+  color: $secondtext;
+}
+.ant-picker-cell-inner{
+  color: $secondtext;
+  
+}
+.ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
+ .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) .ant-picker-cell-inner {
+  background: $layout8;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+ .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+ .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
+  color: $maintext;
+  background-color: $primary !important;
+}
+.ant-picker-super-prev-icon{
+  color: $secondtext;
+}
+.ant-tabs-tab-btn{
+  color: $maintext;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $primary;
+}
+.ant-tabs-tab-btn:focus, .ant-tabs-tab-remove:focus, .ant-tabs-tab-btn:active, .ant-tabs-tab-remove:active {
+  color: $primary;
+}
+ .ant-tabs-ink-bar-animated{
+  background-color: $primary;
+} 
+.ant-tabs-dropdown-menu-item ,.ant-tabs-dropdown-menu{
+  background-color: $layout7;
+  color: $maintext !important;
+}
+.ant-tabs-dropdown-menu-item:hover{
+  background-color: $layout7;
+}
+.ant-input-affix-wrapper.ant-input-password{
+  background-color: $layout6;
+  border-color: $layout6;
+}
+.ant-input-password :hover{
+  background-color: $layout6;
+}
+.btn.btn-primary{
+  background-color: $primary !important;
+  border-color: $primary;
+  opacity: 1 !important;
+}
+.btn:hover {
+  opacity: 0.85 !important;
+  border-color: transparent !important;
+}
+
+  .ant-form-item-extra {
+    clear: both;
+    min-height: 1px;
+    padding-top: 0;
+    margin-left: 33%;
+    justify-items:fixed;
+    color: rgb(240, 75, 46) !important;
+    font-size: 16px;
+    line-height: 1.0;
+    -webkit-transition: color .3s cubic-bezier(.215,.61,.355,1);
+    transition: color .2s cubic-bezier(.215,.61,.355,1);
+  }
+  .ant-form-item-extra2 {
+    clear: both;
+    min-height: 1px;
+    padding-top: 0;
+    margin-left: 33%;
+    justify-items:fixed;
+    color: rgba(6, 255, 72, 0.651);
+    font-size: 15px;
+    line-height: 1.0;
+    -webkit-transition: color .3s cubic-bezier(.215,.61,.355,1);
+    transition: color .2s cubic-bezier(.215,.61,.355,1);
+  }
+  .playLog_container{
+    width: 50%;
+    height:auto;
+    border: 4px solid rgb(236, 236, 103);
+    margin: 15% auto ;
+   margin-top: 4% ;
+   margin-bottom: 2%;
+  padding:4% 4% ;
+ 
+ 
+  }

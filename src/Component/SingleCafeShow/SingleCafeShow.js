@@ -2,10 +2,11 @@ import React from "react";
 import Axios from "axios";
 import Mapir from 'mapir-react-component';
 import 'antd/dist/antd.css';
-import { GiTwoCoins } from "react-icons/gi";
-import { FaChess, FaMapMarkerAlt } from "react-icons/fa";
-import { Row, Col, Image, Carousel } from 'antd';
+import { GiTwoCoins,GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
+import {  FaMapMarkerAlt,FaClock } from "react-icons/fa";
+import { Row, Col,  Carousel ,Tag} from 'antd';
 import '../../Style/SingleCafeShow.css'
+import '../../Style/design.scss';
 const Map = Mapir.setToken({
     transformRequest: (url) => {
         return {
@@ -22,7 +23,7 @@ const Map = Mapir.setToken({
 
 class SingleCafeShow extends React.Component {
     state = {
-        id: "105",
+        id: "110",
         name: "",
         owner: "",
         description: "",
@@ -33,17 +34,18 @@ class SingleCafeShow extends React.Component {
         phone_number: "",
         gallery: "",
         latitude: "",
+        city:"",
         longitude: "",
         Gamestring: "",
+        galleryarray: []
 
     }
 
 
     componentDidMount() {
-        const id=window.location.href.substring(32);
+        //const id=window.location.href.substring(32);
         //const id = this.props.match.params.id
-        console.log(id)
-        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + id+"/", {
+        Axios.get('http://localhost:8010/proxy/cafe/cafe_info/' + this.state.id + "/", {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Credentials': true,
@@ -60,70 +62,74 @@ class SingleCafeShow extends React.Component {
                 this.setState({ description: cafe.description });
                 this.setState({ games: cafe.games });
                 this.state.games.forEach(element => {
-                    this.setState({Gamestring: this.state.Gamestring+ element.name + ","}) 
+                    this.setState({ Gamestring: this.state.Gamestring +","+ element.name })
                 });
                 this.setState({ gallery: cafe.gallery });
+                this.setState({ city: cafe.city });
                 this.setState({ price: cafe.price });
+                this.state.gallery.split('***').forEach(element => {
+                    this.state.galleryarray.push(element)
+                });
                 this.setState({ open_time: cafe.open_time });
                 this.setState({ close_time: cafe.close_time });
                 this.setState({ phone_number: cafe.phone_number });
                 this.setState({ latitude: cafe.latitude });
                 this.setState({ longitude: cafe.longitude });
-                console.log(this.state.gallery)
-
             })
     }
 
-
+onclicktag=(id)=>{
+window.location.href='/allgames/:'+id
+}
 
     render() {
         return (
             <div className="SingleCafeShow_container">
-                <Row>
-                    <Col span={8}>
-                        <Carousel autoplay className="Gallery">
-                            {
-                                this.state.gallery.split('**').forEach(element => {
-                                    <div>
-                                        <Image
-                                            width="auto"
-                                            height="auto"
-                                            src={this.state.gallery.split('**')[0]}
-                                        />
 
-                                    </div>
-                                })
-                            }
-                        </Carousel>
-                    </Col>
-                    <Col span={16}>
-                        <div className="cafe_info">
-                            <h1 >{this.state.name}</h1>
-                            <h2><FaChess /> {this.state.Gamestring}</h2>
-                            <h3><GiTwoCoins /> {this.state.price}</h3>
-                            <h4> <FaMapMarkerAlt />  {this.state.description}</h4>
-
-                            <div>
-                                <Mapir className="map"
-                                    center={[this.state.longitude, this.state.latitude]}
-                                    Map={Map}
-                                >
-
-                                    <Mapir.Layer
-                                        type="symbol"
-                                        layout={{ "icon-image": "harbor-15" }}>
-                                    </Mapir.Layer>
-                                    <Mapir.Marker
-                                        coordinates={[this.state.longitude, this.state.latitude]}
-                                        anchor="bottom">
-                                    </Mapir.Marker>
-                                </Mapir>
-                            </div>
+                
+                    <div className="cafe_info">
+                        <h2 >{this.state.name}</h2>
+                        <div className="carousel_container">
+                            <Carousel autoplay className="Gallery">
+                                {
+                                    this.state.galleryarray.map(item =>
+                                        <img src={item}></img>
+                                    )
+                                }
+                            </Carousel>
                         </div>
+                        <h5 display='inline'> <GiPerspectiveDiceSixFacesSix  />  Board Games</h5>
+                        {
+                            this.state.games.map(item=>
 
+                                <Tag onClick={()=>this.onclicktag(item.id)}> {item.name} </Tag>
+                            )
+                        }
+                         
+                        <h5><GiTwoCoins /> {this.state.price}</h5>
+                        <h6> <FaMapMarkerAlt />  {this.state.city}</h6>
+                        <h6> <FaClock />{this.state.open_time} to {this.state.close_time}</h6>
+                        <h6> {this.state.description}</h6>
 
-                    </Col>
-                </Row>
+                        <div>
+                            <Mapir className="map"
+                                center={[this.state.longitude, this.state.latitude]}
+                                Map={Map}
+                            >
+
+                                <Mapir.Layer
+                                    type="symbol"
+                                    layout={{ "icon-image": "harbor-15" }}>
+                                </Mapir.Layer>
+                                <Mapir.Marker
+                                    coordinates={[this.state.longitude, this.state.latitude]}
+                                    anchor="bottom">
+                                </Mapir.Marker>
+                            </Mapir>
+                        </div>
+                    </div>
+             
+
             </div>
         )
     }

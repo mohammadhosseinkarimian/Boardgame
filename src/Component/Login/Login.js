@@ -157,12 +157,12 @@ class Login extends React.Component {
             </Button>
           </Form.Item>
           <Form.Item {...tailLayout} name="remember" valuePropName="checked" style={{marginLeft: "25%"}}>
-            <Checkbox >Remember me</Checkbox>
+            <Checkbox style={{color: "white" }}>Remember me</Checkbox>
           </Form.Item>
         </Form>
-        <Divider style={{marginLeft: "0%" }}>OR</Divider>
+        <Divider style={{marginLeft: "0%",color: "white" }}>OR</Divider>
 
-        <p className ="ant-form-item-change"  >Don’t have an account? <Link to="signup">Sign up</Link></p>
+        <p className ="ant-form-item-change" style={{color: "white" }} >Don’t have an account? <Link to="signup">Sign up</Link></p>
       </div>
       </div>
     );

@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CafeMap from "../Map/Map";
+import '../../Style/design.scss';
 import {
   Form,
   Input,
@@ -37,24 +38,24 @@ const formItemLayout = {
   },
   wrapperCol: {
     xs: {
-      span: 24,
+        span: 0,
     },
     sm: {
-      span: 16,
+        span: 24,
     },
-  },
+},
 };
 const tailFormItemLayout = {
-  wrapperCol: {
+wrapperCol: {
     xs: {
-      span: 24,
-      offset: 0,
+        span: 24,
+        offset: 8,
     },
     sm: {
-      span: 16,
-      offset: 8,
+        span: 24,
+        offset: 0,
     },
-  },
+},
 };
 const uploadButton = (
   <div >
@@ -236,26 +237,25 @@ this.setState({necessary_inputs:"!Ok"})
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="Cafe_container">
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>{" "}
+      <div className="EditProfile_container">
+       
         <Form
           {...formItemLayout}
           // form={this.form}
           name="register-cafe"
           ref={(el) => (this.myFormRef = el)}
           onFinish={this.onSubmit}
+          autocomplete="off"
+
           scrollToFirstError
           onSubmit={this.onSubmit.bind(this)}
         >
           {/* <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
         "There was something wrong with the server please try again":""}</p> */}
+         
           <Form.Item
             name="name"
             onChange={this.onChange}
-            label={<span>Cafe name&nbsp;</span>}
             rules={[
               {
                 required: true,
@@ -263,7 +263,7 @@ this.setState({necessary_inputs:"!Ok"})
                 whitespace: true,
               },
             ]}
-          >
+          ><p> <span style={{color:"red"}}>*</span>cafe name :&nbsp;</p>
             <Input
               required
               name="name"
@@ -273,14 +273,6 @@ this.setState({necessary_inputs:"!Ok"})
           
           <Form.Item
             name="Description"
-            label={
-              <span>
-                Description&nbsp;
-                <Tooltip title="Type address and some descriptions about caffe">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: true,
@@ -289,7 +281,12 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
             onChange={this.onChange}
-          >
+          >  <p> <span style={{color:"red"}}>*</span>
+          Description :&nbsp;
+          <Tooltip title="Type address and some descriptions about caffe">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
             <Input.TextArea
               required
               name="Description"
@@ -297,14 +294,6 @@ this.setState({necessary_inputs:"!Ok"})
             />
             </Form.Item>
            <Form.Item
-            label={
-              <span>
-                Board games&nbsp;
-                <Tooltip title="What board games are there in the cafe?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: false,
@@ -313,11 +302,16 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
             onChange={this.onChange}
-          >
+          ><p>
+          Board games :&nbsp;
+          <Tooltip title="What board games are there in the cafe?">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
            <Select
            mode="multiple"
               showSearch
-              style={{ width: 200 }}
+              style={{ width: '100%' }}
               placeholder="Select a game"
               optionFilterProp="children"
               onSearch={this.onSearchgame}
@@ -334,7 +328,6 @@ this.setState({necessary_inputs:"!Ok"})
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
-            label={<span>Open</span>}
             rules={[
               {
                 required: true,
@@ -343,6 +336,7 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>Open : </p>
             <TimePicker
               style={{ width: 240 }}
               use24Hours
@@ -353,7 +347,6 @@ this.setState({necessary_inputs:"!Ok"})
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
-            label={<span>Close</span>}
             rules={[
               {
                 required: true,
@@ -362,6 +355,7 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>Close : </p>
             <TimePicker
               style={{ width: 240 }}
               use24Hours
@@ -373,14 +367,6 @@ this.setState({necessary_inputs:"!Ok"})
           <Form.Item
             name="Price"
             onChange={this.onChange}
-            label={
-              <span>
-                Price&nbsp;
-                <Tooltip title="How much does each hour of playing in the cafe cost?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: true,
@@ -389,6 +375,12 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>
+            <span style={{color:"red"}}>*</span> Price : &nbsp;
+                <Tooltip title="How much does each hour of playing in the cafe cost?">
+                  <QuestionCircleOutlined />
+                </Tooltip>
+              </p>
             <Input
               style={{ width: 240 }}
               name="Price"
@@ -399,7 +391,6 @@ this.setState({necessary_inputs:"!Ok"})
           <Form.Item
             onChange={this.onChange}
             name="Telephone"
-            label={<span>Phone number&nbsp;</span>}
             rules={[
               {
                 required: true,
@@ -408,6 +399,7 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
             <Input
               name="Telephone"
               placeholder="021-00000000"
@@ -433,12 +425,12 @@ this.setState({necessary_inputs:"!Ok"})
            <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
  </Upload> 
           </Form.Item>
-          <Form.Item className="cafe_map" onChange={this.onChange}>
-            <CafeMap onSelect={this.mapChange} {...this.state}/>
+          <Form.Item  onChange={this.onChange}>
+            <CafeMap onSelect={this.mapChange}  {...this.state}/>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button
-              class="btn btn-primary"
+             className="btn btn-primary" style={{width: '100%'}}
               onClick={(this.onSubmit)}
               name="submit"
             >
@@ -459,9 +451,9 @@ this.setState({necessary_inputs:"!Ok"})
                 ? "Loading..."
                 : "Add Caffe"}
             </Button>
-            <p style={{color:"red"}}>{
+            <p style={{color:"green"}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "Ok"
-                    ? ""
+                    ? "Cafe added successfuly"
                     : ""
             }{ this.state.necessary_inputs === "!Ok"
             ? "*all nessecory inputs should write"

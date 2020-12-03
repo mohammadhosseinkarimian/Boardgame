@@ -69,7 +69,7 @@ const Map = Mapir.setToken({
     render() {
         return (
             
-            <div className="container_map" >
+            <div className="container_map" style={{width: '100%'}} >
                 <Mapir className="map"
                     center={[this.state.lon, this.state.lat]}
                     Map={Map}

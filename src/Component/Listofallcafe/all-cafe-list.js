@@ -1,7 +1,8 @@
 import React from "react";
 import Axios from "axios";
-import { Link } from "react-bootstrap/lib/Navbar";
+import { Link, NavLink } from "react-router-dom";
 //import 'font-awesome/css/font-awesome.min.css';
+import '../../Style/design.scss'
 import {ClockCircleFilled ,PhoneFilled,CoffeeOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import {
@@ -57,7 +58,7 @@ class AllCafe extends React.Component {
       <div className="cafelist_container"
        style={{marginTop: '5%', fontSize:'20px'}}
       dataSource={this.state.cafe}
-      Pagination={paginationProps}>Cafe In Site<CoffeeOutlined  style={{marginTop:'0', marginLeft: '0.5%', fontSize:'20px'}}/>
+        Pagination={paginationProps}><h3 style={{marginLeft: '5%'}}>Cafe In Site<CoffeeOutlined  style={{marginTop:'0', marginLeft: '0.5%', fontSize:'27px'}}/></h3>
  
                {     <List
       size="large"
@@ -65,13 +66,15 @@ class AllCafe extends React.Component {
       pagination={paginationProps}
       dataSource={this.state.cafe}
       renderItem={item => (
-        <List.Item style={{border: 'transparent'}} className="cafe_part">
+        <List.Item className="cafe_part">
           <List.Item.Meta 
             avatar={<img src={item.gallery.split('***')[0]} style={{width: "200px",height: "150px"}} className="cafe_img"/>}
             title={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke'}} className="cafe_name">{item.name}</p></Link>}
-            description={<p key={item.close_time} style={{color: 'whitesmoke'}}className="cafe_desc"><ClockCircleFilled className="icon" /> {`${item.close_time}`}{`-`}{`${item.open_time} `}<p className="cafe_desc"><PhoneFilled className="icon"/> {`${item.phone_number}`}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p></p>}
+            description={<p key={item.close_time} style={{color: 'whitesmoke'}}className="cafe_desc"><ClockCircleFilled className="icon" />
+            {`${item.close_time}`}{`-`}{`${item.open_time} `}<p className="cafe_desc"><PhoneFilled className="icon"/> {`${item.phone_number}`}
+            <i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p></p>}
           
-/>  <Divider style={{background:'white'}} />
+/>  
         </List.Item>
       )}
     /> }
