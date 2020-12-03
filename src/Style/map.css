@@ -1,5 +1,5 @@
 .map{
-    max-width: 150%;
+    position: relative;
     max-height: 200px;
     height: auto;
     width: 100%;

@@ -5,6 +5,7 @@ import { FaCoffee } from "react-icons/fa";
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined } from '@ant-design/icons';
 import '../../Style/OwnedCafes.css'
+import '../../Style/design.scss'
 import { GiTwoCoins } from "react-icons/gi";
 
 const { Meta } = Card;
@@ -64,8 +65,10 @@ class OwnedCafe extends React.Component {
 
 
   render() {
+    alert('an');
     return (
-      <div>
+      <div style={{marginTop: '5%'}}>
+        
         <Card title={this.state.name} extra={<a onClick={this.onClickDelete} href="#"><AiFillDelete /></a>} style={{ width: 300 }}>
           <p><AiOutlinePhone />  {this.state.phone_number}</p>
           <p><GiTwoCoins />  {this.state.price}</p>

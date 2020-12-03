@@ -6,6 +6,7 @@ import { GiTwoCoins } from "react-icons/gi";
 import { FaChess, FaMapMarkerAlt } from "react-icons/fa";
 import { Row, Col, Image, Carousel } from 'antd';
 import '../../Style/SingleCafeShow.css'
+import '../../Style/design.scss';
 const Map = Mapir.setToken({
     transformRequest: (url) => {
         return {
@@ -78,7 +79,7 @@ class SingleCafeShow extends React.Component {
 
     render() {
         return (
-            <div className="SingleCafeShow_container">
+            <div className="SingleCafeShow_container" style={{marginTop: '5%'}}>
                 <Row>
                     <Col span={8}>
                         <Carousel autoplay className="Gallery">

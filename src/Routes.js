@@ -16,8 +16,9 @@ import{
 } from "@ant-design/icons";
 import HomeGames from './Component/BoardGame/HomeGames';
 import EditProfile from './Component/EditProfile/EditProfile';
-import AllCafe from './Component/Listofallcafe/all-cafe-list'
-import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow'
+import AllCafe from './Component/Listofallcafe/all-cafe-list';
+import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow';
+import Cafe from './Component/Cafe-form/cafe-form';
 import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
@@ -171,6 +172,10 @@ var currentScrollPos = window.pageYOffset;
        <Route exact path="/editProfile/:id" component={EditProfile} />
        <Route exact path="/allgames" component={AllBoardGames} />
        <Route exact path="/allgames/:id" component={SingleGame} />
+       <Route exact path="/allcafes" component={AllCafe} />
+       <Route exact path="/allcafes/:id" component={SingleCafeShow} />
+       <Route exact path="/cafeform" component={Cafe} />
+       <Route exact path="/ownedcafe" component={OwnedCafe} />
 
        <Route exact path="/addplay/" component={AddPlay} />
 

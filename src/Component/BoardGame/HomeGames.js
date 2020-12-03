@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
@@ -87,12 +87,33 @@ class HomeGames extends React.Component {
                    
                    
                    
+                   
                     
                      </body>
                      
                     ))
                     }
                 </Carousel>
+                <div style={{alignContent: 'center'}}>
+                <Row style={{marginLeft: '4%'}} justify='start'>
+                    <Col span={6}>
+                        <Link to='/allcafes'><h5>click here to see all cafes</h5></Link>
+                        </Col>
+                        <Col span={6}>
+                        <Link to='/cafeform'><h5>click here to see cafe form</h5></Link>
+
+                        </Col>
+                        <Col span={6}>
+                        <Link to='/ownedcafe'><h5>click here to see owned cafe</h5></Link>
+
+                        </Col>
+                    </Row>
+
+                   
+
+                   
+                        
+                    </div>
                 </div>
         );
     }

@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CafeMap from "../Map/Map";
+import '../../Style/design.scss';
 import {
   Form,
   Input,
@@ -37,24 +38,24 @@ const formItemLayout = {
   },
   wrapperCol: {
     xs: {
-      span: 24,
+        span: 0,
     },
     sm: {
-      span: 16,
+        span: 24,
     },
-  },
+},
 };
 const tailFormItemLayout = {
-  wrapperCol: {
+wrapperCol: {
     xs: {
-      span: 24,
-      offset: 0,
+        span: 24,
+        offset: 8,
     },
     sm: {
-      span: 16,
-      offset: 8,
+        span: 24,
+        offset: 0,
     },
-  },
+},
 };
 const uploadButton = (
   <div >
@@ -236,17 +237,16 @@ this.setState({necessary_inputs:"!Ok"})
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="Cafe_container">
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>{" "}
+      <div className="EditProfile_container">
+       
         <Form
           {...formItemLayout}
           // form={this.form}
           name="register-cafe"
           ref={(el) => (this.myFormRef = el)}
           onFinish={this.onSubmit}
+          autocomplete="off"
+
           scrollToFirstError
           onSubmit={this.onSubmit.bind(this)}
         >
@@ -317,7 +317,7 @@ this.setState({necessary_inputs:"!Ok"})
            <Select
            mode="multiple"
               showSearch
-              style={{ width: 200 }}
+              style={{ width: '100%' }}
               placeholder="Select a game"
               optionFilterProp="children"
               onSearch={this.onSearchgame}
@@ -433,12 +433,12 @@ this.setState({necessary_inputs:"!Ok"})
            <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
  </Upload> 
           </Form.Item>
-          <Form.Item className="cafe_map" onChange={this.onChange}>
-            <CafeMap onSelect={this.mapChange} {...this.state}/>
+          <Form.Item  onChange={this.onChange}>
+            <CafeMap onSelect={this.mapChange}  {...this.state}/>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button
-              class="btn btn-primary"
+             className="btn btn-primary" style={{width: '100%'}}
               onClick={(this.onSubmit)}
               name="submit"
             >
