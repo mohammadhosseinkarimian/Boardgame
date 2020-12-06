@@ -17,7 +17,8 @@ import {
   List,
   Avatar, 
   Skeleton,
-  Pagination 
+  Pagination, 
+  Row
 } from "antd";
 
 const paginationProps = {
@@ -64,9 +65,9 @@ class AllBoardGames extends React.Component {
     return(
 
       <body style={{background: 'transparent',marginTop: '5%',clear: 'both'}} >
-        <h4 style={{ letterSpacing: '1.2px',marginLeft: '5%'}}>Choose the gameboard you want from the list below(Sorted by BGG Rating Descending).</h4>
-        <h6 style={{ letterSpacing: '1.1px',marginLeft: '5%'}}>Tap on image to view boardgame's profile.</h6>
-      <List style={{marginTop: '3%'}}
+        <h4 style={{ letterSpacing: '1.2px',marginLeft: '5%'}}>Gameboard sorted by BGG Rating Descending.</h4>
+        <h6 style={{ letterSpacing: '1.1px',marginLeft: '5%',opacity: '0.8'}}>Tap on image to view boardgame's profile.</h6>
+      <List style={{marginTop: '2%'}}
       size="large"
       itemLayout="horizontal"
       pagination={paginationProps}
@@ -74,17 +75,21 @@ class AllBoardGames extends React.Component {
       renderItem={item => (
         <List.Item >
           <List.Item.Meta 
-            avatar={<img src={item.image} style={{width: "100px",height: "110px"}}/>}
-            title={<Link to={'/allgames/:'+item.id}   ><h5>{item.name} </h5></Link>}
+            avatar={<Link to={'/allgames/:'+item.id}   ><img src={item.image} className="img-text" style={{width: "100px",height: "110px"}}/></Link>}
+            
+            title={<h5>{item.name} </h5>}
             description={<div>
-              
+              <p style={{marginBottom: '5px',fontFamily: 'Times, serif;'}}>
+                Categories: {item.category.replace('[','').replace(']','').replace(/'/g,"").replace(/,/g,' &')}
+              </p>
               <StarRatings
-              rating={parseFloat( item.rate)}
+              rating={parseFloat((parseFloat(item.rate)/2).toFixed(2))}
+              
               starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
-              numberOfStars={10}
+              numberOfStars={5}
               name='rating' 
             />
-            <h7></h7>
+            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}>{item.description.substring(0,110)}...</p>
              </div>}
 />
         </List.Item>
