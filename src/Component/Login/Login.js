@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, Button, Checkbox,Divider } from "antd";
 import Axios from "axios";
 import {Link} from 'react-router-dom'
+import '../../Style/design.scss';
 const layout = {
   
   wrapperCol: {
@@ -92,10 +93,11 @@ class Login extends React.Component {
   render() {
     return (
       <div className="bg" >
-      <div className="Login_container">
+      <div className="Login_container" style={{backgroundColor: '#333333'}}>
         {" "}
         <Form
-        
+                             autocomplete="off"
+
           {...layout}
           name="basic"
           initialValues={{
@@ -145,7 +147,7 @@ class Login extends React.Component {
           <p className ="ant-form-item-extra" >
             {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong. try again!":""}</p>
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" name="submit"  style={{width: "100%"}} onClick={this.onSubmit}>
+            <Button className="btn btn-primary" htmlType="submit" name="submit"  style={{width: "100%"}} onClick={this.onSubmit}>
             <span
            class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
             role={this.state.loggedIn==="logging in" ?"status":""}

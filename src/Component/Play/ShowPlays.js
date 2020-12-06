@@ -1,6 +1,7 @@
 import React from 'react';
 import antd from "antd";
 import axios from 'axios';
+import '../../Style/design.scss';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlusOutlined } from '@ant-design/icons';
@@ -76,7 +77,7 @@ class LogPlay extends React.Component {
 
     render() {
         return (
-            <div >
+            <div style={{marginTop: '5%'}}>
                 <List
                     size="large"
                     itemLayout="horizontal"
@@ -84,8 +85,8 @@ class LogPlay extends React.Component {
                     renderItem={item => (
                         <List.Item>
                             <List.Item.Meta
-                                title={`${this.state.allgames[item.game]}`}
-                                description={`${item.place}        ${item.date}    `}
+                                title={<h5>`${this.state.allgames[item.game]}`</h5>}
+                                description={<h6>`${item.place.toString().replace('`',"")}        ${item.date.toString().replace('`',"")}    `</h6>}
                             />
                         </List.Item>
                     )}

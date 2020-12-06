@@ -237,7 +237,7 @@ this.setState({necessary_inputs:"!Ok"})
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="EditProfile_container">
+      <div className="EditProfile_container" style={{with:'36%'}}>
        
         <Form
           {...formItemLayout}
@@ -252,10 +252,10 @@ this.setState({necessary_inputs:"!Ok"})
         >
           {/* <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
         "There was something wrong with the server please try again":""}</p> */}
+         
           <Form.Item
             name="name"
             onChange={this.onChange}
-            label={<span>Cafe name&nbsp;</span>}
             rules={[
               {
                 required: true,
@@ -263,7 +263,7 @@ this.setState({necessary_inputs:"!Ok"})
                 whitespace: true,
               },
             ]}
-          >
+          ><p> <span style={{color:"red"}}>*</span>cafe name :&nbsp;</p>
             <Input
               required
               name="name"
@@ -273,14 +273,6 @@ this.setState({necessary_inputs:"!Ok"})
           
           <Form.Item
             name="Description"
-            label={
-              <span>
-                Description&nbsp;
-                <Tooltip title="Type address and some descriptions about caffe">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: true,
@@ -289,7 +281,12 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
             onChange={this.onChange}
-          >
+          >  <p> <span style={{color:"red"}}>*</span>
+          Description :&nbsp;
+          <Tooltip title="Type address and some descriptions about caffe">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
             <Input.TextArea
               required
               name="Description"
@@ -297,14 +294,6 @@ this.setState({necessary_inputs:"!Ok"})
             />
             </Form.Item>
            <Form.Item
-            label={
-              <span>
-                Board games&nbsp;
-                <Tooltip title="What board games are there in the cafe?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: false,
@@ -313,7 +302,12 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
             onChange={this.onChange}
-          >
+          ><p>
+          Board games :&nbsp;
+          <Tooltip title="What board games are there in the cafe?">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
            <Select
            mode="multiple"
               showSearch
@@ -334,7 +328,6 @@ this.setState({necessary_inputs:"!Ok"})
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
-            label={<span>Open</span>}
             rules={[
               {
                 required: true,
@@ -343,8 +336,9 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>Open : </p>
             <TimePicker
-              style={{ width: 240 }}
+              style={{ width: '100%' }}
               use24Hours
               format={"HH:mm"}
               defaultValue={moment("00:00", "HH:mm")}
@@ -353,7 +347,6 @@ this.setState({necessary_inputs:"!Ok"})
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
-            label={<span>Close</span>}
             rules={[
               {
                 required: true,
@@ -362,8 +355,9 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>Close : </p>
             <TimePicker
-              style={{ width: 240 }}
+               style={{ width: '100%' }}
               use24Hours
               format={"HH:mm"}
               defaultValue={moment("00:00", "HH:mm")}
@@ -373,14 +367,6 @@ this.setState({necessary_inputs:"!Ok"})
           <Form.Item
             name="Price"
             onChange={this.onChange}
-            label={
-              <span>
-                Price&nbsp;
-                <Tooltip title="How much does each hour of playing in the cafe cost?">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
             rules={[
               {
                 required: true,
@@ -389,8 +375,14 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p>
+            <span style={{color:"red"}}>*</span> Price : &nbsp;
+                <Tooltip title="How much does each hour of playing in the cafe cost?">
+                  <QuestionCircleOutlined />
+                </Tooltip>
+              </p>
             <Input
-              style={{ width: 240 }}
+               style={{ width: '100%' }}
               name="Price"
               placeholder="100,000"
               onChange={(this.onChange, this.pricechange)}
@@ -399,7 +391,6 @@ this.setState({necessary_inputs:"!Ok"})
           <Form.Item
             onChange={this.onChange}
             name="Telephone"
-            label={<span>Phone number&nbsp;</span>}
             rules={[
               {
                 required: true,
@@ -408,17 +399,18 @@ this.setState({necessary_inputs:"!Ok"})
               },
             ]}
           >
+            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
             <Input
               name="Telephone"
               placeholder="021-00000000"
               onChange={(this.onChange, this.telephoneChange)}
-              style={{ width: 240 }}
+              style={{ width: '100%' }}
             />
           </Form.Item>
           <Form.Item
             style={{ display: "inline"}}
             className="upload_img"
-          ><p style={{color:'white', width:'640px'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
+          ><p style={{color:'white', width:'100%'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
              </p>
              <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -459,9 +451,9 @@ this.setState({necessary_inputs:"!Ok"})
                 ? "Loading..."
                 : "Add Caffe"}
             </Button>
-            <p style={{color:"red"}}>{
+            <p style={{color:"green"}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "Ok"
-                    ? ""
+                    ? "Cafe added successfuly"
                     : ""
             }{ this.state.necessary_inputs === "!Ok"
             ? "*all nessecory inputs should write"
