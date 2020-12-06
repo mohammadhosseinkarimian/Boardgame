@@ -7,12 +7,14 @@ import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
+import LogPlay from './Component/Play/ShowPlays'
 import{
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
   EditOutlined, 
-  MenuOutlined 
+  MenuOutlined ,
+  PlayCircleOutlined
 } from "@ant-design/icons";
 import HomeGames from './Component/BoardGame/HomeGames';
 import EditProfile from './Component/EditProfile/EditProfile';
@@ -105,6 +107,23 @@ var currentScrollPos = window.pageYOffset;
 }
       return (
         <Layout style={{ minHeight: "100vh" ,backgroundColor: "#282828"}}>
+           <Header
+              id="head"
+              className="ant-layout-header"
+              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%" }}
+            >
+             <span style={{float: 'left',marginTop: 'auto'}}>
+             <MenuOutlined className='bar' style={{verticalAlign: 'middle'}} onClick={()=>this.state.disp==='none'?this.setState({disp: 'inline'}):this.setState({disp: 'none'})} />
+             </span>
+              <h2 style={{margin: "auto",display: 'inline'}}> GoardBame</h2>
+              
+             
+            </Header>
+         
+        <Layout
+          className="site-layout"
+          style={{ margin: "0 0" }}
+        >
           <Sider
             collapsible
             
@@ -117,46 +136,34 @@ var currentScrollPos = window.pageYOffset;
              className="side-menu"
               theme="dark"
               mode="inline"
-              style={{ position: "sticky" }}>
-                 {localStorage.getItem('avatar')===''?<img src={Av} 
-              style={{marginLeft: '1%',marginTop: '5%',width: '75px'}}height="44px" />:
-                 <img src = {localStorage.getItem('avatar')} style={{marginLeft: '2%',marginTop: '5%',marginBottom: "2%",width: '75px'}}height="44px"/>}
-                
-              <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '2px'}}/>}
+              style={{ position: "sticky" ,marginTop: '67px'}}>
+
+             
+            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '-4px'}}/>}>
+            <NavLink to="/homePage/:id"> Home</NavLink> 
+
+            </Menu.Item>
+            <Menu.Item  className="m-item"  key="0"    icon={<EditOutlined style={{verticalAlign: 'middle',marginTop: '-4px'}}/>}
               style={{height: "6%" ,marginTop: "4%", marginBottom: "5%"}}>
       
       <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
             </Menu.Item >
-            <Menu.Item key="3"  icon={<DesktopOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
-            <NavLink to="/homePage/:id"> Home</NavLink> 
-
+            <Menu.Item className="m-item" key="12" >
+           <NavLink to='/allcafes/'>Cafes</NavLink>   
             </Menu.Item>
-            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
+            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
            <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
+            <Menu.Item className="m-item" key="1" icon={<PlayCircleOutlined   style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
+           <NavLink to='/showplay/'>Show play</NavLink>   
+            </Menu.Item>
             
-            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '2px'}}/>}>
+            <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
               <NavLink to ='/'>Exit</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout
-          className="site-layout"
-          style={{ margin: "0 0" }}
-        >
-         
-            <Header
-              id="head"
-              className="ant-layout-header"
-              style={{ fontSize: "24px", height: "67px", paddingLeft: "2%" }}
-            >
-             <span style={{float: 'left',marginTop: 'auto'}}>
-             <MenuOutlined className='bar' style={{verticalAlign: 'middle'}} onClick={()=>this.setState({disp: 'inline'})} />
-             </span>
-              <span style={{margin: "auto"}}> GoardBame</span>
-              
-             
-            </Header>
+           
       
           <Content className="ant-layout-content" style={{ margin: "0 0" }}>
            <Breadcrumb style={{ margin: "0px 0" }}>
@@ -178,6 +185,7 @@ var currentScrollPos = window.pageYOffset;
        <Route exact path="/ownedcafe" component={OwnedCafe} />
 
        <Route exact path="/addplay/" component={AddPlay} />
+       <Route exact path="/showplay/" component={LogPlay} />
 
        <Route exact path='/'>
          <Redirect to ="/homePage/:id" />
