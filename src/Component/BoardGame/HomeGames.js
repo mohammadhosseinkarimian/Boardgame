@@ -43,42 +43,44 @@ class HomeGames extends React.Component {
             
             <div style={{ backgroundColor: 'transparent',paddingTop: "2%",marginTop: "8%",height: '35vh',width: '90%',marginLeft: '5%'}}>
                 
-                <h3 ><span> THE HOT GAMES
-                     < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
-</span>
+                <h3 > THE HOT GAMES
+                     
                 </h3>
-
-                <h5 style={{fontSize: "13px"}}>Top 20 most rated games</h5>
+                <span>
+                    
+                <h5 style={{fontSize: "13px"}}>Top 20 most rated games
+                < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
+                </h5>  </span>
                 
                 <Carousel infiniteLoop  autoPlay  width="100%"  >
                     
                   {rows.map(game => (
                     <body style={{backgroundColor: '#303030',height: '35vh'}}>
-                    <Row style={{marginLeft: '4%'}} justify='start'>
+                    <Row style={{marginLeft: '12.5%'}} justify='start'>
                     <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image} height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    <Link to={'/allgames/:'+game[0].id}> <img className="img-text" src={game[0].image} height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
                     {game[0].name}
                     </figcaption>
                         </figure>
                         </Col>
                         <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}} /></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    <Link to={'/allgames/:'+game[1].id}> <img className="img-text" src={game[1].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}} /></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
                     {game[1].name}
                     </figcaption>
                         </figure>
                         </Col>
                         <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    <Link to={'/allgames/:'+game[2].id}> <img className="img-text" src={game[2].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
                     {game[2].name}
                     </figcaption>
                         </figure>
                         </Col>
                         <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[3].id}> <img src={game[3].image} height='54%' style={{width: '30%',minHeight: '100px',width: '100%'}} /></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center'}}>
+                    <Link to={'/allgames/:'+game[3].id}> <img className="img-text" src={game[3].image} height='54%' style={{width: '30%',minHeight: '100px',width: '100%'}} /></Link>
+                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
                     {game[3].name}
                     </figcaption>
                         </figure>
@@ -96,17 +98,12 @@ class HomeGames extends React.Component {
                 </Carousel>
                 <div style={{alignContent: 'center'}}>
                 <Row style={{marginLeft: '4%'}} justify='start'>
-                    <Col span={6}>
-                        <Link to='/allcafes'><h5>click here to see all cafes</h5></Link>
-                        </Col>
+                    
                         <Col span={6}>
                         <Link to='/cafeform'><h5>click here to see cafe form</h5></Link>
 
                         </Col>
-                        <Col span={6}>
-                        <Link to='/ownedcafe'><h5>click here to see owned cafe</h5></Link>
-
-                        </Col>
+                        
                     </Row>
 
                    
