@@ -2,7 +2,8 @@ import React from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
-
+import '../../Style/design.scss';
+import StarRatings from 'react-star-ratings';
 import 'antd/dist/antd.css';
 import {
   Form,
@@ -16,16 +17,17 @@ import {
   List,
   Avatar, 
   Skeleton,
-  Pagination 
+  Pagination, 
+  Row
 } from "antd";
 
 const paginationProps = {
   showSizeChanger: false,
   showQuickJumper: false,
-  pageSize:20,
+  pageSize:20
+  
   
 };
-
 class AllBoardGames extends React.Component {
   state={
       id:"",
@@ -62,24 +64,38 @@ class AllBoardGames extends React.Component {
 
     return(
 
-      <div style={{background: '#1F2833',marginTop: '5%'}}>
-      <List
+      <body style={{background: 'transparent',marginTop: '5%',clear: 'both'}} >
+        <h4 style={{ letterSpacing: '1.2px',marginLeft: '5%'}}>Gameboard sorted by BGG Rating Descending.</h4>
+        <h6 style={{ letterSpacing: '1.1px',marginLeft: '5%',opacity: '0.8'}}>Tap on image to view boardgame's profile.</h6>
+      <List style={{marginTop: '2%'}}
       size="large"
       itemLayout="horizontal"
       pagination={paginationProps}
       dataSource={this.state.games}
       renderItem={item => (
-        <List.Item style={{border: 'transparent'}}>
+        <List.Item >
           <List.Item.Meta 
-            avatar={<Avatar src={item.image} style={{width: "60px",height: "60px"}}/>}
-            title={<Link to={'/allgames/:'+item.id} style={{color: 'whitesmoke'}}  >{item.name}</Link>}
-            description={<p style={{color: 'silver',fontSize: '10'}}>{`${item.rate}`.substring(0,3)+" "}<i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p>}
-
+            avatar={<Link to={'/allgames/:'+item.id}   ><img src={item.image} className="img-text" style={{width: "100px",height: "110px"}}/></Link>}
+            
+            title={<h5>{item.name} </h5>}
+            description={<div>
+              <p style={{marginBottom: '5px',fontFamily: 'Times, serif;'}}>
+                Categories: {item.category.replace('[','').replace(']','').replace(/'/g,"").replace(/,/g,' &')}
+              </p>
+              <StarRatings
+              rating={parseFloat((parseFloat(item.rate)/2).toFixed(2))}
+              
+              starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+              numberOfStars={5}
+              name='rating' 
+            />
+            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}>{item.description.substring(0,110)}...</p>
+             </div>}
 />
         </List.Item>
       )}
     />
-    </div>
+    </body>
     );
   }
   render(){

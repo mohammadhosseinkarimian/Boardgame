@@ -128,11 +128,10 @@ class AddPlay extends React.Component {
   render() {
     const { items, name } = this.state;
     return (
-      <div className="Login_container">
+      <div className="Login_container" style={{backgroundColor: '#333'}}>
         <Form   {...layout}>
-          <Form.Item
+          <Form.Item style={{width: '100%'}}
             name="date"
-            label="When did you play?"
             rules={[
               {
                 type: "date",
@@ -143,12 +142,12 @@ class AddPlay extends React.Component {
               },
             ]}
           >
-            <DatePicker allowEmpty={false} name="date" format={dateFormat} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
+            <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{width: '100%'}} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
           </Form.Item>
           <Form.Item>
             <Select
               showSearch
-              style={{ width: 200 }}
+              style={{ width: '100%' }}
               placeholder="Select a game"
               optionFilterProp="children"
               onSearch={this.onSearchgame}
@@ -189,7 +188,7 @@ class AddPlay extends React.Component {
           </FormItem>
 
           <Form.Item >
-            <Button className="addbutton" type="primary" shape="round" onClick={this.onSave} >Add</Button>
+            <Button className="btn btn-primary" style={{width: '100%'}} shape="round" onClick={this.onSave} >Add</Button>
           </Form.Item>
         </Form>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import antd from "antd";
 import axios from 'axios';
+import '../../Style/design.scss';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlusOutlined } from '@ant-design/icons';
@@ -117,7 +118,7 @@ class LogPlay extends React.Component {
 
     render() {
         return (
-            <div >
+            <div style={{marginTop: '5%'}}>
                 <List
                     size="large"
                     itemLayout="horizontal"

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import '../../Style/design.scss';
 import Av from './avatar.png';
 import {
   UserOutlined
@@ -146,6 +146,7 @@ class EditProfile extends React.Component {
          localStorage.setItem('avatar',data.avatar);
          localStorage.setItem('email',data.email);
          this.setState({done:""});
+         this.getInfo();
 
 
     } )
@@ -261,14 +262,15 @@ componentDidMount() {
                 <Form
                     {...formItemLayout}
                     name="Edit"
-                    
+                     autocomplete="off"
+
                     onFinish={this.onSubmit}
                     scrollToFirstError
                 >
 
 
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="General" key="1">
+                    <Tabs defaultActiveKey="1"  >
+                        <TabPane tab="General" key="1" >
                             <FormItem><input type="file" onChange={this.Upload}  style={{display: 'none'}}
                             ref={fileInput=>this.fileInput=fileInput}></input>
                             <button  onClick={()=>this.fileInput.click()}
@@ -317,7 +319,7 @@ componentDidMount() {
 
 
                 <span >
-                    <Form.Item style={{marginLeft: '19%'}}
+                    <Form.Item 
                         name="year"
                         rules={[
                             {
@@ -329,10 +331,10 @@ componentDidMount() {
                             },
                         ]}
                     >
-                         <DatePicker name="year"  onChange={this.onyearChange} picker="year" />
+                         <DatePicker style={{width: '100%'}} name="year"  onChange={this.onyearChange} picker="year" />
                     </Form.Item></span>
                     <Form.Item {...tailFormItemLayout}>
-                    <button type="button"  class="btn btn-primary" style={{marginLeft: '19%', width: '57%'}}
+                    <button type="button"  class="btn btn-primary" style={{width: '100%', marginLeft: '0%'}}
   
                         onClick={this.onSaveGeneral}  name="submit">
     
@@ -343,7 +345,7 @@ componentDidMount() {
                         aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
 
                         </span>
-                        {this.state.loggedIn==="logging in" ? "Loading...":"Save_changes" }
+                        {this.state.loggedIn==="logging in" ? "Loading...":"Save changes" }
                     </button>
                     </Form.Item>
                     <p className ="ant-form-item-extra" >{this.state.msg==="You haven't changed any information."?
@@ -359,7 +361,7 @@ componentDidMount() {
 
 
 
-                    <TabPane tab="Password" key="2">
+                    <TabPane tab="Password" key="2" style={{float: 'right'}}>
                     <Form.Item
                         name="password"
                         rules={[
@@ -369,7 +371,7 @@ componentDidMount() {
                             },
                         ]}
                     >
-                        <Input.Password name="password" onChange={this.passChange} />
+                        <Input.Password name="password" placeholder='current password' onChange={this.passChange} />
                     </Form.Item>
 
                     <Form.Item
@@ -394,7 +396,7 @@ componentDidMount() {
                         ]}
                         hasFeedback
                     >
-                        <Input.Password name="newPassword" onChange={this.newPassChange} />
+                        <Input.Password name="newPassword" placeholder='new password' onChange={this.newPassChange} />
                     </Form.Item>
 
 
@@ -421,7 +423,7 @@ componentDidMount() {
                             }),
                         ]}
                     >
-                        <Input.Password />
+                        <Input.Password placeholder='repeat password' />
                     </Form.Item>
                     <p className ="ant-form-item-extra" >{this.state.msg==="Password is not correct!"?
     "Password is incorrect!":""}</p>

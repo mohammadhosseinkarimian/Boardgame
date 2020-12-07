@@ -1,0 +1,85 @@
+.SingleCafeShow_container{
+    background-color: #333333;
+    max-width: 60%;
+    max-height: 200%;
+    border: 1px solid #333333;
+    margin-top: 2%;
+    margin-left: 20%;
+    border-radius: 0.5%;
+    
+}
+.Gallery{
+max-width: 100%;
+max-height: 100%;
+margin-left: 5%;
+margin-top: 2%;
+
+}
+.cafe_info{
+    color: #ffffff;
+    margin-left: 3%;
+    margin-right: 3%;
+    text-align: left;
+    margin-top: 2%;
+    
+    
+}
+
+.map{
+    max-width: 100%;
+    max-height: 100px;
+    height: 20%;
+    border: 1px solid black;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    
+ 
+   
+    
+
+}
+
+h1{
+    color: #ffffff;
+}
+h2{
+    color: #ffffff;
+    
+}
+h3{
+    color: #ffffff;
+}
+h4{
+    color: #ffffff;
+}
+
+h5{
+    color: #ffffff;
+}
+h6{
+    color: #ffffff;
+}
+
+
+
+.carousel_container{
+    width: 55%;
+    margin-left: 2%;
+    margin-top: 5%;
+   
+
+}
+
+.game_tag{
+    background-color: #ffffff;
+    color: #333333;
+    max-width: 6%;
+    font-size: small;
+    display: inline;
+    border-radius: 10%;
+}
+
+.txt{
+   margin-left: auto;
+   margin-top: auto;
+}
