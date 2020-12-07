@@ -190,7 +190,21 @@ $barOnhover:silver;
   .img-text:hover{
     opacity: 0.7;
   }
-  
+  ///sub menu
+  .ant-menu-submenu.ant-menu-submenu-inline{
+    background-color: $layout1;
+  }
+  .ant-menu-item.ant-menu-item-only-child{
+    background-color: $layout1;
+    
+  }
+  .ant-menu-item.ant-menu-item-only-child.ant-menu-item-active{
+    background-color: $layout1;
+  }
+  .ant-menu.ant-menu-sub.ant-menu-inline{
+    background-color: $layout1;
+  }
+  //////
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline,
   .ant-menu.ant-menu-dark.ant-menu-inline-collapsed.ant-menu-root.ant-menu-vertical {
     background:  $layout1;

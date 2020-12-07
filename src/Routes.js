@@ -3,6 +3,7 @@ import Signup from "./Component/Signup/Signup";
 import Login from "./Component/Login/Login";
 import './Style/design.scss';
 import { BrowserRouter as Router, Redirect, Route,Link, useParams, NavLink } from 'react-router-dom';
+import { GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
@@ -27,6 +28,7 @@ import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import './Component/BoardGame/allStyle.css';
 import Axios from 'axios';
 const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 class Routes extends React.Component {
     state = {
         accessed:false,
@@ -151,12 +153,17 @@ var currentScrollPos = window.pageYOffset;
             <Menu.Item className="m-item" key="12" >
            <NavLink to='/allcafes/'>Cafes</NavLink>   
             </Menu.Item>
+
+
+          <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix />} title=" Play">
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
-           <NavLink to='/addplay/'>Create play</NavLink>   
+            <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
             <Menu.Item className="m-item" key="1" icon={<PlayCircleOutlined   style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
-           <NavLink to='/showplay/'>Show play</NavLink>   
+            <NavLink to='/showplay/'>Show play</NavLink>   
             </Menu.Item>
+          </SubMenu>
+          
             
             <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
               <NavLink to ='/'>Exit</NavLink>
