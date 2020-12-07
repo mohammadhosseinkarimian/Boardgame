@@ -146,6 +146,7 @@ class EditProfile extends React.Component {
          localStorage.setItem('avatar',data.avatar);
          localStorage.setItem('email',data.email);
          this.setState({done:""});
+         this.getInfo();
 
 
     } )

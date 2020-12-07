@@ -1,4 +1,4 @@
-$primary:hsl(22, 100%, 50%);
+$primary:hsl(22, 94%, 49%);
 $extra: rgb(245, 176, 72);
 $background:#212121;//main background
 $layout1:#282828;//sider
@@ -15,6 +15,10 @@ $secondtext:rgb(218, 212, 212);
 $bar:white;
 $barOnhover:silver;
 
+.h2, h2 {
+   
+  color: $primary !important;   
+}
 .body {
     margin: 0;
     width:100%;
@@ -36,9 +40,9 @@ $barOnhover:silver;
 }
 .h6, h6{
   color:$maintext !important;
-  opacity: 0.9;
+ 
   font-size: 17px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Courier, monospace;
 }
 .container{
     width: 25%;
@@ -93,7 +97,6 @@ $barOnhover:silver;
   color: $secondtext !important;
 }
 .anticon svg ,.ant-pagination-item-ellipsis {
-    margin-bottom: 50%;
    color: $secondtext !important;
 }
 .ant-pagination-prev .ant-pagination-item-link:hover, .ant-pagination-next .ant-pagination-item-link:hover,.ant-pagination-item:hover
@@ -106,6 +109,11 @@ $barOnhover:silver;
    color: $secondtext !important;
     background-color: $layout5!important;
 }
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link{
+  display: flex;
+    align-items: center;
+}
+
 .ant-pagination-item-active{
   background-color:$primary;
   color:$maintext;
@@ -126,20 +134,28 @@ $barOnhover:silver;
 .carousel-status{
   visibility: hidden;
 }
-
+.carousel .control-dots .dot {
+  
+  margin: 0 0.5%;
+}
+.ant-empty-description{
+  visibility: hidden;
+}
 .carousel .control-next.control-arrow {
-  right: 42.3% !important;
-  margin-top: 0.1% !important;
+  right: 44% !important;
+  margin-top: 0.5% !important;
 }
 .carousel.carousel-slider .control-arrow {
   background: $layout2 !important;
   padding: 1% !important;
-  top: 65% !important;
+  top: 66% !important;
   font-size: 24px !important;
 }
 
 .carousel .control-prev.control-arrow{
-  left: 42% !important;
+  left: 42.5% !important;
+  margin-top: 0.4% !important;
+
 }
 //home
 .bar{
@@ -166,7 +182,14 @@ $barOnhover:silver;
     color: $maintext;
     background-color: $layout1;
   }
-  
+  .img-text{
+    opacity: 1;
+    display: block;
+    transition: .3s ease;
+  }
+  .img-text:hover{
+    opacity: 0.7;
+  }
   
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline,
   .ant-menu.ant-menu-dark.ant-menu-inline-collapsed.ant-menu-root.ant-menu-vertical {
@@ -402,3 +425,57 @@ $barOnhover:silver;
  
  
   }
+
+  .ant-picker-today-btn {
+    color: $maintext;
+}
+.ant-picker-content th {
+  color: rgb(106, 212, 204);
+}
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+
+  background-color: $layout6;
+  border-color: $layout7;
+  width: 100%;
+  color: $maintext;
+}
+.ant-select-show-search.ant-select-multiple .ant-select-selector {
+  background-color: $layout6;
+  border-color: $layout7;
+  color: $maintext;
+  cursor: text;
+}
+.ant-select-dropdown{
+  background-color: $layout7;
+  color: $maintext;
+}
+.ant-select-selection-placeholder {
+  color: $maintext;
+}
+.ant-select-selection-placeholder {
+  color: $maintext;
+}
+.ant-select-multiple .ant-select-selection-item{
+  background-color: $layout7;
+  border-color: transparent;
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: $layout8;
+  color: $maintext;
+
+}
+.ant-select-item{
+  color: $maintext;
+  
+}
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: $layout8;
+  color: $maintext ;
+}
+.ant-select-clear{
+  background-color: transparent;
+  top: 40%;
+}
+.ant-empty-img-simple{
+  display: none;
+}
