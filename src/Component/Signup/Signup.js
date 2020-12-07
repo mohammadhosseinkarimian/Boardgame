@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
+import '../../Style/design.scss';
+
 import {
   Form,
   Input,
@@ -136,7 +138,7 @@ class Signup extends React.Component {
     return (
       <div className="bg" >
      
-      <div className="Signup_container">
+      <div className="Signup_container" style={{backgroundColor: '#333333'}}>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         {" "}
         <Form
@@ -146,6 +148,7 @@ class Signup extends React.Component {
           ref={(el) => this.myFormRef = el}
           onFinish={this.onSubmit}
           scrollToFirstError
+          autocomplete="off"
           onSubmit={this.onSubmit.bind(this)}
         >
            <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?

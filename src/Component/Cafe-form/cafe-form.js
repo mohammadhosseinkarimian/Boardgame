@@ -237,7 +237,7 @@ this.setState({necessary_inputs:"!Ok"})
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="EditProfile_container">
+      <div className="EditProfile_container" style={{with:'36%'}}>
        
         <Form
           {...formItemLayout}
@@ -338,7 +338,7 @@ this.setState({necessary_inputs:"!Ok"})
           >
             <p>Open : </p>
             <TimePicker
-              style={{ width: 240 }}
+              style={{ width: '100%' }}
               use24Hours
               format={"HH:mm"}
               defaultValue={moment("00:00", "HH:mm")}
@@ -357,7 +357,7 @@ this.setState({necessary_inputs:"!Ok"})
           >
             <p>Close : </p>
             <TimePicker
-              style={{ width: 240 }}
+               style={{ width: '100%' }}
               use24Hours
               format={"HH:mm"}
               defaultValue={moment("00:00", "HH:mm")}
@@ -382,7 +382,7 @@ this.setState({necessary_inputs:"!Ok"})
                 </Tooltip>
               </p>
             <Input
-              style={{ width: 240 }}
+               style={{ width: '100%' }}
               name="Price"
               placeholder="100,000"
               onChange={(this.onChange, this.pricechange)}
@@ -404,13 +404,13 @@ this.setState({necessary_inputs:"!Ok"})
               name="Telephone"
               placeholder="021-00000000"
               onChange={(this.onChange, this.telephoneChange)}
-              style={{ width: 240 }}
+              style={{ width: '100%' }}
             />
           </Form.Item>
           <Form.Item
             style={{ display: "inline"}}
             className="upload_img"
-          ><p style={{color:'white', width:'640px'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
+          ><p style={{color:'white', width:'100%'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
              </p>
              <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
