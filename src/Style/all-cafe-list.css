@@ -5,7 +5,7 @@ body {
 .cafelist_container {
   background-color: #333333;
   color: #fff;
-  width: 65%;
+  width: 85%;
   height: 100%;
   margin: 15% auto;
   margin-top: 4%;
@@ -26,7 +26,7 @@ margin-left: 10%;
 border-radius: 3%;
 }
 .cafe_desc{
-  font-size: 17px;
+  font-size: 15px;
   display: inline;
 }
 

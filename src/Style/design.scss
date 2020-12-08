@@ -480,9 +480,30 @@ $barOnhover:silver;
 }
 .cafe_desc_container{
     margin-top: 7%;
-    background-color: $layout6;
+    background-color: $layout5;
     width: 100%;
     margin-left:1%;
     padding-top:3%;
     padding-bottom:1%;
+}
+
+.game_card{
+  background-color:$layout5;
+  font-size: small;
+  float: left;
+  display: block;
+  margin:1% 1%;
+  border-radius: 1%;
+}
+.ant-card-body{
+  background-color:$layout5 !important;
+ 
+}
+.ant-card-meta-title{
+   color:#fff !important;
+   font-size: 15px;
+   text-align: center;
+}
+.ant-card-bordered{
+  border: 1px solid $layout5;
 }

@@ -15,7 +15,7 @@ margin-left: 5%;
 margin-top: 2%;
 }
 .photo{
-    max-height: 200px;
+    max-height: 150px;
 }
 .cafe_info{
     color: #ffffff;
@@ -29,7 +29,7 @@ margin-top: 2%;
     margin-left: 2%;
     margin-right: 1%;
     position: relative;
-    top: -0.25em;
+    top: -0.2em;
 }
 .map{
     max-width: 98%;
@@ -41,27 +41,13 @@ margin-top: 2%;
     margin-left: 1%;
 }
 
-h1{
-    color: #ffffff;
-}
+
 h2{
     margin-left: 1.7%;
     color: #ffffff;
     
 }
-h3{
-    color: #ffffff;
-}
-h4{
-    color: #ffffff;
-}
 
-h5{
-    color: #ffffff;
-}
-h6{
-    color: #ffffff;
-}
 p{
     font-size: small;
 }
@@ -72,15 +58,6 @@ p{
    
 
 }
-
-.game_card{
-    background-color: #ffffff;
-    font-size: small;
-    float: left;
-    display: block;
-    margin:1%;
-    border-radius: 1%;
-}
 .cards
 {
     display: block;
@@ -90,4 +67,10 @@ p{
 .txt{
    margin-left: auto;
    margin-top: auto;
+}
+.card_img
+{
+  height: 100px;
+  width: 96%;
+  margin: 2%;
 }
