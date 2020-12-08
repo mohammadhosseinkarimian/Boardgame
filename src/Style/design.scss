@@ -258,8 +258,7 @@ $barOnhover:silver;
   width: 90%;
   margin-left: 5%;
 }
-  .ant-list-items{
-  }
+
   .ant-list-item{
     border-color: $layout5 !important;
   }
@@ -478,4 +477,12 @@ $barOnhover:silver;
 }
 .ant-empty-img-simple{
   display: none;
+}
+.cafe_desc_container{
+    margin-top: 7%;
+    background-color: $layout6;
+    width: 100%;
+    margin-left:1%;
+    padding-top:3%;
+    padding-bottom:1%;
 }

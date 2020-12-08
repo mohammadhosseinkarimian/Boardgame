@@ -13,7 +13,9 @@ max-width: 100%;
 max-height: 100%;
 margin-left: 5%;
 margin-top: 2%;
-
+}
+.photo{
+    max-height: 200px;
 }
 .cafe_info{
     color: #ffffff;
@@ -22,27 +24,28 @@ margin-top: 2%;
     text-align: left;
     margin-top: 2%;
     
-    
 }
-
+.cafe_icon{
+    margin-left: 2%;
+    margin-right: 1%;
+    position: relative;
+    top: -0.25em;
+}
 .map{
-    max-width: 100%;
+    max-width: 98%;
     max-height: 100px;
     height: 20%;
     border: 1px solid black;
     margin-top: 5%;
     margin-bottom: 5%;
-    
- 
-   
-    
-
+    margin-left: 1%;
 }
 
 h1{
     color: #ffffff;
 }
 h2{
+    margin-left: 1.7%;
     color: #ffffff;
     
 }
@@ -59,26 +62,31 @@ h5{
 h6{
     color: #ffffff;
 }
-
-
-
+p{
+    font-size: small;
+}
 .carousel_container{
-    width: 55%;
-    margin-left: 2%;
+    width: 95%;
+    margin-left: -2%;
     margin-top: 5%;
    
 
 }
 
-.game_tag{
+.game_card{
     background-color: #ffffff;
-    color: #333333;
-    max-width: 6%;
     font-size: small;
-    display: inline;
-    border-radius: 10%;
+    float: left;
+    display: block;
+    margin:1%;
+    border-radius: 1%;
 }
-
+.cards
+{
+    display: block;
+    float: left;
+    border-radius: 1%;
+}
 .txt{
    margin-left: auto;
    margin-top: auto;
