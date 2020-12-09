@@ -16,7 +16,7 @@ import {
 
 } from "antd";
 
-
+const user_username=localStorage.getItem('user')
 const layout = {
 
   wrapperCol: {
@@ -45,9 +45,13 @@ class AddPlay extends React.Component {
     suggestlist_user: [],
     selected_game: "",
     selected_user: "",
+    inputvalue:""
   }
 
-
+componentDidMount(){
+  var dict = { "username": user_username }
+  this.state.players.push(dict);
+}
   onSelectuser = (value) => {
 
     var dict = { "username": value }
@@ -59,19 +63,20 @@ class AddPlay extends React.Component {
   }
 
   handleChange = (value) => {
+    this.setState({inputvalue:value})
+   // this.state.suggestlist_user.push({id: 3, username: this.state.inputvalue+"(not a user)", email: "notAuser@gmail.com"})
     Axios.get(proxyurl + "/game/search_user/username/?search=" + value)
       .then(res => {
         const tmp = res.data.results;
-        this.setState(prevState => {
-          return { suggestlist_user: tmp }
-        })
+        this.setState({suggestlist_user:tmp});
+        //this.state.suggestlist_user.push({id: 3, username: this.state.inputvalue+"(not a user)", email: "notAuser@gmail.com"})
+        //this.state.suggestlist_user.concat(tmp);
+        console.log(this.state.suggestlist_user)
       })
   }
 
   onSelectgame = (value) => {
-    this.setState({ selected_game: value }, () => {
-      console.log(this.state.selected_game, 'dealersOverallTotal1')
-    })
+    this.setState({ selected_game: value })
   }
   onSearchgame = (value) => {
     Axios.get(proxyurl + "/game/search_game/name?search=" + value)
@@ -126,7 +131,7 @@ class AddPlay extends React.Component {
 
 
   render() {
-    const { items, name } = this.state;
+    
     return (
       <div className="Login_container" style={{backgroundColor: '#333'}}>
         <Form   {...layout}>
@@ -170,7 +175,7 @@ class AddPlay extends React.Component {
               allowClear
               style={{ width: '100%' }}
               placeholder="players"
-              defaultValue={[]}
+              defaultValue={[user_username]}
               filterOption={false}
               onChange={this.handleChange}
               onSearch={this.handleChange}
