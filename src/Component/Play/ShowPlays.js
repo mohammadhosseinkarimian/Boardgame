@@ -1,9 +1,10 @@
 import React from 'react';
-import antd from "antd";
+import antd, { Row } from "antd";
 import axios from 'axios';
 import '../../Style/design.scss';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FaRegEdit} from 'react-icons/fa'
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { GiTwoCoins } from "react-icons/gi";
 import { PlusOutlined } from '@ant-design/icons';
@@ -18,6 +19,7 @@ import {
     List, Divider
 } from "antd";
 const proxyurl = "http://localhost:8010/proxy";
+
 
 const { Meta } = Card;
 const columns = [
@@ -119,12 +121,23 @@ class LogPlay extends React.Component {
 
     }
 
+    onClickedit=(id)=>{
+        window.location.href='/play/:'+id
+    }
+
     renderItems=()=>{
         return(
             this.state.dataSource.map(item=>(
-                <Card title={item.game} extra={<a onClick={() => this.onClickdelete(item.id)} ><AiFillDelete /></a>} style={{ width: 300 }}>
-                <p>  {item.game}</p>
-               <p> {item.date}</p>
+                <Card  className="play_card" 
+                actions={
+                    [
+                    <AiFillDelete onClick={() => this.onClickdelete(item.id)} />,
+                    <FaRegEdit onClick={() => this.onClickedit(item.id)} />
+                    ]
+                }>
+                <p> {item.game}</p>
+                <p> {item.place}</p>
+                <p> {item.date}</p>
                 </Card>
             )
                )
@@ -135,25 +148,11 @@ class LogPlay extends React.Component {
     render() {
         return (
             <div style={{ marginTop: '5%' }}>
-                {/* <List
-                    size="large"
-                    itemLayout="horizontal"
-                    dataSource={this.state.dataSource}
-                    renderItem={item => (
-                        <List.Item
-                            actions={[<a onClick={() => this.onClickdelete(item.id)} >delete</a>]}
-                        >
-                            <List.Item.Meta
-                                title={`${this.state.allgames[item.game]}`}
-                                description={`${item.place} ${item.date}  `}
-                            />
-                        </List.Item>
-                    )}
-                /> */}
-              
-              {this.renderItems()}
                 
-               
+              <Row>
+              {this.renderItems()}
+              </Row>
+              
             </div>
             
 

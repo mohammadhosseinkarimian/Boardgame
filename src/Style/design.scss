@@ -493,3 +493,14 @@ $barOnhover:silver;
 .ant-empty-img-simple{
   display: none;
 }
+
+.play_card{
+ margin-left: 2%;
+ margin-top: 2%;
+ border:$layout6;
+}
+.ant-card-actions{
+ background-color: $primary !important;
+ color: $primary;
+  lighting-color: $primary;
+}
