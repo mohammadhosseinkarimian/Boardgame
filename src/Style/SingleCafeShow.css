@@ -15,7 +15,7 @@ margin-left: 5%;
 margin-top: 2%;
 }
 .photo{
-    max-height: 150px;
+    max-height: 200px;
 }
 .cafe_info{
     color: #ffffff;
@@ -27,7 +27,7 @@ margin-top: 2%;
 }
 .cafe_icon{
     margin-left: 2%;
-    margin-right: 1%;
+    margin-right: 2%;
     position: relative;
     top: -0.2em;
 }
@@ -60,10 +60,15 @@ p{
 }
 .cards
 {
+   
     display: block;
     float: left;
     border-radius: 1%;
+  
 }
+.scroll
+{   max-height: 200px;
+    overflow: scroll;}
 .txt{
    margin-left: auto;
    margin-top: auto;
@@ -74,3 +79,29 @@ p{
   width: 96%;
   margin: 2%;
 }
+.cafe_desc_container{
+    margin-top: 7%;
+    width: 100%;
+    padding-top:3%;
+    padding-bottom:1%;
+}
+.game_card:hover .game_meta{
+    visibility: visible;
+     opacity: 1;
+}
+
+.meta_text {
+    color: white;
+    font-size: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .ant-card-body{
+      height: 0;
+  }

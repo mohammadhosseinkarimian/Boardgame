@@ -3,7 +3,7 @@ import Axios from "axios";
 import Mapir from "mapir-react-component";
 import "antd/dist/antd.css";
 import { GiTwoCoins, GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
-import { FaMapMarkerAlt, FaClock, FaPenNib } from "react-icons/fa";
+import { FaMapMarkerAlt, FaClock, FaPenNib,FaPhoneAlt } from "react-icons/fa";
 import { Row, Carousel, Tag, Col,Card } from "antd";
 import "../../Style/SingleCafeShow.css";
 import "../../Style/design.scss";
@@ -67,8 +67,8 @@ class SingleCafeShow extends React.Component {
       this.setState({ gallery: cafe.gallery });
       this.setState({ city: cafe.city });
       this.setState({ price: cafe.price });
-      this.state.gallery.split("***").forEach((element) => {
-        this.state.galleryarray.push(element);
+      this.state.gallery.forEach((element) => {
+        this.state.galleryarray.push(element.base64);
       });
       this.setState({ open_time: cafe.open_time });
       this.setState({ close_time: cafe.close_time });
@@ -99,7 +99,7 @@ class SingleCafeShow extends React.Component {
             </Col>
             <Col span={10}>
            
-                <div className="cafe_desc_container">
+                <div className="cafe_specification_container">
                
                 <p>
                   <GiTwoCoins className="cafe_icon"/>Price :  {this.state.price}
@@ -110,16 +110,20 @@ class SingleCafeShow extends React.Component {
                 </p>
                 <p>
                   {" "}
-                  <FaClock className="cafe_icon"/>Houres : {this.state.open_time} - {this.state.close_time}
+                  <FaClock className="cafe_icon"/>Hours : {this.state.open_time} - {this.state.close_time}
+                </p>
+                <p>
+                  {" "}
+                  <FaPhoneAlt  className="cafe_icon"/>Phone : {this.state.phone_number}
                 </p>
               </div>
             </Col>
             <div className="cafe_desc_container"> <p>
                   <FaPenNib className="cafe_icon"/>Description :  {this.state.description}
                 </p></div>
-                <div className="cards"> <p style={{marginLeft:'1%', marginTop:'3%' , width:'20%'}}>
-                  <GiPerspectiveDiceSixFacesSix className="cafe_icon"/>Board Games</p>
-            
+                <div className="cards"> <p style={{marginTop:'2%' , width:'30%'}}>
+                  <GiPerspectiveDiceSixFacesSix style={{marginLeft:'4%'}}className="cafe_icon"/>Board Games</p>
+            <div className="scroll">
               {this.state.games.map((item) => (
                 <Card
                 className="game_card"
@@ -129,9 +133,11 @@ class SingleCafeShow extends React.Component {
                   cover={<img src={item.image} className="card_img" /> }
                   style={{ width:'23%' , height:'auto' }}
                 >
-                <Meta  title= {item.name} onClick={() => this.onclicktag(item.id)}/>
+                  <div className="game_meta">
+                <div className="meta_text"  onClick={() => this.onclicktag(item.id)}> {item.name} </div></div>
                 </Card>
               ))}
+              </div>
             </div>
           </Row>
         

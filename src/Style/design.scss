@@ -478,13 +478,15 @@ $barOnhover:silver;
 .ant-empty-img-simple{
   display: none;
 }
-.cafe_desc_container{
+.cafe_specification_container{
     margin-top: 7%;
     background-color: $layout5;
     width: 100%;
-    margin-left:1%;
+    height: 200px;
+    padding-bottom: 0.6%;
     padding-top:3%;
-    padding-bottom:1%;
+    padding-left: 2%;
+    padding-top: 2%;
 }
 
 .game_card{
@@ -495,15 +497,22 @@ $barOnhover:silver;
   margin:1% 1%;
   border-radius: 1%;
 }
+.game_meta{ 
+  position: absolute;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: 100%;
+ width: 100%;
+ opacity: 0;
+ transition: .5s ease;
+ background-color: $layout5;}
 .ant-card-body{
   background-color:$layout5 !important;
- 
+ padding: 0;
 }
-.ant-card-meta-title{
-   color:#fff !important;
-   font-size: 15px;
-   text-align: center;
-}
+
 .ant-card-bordered{
   border: 1px solid $layout5;
 }
