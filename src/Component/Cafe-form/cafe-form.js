@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CafeMap from "../Map/Map";
+import Gallery from "./gallery"
 import '../../Style/design.scss';
 import {
   Form,
@@ -57,21 +58,7 @@ wrapperCol: {
     },
 },
 };
-const uploadButton = (
-  <div >
-    <PlusOutlined />
-    <div style={{ marginTop: 8 }}>Upload picture</div>
-  </div>
-);
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
 class Cafe extends React.Component {
   state = {
     Avatar: "",
@@ -93,10 +80,10 @@ class Cafe extends React.Component {
     previewTitle: "",
     fileList: [],
     necessary_inputs:"",
+    accept:false,
     massage:""
   };
 
-  onFinish = (values) => {};
   onChange = (e) => {
     e.persist();
     console.log(this.state);
@@ -106,25 +93,7 @@ class Cafe extends React.Component {
       };
     });
   };
-  handleCancel = () => this.setState({ previewVisible: false });
-  handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-      base64=base64+ "***"+file.preview;
-     // console.log(base64.substring(3));
-    }
 
-    this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
-   
-      });;
-    };
-  handleChange = ({ fileList }) => {
-    //console.log(base64);
-    this.setState({ fileList })}
 
   nameChange = (e) => {
     this.setState({ name: e.target.value });
@@ -165,18 +134,13 @@ class Cafe extends React.Component {
     this.setState({ lat: e.target.geom , lon: e.target.value.longitude });
   
   };
-  Upload =  async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-      base64=file.preview;
-      console.log(file.preview);
-    }
-
-  };
+ 
  
   proxyurl= "http://localhost:8010/proxy";
   onSubmit = (e) => {
      e.preventDefault();
+     let list=(localStorage.getItem('base64'));
+     console.log(JSON.parse(list))
      const data={
       name:this.state.name,
       description:this.state.Description,
@@ -185,7 +149,7 @@ class Cafe extends React.Component {
       close_time:this.state.Close_time,
       phone_number:this.state.Telephone,
       games:this.state.List_of_board_games,
-      gallery:base64.substring(3),
+      gallery:JSON.parse(list),
       latitude:localStorage.getItem('lat'),
       longitude:localStorage.getItem('lng'),
       city:localStorage.getItem('city')
@@ -407,24 +371,7 @@ this.setState({necessary_inputs:"!Ok"})
               style={{ width: '100%' }}
             />
           </Form.Item>
-          <Form.Item
-            style={{ display: "inline"}}
-            className="upload_img"
-          ><p style={{color:'white', width:'100%'}}>for save pictures click on <CheckCircleOutlined /> and for delete click on <DeleteFilled />
-             </p>
-             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={this.state.fileList}
-              onPreview={this.handlePreview}
-              onChange={this.handleChange}
-            >
-              <div className="upload-button">
-                {" "}
-                {fileList.length >= 20 ? null : uploadButton}
-           <span style={{fontSize:"11px"}}>{"(at most 20)"} </span>  </div>
- </Upload> 
-          </Form.Item>
+          <Gallery />
           <Form.Item  onChange={this.onChange}>
             <CafeMap onSelect={this.mapChange}  {...this.state}/>
           </Form.Item>
