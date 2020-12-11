@@ -20,7 +20,7 @@ import {
 } from "antd";
 import axios from 'axios';
 import "antd/dist/antd.css";
-import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled } from "@ant-design/icons";
+import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled,CheckCircleFilled} from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
 const { RangePicker } = TimePicker;
 const { Option } = Select;
@@ -166,6 +166,7 @@ class Cafe extends React.Component {
     }}
   ).then((res)=>{
     console.log(res.data+"reeee")
+    this.setState({necessary_inputs:"added"})
   })
   .catch((error)=>
     {
@@ -348,7 +349,7 @@ this.setState({necessary_inputs:"!Ok"})
             <Input
                style={{ width: '100%' }}
               name="Price"
-              placeholder="100,000"
+              defaultValue="100,000"
               onChange={(this.onChange, this.pricechange)}
             />
           </Form.Item>
@@ -366,12 +367,14 @@ this.setState({necessary_inputs:"!Ok"})
             <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
             <Input
               name="Telephone"
-              placeholder="021-00000000"
+              defaultValue="021-00000000"
               onChange={(this.onChange, this.telephoneChange)}
               style={{ width: '100%' }}
             />
           </Form.Item>
-          <Gallery />
+          <Form.Item style={{color:"white"}}>to save each picture click on <CheckCircleFilled /> and for delete picture click on <DeleteFilled />
+          <Gallery  />
+          </Form.Item>
           <Form.Item  onChange={this.onChange}>
             <CafeMap onSelect={this.mapChange}  {...this.state}/>
           </Form.Item>
@@ -394,16 +397,17 @@ this.setState({necessary_inputs:"!Ok"})
                 ? "spinner-border spinner-border-sm"
                 : "all"}
               ></span>
-              {this.state.necessary_inputs === "Ok"
-                ? "Loading..."
+              {this.state.necessary_inputs === "added"
+                ? "ََAdded"
                 : "Add Caffe"}
             </Button>
-            <p style={{color:"green"}} className ="ant-form-item-extra2 ">{
-                  this.state.necessary_inputs === "Ok"
+            <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
+                  this.state.necessary_inputs === "added"
                     ? "Cafe added successfuly"
                     : ""
-            }{ this.state.necessary_inputs === "!Ok"
-            ? "*all nessecory inputs should write"
+            }</p><p style={{color:"red", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">
+              { this.state.necessary_inputs === "!Ok"
+            ? "*All nessecory inputs should write"
             : ""}</p>
           </Form.Item>
         </Form>
