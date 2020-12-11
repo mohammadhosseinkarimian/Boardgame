@@ -512,7 +512,18 @@ $barOnhover:silver;
   background-color:$layout5 !important;
  padding: 0;
 }
-
+.ant-card, .ant-card-actions {
+  background-color: $layout4 !important;
+}
+.ant-card-head{
+  border-bottom: 0;
+}
 .ant-card-bordered{
   border: 1px solid $layout5;
+}
+.ant-card-actions{
+  border-top: 0;
+}
+.ant-card-actions > li:not(:last-child){
+  border-right:1px solid $layout6;
 }

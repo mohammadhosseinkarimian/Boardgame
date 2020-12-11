@@ -13,3 +13,13 @@ p{
 .ant-card-head-title{
 color: white;
 }
+.mycafe_card{
+    display: inline;
+    float: left;
+    margin: 1%;
+}
+.mycafe_container{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+}

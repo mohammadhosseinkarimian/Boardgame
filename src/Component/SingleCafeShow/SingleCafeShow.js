@@ -45,7 +45,7 @@ class SingleCafeShow extends React.Component {
   componentDidMount() {
     const id = window.location.href.substring(32);
     //const id = this.props.match.params.id
-    Axios.get("http://localhost:8010/proxy/cafe/cafe_info/" + 111 + "/", {
+    Axios.get("http://localhost:8010/proxy/cafe/cafe_info/" + 126 + "/", {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         "Access-Control-Allow-Credentials": true,

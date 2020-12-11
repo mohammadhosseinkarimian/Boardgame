@@ -1,9 +1,9 @@
 import React from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Card, } from 'antd';
 import { FaCoffee } from "react-icons/fa";
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
 import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
 import { GiTwoCoins } from "react-icons/gi";
@@ -11,7 +11,8 @@ import { GiTwoCoins } from "react-icons/gi";
 const { Meta } = Card;
 class OwnedCafe extends React.Component {
   state = {
-    id: "1",
+    mycafe:[],
+    id: "",
     name: "",
     owner: "",
     description: "",
@@ -20,10 +21,11 @@ class OwnedCafe extends React.Component {
     open_time: "",
     close_time: "",
     phone_number: "",
-    gallery: "",
+    gallery: [],
     latitude: "",
-    longitude: ""
-
+    longitude: "",
+    proxyurl:'http://localhost:8010/proxy',
+    clickdelete:false
     // id: "02",
     // name: "lamiz",
     // owner: "rajabi",
@@ -38,8 +40,10 @@ class OwnedCafe extends React.Component {
     // phone_number: "021-111546",
     // gallery: ""
   }
-  onClickDelete = () => {
-    Axios.delete('http://localhost:8010/proxy/cafe/edit_cafe/' + this.state.id, {
+  onClickDelete = (id) => {
+ 
+    console.log("click")
+    axios.delete('http://localhost:8010/proxy/cafe/edit_cafe/'+id+'/', {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials': true,
@@ -51,31 +55,58 @@ class OwnedCafe extends React.Component {
       .then(res => {
         const data = res.data;
         console.log(data);
-        alert("Deleted cafe" + this.state.name)
+        alert("Cafe Deleted")
 
       })
       .catch((error) => {
         alert("somthing went wrong!")
       }
       )
-
-
-
+    
+  };
+  getInfo=(e)=>
+  { 
+      axios.get(this.state.proxyurl+"/cafe/owner_cafes_list/",{headers:{
+          'Content-Type' : 'application/json;charset=utf-8',
+          'Access-Control-Allow-Credentials':true,
+'Accept' : 'application/json',
+'Authorization' :`Bearer ${localStorage.getItem('access')}`
+      }}
+  ).then((res)=>{ 
+    console.log(res.data)
+    this.setState({mycafe:res.data})
   }
+  ).catch((error)=>{
+    alert('some thing is wrong')
+  })};
+
+  componentDidMount() {
+    this.getInfo();
+};
 
 
   render() {
-    alert('an');
+    //alert('an');
     return (
-      <div style={{marginTop: '5%'}}>
-        
-        <Card title={this.state.name} extra={<a onClick={this.onClickDelete} href="#"><AiFillDelete /></a>} style={{ width: 300 }}>
-          <p><AiOutlinePhone />  {this.state.phone_number}</p>
-          <p><GiTwoCoins />  {this.state.price}</p>
-          <p><AiFillClockCircle />  {this.state.open_time} to {this.state.close_time}</p>
-        </Card>
-      </div>
-    )
+      <div className="mycafe_container">
+      { this.state.mycafe.map(item =>(
+      this.state.gallery=(item.gallery),
+        <Card className="mycafe_card" 
+        title={item.name}  
+        /*cover={<img src={this.state.gallery[0].base64} style={{width:"98%", marginLeft:'1%'}}/>}*/
+        description={item.description}
+          actions={[
+            <button  style={{backgroundColor:'#333',color:'#fff'}}>
+          Edit cafe details<EditFilled className="icon"/> 
+            </button>,
+            <button  onClick={this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff'}}>
+          Delete cafe<DeleteFilled className="icon"/> 
+            </button>
+          ]}
+        >
+       
+        </Card> ))}</div>
+    ) 
   }
 }
 export default OwnedCafe;
