@@ -62,7 +62,7 @@ console.log(base64)
     );
     return (
       <>
-      <Form.Item>
+      <Form.Item style={{marginLeft:'-50%' , marginTop:'2%'}}>
         <Upload
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           listType="picture-card"
@@ -70,10 +70,11 @@ console.log(base64)
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           onRemove={this.handleCancel}
+          
         >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Button onClick={this.onSubmit}>Submit all pictures</Button></Form.Item>
+          {fileList.length >= 20 ? null : uploadButton}
+        </Upload></Form.Item>
+        <Button className="btn btn-primary"  style={{width: '100%'}} onClick={this.onSubmit}>Submit all pictures</Button>
       </>
     );
   }
