@@ -6,8 +6,9 @@ import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
 import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
+import Av from './default_picture.png';
 import { GiTwoCoins } from "react-icons/gi";
-
+let a="";
 const { Meta } = Card;
 class OwnedCafe extends React.Component {
   state = {
@@ -25,20 +26,6 @@ class OwnedCafe extends React.Component {
     latitude: "",
     longitude: "",
     proxyurl:'http://localhost:8010/proxy',
-    clickdelete:false
-    // id: "02",
-    // name: "lamiz",
-    // owner: "rajabi",
-    // description: "asdfghjkl;oiuytrexcvbnm,;lkjuytredtyuio.,mdedrtuiop;lkjgfdyui",
-    // games: ["monopoly", "pantagon", "mench"],
-    // images: ["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png", "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],
-    // price: "12000",
-    // latitude: "35.6892",
-    // longitude: "51.3890",
-    // open_time: "12:00",
-    // close_time: "1:00",
-    // phone_number: "021-111546",
-    // gallery: ""
   }
   onClickDelete = (id) => {
  
@@ -56,7 +43,7 @@ class OwnedCafe extends React.Component {
         const data = res.data;
         console.log(data);
         alert("Cafe Deleted")
-
+        this.getInfo();
       })
       .catch((error) => {
         alert("somthing went wrong!")
@@ -84,23 +71,28 @@ class OwnedCafe extends React.Component {
     this.getInfo();
 };
 
-
+onClickedit = (id) => {
+  window.location.href = "/editcafe/:" + id;
+};
   render() {
     //alert('an');
     return (
       <div className="mycafe_container">
       { this.state.mycafe.map(item =>(
+        localStorage.setItem("cafeid",item.id),
       this.state.gallery=(item.gallery),
-        <Card className="mycafe_card" 
+      this.state.gallery.forEach(item => a=(item.base64)),
+        <Card className="mycafe_card"
+        style={{width:'33%'}} 
         title={item.name}  
-        /*cover={<img src={this.state.gallery[0].base64} style={{width:"98%", marginLeft:'1%'}}/>}*/
+       cover={<img  className="photo" src={a===''?Av:a} style={{width:"98%", marginLeft:'1%'}}/>}
         description={item.description}
           actions={[
-            <button  style={{backgroundColor:'#333',color:'#fff'}}>
-          Edit cafe details<EditFilled className="icon"/> 
+            <button  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'#333',color:'#fff',width:'80%'}}>
+          <EditFilled className="icon"/> 
             </button>,
-            <button  onClick={this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff'}}>
-          Delete cafe<DeleteFilled className="icon"/> 
+            <button  onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
+          <DeleteFilled className="icon"/> 
             </button>
           ]}
         >
