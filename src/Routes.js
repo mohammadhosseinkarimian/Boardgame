@@ -22,6 +22,7 @@ import AllCafe from './Component/Listofallcafe/all-cafe-list';
 import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow';
 import Cafe from './Component/Cafe-form/cafe-form';
 import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
+import OwnedCafe_edit from './Component/OwnedCafes/Ownedcafe_edit'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import './Component/BoardGame/allStyle.css';
@@ -151,6 +152,9 @@ var currentScrollPos = window.pageYOffset;
             <Menu.Item className="m-item" key="12" >
            <NavLink to='/allcafes/'>Cafes</NavLink>   
             </Menu.Item>
+            <Menu.Item className="m-item" key="13" >
+           <NavLink to='/ownedcafe'>My Cafe</NavLink>   
+            </Menu.Item>
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
            <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
@@ -183,6 +187,7 @@ var currentScrollPos = window.pageYOffset;
        <Route exact path="/allcafes/:id" component={SingleCafeShow} />
        <Route exact path="/cafeform" component={Cafe} />
        <Route exact path="/ownedcafe" component={OwnedCafe} />
+       <Route exact path="/editcafe/:id" component={OwnedCafe_edit} />
 
        <Route exact path="/addplay/" component={AddPlay} />
        <Route exact path="/showplay/" component={LogPlay} />
