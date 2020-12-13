@@ -1,5 +1,7 @@
 import React from "react";
 import Axios from "axios";
+import StarRatings from 'react-star-ratings';
+
 import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -15,18 +17,25 @@ import {
 class HomeGames extends React.Component {
     state = {
         games: [],
+        cafes: [],
         vision: ""
     };
-    componentDidMount() {
-        Axios.get( 'http://localhost:8010/proxy/game/hot_games/')
+    async componentDidMount() {
+      await  Axios.get( 'http://localhost:8010/proxy/game/hot_games/')
             .then(res => {
                 const games_list = res.data;
-                console.log(games_list)
                 this.setState(prevState => {
                     return { games: games_list }
                 })
             })
             
+            Axios.get( 'http://localhost:8010/proxy/cafe/day_cafe_list/')
+            .then(res => {
+                const cafes_list = res.data;
+                this.setState(prevState => {
+                    return { cafes: cafes_list }
+                })
+            })
             
             
     }
@@ -41,7 +50,7 @@ class HomeGames extends React.Component {
           }, []);
         return(
             
-            <div style={{ backgroundColor: 'transparent',paddingTop: "2%",marginTop: "8%",height: '35vh',width: '90%',marginLeft: '5%'}}>
+            <div style={{paddingTop: "2%",marginTop: "8%",height: '35vh',width: '90%',marginLeft: '5%'}}>
                 
                 <h3 > THE HOT GAMES
                      
@@ -52,38 +61,91 @@ class HomeGames extends React.Component {
                 < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px"}}>see all</Link>
                 </h5>  </span>
                 
-                <Carousel infiniteLoop  autoPlay  width="100%"  >
+                <Carousel infiniteLoop  autoPlay  width="100%" >
                     
                   {rows.map(game => (
-                    <body style={{backgroundColor: '#303030',height: '35vh'}}>
-                    <Row style={{marginLeft: '12.5%'}} justify='start'>
-                    <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[0].id}> <img className="img-text" src={game[0].image} height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
-                    {game[0].name}
-                    </figcaption>
-                        </figure>
+                    <body style={{backgroundColor: 'transparent',height: '35vh'}}>
+                    <Row  justify='start'>
+                    <Col span={8}>
+                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Col span={12}>
+                               <div style={{marginLeft: '7%'}}>
+                               <h5>{game[0].name}</h5>
+                              
+                                <StarRatings
+                                 rating={parseFloat((parseFloat(game[0].rate)/2).toFixed(2))}
+              
+                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                 numberOfStars={5}
+                                 name='rating' 
+                                 />
+            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}>{game[0].description.substring(0,70)}...</p>
+
+                                 </div>
+                               </Col>
+
+                           <Col span={12} >
+                               <div className='roundedcircle'>
+                               <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
+                             
+                        </Row>
                         </Col>
-                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[1].id}> <img className="img-text" src={game[1].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}} /></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
-                    {game[1].name}
-                    </figcaption>
-                        </figure>
+                        <Col span={8}>
+                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Col span={12}>
+                               <div style={{marginLeft: '7%'}}>
+                               <h5>{game[1].name}</h5>
+                              
+                                <StarRatings
+                                 rating={parseFloat((parseFloat(game[1].rate)/2).toFixed(2))}
+              
+                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                 numberOfStars={5}
+                                 name='rating' 
+                                 />
+            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}>{game[1].description.substring(0,70)}...</p>
+
+                                 </div>
+                               </Col>
+
+                           <Col span={12} >
+                               <div className='roundedcircle'>
+                               <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
+                             
+                        </Row>
                         </Col>
-                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[2].id}> <img className="img-text" src={game[2].image}  height='54%' style={{width: '30%',minHeight: '80px',width: '100%'}}/></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
-                    {game[2].name}
-                    </figcaption>
-                        </figure>
-                        </Col>
-                        <Col span={6}><figure className="img-with-text" style={{textAlign: 'justify',height: '80%',width: '35%',marginTop: '7%'}}>
-                    <Link to={'/allgames/:'+game[3].id}> <img className="img-text" src={game[3].image} height='54%' style={{width: '30%',minHeight: '100px',width: '100%'}} /></Link>
-                    <figcaption style={{fontSize: "11px",color: 'whitesmoke',textAlign: 'center',marginTop: '7px'}}>
-                    {game[3].name}
-                    </figcaption>
-                        </figure>
+                        <Col span={8}>
+                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Col span={12}>
+                               <div style={{marginLeft: '7%'}}>
+                               <h5>{game[2].name}</h5>
+                              
+                                <StarRatings
+                                 rating={parseFloat((parseFloat(game[2].rate)/2).toFixed(2))}
+              
+                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                 numberOfStars={5}
+                                 name='rating' 
+                                 />
+            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}>{game[2].description.substring(0,70)}...</p>
+
+                                 </div>
+                               </Col>
+
+                           <Col span={12} >
+                               <div className='roundedcircle'>
+                               <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
+                             
+                        </Row>
                         </Col>
                     </Row>
                    
