@@ -23,6 +23,7 @@ $barOnhover:silver;
     margin: 0;
     width:100%;
     overflow: hidden;
+    background-color: $layout2 ;
   }
 .h3, h3 {
    
@@ -54,7 +55,9 @@ $barOnhover:silver;
     max-height: "200px";
     
   }
-
+  .carousel .slide{
+    background-color: transparent;
+  }
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -121,6 +124,31 @@ $barOnhover:silver;
 }
 
 //image in carousel
+
+.roundedcircle{
+  border-radius: 50% !important;
+  
+  width: 12vw;
+    height: 12vw;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: $layout5;
+
+}
+.imageinside{
+  max-width: 55%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 7px 5px $background;
+
+  height: auto;
+  width: auto;
+}
+.imageinside :hover{
+ opacity: 0.8;
+}
 .img-with-text {
   text-align: justify;
 }
@@ -129,32 +157,30 @@ $barOnhover:silver;
   display: block;
   margin: 0 auto;
   margin-top: 13%;
+  border-radius: 50% red;
 }
 //carousel
 .carousel-status{
   visibility: hidden;
 }
-.carousel .control-dots .dot {
-  
-  margin: 0 0.5%;
+.carousel .control-dots{
+  margin: 0px;
 }
 .ant-empty-description{
   visibility: hidden;
 }
 .carousel .control-next.control-arrow {
-  right: 44% !important;
-  margin-top: 0.5% !important;
+  right: 43% !important;
 }
 .carousel.carousel-slider .control-arrow {
-  background: $layout2 !important;
-  padding: 1% !important;
-  top: 66% !important;
+  background: $background !important;
+  padding: 0% !important;
+  top: 79% !important;
   font-size: 24px !important;
 }
 
 .carousel .control-prev.control-arrow{
-  left: 42.5% !important;
-  margin-top: 0.4% !important;
+  left: 43% !important;
 
 }
 //home
@@ -186,6 +212,7 @@ $barOnhover:silver;
     opacity: 1;
     display: block;
     transition: .3s ease;
+    border-radius: 3px solid red;
   }
   .img-text:hover{
     opacity: 0.7;
@@ -380,15 +407,7 @@ $barOnhover:silver;
 .ant-input-password :hover{
   background-color: $layout6;
 }
-.btn.btn-primary{
-  background-color: $primary !important;
-  border-color: $primary;
-  opacity: 1 !important;
-}
-.btn:hover {
-  opacity: 0.85 !important;
-  border-color: transparent !important;
-}
+
 
   .ant-form-item-extra {
     clear: both;
@@ -478,4 +497,23 @@ $barOnhover:silver;
 }
 .ant-empty-img-simple{
   display: none;
+}
+
+.btn.btn-primary{
+  background-color: $primary !important;
+  border-color: $primary;
+  opacity: 1 !important;
+  box-shadow: 0px 5px 7px $layout2;
+
+}
+.btn:hover {
+  opacity: 0.9 !important;
+  border-color: transparent !important;
+}
+.btn{
+  line-height: 1 !important;
+}
+.btn :focus-within {
+  
+color: red !important;
 }
