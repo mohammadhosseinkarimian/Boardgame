@@ -2,7 +2,9 @@ import React from "react";
 import moment from "moment";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CafeMap from "../Map/Map";
+import Gallery from './gallery'
 import '../../Style/design.scss';
+import Mapir from "mapir-react-component";
 import {
   Form,
   Input,
@@ -25,6 +27,19 @@ const { Option } = Select;
 const { Dragger } = Upload;
 let index = 0;
 let base64="";
+const Map = Mapir.setToken({
+  transformRequest: (url) => {
+    return {
+      url: url,
+      headers: {
+        "x-api-key":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM4MGI2ZGNkZjNmMmZjMTJiZGJlZDlhNGQ2MDM1YWI0MmYwZWI0YTdjZWRiZTAxZjkwY2E3NWY2ODRjOGE0NGVhYjNhYzA5OWE2ZTI3ODY3In0.eyJhdWQiOiIxMTU3MyIsImp0aSI6ImM4MGI2ZGNkZjNmMmZjMTJiZGJlZDlhNGQ2MDM1YWI0MmYwZWI0YTdjZWRiZTAxZjkwY2E3NWY2ODRjOGE0NGVhYjNhYzA5OWE2ZTI3ODY3IiwiaWF0IjoxNjA2MDM1OTYwLCJuYmYiOjE2MDYwMzU5NjAsImV4cCI6MTYwODU0MTU2MCwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.GlBztlovbk9H-x4WErTuD3Cth2bp1Bd4myRJ96uOEYOy3LlK2RQEq-4G3hPDQ8IGuEq18vmBakeh7UNg0OA1BCFb5AwDUEl7kzO4wmZ6-AZrGo92b9AQ--5aGLhqUEYcTi0Y0DXOxviyeBM49eHGzmm6Oa0bJ1eRvDG6C07UH4MvMNfv0xwpSMoB9czJSwyfUYzXR9P0St4-ayv6nxOmsAiDUb-1gfUCNff-HHiiLq0z_eVa0Fy_Vj11aC0smz1T7_qQvzMkOhHGptxYDICqNFXYpgNjf_eELdk67_DLrn6-bG5HNC82gr4ZEeFOmuh7Ka5jdl_AMM09oAT1UypXNQ", //Mapir api key
+
+        "Mapir-SDK": "reactjs",
+      },
+    };
+  },
+});
 const mapdetail={CafeMap}
 const formItemLayout = {
   labelCol: {
@@ -82,6 +97,9 @@ class Cafeedit extends React.Component {
     massage:"",
     done:"",
     edit:"",
+    Gamestring:[],
+    latitude: "",
+    longitude: "",
 
   };
   onFinish = (values) => {
@@ -173,15 +191,19 @@ let cafeid=localStorage.getItem("cafeid")
     
     this.setState({name:res.data.name});
     this.setState({description:res.data.description});
-    this.setState({List_of_board_games:res.data.List_of_board_games});
+    this.setState({List_of_board_games:res.data.games});
     this.setState({open_time:res.data.open_time});
     this.setState({close_time:res.data.close_time});
-     this.setState({price:res.data.price});
+    this.setState({price:res.data.price});
     this.setState({Telephone:res.data.Telephone});
-    this.setState({done:"yes"});
-
-
-} )
+    this.state.List_of_board_games.forEach((element) => {
+      this.state.Gamestring.push(element.name)
+      });
+console.log(this.state.Gamestring)
+this.setState({ latitude: res.data.latitude });
+this.setState({ longitude: res.data.longitude });
+this.setState({done:"yes"});
+})
 .catch((error)=>
 {
 
@@ -287,11 +309,12 @@ componentDidMount() {
             <QuestionCircleOutlined />
           </Tooltip>
         </p>
+       <div>
            <Select
            mode="multiple"
               showSearch
               style={{ width: '100%' }}
-              placeholder={this.state.List_of_board_games===""?"last name":this.state.List_of_board_games+" (optional)"}
+              defaultValue={this.state.Gamestring}
               optionFilterProp="children"
               onSearch={this.onSearchgame}
               onSelect={this.onSelectgame}
@@ -300,10 +323,12 @@ componentDidMount() {
               }
 
             >
-              {this.state.suggestlist_game.map(item => (
-                <Option value={item.id}>{item.name}</Option>
+              {this.state.suggestlist_game.map(i => (
+                <Option value={i.id}>{i.name}</Option>
               ))
               }</Select>
+        </div> 
+          
           </Form.Item>
           <Form.Item
             onChange={this.onChange}
@@ -390,6 +415,26 @@ componentDidMount() {
               style={{ width: '100%' }}
             />
           </Form.Item>
+          <Form.Item>
+<Gallery />
+          </Form.Item>
+
+          <div>
+            <Mapir
+              className="map"
+              center={[this.state.longitude, this.state.latitude]}
+              Map={Map}
+            >
+              <Mapir.Layer
+                type="symbol"
+                layout={{ "icon-image": "harbor-15" }}
+              ></Mapir.Layer>
+              <Mapir.Marker
+                coordinates={[this.state.longitude, this.state.latitude]}
+                anchor="bottom"
+              ></Mapir.Marker>
+            </Mapir>
+          </div>
           </Form>
           </div>
         );
