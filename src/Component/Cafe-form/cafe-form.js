@@ -405,7 +405,7 @@ this.setState({necessary_inputs:"!Ok"})
                   this.state.necessary_inputs === "added"
                     ? "Cafe added successfuly"
                     : ""
-            }</p><p style={{color:"red", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">
+            }</p><p style={{color:"red", width:'100%',fontSize:'11px', marginLeft:'-1%',marginTop:'2%'}} className ="ant-form-item-extra2 ">
               { this.state.necessary_inputs === "!Ok"
             ? "*All nessecory inputs should write"
             : ""}</p>

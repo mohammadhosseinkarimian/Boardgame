@@ -527,3 +527,25 @@ $barOnhover:silver;
 .ant-card-actions > li:not(:last-child){
   border-right:1px solid $layout6;
 }
+.ant-card-body {
+  background-color: $layout4;
+}
+.ant-card-head,.ant-card-head-wrapper{
+  background-color:  $layout5 !important;
+}
+.ant-card-head-wrapper{
+  background-color:  $layout4;
+}
+.text_button{ 
+  position: absolute;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: 100%;
+ width: 80%;
+ opacity: 0;
+ transition: .5s ease;
+ margin-Left:10%;
+ padding-top: 2%;
+ background-color: $layout4;}

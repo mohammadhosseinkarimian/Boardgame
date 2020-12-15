@@ -1,12 +1,4 @@
-.ant-card-body {
-    background-color:  #333333;
-}
-.ant-card-head,.ant-card-head-wrapper{
-    background-color:  #414141 !important;
-}
-.ant-card-head-wrapper{
-    background-color:  #333333;
-}
+
 p{
     color: white;
 }
@@ -23,6 +15,10 @@ color: white;
     margin-left: 10%;
     margin-top: 5%;
 }
-.photo{
-    max-height: 150px;
+.photocafe{
+    max-height: 20vh;
+}
+.button:hover .text_button{
+    visibility: visible;
+     opacity: 1;
 }

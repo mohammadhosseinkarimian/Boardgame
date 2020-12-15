@@ -195,7 +195,7 @@ let cafeid=localStorage.getItem("cafeid")
     this.setState({open_time:res.data.open_time});
     this.setState({close_time:res.data.close_time});
     this.setState({price:res.data.price});
-    this.setState({Telephone:res.data.Telephone});
+    this.setState({Telephone:res.data.phone_number});
     this.state.List_of_board_games.forEach((element) => {
       this.state.Gamestring.push(element.name)
       });
@@ -390,7 +390,7 @@ componentDidMount() {
             <Input
                style={{ width: '100%' }}
               name="Price"
-              placeholder={this.state.price===""?"last name":this.state.price+" (optional)"}
+              placeholder={this.state.price===""?"Price":this.state.price+" (optional)"}
              // defaultValue="100,000"
               onChange={(this.onChange, this.pricechange)}
             />
@@ -409,7 +409,7 @@ componentDidMount() {
             <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
             <Input
               name="Telephone"
-              placeholder={this.state.Telephone===""?"last name":this.state.Telephone+" (optional)"}
+              placeholder={this.state.Telephone===""?"Phone":this.state.Telephone+" (optional)"}
              // defaultValue="021-00000000"
               onChange={(this.onChange, this.telephoneChange)}
               style={{ width: '100%' }}

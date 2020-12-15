@@ -83,16 +83,18 @@ onClickedit = (id) => {
       this.state.gallery=(item.gallery),
       this.state.gallery.forEach(item => a=(item.base64)),
         <Card className="mycafe_card"
-        style={{width:'33%'}} 
+        style={{width:'25%'}} 
         title={item.name}  
-       cover={<img  className="photo" src={a===''?Av:a} style={{width:"98%", marginLeft:'1%'}}/>}
+       cover={<img  className="photocafe" src={a===''?Av:a} style={{width:"98%", marginLeft:'1%'}}/>}
         description={item.description}
           actions={[
-            <button  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'#333',color:'#fff',width:'80%'}}>
+            <button className="button"  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'#333',color:'#fff',width:'80%'}}>
           <EditFilled className="icon"/> 
+          <p className="text_button">Edit</p>
             </button>,
-            <button  onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
+            <button  className="button" onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
           <DeleteFilled className="icon"/> 
+          <p className="text_button" >Delete</p>
             </button>
           ]}
         >

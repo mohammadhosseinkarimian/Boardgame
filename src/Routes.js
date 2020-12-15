@@ -14,7 +14,8 @@ import{
   FileOutlined,
   EditOutlined, 
   MenuOutlined ,
-  PlayCircleOutlined
+  PlayCircleOutlined,
+  CoffeeOutlined
 } from "@ant-design/icons";
 import HomeGames from './Component/BoardGame/HomeGames';
 import EditProfile from './Component/EditProfile/EditProfile';
@@ -27,6 +28,7 @@ import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import './Component/BoardGame/allStyle.css';
 import Axios from 'axios';
+const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 class Routes extends React.Component {
     state = {
@@ -149,12 +151,17 @@ var currentScrollPos = window.pageYOffset;
       
       <NavLink to={"/editProfile/:"+localStorage.getItem('id')}> {' '+this.state.username+'(tap to edit)'}</NavLink>
             </Menu.Item >
-            <Menu.Item className="m-item" key="12" >
-           <NavLink to='/allcafes/'>Cafes</NavLink>   
+             <SubMenu title="Cafes" icon={<CoffeeOutlined />}>
+             <Menu.Item className="m-item" key="14" >
+               <NavLink to='/cafeform'>Create Cafe</NavLink>   
+            </Menu.Item>
+               <Menu.Item className="m-item" key="12" >
+               <NavLink to='/allcafes/'>Show Cafe List</NavLink>   
             </Menu.Item>
             <Menu.Item className="m-item" key="13" >
-           <NavLink to='/ownedcafe'>My Cafe</NavLink>   
+           <NavLink to='/ownedcafe'>Owned Cafe</NavLink>   
             </Menu.Item>
+            </SubMenu>
             <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
            <NavLink to='/addplay/'>Create play</NavLink>   
             </Menu.Item>
