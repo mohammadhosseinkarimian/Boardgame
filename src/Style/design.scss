@@ -5,6 +5,7 @@ $layout1:#282828;//sider
 $layout2:#303030;//header
 $layout4:#333;//on hover
 $layout5:#414141;//on selection
+$layout3:#505050;
 $layout6:#575757;
 $layout7:#676767;
 $layout8:#818181;
@@ -173,7 +174,7 @@ $barOnhover:silver;
   right: 43% !important;
 }
 .carousel.carousel-slider .control-arrow {
-  background: $background !important;
+  background: transparent !important;
   padding: 0% !important;
   top: 79% !important;
   font-size: 24px !important;
@@ -513,7 +514,20 @@ $barOnhover:silver;
 .btn{
   line-height: 1 !important;
 }
-.btn :focus-within {
-  
-color: red !important;
+.banner{
+  background-Color: $layout3;
+   border: 2px solid $layout7;
+   border-Radius: 25px;align-content: 'center';text-align: center;line-height: 1;
+}
+.centeredtext{
+  margin-left: auto;
+  margin-Right: auto;
+  text-align: center;
+}
+.communitystyle{
+  background-Color: $layout3;
+  height: 61vh;
+  border: 2px solid $layout6;
+  border-Radius: 25px;
+  margin-Top: 4%;
 }
