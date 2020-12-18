@@ -107,8 +107,8 @@ class Cafeedit extends React.Component {
 };
 onChange = (e) => {
     e.persist();
-    console.log(e.target.value);
-    console.log(e.target.name);
+   // console.log(e.target.value);
+   // console.log(e.target.name);
     this.setState(() => {
         return {
             [e.target.name]: e.target.value,
@@ -230,6 +230,45 @@ onSelectgame = (value) => {
     console.log(this.state.selected_game, 'dealersOverallTotal1')
   })
 };
+nameChange=e=>{
+  this.setState({name:e.target.value});
+  this.setState({edit:"true"});
+  console.log(this.state.name);
+};
+descChange=e=>{
+  this.setState({description:e.target.value});
+  this.setState({edit:"true"});
+  console.log(this.state.description);
+};
+ gameChange=e=>{
+   console.log(e)
+  var dict = { item: e };
+  this.state.List_of_board_games='';
+  // this.state.List_of_board_games.push(dict);
+  this.setState({List_of_board_games: this.state.List_of_board_games + " " + e });
+  console.log(this.state.List_of_board_games)
+  ;
+};
+openChange=e=>{
+  if (e !== null) this.setState({ open_time: e.format("LT") });
+  this.setState({edit:"true"});
+  console.log(this.state.open_time);
+};
+closeChange=e=>{
+  if (e !== null) this.setState({ close_time: e.format("LT") });
+  this.setState({edit:"true"});
+  console.log(this.state.close_time);
+};
+priceChange=e=>{
+  this.setState({price:e.target.value});
+  this.setState({edit:"true"});
+  console.log(this.state.price);
+};
+phoneChange=e=>{
+  this.setState({phone_number:e.target.value});
+  this.setState({edit:"true"});
+  console.log(this.state.phone_number);
+};
 componentDidMount() {
     this.getInfo();
 }
@@ -266,8 +305,8 @@ componentDidMount() {
             <Input
               required
               name="name"
-              placeholder={this.state.name===""?"last name":this.state.name+" (optional)"}
-              onChange={(this.onChange, this.nameChange)}
+              placeholder={this.state.name===""?"cafe name":this.state.name+" (optional)"}
+              onChange={(this.nameChange)}
             />
           </Form.Item>
           
@@ -280,7 +319,6 @@ componentDidMount() {
                 whitespace: true,
               },
             ]}
-            onChange={this.onChange}
           >  <p> <span style={{color:"red"}}>*</span>
           Description :&nbsp;
           <Tooltip title="Type address and some descriptions about caffe">
@@ -290,8 +328,9 @@ componentDidMount() {
             <Input.TextArea
               required
               name="Description"
-              placeholder={this.state.description===""?"last name":this.state.description+" (optional)"}
-              onChange={(this.onChange, this.descriptionChange)}
+              placeholder={this.state.description===""?"description":this.state.description+" (optional)"}
+              onChange={this.descChange}
+            
             />
             </Form.Item>
            <Form.Item
@@ -302,7 +341,7 @@ componentDidMount() {
                 whitespace: true,
               },
             ]}
-            onChange={this.onChange}
+           // onChange={this.onChange}
           ><p>
           Board games :&nbsp;
           <Tooltip title="What board games are there in the cafe?">
@@ -318,6 +357,7 @@ componentDidMount() {
               optionFilterProp="children"
               onSearch={this.onSearchgame}
               onSelect={this.onSelectgame}
+              onChange={this.gameChange}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -347,7 +387,7 @@ componentDidMount() {
               format={"HH:mm"}
               placeholder={this.state.open_time===""?"last name":this.state.open_time+" (optional)"}
               //defaultValue={moment("00:00", "HH:mm")}
-              onChange={(this.onChange, this.open_tChange)}
+              onChange={(this.openChange)}
             />
           </Form.Item>
           <Form.Item
@@ -367,7 +407,7 @@ componentDidMount() {
               format={"HH:mm"}
               placeholder={this.state.close_time===""?"last name":this.state.close_time+" (optional)"}
               //defaultValue={moment("00:00", "HH:mm")}
-              onChange={(this.onChange, this.close_tCange)}
+              onChange={( this.closeChange)}
             />
           </Form.Item>
           <Form.Item
@@ -392,7 +432,7 @@ componentDidMount() {
               name="Price"
               placeholder={this.state.price===""?"Price":this.state.price+" (optional)"}
              // defaultValue="100,000"
-              onChange={(this.onChange, this.pricechange)}
+              onChange={(this.priceChange)}
             />
           </Form.Item>
           <Form.Item
@@ -411,7 +451,7 @@ componentDidMount() {
               name="Telephone"
               placeholder={this.state.Telephone===""?"Phone":this.state.Telephone+" (optional)"}
              // defaultValue="021-00000000"
-              onChange={(this.onChange, this.telephoneChange)}
+              onChange={(this.phoneChange)}
               style={{ width: '100%' }}
             />
           </Form.Item>
