@@ -279,7 +279,7 @@ componentDidMount() {
                             
        <div    style={{backgroundImage: "url(" + this.state.img + ")",height: '34vh' ,position: 'relative',display: 'flex',backgroundSize: '100% 100%',backgroundAttachment: 'scroll'}}>
        <button  onClick={()=>this.fileInput.click()} className='btn btn-primary'
-                            style={{marginTop: '26.1vh',borderRadius: '50%',width: '3.5vw',height: '3.5vw'}}><EditOutlined /> </button>
+                            style={{marginTop: '25.5vh',borderRadius: '50%',marginLeft: '2%',width: '3.5vw',height: '3.5vw'}}><EditOutlined/> </button>
        </div>
       </FormItem>
                         <Form.Item
