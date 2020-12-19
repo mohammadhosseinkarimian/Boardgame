@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CafeMap from "../Map/Map";
+import CafeMap from "./Map";
 import Gallery from './gallery'
 import '../../Style/design.scss';
 import Mapir from "mapir-react-component";
@@ -27,19 +27,6 @@ const { Option } = Select;
 const { Dragger } = Upload;
 let index = 0;
 let base64="";
-const Map = Mapir.setToken({
-  transformRequest: (url) => {
-    return {
-      url: url,
-      headers: {
-        "x-api-key":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM4MGI2ZGNkZjNmMmZjMTJiZGJlZDlhNGQ2MDM1YWI0MmYwZWI0YTdjZWRiZTAxZjkwY2E3NWY2ODRjOGE0NGVhYjNhYzA5OWE2ZTI3ODY3In0.eyJhdWQiOiIxMTU3MyIsImp0aSI6ImM4MGI2ZGNkZjNmMmZjMTJiZGJlZDlhNGQ2MDM1YWI0MmYwZWI0YTdjZWRiZTAxZjkwY2E3NWY2ODRjOGE0NGVhYjNhYzA5OWE2ZTI3ODY3IiwiaWF0IjoxNjA2MDM1OTYwLCJuYmYiOjE2MDYwMzU5NjAsImV4cCI6MTYwODU0MTU2MCwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.GlBztlovbk9H-x4WErTuD3Cth2bp1Bd4myRJ96uOEYOy3LlK2RQEq-4G3hPDQ8IGuEq18vmBakeh7UNg0OA1BCFb5AwDUEl7kzO4wmZ6-AZrGo92b9AQ--5aGLhqUEYcTi0Y0DXOxviyeBM49eHGzmm6Oa0bJ1eRvDG6C07UH4MvMNfv0xwpSMoB9czJSwyfUYzXR9P0St4-ayv6nxOmsAiDUb-1gfUCNff-HHiiLq0z_eVa0Fy_Vj11aC0smz1T7_qQvzMkOhHGptxYDICqNFXYpgNjf_eELdk67_DLrn6-bG5HNC82gr4ZEeFOmuh7Ka5jdl_AMM09oAT1UypXNQ", //Mapir api key
-
-        "Mapir-SDK": "reactjs",
-      },
-    };
-  },
-});
 const mapdetail={CafeMap}
 const formItemLayout = {
   labelCol: {
@@ -103,7 +90,7 @@ class Cafeedit extends React.Component {
 
   };
   onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  //  console.log("Received values of form: ", values);
 };
 onChange = (e) => {
     e.persist();
@@ -114,66 +101,10 @@ onChange = (e) => {
             [e.target.name]: e.target.value,
         };
     });
-    console.log(this.state);
+   // console.log(this.state);
 };
 proxyurl= "http://localhost:8010/proxy";
 
-onSaveGeneral = (e) => {
-    if((this.state.edit==="true"))
-   { e.preventDefault();
-     let list=(localStorage.getItem('base64'));
-     console.log(JSON.parse(list))
-     const data={
-      name:this.state.name,
-      description:this.state.Description,
-      price:this.state.Price,
-      open_time:this.state.Open_time,
-      close_time:this.state.Close_time,
-      phone_number:this.state.Telephone,
-      games:this.state.List_of_board_games,
-      gallery:JSON.parse(list),
-      latitude:localStorage.getItem('lat'),
-      longitude:localStorage.getItem('lng'),
-      city:localStorage.getItem('city')
-
-  }
-
-    axios.put(this.proxyurl+'/auth/edit_profile/',JSON.stringify(data),{headers:{
-        'Content-Type' : 'application/json;charset=utf-8',
-        'Access-Control-Allow-Credentials':true,
-'Accept' : 'application/json',
-'Authorization' :`Bearer ${localStorage.getItem('access')}`
-    }}
-).then((res)=>{  
-    this.setState({edit:""});
-     this.setState({msg:"done"});
-     this.setState({loggedIn:""});
-     
-     localStorage.setItem('avatar',data.avatar);
-     localStorage.setItem('email',data.email);
-     this.setState({done:""});
-     this.getInfo();
-
-
-} )
-.catch((error)=>
-{
- this.setState({edit:""});
- this.setState({loggedIn:""});
- this.setState({msg:"something went wrong please try again."});
-        } 
-        )
-    
-    
-    }
-
-    else
-    {
-        this.setState({msg:"You haven't changed any information."});
-        this.setState({loggedIn:""});
-    }
-
-}
 
 getInfo=(e)=>
 {
@@ -197,9 +128,9 @@ let cafeid=localStorage.getItem("cafeid")
     this.setState({price:res.data.price});
     this.setState({Telephone:res.data.phone_number});
     this.state.List_of_board_games.forEach((element) => {
-      this.state.Gamestring.push(element.name)
+      this.state.Gamestring.push({"id":element.id,"name":element.name})
       });
-console.log(this.state.Gamestring)
+//console.log(this.state.Gamestring)
 this.setState({ latitude: res.data.latitude });
 this.setState({ longitude: res.data.longitude });
 this.setState({done:"yes"});
@@ -225,50 +156,130 @@ onSearchgame = (value) => {
 
 onSelectgame = (value) => {
   var dict = { "id": value }
-  this.state.List_of_board_games.push(dict);
-  this.setState({ selected_game: value }, () => {
-    console.log(this.state.selected_game, 'dealersOverallTotal1')
-  })
+ // this.state.List_of_board_games.push(dict);
+ // this.setState({ selected_game: value }, () => {
+   // console.log(this.state.selected_game, 'dealersOverallTotal1')
+  //})
+//  console.log(this.state.List_of_board_games)
+
+//  this.setState({edit:"true"});
+
 };
 nameChange=e=>{
   this.setState({name:e.target.value});
   this.setState({edit:"true"});
-  console.log(this.state.name);
+  //console.log(this.state.name);
 };
 descChange=e=>{
   this.setState({description:e.target.value});
   this.setState({edit:"true"});
-  console.log(this.state.description);
+  //console.log(this.state.description);
 };
- gameChange=e=>{
-   console.log(e)
-  var dict = { item: e };
-  this.state.List_of_board_games='';
-  // this.state.List_of_board_games.push(dict);
-  this.setState({List_of_board_games: this.state.List_of_board_games + " " + e });
-  console.log(this.state.List_of_board_games)
-  ;
+ gameChange=(e,value)=>{
+  // console.log(e)
+   //console.log(value)
+   var temp=this.state.Gamestring.filter(item=>{
+    value.forEach(i=>{
+    //  console.log(i.value)
+      if(i.value===item.name)
+      return true;
+    }
+      )
+  })
+  //console.log(temp)
+
+ //this.setState({Gamestring:[]})
+ value.forEach(i=>this.state.Gamestring.push({'name':i.value,'id':i.key}))
+ 
+ //this.setState({Gamestring:temp})
+ //console.log(this.state.Gamestring);
+ this.setState({edit:"true"});
 };
 openChange=e=>{
   if (e !== null) this.setState({ open_time: e.format("LT") });
   this.setState({edit:"true"});
-  console.log(this.state.open_time);
+ // console.log(this.state.open_time);
 };
 closeChange=e=>{
   if (e !== null) this.setState({ close_time: e.format("LT") });
   this.setState({edit:"true"});
-  console.log(this.state.close_time);
+ // console.log(this.state.close_time);
 };
 priceChange=e=>{
   this.setState({price:e.target.value});
   this.setState({edit:"true"});
-  console.log(this.state.price);
+ // console.log(this.state.price);
 };
 phoneChange=e=>{
   this.setState({phone_number:e.target.value});
   this.setState({edit:"true"});
-  console.log(this.state.phone_number);
+ // console.log(this.state.phone_number);
 };
+gamename(e){
+  var array=[]
+  if(e!==null){
+  e.forEach(i=>array.push(i.name))
+  }//console.log(array)
+   return array;
+}
+onSaveGeneral = (e) => {
+  if((this.state.edit==="true") || (localStorage.getItem('base64')!==null))
+  {
+      e.preventDefault();
+     // console.log(this.state.Gamestring)
+      let list=(localStorage.getItem('base64'));
+    //  console.log(JSON.parse(list))
+     // this.setState({loggedIn:"logging in"})
+  const data={
+      id:localStorage.getItem("cafeid"),
+      name:this.state.name,
+      description:this.state.description,
+      price:this.state.price,
+      open_time:this.state.open_time,
+      close_time:this.state.close_time,
+      owner:localStorage.getItem('id'),
+      games:this.state.Gamestring,
+      gallery:JSON.parse(list),
+      
+  }
+ // console.log(data)
+  axios.put(this.proxyurl+'/cafe/edit_cafe/'+localStorage.getItem("cafeid") + '/',JSON.stringify(data),{headers:{
+      'Content-Type' : 'application/json;charset=utf-8',
+      'Access-Control-Allow-Credentials':true,
+'Accept' : 'application/json',
+'Authorization' :`Bearer ${localStorage.getItem('access')}`
+  }}
+).then((res)=>{  
+  this.setState({edit:""});
+   this.setState({msg:"done"});
+   this.setState({loggedIn:""});
+   
+   localStorage.setItem('avatar',data.avatar);
+   localStorage.setItem('email',data.email);
+   this.setState({done:""});
+   this.getInfo();
+
+
+} )
+.catch((error)=>
+{
+this.setState({edit:""});
+this.setState({loggedIn:""});
+this.setState({msg:"something went wrong please try again."});
+      } 
+      )
+  
+  }
+
+
+  else
+  {
+      this.setState({msg:"You haven't changed any information."});
+      this.setState({loggedIn:""});
+  }
+
+  
+  }
 componentDidMount() {
     this.getInfo();
 }
@@ -327,7 +338,7 @@ componentDidMount() {
         </p>
             <Input.TextArea
               required
-              name="Description"
+              name="description"
               placeholder={this.state.description===""?"description":this.state.description+" (optional)"}
               onChange={this.descChange}
             
@@ -353,25 +364,26 @@ componentDidMount() {
            mode="multiple"
               showSearch
               style={{ width: '100%' }}
-              defaultValue={this.state.Gamestring}
+              defaultValue={this.gamename(this.state.Gamestring)}
               optionFilterProp="children"
               onSearch={this.onSearchgame}
               onSelect={this.onSelectgame}
               onChange={this.gameChange}
+              
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
 
             >
               {this.state.suggestlist_game.map(i => (
-                <Option value={i.id}>{i.name}</Option>
+                <Option value={i.name} key={i.id}>{i.name}</Option>
               ))
               }</Select>
         </div> 
           
           </Form.Item>
           <Form.Item
-            onChange={this.onChange}
+           // onChange={this.onChange}
             rules={[
               {
                 required: true,
@@ -391,7 +403,7 @@ componentDidMount() {
             />
           </Form.Item>
           <Form.Item
-            onChange={this.onChange}
+          //  onChange={this.onChange}
             rules={[
               {
                 required: true,
@@ -412,7 +424,7 @@ componentDidMount() {
           </Form.Item>
           <Form.Item
             name="Price"
-            onChange={this.onChange}
+           // onChange={this.onChange}
             rules={[
               {
                 required: true,
@@ -436,7 +448,7 @@ componentDidMount() {
             />
           </Form.Item>
           <Form.Item
-            onChange={this.onChange}
+           // onChange={this.onChange}
             name="Telephone"
             rules={[
               {
@@ -460,20 +472,29 @@ componentDidMount() {
           </Form.Item>
 
           <div>
-            <Mapir
-              className="map"
-              center={[this.state.longitude, this.state.latitude]}
-              Map={Map}
+             <CafeMap  />
+            <Button
+             className="btn btn-primary" style={{width: '100%'}}
+              onClick={this.onSaveGeneral} 
+              name="submit"
             >
-              <Mapir.Layer
-                type="symbol"
-                layout={{ "icon-image": "harbor-15" }}
-              ></Mapir.Layer>
-              <Mapir.Marker
-                coordinates={[this.state.longitude, this.state.latitude]}
-                anchor="bottom"
-              ></Mapir.Marker>
-            </Mapir>
+              <span
+                class={
+                  this.state.necessary_inputs === "Ok"
+                    ? "spinner-border spinner-border-sm"
+                    : "all"
+                }
+                role={this.state.necessary_inputs === "Ok"
+                ? "spinner-border spinner-border-sm"
+                : "all"}
+                aria-hidden={this.state.necessary_inputs === "Ok"
+                ? "spinner-border spinner-border-sm"
+                : "all"}
+              ></span>
+              {this.state.necessary_inputs === "added"
+                ? "ََAdded"
+                : "Add Caffe"}
+            </Button>
           </div>
           </Form>
           </div>

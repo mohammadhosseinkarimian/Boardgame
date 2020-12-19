@@ -29,7 +29,7 @@ class OwnedCafe extends React.Component {
   }
   onClickDelete = (id) => {
  
-    console.log("click")
+    //console.log("click")
     axios.delete('http://localhost:8010/proxy/cafe/edit_cafe/'+id+'/', {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -41,12 +41,12 @@ class OwnedCafe extends React.Component {
     )
       .then(res => {
         const data = res.data;
-        console.log(data);
-        alert("Cafe Deleted")
+       // console.log(data);
+       // alert("Cafe Deleted")
         this.getInfo();
       })
       .catch((error) => {
-        alert("somthing went wrong!")
+      //  alert("somthing went wrong!")
       }
       )
     
@@ -60,11 +60,11 @@ class OwnedCafe extends React.Component {
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
       }}
   ).then((res)=>{ 
-    console.log(res.data)
+   // console.log(res.data)
     this.setState({mycafe:res.data})
   }
   ).catch((error)=>{
-    alert('some thing is wrong')
+   // alert('some thing is wrong')
   })};
 
   componentDidMount() {
@@ -80,6 +80,7 @@ onClickedit = (id) => {
       <div className="mycafe_container">
       { this.state.mycafe.map(item =>(
         localStorage.setItem("cafeid",item.id),
+       // console.log(localStorage.getItem('cafeid')),
       this.state.gallery=(item.gallery),
       this.state.gallery.forEach(item => a=(item.base64)),
         <Card className="mycafe_card"
