@@ -1,24 +1,29 @@
 import React from "react";
 import Axios from "axios";
 import StarRatings from 'react-star-ratings';
-import { GiTwoCoins} from "react-icons/gi";
-import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight } from "react-icons/fa";
+import { GiTwoCoins,GiLevelFourAdvanced,GiLevelThreeAdvanced,GiLevelTwoAdvanced} from "react-icons/gi";
+import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye } from "react-icons/fa";
+import {  FiMoreVertical} from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import '../../Style/design.scss';
 import Im from '../../Style/a.png';
+import Com from '../../Style/com.jpg';
 
 import {
-    Row, Col ,Divider
+    Row, Col ,Avatar, Button
 } from "antd";
+import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
+
 
 
  class HomeGames extends React.Component {
     state = {
         games: [],
         cafes: [],
+        communitys: [],
         vision: ""
     };
      componentDidMount() {
@@ -54,6 +59,8 @@ import {
               : arrays[arrays.length-1].push(key)) && arrays;
           }, []);
 
+         
+
         return(
             
             <div style={{paddingTop: "2%",marginTop: "2%",height: 'max-content',width: '90%',marginLeft: '5%'}}>
@@ -64,7 +71,7 @@ import {
                 <span>
                     
                 <h5 style={{fontSize: "13px",verticalAlign: 'middle'}}>Top 15 most rated games
-                < Link to='/allgames' style={{color: "white",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5'}}>see all</Link>
+                
                 </h5>  </span>
                 
                 <Carousel infiniteLoop  autoPlay  width="100%" >
@@ -74,8 +81,14 @@ import {
                     <Row  justify='start'>
                     <Col span={8}>
                         <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
-                        <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
+                        <Col span={12} >
+                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                               <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
+                       <Col span={12}>
+                               <div >
                                <h5 >{game[0].name}</h5>
                               
                                 <StarRatings
@@ -90,19 +103,20 @@ import {
                                  </div>
                                </Col>
 
-                           <Col span={12} >
-                               <div className='roundedcircle'>
-                               <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
+                        
                              
                         </Row>
                         </Col>
                         <Col span={8}>
                         <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Col span={12} >
+                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                               <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
                         <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
+                               <div >
                                <h5 >{game[1].name}</h5>
                               
                                 <StarRatings
@@ -117,19 +131,20 @@ import {
                                  </div>
                                </Col>
 
-                           <Col span={12} >
-                               <div className='roundedcircle'>
-                               <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
+                          
                              
                         </Row>
                         </Col>
                         <Col span={8}>
                         <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Col span={12} >
+                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                               <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  className='imageinside' /></Link>
+    
+                               </div>
+                               </Col> 
                         <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
+                               <div >
                                <h5 >{game[2].name}</h5>
                               
                                 <StarRatings
@@ -144,12 +159,7 @@ import {
                                  </div>
                                </Col>
 
-                           <Col span={12} >
-                               <div className='roundedcircle'>
-                               <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
+                         
                              
                         </Row>
                         </Col>
@@ -164,6 +174,7 @@ import {
                     ))
                     }
                 </Carousel>
+                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-7.3%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
                 <div style={{height: 'max-content',width: '100%'}}>
                 <h3 > Cafes:
                      
@@ -174,7 +185,7 @@ import {
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[0].gallery.length===0?Im:cafe[0].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%'}} />
+                               <img src={cafe[0].gallery.length===0?Im:cafe[0].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
@@ -198,7 +209,7 @@ import {
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[1].gallery.length===0?Im:cafe[1].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%'}} />
+                               <img src={cafe[1].gallery.length===0?Im:cafe[1].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
@@ -221,7 +232,7 @@ import {
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[2].gallery.length===0?Im:cafe[2].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%'}} />
+                               <img src={cafe[2].gallery.length===0?Im:cafe[2].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
@@ -244,8 +255,125 @@ import {
                          </Row>
                      ))}
                 </div>
+                < Link to='/allcafes' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+
+                <div style={{height: 'max-content',width: '100%',marginTop: '7%'}}>
+                <h3 > Communities:
+                     
+                     </h3>
+                     {arrays.map(cafe => (
+                         <Row justify='start' style={{marginTop: '2%'}}>
+                             <Col span={8} >
+                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
+                               <Row style={{height: '80%' ,width: '100%'}}>
+                                   
+                                 <Col span={11}>
+                                 <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
+                                 <img src={cafe[0].gallery.length===0?Com:cafe[0].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+
+                                </div></Col>
+                                 <Col span={13}>
+                                 <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
+                               <Link to={'/allcafes/:'+cafe[0].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[0].name}</h5></Link>
+                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[0].description}</h6>
+                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
+       
+          style={{marginTop: '-7%',paddingTop: '0%'}}
+        >
+          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
+          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[0].id-2}</Avatar>
+        </Avatar.Group></div>
+                               
+                                 </div>
+                                 </Col>
+                        
+                        </Row>
+                        <Row justify='center' style={{width: '100%'}}>
+                        <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
+                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
+
+                         </div>  
+                        </Row>
+                        </Row> 
+                             </Col>
+                             <Col span={8} >
+                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
+                               <Row style={{height: '80%' ,width: '100%'}}>
+                                   
+                                 <Col span={11}>
+                                 <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
+                                 <img src={cafe[1].gallery.length===0?Com:cafe[1].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+
+                                </div></Col>
+                                 <Col span={13}>
+                                 <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
+                               <Link to={'/allcafes/:'+cafe[1].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[1].name}</h5></Link>
+                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[1].description}</h6>
+                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
+       
+          style={{marginTop: '-7%',paddingTop: '0%'}}
+        >
+          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
+          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[1].id-2}</Avatar>
+        </Avatar.Group></div>
+                               
+                                 </div>
+                                 </Col>
+                        
+                        </Row>
+                        <Row justify='center' style={{width: '100%'}}>
+                        <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
+                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
+
+                         </div>  
+                        </Row>
+                        </Row> 
+                             </Col>
+                             <Col span={8} >
+                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
+                               <Row style={{height: '80%' ,width: '100%'}}>
+                                   
+                                 <Col span={11}>
+                                 <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
+                                 <img src={cafe[2].gallery.length===0?Com:cafe[2].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+
+                                </div></Col>
+                                 <Col span={13}>
+                                 <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
+                               <Link to={'/allcafes/:'+cafe[2].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[2].name}</h5></Link>
+                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[2].description}</h6>
+                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
+       
+          style={{marginTop: '-7%',paddingTop: '0%'}}
+        >
+          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
+          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[2].id-2}</Avatar>
+        </Avatar.Group></div>
+                               
+                                 </div>
+                                 </Col>
+                        
+                        </Row>
+                        <Row justify='center' style={{width: '100%'}}>
+                        <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
+                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
+
+                         </div>  
+                        </Row>
+                        </Row> 
+                             </Col>
+
+                             </Row>
+                     ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+
                 <div style={{alignContent: 'center'}}>
-                <Row style={{marginLeft: '4%'}} justify='start'>
+                <Row style={{marginLeft: '4%',marginTop: '10%'}} justify='start'>
                     
                         <Col span={6}>
                         <Link to='/cafeform'><h5>click here to see cafe form</h5></Link>
