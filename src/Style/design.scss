@@ -520,9 +520,11 @@ input#register_password.ant-input ,input[type="password" i]
   box-shadow: 0px 5px 7px $layout2;
 
 }
-.btn:hover {
+.btn:hover ,.btn :focus,.btn :focus-within,.btn :active,.btn-primary,.btn-primary :active,.btn-primary :hover,.btn-primary :focus-within,.btn-primary :focus {
   opacity: 0.9 !important;
   border-color: transparent !important;
+  padding: none !important;
+  box-shadow: none !important;
 }
 .btn{
   line-height: 1 !important;
