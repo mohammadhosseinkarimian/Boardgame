@@ -394,10 +394,13 @@ $barOnhover:silver;
 .ant-input-password :hover{
   background-color: $layout6;
 }
+.btn{
+  line-height: 1;
+}
 .btn.btn-primary{
   background-color: $primary !important;
   border-color: $primary;
-  opacity: 1 !important;
+  opacity: 1 !important; 
 }
 .btn:hover {
   opacity: 0.85 !important;
@@ -498,9 +501,72 @@ $barOnhover:silver;
  margin-left: 2%;
  margin-top: 2%;
  border:$layout6;
+ 
+
 }
 .ant-card-actions{
  background-color: $primary !important;
  color: $primary;
-  lighting-color: $primary;
+}
+.span  :hover{
+  fill: $layout9 !important;
+  stroke: $layout9;
+}
+  :hover{
+  fill: $layout9 !important;
+  stroke: $layout9;
+}
+
+a:hover{
+  opacity: 0.8;
+  color: $maintext;
+}
+a{
+  color: $maintext;
+}
+
+.ant-collapse-header{
+color: $maintext!important;
+background-color: $layout6;
+border-color: $layout1 !important;
+}
+.ant-collapse-content-box{
+color: $maintext!important;
+background-color: $layout6 !important;
+border-color: $layout1 !important;
+}
+.ant-form-item-control-input-content{
+  color: $maintext!important;
+  border-color: $layout1 !important;
+}
+.ant-collapse-content ant-collapse-content-active{
+border-color: $layout6 !important;
+}
+
+.ant-collapse-item ant-collapse-item-active{
+  color: $maintext!important;
+  background-color: $layout6 !important;
+  border-color: $layout8 !important;
+}
+.ant-checkbox-wrapper{
+  color: $maintext!important;
+}
+.ant-table-thead{
+  color: $maintext !important;
+  background-color: $layout4 !important;
+  border-color: $layout1 !important;
+}
+.ant-table-cell{
+  color: $maintext !important;
+  background-color: $layout5 !important;
+  border-color: $layout1 !important;
+}
+
+.ant-table-tbody{
+  color: $maintext;
+  background-color: $layout6 !important;
+  border-color: $layout1 !important;
+}
+.ant-table-row.ant-table-row-level-0{
+border-color: $layout1 !important;
 }
