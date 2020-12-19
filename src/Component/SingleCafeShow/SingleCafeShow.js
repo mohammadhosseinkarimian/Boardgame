@@ -32,7 +32,7 @@ class SingleCafeShow extends React.Component {
         open_time: "",
         close_time: "",
         phone_number: "",
-        gallery: "",
+        gallery: [],
         latitude: "",
         city:"",
         longitude: "",
@@ -67,9 +67,7 @@ class SingleCafeShow extends React.Component {
                 this.setState({ gallery: cafe.gallery });
                 this.setState({ city: cafe.city });
                 this.setState({ price: cafe.price });
-                this.state.gallery.split('***').forEach(element => {
-                    this.state.galleryarray.push(element)
-                });
+                
                 this.setState({ open_time: cafe.open_time });
                 this.setState({ close_time: cafe.close_time });
                 this.setState({ phone_number: cafe.phone_number });
@@ -91,7 +89,7 @@ window.location.href='/allgames/:'+id
                         <div className="carousel_container">
                             <Carousel autoplay className="Gallery">
                                 {
-                                    this.state.galleryarray.map(item =>
+                                    this.state.gallery.map(item =>
                                         <img src={item}></img>
                                     )
                                 }

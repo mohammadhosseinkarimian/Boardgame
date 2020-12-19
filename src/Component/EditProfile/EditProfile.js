@@ -14,6 +14,9 @@ import {
     Tabs,
     DatePicker
 } from "antd";
+import{
+    EditOutlined
+  } from "@ant-design/icons";
 const formItemLayout = {
  
     wrapperCol: {
@@ -273,10 +276,12 @@ componentDidMount() {
                         <TabPane tab="General" key="1" >
                             <FormItem><input type="file" onChange={this.Upload}  style={{display: 'none'}}
                             ref={fileInput=>this.fileInput=fileInput}></input>
-                            <button  onClick={()=>this.fileInput.click()}
-                            style={{float: 'left'}}>choose image</button>
-       
-        <img src={this.state.img===''?Av:this.state.img} style={{float: 'right'}}height="50px" ></img></FormItem>
+                            
+       <div    style={{backgroundImage: "url(" + this.state.img + ")",height: '34vh' ,position: 'relative',display: 'flex',backgroundSize: '100% 100%',backgroundAttachment: 'scroll'}}>
+       <button  onClick={()=>this.fileInput.click()} className='btn btn-primary'
+                            style={{marginTop: '25.5vh',borderRadius: '50%',marginLeft: '2%',width: '3.5vw',height: '3.5vw'}}><EditOutlined/> </button>
+       </div>
+      </FormItem>
                         <Form.Item
                         name="firstname"
                         rules={[

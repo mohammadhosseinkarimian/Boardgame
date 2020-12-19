@@ -5,6 +5,7 @@ $layout1:#282828;//sider
 $layout2:#303030;//header
 $layout4:#333;//on hover
 $layout5:#414141;//on selection
+$layout3:#505050;
 $layout6:#575757;
 $layout7:#676767;
 $layout8:#818181;
@@ -23,6 +24,7 @@ $barOnhover:silver;
     margin: 0;
     width:100%;
     overflow: hidden;
+    background-color: $layout2 ;
   }
 .h3, h3 {
    
@@ -54,7 +56,9 @@ $barOnhover:silver;
     max-height: "200px";
     
   }
-
+  .carousel .slide{
+    background-color: transparent;
+  }
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -121,6 +125,31 @@ $barOnhover:silver;
 }
 
 //image in carousel
+
+.roundedcircle{
+  border-radius: 50% !important;
+  
+  width: 12vw;
+    height: 12vw;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: $layout5;
+
+}
+.imageinside{
+  max-width: 55%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 7px 5px $background;
+
+  height: auto;
+  width: auto;
+}
+.imageinside :hover{
+ opacity: 0.8;
+}
 .img-with-text {
   text-align: justify;
 }
@@ -129,32 +158,30 @@ $barOnhover:silver;
   display: block;
   margin: 0 auto;
   margin-top: 13%;
+  border-radius: 50% red;
 }
 //carousel
 .carousel-status{
   visibility: hidden;
 }
-.carousel .control-dots .dot {
-  
-  margin: 0 0.5%;
+.carousel .control-dots{
+  margin: 0px;
 }
 .ant-empty-description{
   visibility: hidden;
 }
 .carousel .control-next.control-arrow {
-  right: 44% !important;
-  margin-top: 0.5% !important;
+  right: 43% !important;
 }
 .carousel.carousel-slider .control-arrow {
-  background: $layout2 !important;
-  padding: 1% !important;
-  top: 66% !important;
+  background: transparent !important;
+  padding: 0% !important;
+  top: 79% !important;
   font-size: 24px !important;
 }
 
 .carousel .control-prev.control-arrow{
-  left: 42.5% !important;
-  margin-top: 0.4% !important;
+  left: 43% !important;
 
 }
 //home
@@ -186,6 +213,7 @@ $barOnhover:silver;
     opacity: 1;
     display: block;
     transition: .3s ease;
+    border-radius: 3px solid red;
   }
   .img-text:hover{
     opacity: 0.7;
@@ -306,9 +334,17 @@ $barOnhover:silver;
 }
 .ant-input{
   background-color: $layout6;
-  border-color: $layout7;
+  border-color: $layout7;  border-radius: 25px !important;
+
   color: $maintext;
   
+}
+input#register_password.ant-input ,input[type="password" i] 
+  {
+  line-height: 1 !important;padding: 2px 2px !important;
+}
+.ant-input-affix-wrapper{
+  border-radius: 25px;
 }
 .ant-form-item :hover  {
   border-color: $layout9 !important;
@@ -407,6 +443,7 @@ $barOnhover:silver;
   border-color: transparent !important;
 }
 
+
   .ant-form-item-extra {
     clear: both;
     min-height: 1px;
@@ -450,6 +487,7 @@ $barOnhover:silver;
   color: rgb(106, 212, 204);
 }
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 25px !important;
 
   background-color: $layout6;
   border-color: $layout7;
@@ -458,6 +496,8 @@ $barOnhover:silver;
 }
 .ant-select-show-search.ant-select-multiple .ant-select-selector {
   background-color: $layout6;
+  border-radius: 25px !important;
+
   border-color: $layout7;
   color: $maintext;
   cursor: text;
@@ -573,3 +613,43 @@ border-color: $layout1 !important;
 .ant-message{
   color: $primary !important;
 }
+.ant-picker {
+  border-radius: 25px;
+}
+.btn.btn-primary{
+  background-color: $primary !important;
+  border-color: $primary;border-radius: 25px;
+  opacity: 1 !important;
+  box-shadow: 0px 5px 7px $layout2;
+
+}
+.btn:hover ,.btn :focus,.btn :focus-within,.btn :active,.btn-primary,.btn-primary :active,.btn-primary :hover,.btn-primary :focus-within,.btn-primary :focus {
+  opacity: 0.9 !important;
+  border-color: transparent !important;
+  padding: none !important;
+  box-shadow: none !important;
+}
+.btn{
+  line-height: 1 !important;
+}
+.banner{
+  background-Color: $layout3;
+   border: 2px solid $layout7;
+   border-Radius: 25px;align-content: 'center';text-align: center;line-height: 1;
+}
+.centeredtext{
+  margin-left: auto;
+  margin-Right: auto;
+  text-align: center;
+}
+.communitystyle{
+  background-Color: $layout3;
+  height: 61vh;
+  border: 2px solid $layout6;
+  border-Radius: 25px;
+  margin-Top: 4%;
+}
+.ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight {
+  visibility: hidden;
+}
+
