@@ -4,10 +4,12 @@ import Login from "./Component/Login/Login";
 import './Style/design.scss';
 import { BrowserRouter as Router, Redirect, Route,Link, useParams, NavLink } from 'react-router-dom';
 import { GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
+import {AiOutlinePlusCircle}  from "react-icons/ai";
 import Av from './Component/EditProfile/avatar.png';
 import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
+import EditPlay from './Component/Play/editPlay'
 import LogPlay from './Component/Play/ShowPlays'
 import{
   DesktopOutlined,
@@ -156,8 +158,8 @@ var currentScrollPos = window.pageYOffset;
 
 
           <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix />} title=" Play">
-            <Menu.Item className="m-item" key="2" icon={<PieChartOutlined  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
-            <NavLink to='/addplay/'>Create play</NavLink>   
+            <Menu.Item className="m-item" key="2" icon={<AiOutlinePlusCircle  style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
+            <NavLink to='/addplay/'> Create play</NavLink>   
             </Menu.Item>
             <Menu.Item className="m-item" key="1" icon={<PlayCircleOutlined   style={{verticalAlign: 'middle',marginTop: '-5px'}}/>}>
             <NavLink to='/showplay/'>Show play</NavLink>   
@@ -191,8 +193,10 @@ var currentScrollPos = window.pageYOffset;
        <Route exact path="/cafeform" component={Cafe} />
        <Route exact path="/ownedcafe" component={OwnedCafe} />
 
+
        <Route exact path="/addplay/" component={AddPlay} />
        <Route exact path="/showplay/" component={LogPlay} />
+       <Route exact path="/editplay/:id" component={EditPlay} />
 
        <Route exact path='/'>
          <Redirect to ="/homePage/:id" />
