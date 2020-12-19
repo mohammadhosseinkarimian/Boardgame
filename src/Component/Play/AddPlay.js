@@ -1,77 +1,80 @@
 import React from 'react';
-import antd from "antd";
 import Axios from 'axios';
 import moment from 'moment';
 import '../../Style/addplay.css';
-import { PlusOutlined } from '@ant-design/icons';
 import FormItem from 'antd/lib/form/FormItem';
 import {
   Form,
   Input,
   Select,
-  Divider,
   Button,
-  Mentions,
   DatePicker,
-
+  AutoComplete
 } from "antd";
+import { PlusOutlined } from '@ant-design/icons';
 
-const user_username=localStorage.getItem('user')
+const user_username = localStorage.getItem('user')
 const layout = {
 
   wrapperCol: {
     span: 0,
   },
 };
-const tailLayout = {
-  wrapperCol: {
-    offset: 0,
-    span: 24,
-  },
-};
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 const proxyurl = "http://localhost:8010/proxy";
 const dateFormat = 'YYYY-MM-DD';
+
+
 let index = 0;
 
 class AddPlay extends React.Component {
   state = {
     date: "2020-1-1",
     place: "",
+    inputplace: "",
     msg: "",
     players: [],
     suggestlist_game: [],
     suggestlist_user: [],
     selected_game: "",
     selected_user: "",
-    inputvalue:""
+    semi_players: "",
+    suggestlist_cafe: [],
+    selected_cafe: ""
   }
 
-componentDidMount(){
-  var dict = { "username": user_username }
-  this.state.players.push(dict);
-}
-  onSelectuser = (value) => {
-
-    var dict = { "username": value }
+  componentDidMount() {
+    var dict = { "username": user_username }
     this.state.players.push(dict);
-    this.setState({ selected_user: value }, () => {
-      console.log(this.state.selected_user, 'dealersOverallTotal1')
-    })
+  }
+  onSelectuser = (value) => {
+    if (value.includes("(not a user)")) {
+      this.state.semi_players += value + ",";
+    }
+    else {
+      var dict = { "username": value }
+      this.state.players.push(dict);
+      this.setState({ selected_user: value })
+      this.setState({ suggestlist_user: [] })
+    }
 
   }
 
-  handleChange = (value) => {
-    this.setState({inputvalue:value})
-   // this.state.suggestlist_user.push({id: 3, username: this.state.inputvalue+"(not a user)", email: "notAuser@gmail.com"})
-    Axios.get(proxyurl + "/game/search_user/username/?search=" + value)
+  onUserSearch = (value) => {
+    let searchvalue = value
+    let tmp = []
+    if (typeof searchvalue !== "string" && searchvalue !== "") {
+      searchvalue = ""
+    }
+    else {
+      tmp.push({ id: null, username: searchvalue + "(not a user)", email: "notAuser@gmail.com" })
+    }
+    Axios.get(proxyurl + "/game/search_user/username/?search=" + searchvalue)
       .then(res => {
-        const tmp = res.data.results;
-        this.setState({suggestlist_user:tmp});
-        //this.state.suggestlist_user.push({id: 3, username: this.state.inputvalue+"(not a user)", email: "notAuser@gmail.com"})
-        //this.state.suggestlist_user.concat(tmp);
+        tmp = [...tmp, ...res.data.results]
+        this.setState({ suggestlist_user: tmp });
         console.log(this.state.suggestlist_user)
+
       })
   }
 
@@ -99,6 +102,7 @@ componentDidMount(){
       game: this.state.selected_game,
       date: this.state.date,
       place: this.state.place,
+      semi_players: this.state.semi_players
 
     }
     console.log(JSON.stringify(data))
@@ -116,6 +120,7 @@ componentDidMount(){
 
         this.setState({ msg: "done" });
         alert("play was created succesfully")
+        window.location.reload(true)
       })
       .catch((error) => {
         this.setState({ msg: "something went wrong please try again." });
@@ -125,17 +130,34 @@ componentDidMount(){
 
 
   }
-  onPlaceChange = (val) => {
-    this.setState({ place: val.target.value })
+  // onPlaceChange = (val) => {
+  //   this.setState({ place: val.target.value })
+  // }
+
+
+  onSelectCafe = (value) => {
+
+    this.setState({ selected_cafe: value })
+    this.setState({ place: value })
+
+  }
+  onSearchcafe = (value) => {
+    Axios.get(proxyurl + "/cafe/search_cafe/name?search=" + value)
+      .then(res => {
+        const tmp = res.data.results;
+        this.setState(prevState => {
+          return { suggestlist_cafe: tmp }
+        })
+      })
   }
 
 
   render() {
-    
+
     return (
-      <div className="Login_container" style={{backgroundColor: '#333'}}>
+      <div className="Login_container" style={{ backgroundColor: '#333' }}>
         <Form   {...layout}>
-          <Form.Item style={{width: '100%'}}
+          <Form.Item style={{ width: '100%' }}
             name="date"
             rules={[
               {
@@ -147,7 +169,7 @@ componentDidMount(){
               },
             ]}
           >
-            <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{width: '100%'}} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
+            <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{ width: '100%' }} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
           </Form.Item>
           <Form.Item>
             <Select
@@ -155,11 +177,10 @@ componentDidMount(){
               style={{ width: '100%' }}
               placeholder="Select a game"
               optionFilterProp="children"
+              onChange={this.onSearchgame}
               onSearch={this.onSearchgame}
               onSelect={this.onSelectgame}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
+              onInputKeyDown={this.onSelectgame}
 
             >
               {this.state.suggestlist_game.map(item => (
@@ -177,9 +198,9 @@ componentDidMount(){
               placeholder="players"
               defaultValue={[user_username]}
               filterOption={false}
-              onChange={this.handleChange}
-              onSearch={this.handleChange}
+              onSearch={this.onUserSearch}
               onSelect={this.onSelectuser}
+              
             >
               {
                 this.state.suggestlist_user.map(d => (
@@ -187,13 +208,52 @@ componentDidMount(){
                 ))}
             </Select>
           </Form.Item>
-
           <FormItem>
-            <Input onChange={this.onPlaceChange} placeholder="Where did you play?" />
-          </FormItem>
+            {/* <Select
+              showSearch
+              placeholder="Where did you play?"
+              optionFilterProp="children"
+              onSearch={this.onSearchcafe}
+              onSelect={this.onSelectCafe}
+              onInputKeyDown={this.onSelectCafe}
+              dropdownRender={menu => (
+                <div>
+                  {menu}
+                  <Divider style={{ margin: '4px 0' }} />
+                  <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                    <Input style={{ flex: 'auto' }}  />
+                    <a
+                      style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
+                      onClick={this.addItem}
+                    >
+                      <PlusOutlined /> Add item
+                    </a>
+                  </div>
+                </div>
+              )}
+            >
+              {this.state.suggestlist_cafe.map(item => (
+                <Option value={item.name}>{item.name}</Option>
+              ))
+              }
 
+            </Select> */}
+            <AutoComplete
+              onSelect={this.onSelectCafe}
+              onSearch={this.onSearchcafe}
+              placeholder="where did you play?"
+             onChange={this.onSelectCafe}
+            >
+
+              {this.state.suggestlist_cafe.map(item => (
+                <Option value={item.name}>{item.name}</Option>
+              ))
+              }
+            </AutoComplete>
+
+          </FormItem>
           <Form.Item >
-            <Button className="btn btn-primary" style={{width: '100%'}} shape="round" onClick={this.onSave} >Add</Button>
+            <Button className="btn btn-primary" style={{ width: '100%' }} shape="round" onClick={this.onSave} >Add</Button>
           </Form.Item>
         </Form>
       </div>
