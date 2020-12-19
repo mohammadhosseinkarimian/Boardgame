@@ -23,6 +23,7 @@ import SingleCafeShow from './Component/SingleCafeShow/SingleCafeShow';
 import Cafe from './Component/Cafe-form/cafe-form';
 import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
+import SingleCommunity from './Component/SingleCommunity/SingleCommunity';
 import { Layout, Menu, Breadcrumb, Avatar,Button } from "antd";
 import './Component/BoardGame/allStyle.css';
 import Axios from 'axios';
@@ -185,6 +186,8 @@ var currentScrollPos = window.pageYOffset;
        <Route exact path="/ownedcafe" component={OwnedCafe} />
 
        <Route exact path="/addplay/" component={AddPlay} />
+       <Route exact path="/community" component={SingleCommunity} />
+
        <Route exact path="/showplay/" component={LogPlay} />
 
        <Route exact path='/'>
