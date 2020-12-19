@@ -5,7 +5,6 @@ import '../../Style/addplay.css';
 import FormItem from 'antd/lib/form/FormItem';
 import {
   Form,
-  Input,
   Select,
   Button,
   DatePicker,
@@ -130,9 +129,7 @@ class AddPlay extends React.Component {
 
 
   }
-  // onPlaceChange = (val) => {
-  //   this.setState({ place: val.target.value })
-  // }
+  
 
 
   onSelectCafe = (value) => {
