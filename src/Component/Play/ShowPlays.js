@@ -39,7 +39,7 @@ class LogPlay extends React.Component {
         dataSource: [],
         allgames: {},
         editbool: false,
-        //tabledata:[]
+        
     }
     
     componentDidMount() {
@@ -57,7 +57,7 @@ class LogPlay extends React.Component {
             const tmp = res.data;
             this.setState({ dataSource: tmp })
             this.state.dataSource.forEach(element => {
-                //this.state.tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id})
+            
                 tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id})
             });
         })
@@ -123,7 +123,7 @@ class LogPlay extends React.Component {
                     }>
                     <p> {item.game.name}</p>
                     <p> {item.place}</p>
-                    <p> {item.date}</p>
+                    <p> {item.date}</p>                 
                 </Card>
             )
             )

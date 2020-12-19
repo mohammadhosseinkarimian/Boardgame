@@ -73,8 +73,9 @@ class EditPlay extends React.Component {
                     temp.push(item.username)
                 })
                 this.setState({ deafult_player_username: temp })
-
+                console.log(res.data.players)
             })
+            
             .catch(error => {
                 message.error('somthing went wrong')
             })
@@ -114,8 +115,8 @@ class EditPlay extends React.Component {
     }
 
     onSelectgame = (value) => {
-        const tmp={id:value[0],name:value[1]}
-        this.setState({game_name:value[1]})
+        const tmp={name:value[0],id:value[1]}
+        this.setState({game_name:value[0]})
         this.setState({ selected_game: tmp })
         console.log(tmp)
     }
@@ -165,15 +166,8 @@ class EditPlay extends React.Component {
 
 
     }
-    onPlaceChange = (val) => {
-        this.setState({ place: val.target.value })
-    }
-    onCheckedwon = (e) => {
-        this.state.won = e.target.checked;
-    }
-    onCheckedFirst = (e) => {
-        this.state.firsttimeplaying = e.target.checked;
-    }
+ 
+
 
     onSelectCafe = (value) => {
 
@@ -190,20 +184,7 @@ class EditPlay extends React.Component {
             })
           })
       }
-    renderItems = () => {
 
-        return (
-            this.state.players.forEach(item => {
-                <div>
-                    <Input placeholder="score" />
-                    <Input placeholder="color" />
-                    <Input placeholder="starting position" />
-                    <Checkbox onChange={this.onCheckedFirst}>First time playing?</Checkbox>
-                    <Checkbox onChange={this.onCheckedwon}>won?</Checkbox>
-                </div>
-            })
-        )
-    }
     render() {
 
         return (
@@ -236,24 +217,25 @@ class EditPlay extends React.Component {
                                 >
                                      {
                                     this.state.suggestlist_game.map(item => (
-                                        <Option title={item.name} value= {[item.id,item.name]}>{item.name}</Option>
+                                        <Option title={item.name} value= {[item.name,item.id]}>{item.name}</Option>
                                     ))
                                     } 
 
                                 </Select>
                             </Form.Item>
-                            <Form.Item>
-                                {
+                           
+                                {/* {
                                     this.state.deafult_players.forEach(element => {
                                         this.state.deafult_player_username.push(element)
                                     })
-                                }
-                                <Select
+                                } */}
+                                {/* <Select
 
                                     mode="multiple"
                                     style={{ width: '100%' }}
-                                    placeholder={this.state.deafult_player_username.join(',')}
-                                    //defaultValue={this.state.deafult_player_username}
+                                    
+                                    //placeholder={this.state.deafult_player_username.join(',')}
+                                    defaultValue={this.state.deafult_player_username}
                                     onSearch={this.onUserSearch}
                                     onSelect={this.onSelectuser}
 
@@ -262,8 +244,8 @@ class EditPlay extends React.Component {
                                         this.state.suggestlist_user.map(d => (
                                             <Option key={d.username}>{d.username}</Option>
                                         ))}
-                                </Select>
-                            </Form.Item>
+                                </Select> */}
+                           
 
 
                             <FormItem>
