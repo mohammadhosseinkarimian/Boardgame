@@ -544,3 +544,7 @@ input#register_password.ant-input ,input[type="password" i]
   border-Radius: 25px;
   margin-Top: 4%;
 }
+.ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight {
+  visibility: hidden;
+}
+
