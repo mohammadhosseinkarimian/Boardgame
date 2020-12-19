@@ -174,7 +174,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                     ))
                     }
                 </Carousel>
-                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-7.3%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-5.5%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
                 <div style={{height: 'max-content',width: '100%'}}>
                 <h3 > Cafes:
                      
