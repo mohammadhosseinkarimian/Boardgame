@@ -378,29 +378,6 @@ let a="";
                              </Row>
                      ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
 
-                <div style={{alignContent: 'center'}}>
-                <Row style={{marginLeft: '4%',marginTop: '10%'}} justify='start'>
-                    
-                        <Col span={6}>
-                        <Link to='/createCommunity'><h5>click here to see cafe form</h5></Link>
-                        <div class="text-center">
-                        <div class="spinner-grow"style={{backgroundColor: 'cyan'}} role="status">
-                       <span class="sr-only" >Loading...</span>
-                      </div>
-                        </div>
-                        </Col>
-                        <Col>
-                        <Link to='/community'><h5>click here to see community</h5></Link>
-
-                        </Col>
-                        
-                    </Row>
-
-                   
-
-                   
-                        
-                    </div>
                 </div>
         );
     }
