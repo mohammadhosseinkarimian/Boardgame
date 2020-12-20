@@ -1,0 +1,52 @@
+
+p{
+    color: white;
+}
+.ant-card-head-title{
+color: white;
+}
+.mycafe_card{
+    display: inline;
+    float: left;
+    margin: 1%;
+}
+.mycafe_container{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+.photocafe{
+    max-height: 20vh;
+}
+.button:hover .text_button{
+    visibility: visible;
+     opacity: 1;
+}
+.ant-card-body{
+    background-color:#414141 ;
+   padding: 0;
+  }
+  .ant-card, .ant-card-actions {
+    background-color: #575757 ;
+  }
+  .ant-card-head{
+    border-bottom: 0;
+  }
+  .ant-card-bordered{
+    border: 1px solid #414141;
+  }
+  .ant-card-actions{
+    border-top: 0;
+  }
+  .ant-card-actions > li:not(:last-child){
+    border-right:1px solid #575757;
+  }
+  .ant-card-body {
+    background-color: #333;
+  }
+  .ant-card-head,.ant-card-head-wrapper{
+    background-color:  #414141 ;
+  }
+  .ant-card-head-wrapper{
+    background-color:  #333;
+  }
