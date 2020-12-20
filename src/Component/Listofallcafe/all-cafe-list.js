@@ -9,13 +9,14 @@ import {
   List,
   Divider
 } from "antd";
+import { Thumbnail } from "react-bootstrap";
 const paginationProps = {
   showSizeChanger: false,
   showQuickJumper: false,
   pageSize:10,
   
 };
-
+let a="";
 class AllCafe extends React.Component {
   state={
       id:"",
@@ -28,7 +29,7 @@ class AllCafe extends React.Component {
       open_time:"",
       close_time:"",
       phone_number:"",
-      gallery:"",
+      gallery:[],
       city:"", 
       proxyurl : "http://localhost:8010/proxy/cafe/cafe_list/"
   };
@@ -49,7 +50,7 @@ class AllCafe extends React.Component {
        })
   }
   
-  
+
   allCafe(){
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
 
@@ -58,7 +59,7 @@ class AllCafe extends React.Component {
       <div className="cafelist_container"
        style={{marginTop: '5%', fontSize:'20px'}}
       dataSource={this.state.cafe}
-        Pagination={paginationProps}><h3 style={{marginLeft: '5%'}}>Cafe In Site<CoffeeOutlined  style={{marginTop:'0', marginLeft: '0.5%', fontSize:'27px'}}/></h3>
+        Pagination={paginationProps}><h3 style={{marginLeft: '5%'}}>Cafe In Site<CoffeeOutlined  style={{position:'relative' , top:'-0.25em', marginLeft: '0.5%', fontSize:'27px'}}/></h3>
  
                {     <List
       size="large"
@@ -66,13 +67,14 @@ class AllCafe extends React.Component {
       pagination={paginationProps}
       dataSource={this.state.cafe}
       renderItem={item => (
+        this.state.gallery=(item.gallery),
+        this.state.gallery.forEach(item => a=(item.base64)),
         <List.Item className="cafe_part">
           <List.Item.Meta 
-            avatar={<img src={item.gallery.split('***')[0]} style={{width: "200px",height: "150px"}} className="cafe_img"/>}
-            title={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke'}} className="cafe_name">{item.name}</p></Link>}
-            description={<p key={item.close_time} style={{color: 'whitesmoke'}}className="cafe_desc"><ClockCircleFilled className="icon" />
-            {`${item.close_time}`}{`-`}{`${item.open_time} `}<p className="cafe_desc"><PhoneFilled className="icon"/> {`${item.phone_number}`}
-            <i className="fa fa-star fa-star" style={{color: 'gold',fontSize: '23'}}/></p></p>}
+            avatar={<img src={a} style={{width: "200px",height: "150px"}} className="cafe_img"/>}
+            title={/*<Link to={'/allcafes/:'+item.id}>*/<p style={{color: 'whitesmoke'}} className="cafe_name">{item.name}</p>/*</Link>*/}
+            description={<p><span className="icon"><ClockCircleFilled /></span><p key={item.close_time} style={{color: 'whitesmoke'}}className="cafe_desc"> {`${item.close_time}`}{`-`}{`${item.open_time} `}<span className="icon"><PhoneFilled /> </span><p className="cafe_desc">{`${item.phone_number}`}
+            </p></p></p>}
           
 />  
         </List.Item>
