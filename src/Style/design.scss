@@ -536,35 +536,6 @@ input#register_password.ant-input ,input[type="password" i]
   display: none;
 }
 
-
-.play_card{
- margin-left: 2%;
- margin-top: 2%;
- border:$layout6;
- 
-
-}
-.ant-card-actions{
- background-color: $primary !important;
- color: $primary;
-}
-.span  :hover{
-  fill: $layout9 !important;
-  stroke: $layout9;
-}
-  :hover{
-  fill: $layout9 !important;
-  stroke: $layout9;
-}
-
-a:hover{
-  opacity: 0.8;
-  color: $maintext;
-}
-a{
-  color: $maintext;
-}
-
 .ant-collapse-header{
 color: $maintext!important;
 background-color: $layout6;
@@ -579,37 +550,7 @@ border-color: $layout1 !important;
   color: $maintext!important;
   border-color: $layout1 !important;
 }
-.ant-collapse-content ant-collapse-content-active{
-border-color: $layout6 !important;
-}
 
-.ant-collapse-item ant-collapse-item-active{
-  color: $maintext!important;
-  background-color: $layout6 !important;
-  border-color: $layout8 !important;
-}
-.ant-checkbox-wrapper{
-  color: $maintext!important;
-}
-.ant-table-thead{
-  color: $maintext !important;
-  background-color: $layout4 !important;
-  border-color: $layout1 !important;
-}
-.ant-table-cell{
-  color: $maintext !important;
-  background-color: $layout5 !important;
-  border-color: $layout1 !important;
-}
-
-.ant-table-tbody{
-  color: $maintext;
-  background-color: $layout6 !important;
-  border-color: $layout1 !important;
-}
-.ant-table-row.ant-table-row-level-0{
-border-color: $layout1 !important;
-}
 .ant-message{
   color: $primary !important;
 }
@@ -683,34 +624,7 @@ border-color: $layout1 !important;
  opacity: 0;
  transition: .5s ease;
  background-color: $layout5;}
-.ant-card-body{
-  background-color:$layout5 !important;
- padding: 0;
-}
-.ant-card, .ant-card-actions {
-  background-color: $layout6 !important;
-}
-.ant-card-head{
-  border-bottom: 0;
-}
-.ant-card-bordered{
-  border: 1px solid $layout5;
-}
-.ant-card-actions{
-  border-top: 0;
-}
-.ant-card-actions > li:not(:last-child){
-  border-right:1px solid $layout6;
-}
-.ant-card-body {
-  background-color: $layout4;
-}
-.ant-card-head,.ant-card-head-wrapper{
-  background-color:  $layout5 !important;
-}
-.ant-card-head-wrapper{
-  background-color:  $layout4;
-}
+
 .text_button{ 
   position: absolute;
  top: 0;
@@ -731,3 +645,37 @@ border-color: $layout1 !important;
  .ant-switch-checked{
   background-color: $primary;
 }
+
+
+.play_card{
+  margin-left: 2%;
+  margin-top: 2% ;
+  border:$layout6 !important;
+  
+ 
+ }
+ .ant-card-actions{
+  background-color: $primary !important ;
+  color: $primary !important ;
+ }
+ .span  :hover{
+   fill: $layout9 !important;
+   stroke: $layout9 !important ;
+ }
+   :hover{
+   fill: $layout9 !important ;
+   stroke: $layout9 !important;
+ }
+ 
+ a:hover{
+   opacity: 0.8 !important;
+   color: $maintext !important;
+ }
+ a{
+   color: $maintext !important;
+ }
+ .ant-card-body{
+   height: auto ;
+   background-color:$layout5 !important;
+   color: $maintext !important;
+ }

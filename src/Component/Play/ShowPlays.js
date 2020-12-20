@@ -120,10 +120,19 @@ class LogPlay extends React.Component {
                             <AiFillDelete onClick={() => this.onClickdelete(item.id)} />,
                             <FaRegEdit onClick={() => this.onClickedit(item.id)} />
                         ]
-                    }>
-                    <p> {item.game.name}</p>
-                    <p> {item.place}</p>
-                    <p> {item.date}</p>                 
+                    }
+                    
+                        >
+                            <div style={{marginTop:2}}>
+                            <p> {item.game.name}</p>
+                            <p> {item.place}</p>
+                             <p> {item.date}</p> 
+                            </div>
+                   
+                     
+                    
+                     
+                                   
                 </Card>
             )
             )
@@ -141,9 +150,7 @@ class LogPlay extends React.Component {
               </Row> 
             </div>
             
-            // <div style={{marginTop:50 }}>
-            //     <Table dataSource={tabledata} columns={columns} />
-            // </div>
+            
             
 
 

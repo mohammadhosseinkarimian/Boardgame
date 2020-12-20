@@ -104,6 +104,3 @@ background-color: #414141;}
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  .ant-card-body{
-      height: 0;
-  }

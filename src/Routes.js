@@ -34,7 +34,6 @@ import './Component/BoardGame/allStyle.css';
 import Axios from 'axios';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
 class Routes extends React.Component {
   state = {
     accessed: false,

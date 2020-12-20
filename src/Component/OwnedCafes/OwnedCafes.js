@@ -4,7 +4,7 @@ import { Card, } from 'antd';
 import { FaCoffee } from "react-icons/fa";
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
-import '../../Style/OwnedCafes.css'
+//import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
 import Av from './default_picture.png';
 import { GiTwoCoins } from "react-icons/gi";

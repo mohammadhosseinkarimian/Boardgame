@@ -72,7 +72,7 @@ class AllCafe extends React.Component {
         <List.Item className="cafe_part">
           <List.Item.Meta 
             avatar={<img src={a} style={{width: "200px",height: "150px"}} className="cafe_img"/>}
-            title={/*<Link to={'/allcafes/:'+item.id}>*/<p style={{color: 'whitesmoke'}} className="cafe_name">{item.name}</p>/*</Link>*/}
+            title={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke'}} className="cafe_name">{item.name}</p></Link>}
             description={<p><span className="icon"><ClockCircleFilled /></span><p key={item.close_time} style={{color: 'whitesmoke'}}className="cafe_desc"> {`${item.close_time}`}{`-`}{`${item.open_time} `}<span className="icon"><PhoneFilled /> </span><p className="cafe_desc">{`${item.phone_number}`}
             </p></p></p>}
           
