@@ -24,7 +24,7 @@ const Map = Mapir.setToken({
 
 class SingleCafeShow extends React.Component {
   state = {
-    id: "",
+    id: "",request: false,
     name: "",
     owner: "",
     description: "",
@@ -45,7 +45,7 @@ class SingleCafeShow extends React.Component {
   componentDidMount() {
     const id = window.location.href.substring(32);
     //const id = this.props.match.params.id
-    Axios.get("http://localhost:8010/proxy/cafe/cafe_info/" + 138 + "/", {
+    Axios.get("http://localhost:8010/proxy/cafe/cafe_info/" + id + "/", {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         "Access-Control-Allow-Credentials": true,
@@ -69,7 +69,9 @@ class SingleCafeShow extends React.Component {
       this.setState({ price: cafe.price });
       this.state.gallery.forEach((element) => {
         this.state.galleryarray.push(element.base64);
-      });
+
+      });      this.setState({request: true})
+
       this.setState({ open_time: cafe.open_time });
       this.setState({ close_time: cafe.close_time });
       this.setState({ phone_number: cafe.phone_number });
@@ -83,6 +85,15 @@ class SingleCafeShow extends React.Component {
   };
 
   render() {
+    if(!this.state.request){
+      return(
+      <div class="d-flex justify-content-center" style={{marginTop: '20%'}}>
+      <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+      <span class="sr-only" >Loading...</span>
+      </div>
+      </div>
+      )
+    }
     return (
       <div className="SingleCafeShow_container">
         <div className="cafe_info">

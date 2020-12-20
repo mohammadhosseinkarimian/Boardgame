@@ -17,14 +17,17 @@ import {
 } from "antd";
 import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
 
+let a="";
 
 
  class HomeGames extends React.Component {
     state = {
         games: [],
         cafes: [],
+        gallery:[],
         communitys: [],
-        vision: ""
+        vision: "",
+        requests: "false"
     };
      componentDidMount() {
          Axios.get( 'http://localhost:8010/proxy/game/hot_games/')
@@ -37,10 +40,13 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
             
             Axios.get( 'http://localhost:8010/proxy/cafe/day_cafe_list/')
             .then(res => {
-                const cafes_list = res.data;
-                this.setState(prevState => {
-                    return { cafes: cafes_list }
+              const cafe_list=res.data;
+              this.setState(prevState => {
+                return {cafes: cafe_list}
                 })
+               this.setState(prevState =>{
+                 return {requests: "true"}
+               }) 
             })
             
             
@@ -55,7 +61,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
               : rows[rows.length-1].push(key)) && rows;
           }, []);
           const arrays = this.state.cafes.reduce(function (arrays, key, index) { 
-            return (index % 10 == 0 ? arrays.push([key]) 
+            return (index % 5 == 0 ? arrays.push([key]) 
               : arrays[arrays.length-1].push(key)) && arrays;
           }, []);
 
@@ -74,7 +80,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                 
                 </h5>  </span>
                 
-                <Carousel infiniteLoop  autoPlay  width="100%" >
+                <Carousel infiniteLoop   autoPlay  width="100%" >
                     
                   {rows.map(game => (
                     <body style={{backgroundColor: 'transparent',height: '35vh',marginTop: '1%'}}>
@@ -88,7 +94,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                </div>
                                </Col> 
                        <Col span={12}>
-                               <div >
+                               <div style={{marginLeft: '7%'}}>
                                <h5 >{game[0].name}</h5>
                               
                                 <StarRatings
@@ -98,7 +104,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                  numberOfStars={5}
                                  name='rating' 
                                  />
-            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[0].description.substring(0,43)}...</p>
+            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[0].description.substring(0,48)}...</h6>
 
                                  </div>
                                </Col>
@@ -116,7 +122,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                </div>
                                </Col> 
                         <Col span={12}>
-                               <div >
+                               <div style={{marginLeft: '7%'}}>
                                <h5 >{game[1].name}</h5>
                               
                                 <StarRatings
@@ -126,7 +132,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                  numberOfStars={5}
                                  name='rating' 
                                  />
-            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[1].description.substring(0,43)}...</p>
+            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[1].description.substring(0,48)}...</h6>
 
                                  </div>
                                </Col>
@@ -144,7 +150,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                </div>
                                </Col> 
                         <Col span={12}>
-                               <div >
+                               <div style={{marginLeft: '7%'}}>
                                <h5 >{game[2].name}</h5>
                               
                                 <StarRatings
@@ -154,7 +160,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                  numberOfStars={5}
                                  name='rating' 
                                  />
-            <p style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[2].description.substring(0,43)}...</p>
+            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[2].description.substring(0,48)}...</h6>
 
                                  </div>
                                </Col>
@@ -174,9 +180,9 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                     ))
                     }
                 </Carousel>
-                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-5.5%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-5.5%'}}>See More Games <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
                 <div style={{height: 'max-content',width: '100%'}}>
-                <h3 > Cafes:
+                <h3 >VISIT CAFES:
                      
                      </h3>
                      {arrays.map(cafe => (
@@ -185,7 +191,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[0].gallery.length===0?Im:cafe[0].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
+                               <img src={cafe[0].gallery.length===0?Im:cafe[0].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
@@ -194,7 +200,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                <Link to={'/allcafes/:'+cafe[0].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[0].name}</h5></Link>
 
                         <h6 style={{alignContent: 'center'}}> <FaPhone style={{fill: 'rgb(22, 221, 111)'}}/>  {cafe[0].phone_number}</h6>
-                        <h6 style={{borderBottom: '4px dotted gray',paddingBottom: '7%'}}> <FaMapMarkerAlt style={{fill: '#ff3434' }}/>  {cafe[0].city}</h6>
+                        <h6 style={{borderBottom: '4px dotted gray',paddingBottom: '7%',paddingRight: '5%'}}> <FaMapMarkerAlt style={{fill: '#ff3434' }}/>  {cafe[0].city}</h6>
 
                         <h6><FaPenNib style={{fill: 'orange'}}/> {cafe[0].description}</h6>
 
@@ -209,7 +215,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[1].gallery.length===0?Im:cafe[1].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
+                               <img src={cafe[1].gallery.length===0?Im:cafe[1].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
@@ -218,7 +224,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                <Link to={'/allcafes/:'+cafe[1].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[1].name}</h5></Link>
 
                         <h6 style={{alignContent: 'center'}}> <FaPhone style={{fill: 'rgb(22, 221, 111)'}}/>  {cafe[1].phone_number}</h6>
-                        <h6 style={{borderBottom: '4px dotted gray',paddingBottom: '7%'}}> <FaMapMarkerAlt style={{fill: '#ff3434' }}/>  {cafe[1].city}</h6>
+                        <h6 style={{borderBottom: '4px dotted gray',paddingBottom: '7%',paddingRight: '5%'}}> <FaMapMarkerAlt style={{fill: '#ff3434' }}/>  {cafe[1].city}</h6>
 
                         <h6><FaPenNib style={{fill: 'orange'}}/> {cafe[1].description}</h6>
 
@@ -232,12 +238,12 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
                              <Col span={12} >
                                <div>
-                               <img src={cafe[2].gallery.length===0?Im:cafe[2].gallery[0]} className='imageinside' style={{maxWidth: '90%',width: '90%',boxShadow: 'none'}} />
+                               <img src={cafe[2].gallery.length===0?Im:cafe[2].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
     
                                </div>
                                </Col> 
                         <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
+                               <div style={{marginLeft: '7%',width: '90%'}}>
                                <Link to={'/allcafes/:'+cafe[2].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[2].name}</h5></Link>
 
                         <h6 style={{alignContent: 'center'}}> <FaPhone style={{fill: 'rgb(22, 221, 111)'}}/>  {cafe[2].phone_number}</h6>
@@ -255,10 +261,10 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                          </Row>
                      ))}
                 </div>
-                < Link to='/allcafes' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                < Link to='/allcafes' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Cafes  <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
 
                 <div style={{height: 'max-content',width: '100%',marginTop: '7%'}}>
-                <h3 > Communities:
+                <h3 >JOIN A COMMUNITY:
                      
                      </h3>
                      {arrays.map(cafe => (
@@ -269,7 +275,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                    
                                  <Col span={11}>
                                  <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[0].gallery.length===0?Com:cafe[0].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+                                 <img src={cafe[0].gallery.length===0?Com:cafe[0].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
 
                                 </div></Col>
                                  <Col span={13}>
@@ -282,7 +288,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
         >
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
           <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[0].id-2}</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[0].id-120}</Avatar>
         </Avatar.Group></div>
                                
                                  </div>
@@ -304,7 +310,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                    
                                  <Col span={11}>
                                  <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[1].gallery.length===0?Com:cafe[1].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+                                 <img src={cafe[1].gallery.length===0?Com:cafe[1].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
 
                                 </div></Col>
                                  <Col span={13}>
@@ -317,7 +323,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
         >
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
           <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[1].id-2}</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[1].id-120}</Avatar>
         </Avatar.Group></div>
                                
                                  </div>
@@ -339,7 +345,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                                    
                                  <Col span={11}>
                                  <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[2].gallery.length===0?Com:cafe[2].gallery[0]}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+                                 <img src={cafe[2].gallery.length===0?Com:cafe[2].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
 
                                 </div></Col>
                                  <Col span={13}>
@@ -352,7 +358,7 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
         >
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
           <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[2].id-2}</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[2].id-120}</Avatar>
         </Avatar.Group></div>
                                
                                  </div>
@@ -370,14 +376,18 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
                              </Col>
 
                              </Row>
-                     ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>see all <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                     ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
 
                 <div style={{alignContent: 'center'}}>
                 <Row style={{marginLeft: '4%',marginTop: '10%'}} justify='start'>
                     
                         <Col span={6}>
-                        <Link to='/cafeform'><h5>click here to see cafe form</h5></Link>
-
+                        <Link to='/createCommunity'><h5>click here to see cafe form</h5></Link>
+                        <div class="text-center">
+                        <div class="spinner-grow"style={{backgroundColor: 'cyan'}} role="status">
+                       <span class="sr-only" >Loading...</span>
+                      </div>
+                        </div>
                         </Col>
                         <Col>
                         <Link to='/community'><h5>click here to see community</h5></Link>
@@ -397,7 +407,15 @@ import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
 
 
     render(){
-        
+        if(this.state.requests==='false'){
+          return (
+          <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+          <span class="sr-only" >Loading...</span>
+          </div>
+          </div>
+          
+          )}
          return this.caro();
          
     }

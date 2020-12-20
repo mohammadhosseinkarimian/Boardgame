@@ -33,6 +33,7 @@ class AllBoardGames extends React.Component {
       id:"",
       name:"",
       description:"",
+      request: false,
       category:"",
       image:"",
       min_players:"",
@@ -53,8 +54,10 @@ class AllBoardGames extends React.Component {
          const games_list=res.data;
          this.setState(prevState => {
           console.log(games_list)
+
            return {games: games_list}
          })
+         this.setState({request: true})
        })
   }
   
@@ -99,6 +102,14 @@ class AllBoardGames extends React.Component {
     );
   }
   render(){
+    if(!this.state.request){
+      return(
+      <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+      <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+      <span class="sr-only" >Loading...</span>
+      </div>
+      </div>)
+    }
      return this.allBoard();
          
     }

@@ -123,7 +123,7 @@ class LogPlay extends React.Component {
                     }
                     
                         >
-                            <div style={{marginTop:2}}>
+                            <div style={{marginTop: '10%',height: '20vh'}}>
                             <p> {item.game.name}</p>
                             <p> {item.place}</p>
                              <p> {item.date}</p> 

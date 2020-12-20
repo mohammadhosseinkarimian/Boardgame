@@ -30,6 +30,7 @@ class AllCafe extends React.Component {
       close_time:"",
       phone_number:"",
       gallery:[],
+      request: false,
       city:"", 
       proxyurl : "http://localhost:8010/proxy/cafe/cafe_list/"
   };
@@ -43,6 +44,7 @@ class AllCafe extends React.Component {
           console.log(cafe_list)
            return {cafe: cafe_list}
          })
+         this.setState({request: true})
        })
        .catch(error=>{
          //alert("qqqqq")
@@ -53,7 +55,7 @@ class AllCafe extends React.Component {
 
   allCafe(){
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
-
+    
     return(
 
       <div className="cafelist_container"
@@ -84,6 +86,15 @@ class AllCafe extends React.Component {
     );
   }
   render(){
+    if(!this.state.request){
+      return(
+      <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+      <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+      <span class="sr-only" >Loading...</span>
+      </div>
+      </div>
+      )
+    }
      return this.allCafe();
          
     }

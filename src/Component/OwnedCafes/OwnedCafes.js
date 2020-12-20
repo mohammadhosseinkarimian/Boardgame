@@ -89,11 +89,11 @@ onClickedit = (id) => {
        cover={<img  className="photocafe" src={a===''?Av:a} style={{width:"98%", marginLeft:'1%'}}/>}
         description={item.description}
           actions={[
-            <button className="button"  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'#333',color:'#fff',width:'80%'}}>
+            <button className="button"  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'hsl(22, 94%, 49%)',color:'#fff',width:'80%'}}>
           <EditFilled className="icon"/> 
           <p className="text_button">Edit</p>
             </button>,
-            <button  className="button" onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
+            <button  className="button" onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'hsl(22, 94%, 49%)',color:'#fff',width:'80%'}}>
           <DeleteFilled className="icon"/> 
           <p className="text_button" >Delete</p>
             </button>
