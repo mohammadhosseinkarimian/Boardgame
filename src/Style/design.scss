@@ -654,10 +654,7 @@ border-color: $layout1 !important;
   
  
  }
- .ant-card-actions{
-  background-color: $primary !important ;
-  color: $primary !important ;
- }
+
  .span  :hover{
    fill: $layout9 !important;
    stroke: $layout9 !important ;
@@ -675,7 +672,17 @@ border-color: $layout1 !important;
    color: $maintext !important;
  }
  .ant-card-body{
-   height: auto ;
+   height: 0 ;
    background-color:$layout5 !important;
    color: $maintext !important;
+
+}
+
+ .ant-card{
+  background-color:$layout5 !important;
+    border:0;
+    display: inline;
+    float: left;
+    margin: 1%;
+    margin-left: 2%;
  }
