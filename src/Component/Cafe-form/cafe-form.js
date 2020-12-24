@@ -16,7 +16,9 @@ import {
   TimePicker,
   Upload,
   message,
-  Modal
+  Modal,
+  Row,
+  Col
 } from "antd";
 import axios from 'axios';
 import "antd/dist/antd.css";
@@ -202,8 +204,8 @@ this.setState({necessary_inputs:"!Ok"})
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="EditProfile_container" style={{with:'36%'}}>
-       
+      <div className="Cafe_container" style={{with:'36%'}}>
+       <h2 >Create Cafe</h2>
         <Form
           {...formItemLayout}
           // form={this.form}
@@ -217,8 +219,8 @@ this.setState({necessary_inputs:"!Ok"})
         >
           {/* <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
         "There was something wrong with the server please try again":""}</p> */}
-         
-          <Form.Item
+             <Row>
+      <Col span={10}><Form.Item
             name="name"
             onChange={this.onChange}
             rules={[
@@ -235,29 +237,26 @@ this.setState({necessary_inputs:"!Ok"})
               onChange={(this.onChange, this.nameChange)}
             />
           </Form.Item>
-          
           <Form.Item
-            name="Description"
+            onChange={this.onChange}
             rules={[
               {
                 required: true,
-                message: "Please input cafe address and some necessary description !",
+                message: "this item is require",
                 whitespace: true,
               },
             ]}
-            onChange={this.onChange}
-          >  <p> <span style={{color:"red"}}>*</span>
-          Description :&nbsp;
-          <Tooltip title="Type address and some descriptions about caffe">
-            <QuestionCircleOutlined />
-          </Tooltip>
-        </p>
-            <Input.TextArea
-              required
-              name="Description"
-              onChange={(this.onChange, this.descriptionChange)}
+          >
+            <p>Open : </p>
+            <TimePicker
+              style={{ width: '100%' }}
+              use24Hours
+              format={"HH:mm"}
+              defaultValue={moment("00:00", "HH:mm")}
+              onChange={(this.onChange, this.open_tChange)}
             />
-            </Form.Item>
+          </Form.Item>
+          
            <Form.Item
             rules={[
               {
@@ -291,23 +290,28 @@ this.setState({necessary_inputs:"!Ok"})
               ))
               }</Select>
           </Form.Item>
-          <Form.Item
+         
+          
+          </Col>
+          <Col span={2}></Col>
+      <Col span={10}>
+      <Form.Item
             onChange={this.onChange}
+            name="Telephone"
             rules={[
               {
                 required: true,
-                message: "this item is require",
+                message: "Please input phone number!",
                 whitespace: true,
               },
             ]}
           >
-            <p>Open : </p>
-            <TimePicker
+            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
+            <Input
+              name="Telephone"
+              defaultValue="021-00000000"
+              onChange={(this.onChange, this.telephoneChange)}
               style={{ width: '100%' }}
-              use24Hours
-              format={"HH:mm"}
-              defaultValue={moment("00:00", "HH:mm")}
-              onChange={(this.onChange, this.open_tChange)}
             />
           </Form.Item>
           <Form.Item
@@ -353,25 +357,33 @@ this.setState({necessary_inputs:"!Ok"})
               onChange={(this.onChange, this.pricechange)}
             />
           </Form.Item>
-          <Form.Item
-            onChange={this.onChange}
-            name="Telephone"
+          
+          
+          </Col>
+    </Row> <Form.Item
+            name="Description"
             rules={[
               {
                 required: true,
-                message: "Please input phone number!",
+                message: "Please input cafe address and some necessary description !",
                 whitespace: true,
               },
             ]}
-          >
-            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
-            <Input
-              name="Telephone"
-              defaultValue="021-00000000"
-              onChange={(this.onChange, this.telephoneChange)}
-              style={{ width: '100%' }}
+            onChange={this.onChange}
+          >  <p> <span style={{color:"red"}}>*</span>
+          Description :&nbsp;
+          <Tooltip title="Type address and some descriptions about caffe">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
+            <Input.TextArea
+              required
+              name="Description"
+              onChange={(this.onChange, this.descriptionChange)}
             />
-          </Form.Item>
+            </Form.Item>
+
+        
           <Form.Item style={{color:"white"}}>to save each picture click on <CheckCircleFilled /> and for delete picture click on <DeleteFilled />
           <Gallery  />
           </Form.Item>
