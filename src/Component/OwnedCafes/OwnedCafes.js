@@ -4,12 +4,16 @@ import { Card, } from 'antd';
 import { FaCoffee } from "react-icons/fa";
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
-//import '../../Style/OwnedCafes.css'
+import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
+import Edit from './Ownedcafe_edit'
 import Av from './default_picture.png';
 import { GiTwoCoins } from "react-icons/gi";
+import { Modal, Button, Space } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 let a="";
 const { Meta } = Card;
+const { confirm } = Modal;
 class OwnedCafe extends React.Component {
   state = {
     mycafe:[],
@@ -27,6 +31,25 @@ class OwnedCafe extends React.Component {
     longitude: "",
     proxyurl:'http://localhost:8010/proxy',
   }
+ 
+   showDeleteConfirm(){
+  confirm({
+    title: 'Are you sure delete this cafe?',
+    icon: <ExclamationCircleOutlined />,
+    content: '',
+    okText: 'Yes',
+    okType: 'danger',
+    cancelText: 'No',
+    onOk:()=>{
+     const id= localStorage.getItem("cafeid");
+     console.log(id);
+     this.onClickDelete(id);
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+} 
   onClickDelete = (id) => {
  
     //console.log("click")
@@ -70,7 +93,6 @@ class OwnedCafe extends React.Component {
   componentDidMount() {
     this.getInfo();
 };
-
 onClickedit = (id) => {
   window.location.href = "/editcafe/:" + id;
 };
@@ -93,15 +115,21 @@ onClickedit = (id) => {
           <EditFilled className="icon"/> 
           <p className="text_button">Edit</p>
             </button>,
-            <button  className="button" onClick ={() => this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
-          <DeleteFilled className="icon"/> 
-          <p className="text_button" >Delete</p>
-            </button>
+          //   <button  className="button" onClick ={ this.onClickDelete(item.id)}style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
+          // <DeleteFilled className="icon"/> 
+          // <p className="text_button" >Delete</p>
+          //   </button>
+           <button className="button" onClick={()=>this.showDeleteConfirm()} type="dashed"
+           style={{backgroundColor:'#333', color:'#fff',width:'80%'}}>
+             <DeleteFilled className="icon"/> 
+             <p className="text_button" >Delete</p>
+         </button>
           ]}
         >
        
-        </Card> ))}</div>
-    ) 
+        </Card> ))}
+      </div>
+    )   
   }
 }
 export default OwnedCafe;

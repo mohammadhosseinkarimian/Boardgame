@@ -14,10 +14,12 @@ import {
   Button,
   Select,
   Divider,
-  TimePicker,
   Upload,
   message,
-  Modal
+  Modal,
+  TimePicker,
+  Row,
+  Col
 } from "antd";
 import axios from 'axios';
 import "antd/dist/antd.css";
@@ -286,7 +288,7 @@ componentDidMount() {
 
     render() {
         return (   
-            <div className="EditProfile_container" style={{with:'36%'}}>
+            <div className="Cafe_container">
        
         <Form
           {...formItemLayout}
@@ -301,8 +303,8 @@ componentDidMount() {
         >
           {/* <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
         "There was something wrong with the server please try again":""}</p> */}
-         
-          <Form.Item
+         <Row>
+         <Col span={10}> <Form.Item
             name="name"
             onChange={this.onChange}
             rules={[
@@ -316,35 +318,31 @@ componentDidMount() {
             <Input
               required
               name="name"
-              placeholder={this.state.name===""?"cafe name":this.state.name+" (optional)"}
+              placeholder={this.state.name===""?"cafe name":this.state.name}
               onChange={(this.nameChange)}
             />
           </Form.Item>
-          
           <Form.Item
-            name="Description"
+           // onChange={this.onChange}
             rules={[
               {
                 required: true,
-                message: "Please input cafe address and some necessary description !",
+                message: "this item is require",
                 whitespace: true,
               },
             ]}
-          >  <p> <span style={{color:"red"}}>*</span>
-          Description :&nbsp;
-          <Tooltip title="Type address and some descriptions about caffe">
-            <QuestionCircleOutlined />
-          </Tooltip>
-        </p>
-            <Input.TextArea
-              required
-              name="description"
-              placeholder={this.state.description===""?"description":this.state.description+" (optional)"}
-              onChange={this.descChange}
-            
+          >
+            <p>Open : </p>
+            <TimePicker
+              style={{ width: '100%' }}
+              use24Hours
+              format={"HH:mm"}
+              placeholder={this.state.open_time===""?"last name":this.state.open_time}
+              //defaultValue={moment("00:00", "HH:mm")}
+              onChange={(this.openChange)}
             />
-            </Form.Item>
-           <Form.Item
+          </Form.Item>
+          <Form.Item
             rules={[
               {
                 required: false,
@@ -382,26 +380,31 @@ componentDidMount() {
         </div> 
           
           </Form.Item>
-          <Form.Item
+          </Col>
+          <Col span={2}></Col>
+      <Col span={10}>  
+      <Form.Item
            // onChange={this.onChange}
+            name="Telephone"
             rules={[
               {
                 required: true,
-                message: "this item is require",
+                message: "Please input phone number!",
                 whitespace: true,
               },
             ]}
           >
-            <p>Open : </p>
-            <TimePicker
+            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
+            <Input
+              name="Telephone"
+              placeholder={this.state.Telephone===""?"Phone":this.state.Telephone}
+             // defaultValue="021-00000000"
+              onChange={(this.phoneChange)}
               style={{ width: '100%' }}
-              use24Hours
-              format={"HH:mm"}
-              placeholder={this.state.open_time===""?"last name":this.state.open_time+" (optional)"}
-              //defaultValue={moment("00:00", "HH:mm")}
-              onChange={(this.openChange)}
             />
           </Form.Item>
+          
+           
           <Form.Item
           //  onChange={this.onChange}
             rules={[
@@ -417,7 +420,7 @@ componentDidMount() {
                style={{ width: '100%' }}
               use24Hours
               format={"HH:mm"}
-              placeholder={this.state.close_time===""?"last name":this.state.close_time+" (optional)"}
+              placeholder={this.state.close_time===""?"last name":this.state.close_time}
               //defaultValue={moment("00:00", "HH:mm")}
               onChange={( this.closeChange)}
             />
@@ -442,31 +445,36 @@ componentDidMount() {
             <Input
                style={{ width: '100%' }}
               name="Price"
-              placeholder={this.state.price===""?"Price":this.state.price+" (optional)"}
+              placeholder={this.state.price===""?"Price":this.state.price}
              // defaultValue="100,000"
               onChange={(this.priceChange)}
             />
           </Form.Item>
+          </Col>
+    </Row>
           <Form.Item
-           // onChange={this.onChange}
-            name="Telephone"
+            name="Description"
             rules={[
               {
                 required: true,
-                message: "Please input phone number!",
+                message: "Please input cafe address and some necessary description !",
                 whitespace: true,
               },
             ]}
-          >
-            <p> <span style={{color:"red"}}>*</span> Phone number : &nbsp;</p>
-            <Input
-              name="Telephone"
-              placeholder={this.state.Telephone===""?"Phone":this.state.Telephone+" (optional)"}
-             // defaultValue="021-00000000"
-              onChange={(this.phoneChange)}
-              style={{ width: '100%' }}
+          >  <p> <span style={{color:"red"}}>*</span>
+          Description :&nbsp;
+          <Tooltip title="Type address and some descriptions about caffe">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </p>
+            <Input.TextArea
+              required
+              name="description"
+              placeholder={this.state.description===""?"description":this.state.description}
+              onChange={this.descChange}
+            
             />
-          </Form.Item>
+            </Form.Item>
           <Form.Item>
 <Gallery />
           </Form.Item>
@@ -493,7 +501,7 @@ componentDidMount() {
               ></span>
               {this.state.necessary_inputs === "added"
                 ? "ََAdded"
-                : "Add Caffe"}
+                : "Edit Caffe"}
             </Button>
           </div>
           </Form>

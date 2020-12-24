@@ -5,11 +5,7 @@ p{
 .ant-card-head-title{
 color: white;
 }
-.mycafe_card{
-    display: inline;
-    float: left;
-    margin: 1%;
-}
+
 .mycafe_container{
     width: 80%;
     margin-left: 10%;
@@ -47,6 +43,17 @@ color: white;
   .ant-card-head,.ant-card-head-wrapper{
     background-color:  #414141 ;
   }
-  .ant-card-head-wrapper{
-    background-color:  #333;
+  .ant-modal-content{
+    background-color:  #414141 ;
+
   }
+  .ant-modal-confirm-body .ant-modal-confirm-title
+  {
+    color:rgb(255, 255, 255);
+  }
+  .ant-btn, .ant-btn:hover ,.ant-btn-dangerous:hover, .ant-btn-dangerous:focus,.ant-btn-dangerous,.ant-btn .ant-btn-dangerous,.ant-btn-dangerous:hover{
+    background-color: #333;
+color:rgb(255, 255, 255);
+border:0;
+
+    }
