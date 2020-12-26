@@ -11,6 +11,7 @@ import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
 import EditPlay from './Component/Play/editPlay'
 import Community from './Component/Community/Community-form'
+import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
 import {  FaHome } from "react-icons/fa";
 
@@ -208,7 +209,7 @@ class Routes extends React.Component {
                     <Route exact path="/editcafe/:id" component={OwnedCafe_edit} />
 
                     <Route exact path="/createCommunity" component={Community} />
-
+                    <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community" component={SingleCommunity} />
 
