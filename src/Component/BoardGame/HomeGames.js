@@ -377,8 +377,11 @@ let a="";
 
                              </Row>
                      ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
-
+                      <div style={{marginLeft: '40%', marginTop: '10%'}}>
+                        <Link to='/createCommunity'>clik to create community</Link>
+                      </div>
                 </div>
+
         );
     }
 
