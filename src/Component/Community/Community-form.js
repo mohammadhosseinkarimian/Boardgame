@@ -97,9 +97,11 @@ const formItemLayout = {
 
   }
    onChangelock(checked) {
-    console.log(`switch to ${checked}`);
-    localStorage.setItem("lock",checked)
-    console.log(localStorage.getItem('lock'));
+  //  console.log(`switch to ${checked}`);
+  this.setState(prevState =>{
+    return {lock: checked}
+  })
+  //  console.log(localStorage.getItem('lock'));
 
  //   this.setState({lock:checked});
 //     if(checked){
@@ -151,7 +153,7 @@ const formItemLayout = {
         owner:this.state.owner,
         members:this.state.members,
        image:this.state.img,
-       lock:localStorage.getItem('lock'),
+       lock:this.state.lock,
        owner:localStorage.getItem('id')
     }
        if((this.state.name!=="") && (this.state.description!=="")){
