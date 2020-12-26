@@ -31,6 +31,7 @@ class SingleGame extends React.Component {
         max_players: "",
         difficulty: "",
         rate: "",
+        request: false
     };
 
     componentDidMount(){
@@ -46,7 +47,7 @@ class SingleGame extends React.Component {
      this.setState({max_players:game.max_players});
      this.setState({difficulty:game.difficulty});
      this.setState({rate:game.rate});
-
+    this.setState({request: true})
 
 
     })
@@ -54,6 +55,15 @@ class SingleGame extends React.Component {
 
     render() {
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
+        if(!this.state.request){
+            return(
+            <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+            <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+            <span class="sr-only" >Loading...</span>
+            </div>
+            </div>)
+        }
+
         return (
             <div className="EditProfile_container"
                 style={{ width: "50%",marginTop: '5%'}}>

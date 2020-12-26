@@ -161,7 +161,7 @@ class Login extends React.Component {
         </Form>
         <Divider style={{marginLeft: "0%",color: "white" }}>OR</Divider>
 
-        <div style={{display: 'flex',position: 'relative',width: '100%',textAlign: 'center'}}><p className ="ant-form-item-change" style={{color: "white" }} >Don’t have an account? <Link to="signup">Sign up</Link></p></div> 
+        <div style={{display: 'flex',position: 'relative',width: '100%',textAlign: 'center'}}><p className ="ant-form-item-change" style={{color: "white",marginLeft: 'auto',marginRight: 'auto'}} >Don’t have an account? <Link to="signup">Sign up</Link></p></div> 
       </div>
       </div>
     );

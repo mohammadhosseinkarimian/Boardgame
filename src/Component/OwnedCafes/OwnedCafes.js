@@ -6,7 +6,6 @@ import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
 import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
-import Edit from './Ownedcafe_edit'
 import Av from './default_picture.png';
 import { GiTwoCoins } from "react-icons/gi";
 import { Modal, Button, Space } from 'antd';
@@ -111,7 +110,7 @@ onClickedit = (id) => {
        cover={<img  className="photocafe" src={a===''?Av:a} style={{width:"98%", marginLeft:'1%'}}/>}
         description={item.description}
           actions={[
-            <button className="button"  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'#333',color:'#fff',width:'80%'}}>
+            <button className="button"  onClick ={() => this.onClickedit(item.id)}style={{backgroundColor:'hsl(22, 94%, 49%)',color:'#fff',width:'80%'}}>
           <EditFilled className="icon"/> 
           <p className="text_button">Edit</p>
             </button>,

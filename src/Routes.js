@@ -10,7 +10,11 @@ import AllBoardGames from './Component/BoardGame/AllBoardGames'
 import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
 import EditPlay from './Component/Play/editPlay'
+import Community from './Component/Community/Community-form'
+import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
+import {  FaHome } from "react-icons/fa";
+
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -36,7 +40,8 @@ const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 class Routes extends React.Component {
   state = {
-    accessed: false,
+    
+    accessed: '',
     collapsed: false,
     img: '',
     disp: 'none',
@@ -88,14 +93,15 @@ class Routes extends React.Component {
         headers: { 'Content-Type': 'application/json' }
       }).then((res) => {
         localStorage.setItem('access', res.data.access);
-        this.setState({ accessed: true });
+        this.setState({ accessed: 'true' });
         this.getInfo();
 
       }).catch()
 
   }
   exit = () => {
-    this.setState({ accessed: false })
+    this.setState({ accessed: 'false' });
+    
     localStorage.clear();
 
   }
@@ -146,16 +152,16 @@ class Routes extends React.Component {
               style={{ position: "sticky", marginTop: '67px' }}>
 
 
-              <Menu.Item key="3" icon={<DesktopOutlined style={{ verticalAlign: 'middle', marginTop: '-4px' }} />}>
-                <NavLink to="/homePage/:id"> Home</NavLink>
+              <Menu.Item key="3" icon={<FaHome style={{ verticalAlign: 'middle', marginTop: '-4px' }} />}>
+                <NavLink to="/homePage/:id">{' ' + 'Home'}</NavLink>
 
               </Menu.Item>
               <Menu.Item className="m-item" key="0" icon={<EditOutlined style={{ verticalAlign: 'middle', marginTop: '-4px' }} />}
                 style={{ height: "6%", marginTop: "4%", marginBottom: "5%" }}>
 
-                <NavLink to={"/editProfile/:" + localStorage.getItem('id')}> {' ' + this.state.username + '(tap to edit)'}</NavLink>
+                <NavLink to={"/editProfile/:" + localStorage.getItem('id')}> {this.state.username + '(tap to edit)'}</NavLink>
               </Menu.Item >
-                <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix />} title=" Play">
+                <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix style={{ verticalAlign: 'middle', marginTop: '-4px' }}/>} title={' '+"Play"}>
                   <Menu.Item className="m-item" key="2" icon={<AiOutlinePlusCircle style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
                     <NavLink to='/addplay/'> Create play</NavLink>
                     </Menu.Item>
@@ -163,7 +169,7 @@ class Routes extends React.Component {
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
-                  <SubMenu title="Cafes" icon={<CoffeeOutlined />}>
+                  <SubMenu title="Cafes" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
                     <Menu.Item className="m-item" key="14" >
                       <NavLink to='/cafeform'>Create Cafe</NavLink>
                     </Menu.Item>
@@ -202,7 +208,8 @@ class Routes extends React.Component {
                     <Route exact path="/ownedcafe" component={OwnedCafe} />
                     <Route exact path="/editcafe/:id" component={OwnedCafe_edit} />
 
-
+                    <Route exact path="/createCommunity" component={Community} />
+                    <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community" component={SingleCommunity} />
 
@@ -226,7 +233,15 @@ class Routes extends React.Component {
 
 }
     render() {
-     if(!this.state.accessed)
+      if(this.state.accessed==='')
+      {
+        <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+          <span class="sr-only" >Loading...</span>
+          </div>
+          </div>
+      }
+     else if(this.state.accessed==='false')
      {
        return(
         <Router>

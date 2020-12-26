@@ -686,3 +686,18 @@ border-color: $layout1 !important;
     margin: 1%;
     margin-left: 2%;
  }
+ 
+ p{
+   color: $secondtext !important;
+ }
+.ant-select-multiple .ant-select-selection-item {
+    border-radius: 25px !important;}
+    .ant-card{
+      background-color:$layout5 !important;
+    border:0;
+     }
+     .ant-card-head{
+      border-bottom: 0;
+      border:0;
+      color:$maintext;
+    }

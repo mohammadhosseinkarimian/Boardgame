@@ -57,7 +57,8 @@ class EditProfile extends React.Component {
          msg:"",
          edit:"",
          done:"",
-         img:""
+         img:"",
+         request: false
     };
     onFinish = (values) => {
         console.log("Received values of form: ", values);
@@ -194,7 +195,7 @@ class EditProfile extends React.Component {
         this.setState({img:res.data.avatar});
         this.setState({year:res.data.age});
         this.setState({done:"yes"});
-
+        this.setState({request: true})
     
     } )
     .catch((error)=>
@@ -258,6 +259,15 @@ componentDidMount() {
     this.getInfo();
 }
     render() {
+        if(!this.state.request){
+            return(
+            <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+            <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+            <span class="sr-only" >Loading...</span>
+            </div>
+            </div>
+            )
+          }
         return (
             
             <div className="EditProfile_container">
