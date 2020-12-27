@@ -82,7 +82,7 @@ class OwnedCafe extends React.Component {
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
       }}
   ).then((res)=>{ 
-   // console.log(res.data)
+    console.log(res.data)
     this.setState({mycafe:res.data})
   }
   ).catch((error)=>{
@@ -93,6 +93,8 @@ class OwnedCafe extends React.Component {
     this.getInfo();
 };
 onClickedit = (id) => {
+  localStorage.setItem("cafeid",id)
+  console.log(localStorage.getItem("cafeid")+"=="+ id);
   window.location.href = "/editcafe/:" + id;
 };
   render() {

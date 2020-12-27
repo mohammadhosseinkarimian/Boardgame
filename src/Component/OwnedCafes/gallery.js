@@ -28,9 +28,9 @@ fileList:[],
 };
  proxyurl= "http://localhost:8010/proxy";
   handleCancel = async file => {
-  // console.log(base)
-
-    if (!file.url) {
+   console.log(file)
+if(file.name!=="cafe**image**base")
+   { if (!file.url) {
       file.preview = await getBase64(file.originFileObj);
       if(base!==null){
       for( var i = 0; i < base.length; i++){ 
@@ -40,17 +40,31 @@ fileList:[],
             i--; 
         }
     }
-    //console.log(base)
+    console.log(base)
      this.setState({ previewVisible: false });
-    }}};
+    }}}
+  else
+{ console.log("yesss")
+  for( var i = 0; i < base.length; i++){ 
+                                   
+    if ( base[i] === file.url) { 
+        base.splice(i, 1); 
+        i--; 
+    }
+} 
+console.log(base)
+}
+};
 
   handlePreview = async file => {
+    console.log(file)
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
       var dict={"base64":file.preview}
       base.push(dict);
+      console.log(base)
     }
-//console.log(base)
+
     this.setState({
       previewImage: file.url || file.preview,
       previewVisible: true,
@@ -74,11 +88,13 @@ fileList:[],
    
     //console.log(cafe);
     this.setState({ gallery: cafe.gallery });
-    // console.log(this.state.gallery);
+     console.log(this.state.gallery);
      var i=1;
      {this.state.gallery.map((item) => (
-      dict ={"url":item.base64,"uid":i,"name":'image'},i=i+1,
-      this.state.fileList.push(dict)))}
+      dict ={"url":item.base64,"uid":i,"name":'cafe**image**base','preview':false},i=i+1,
+      this.state.fileList.push(dict),
+      base.push(item.base64)
+      ))}
      //this.state.gallery.forEach((element) => {
     //   this.state.fileList.push(element.base64)
     // var encoded = base64.encode(element.base64);
@@ -86,7 +102,8 @@ fileList:[],
      //console.log(this.state.fileList)
      //console.log('000')
       //});
-      // console.log(this.state.fileList)
+       console.log(base)
+       console.log(this.state.fileList)
   } )
   .catch((error)=>
   {

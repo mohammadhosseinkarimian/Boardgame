@@ -239,12 +239,12 @@ onSaveGeneral = (e) => {
       price:this.state.price,
       open_time:this.state.open_time,
       close_time:this.state.close_time,
-      owner:localStorage.getItem('id'),
+      owner:parseInt((localStorage.getItem('id'))),
       games:this.state.Gamestring,
       gallery:JSON.parse(list),
       
   }
- // console.log(data)
+  console.log(data)
   axios.put(this.proxyurl+'/cafe/edit_cafe/'+localStorage.getItem("cafeid") + '/',JSON.stringify(data),{headers:{
       'Content-Type' : 'application/json;charset=utf-8',
       'Access-Control-Allow-Credentials':true,
@@ -261,7 +261,7 @@ onSaveGeneral = (e) => {
    this.setState({done:""});
    this.getInfo();
 
-
+console.log("tttt")
 } )
 .catch((error)=>
 {
