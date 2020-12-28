@@ -87,6 +87,7 @@ class Cafeedit extends React.Component {
     done:"",
     edit:"",
     Gamestring:[],
+    Gameget:[],
     latitude: "",
     longitude: "",
 
@@ -130,9 +131,10 @@ let cafeid=localStorage.getItem("cafeid")
     this.setState({price:res.data.price});
     this.setState({Telephone:res.data.phone_number});
     this.state.List_of_board_games.forEach((element) => {
-      this.state.Gamestring.push({"id":element.id,"name":element.name})
+      this.state.Gameget.push(element.name/* +"#"+element.id */)
       });
-//console.log(this.state.Gamestring)
+console.log(this.state.List_of_board_games)
+
 this.setState({ latitude: res.data.latitude });
 this.setState({ longitude: res.data.longitude });
 this.setState({done:"yes"});
@@ -157,12 +159,12 @@ onSearchgame = (value) => {
 };
 
 onSelectgame = (value) => {
-  var dict = { "id": value }
- // this.state.List_of_board_games.push(dict);
- // this.setState({ selected_game: value }, () => {
-   // console.log(this.state.selected_game, 'dealersOverallTotal1')
-  //})
-//  console.log(this.state.List_of_board_games)
+  var dict = { "name": value }
+  this.state.List_of_board_games.push(dict);
+  this.setState({ selected_game: value }, () => {
+  console.log(this.state.selected_game, 'dealersOverallTotal1')
+  })
+  console.log(this.state.List_of_board_games)
 
 //  this.setState({edit:"true"});
 
@@ -178,25 +180,40 @@ descChange=e=>{
   //console.log(this.state.description);
 };
  gameChange=(e,value)=>{
-  // console.log(e)
-   //console.log(value)
-   var temp=this.state.Gamestring.filter(item=>{
-    value.forEach(i=>{
-    //  console.log(i.value)
-      if(i.value===item.name)
-      return true;
-    }
-      )
-  })
-  //console.log(temp)
-
- //this.setState({Gamestring:[]})
- value.forEach(i=>this.state.Gamestring.push({'name':i.value,'id':i.key}))
+   console.log(e,value) 
+   this.state.Gamestring=[]
  
- //this.setState({Gamestring:temp})
- //console.log(this.state.Gamestring);
- this.setState({edit:"true"});
-};
+e.forEach(element=> 
+{for(var i=0;i<this.state.List_of_board_games.length;i++)
+{
+
+  if(element==this.state.List_of_board_games[i].name)
+  {  console.log(this.state.List_of_board_games[i].name)
+    this.state.Gamestring.push({'name':this.state.List_of_board_games[i].name,'id':this.state.List_of_board_games[i].id})
+  }
+}}  );
+
+   //console.log(value)
+  //  var temp=this.state.Gamestring.filter(item=>{
+  //   value.forEach(i=>{
+  //   //  console.log(i.value)
+  //     if(i.value===item.name)
+  //     return true;
+  //   }
+   //   )
+ // })
+  //console.log(temp)
+ 
+ value.forEach(i=>
+ { if(typeof(i.key) !== "undefined"){
+  console.log("wwww")
+  this.state.Gamestring.push({'name':i.value,'id':parseInt(i.key)})}})
+// e.forEach(element=>dict.push({"id":parseInt(element.split('#')[1]),"name":element.split('#')[0]}))
+ //console.log(dict)
+ //this.state.Gamestring=(dict)
+ console.log(this.state.Gamestring);
+ this.setState({edit:"true"}
+);};
 openChange=e=>{
   if (e !== null) this.setState({ open_time: e.format("LT") });
   this.setState({edit:"true"});
@@ -221,14 +238,13 @@ gamename(e){
   var array=[]
   if(e!==null){
   e.forEach(i=>array.push(i.name))
-  }//console.log(array)
+  }console.log(array)
    return array;
 }
 onSaveGeneral = (e) => {
   if((this.state.edit==="true") || (localStorage.getItem('base64')!==null))
   {
       e.preventDefault();
-     // console.log(this.state.Gamestring)
       let list=(localStorage.getItem('base64'));
     //  console.log(JSON.parse(list))
      // this.setState({loggedIn:"logging in"})
@@ -362,10 +378,10 @@ componentDidMount() {
            mode="multiple"
               showSearch
               style={{ width: '100%' }}
-              defaultValue={this.gamename(this.state.Gamestring)}
+              defaultValue={this.state.Gameget}
               optionFilterProp="children"
               onSearch={this.onSearchgame}
-              onSelect={this.onSelectgame}
+              //onSelect={this.onSelectgame}
               onChange={this.gameChange}
               
               filterOption={(input, option) =>
@@ -374,7 +390,7 @@ componentDidMount() {
 
             >
               {this.state.suggestlist_game.map(i => (
-                <Option value={i.name} key={i.id}>{i.name}</Option>
+                <Option value={i.name/* +"#"+i.id */} key={i.id}>{i.name/* +"#"+i.id */}</Option>
               ))
               }</Select>
         </div> 
