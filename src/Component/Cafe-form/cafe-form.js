@@ -196,7 +196,17 @@ this.setState({necessary_inputs:"!Ok"})
       console.log(this.state.selected_game, 'dealersOverallTotal1')
     })
   };
-
+onChangegame=(value)=>
+{
+  this.state.List_of_board_games=[]
+  var dict = { "id": value }
+  value.forEach(i=>{
+  this.state.List_of_board_games.push({"id":i});})
+  console.log(this.state.List_of_board_games)
+  this.setState({ selected_game: value }, () => {
+    console.log(this.state.selected_game, 'dealersOverallTotal1')
+  })
+}
   render() {
     const { items } = this.state;
     const previewVisible = this.state.previewVisible;
@@ -279,7 +289,8 @@ this.setState({necessary_inputs:"!Ok"})
               placeholder="Select a game"
               optionFilterProp="children"
               onSearch={this.onSearchgame}
-              onSelect={this.onSelectgame}
+              //onSelect={this.onSelectgame}
+              onChange={this.onChangegame}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
