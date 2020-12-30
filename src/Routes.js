@@ -35,6 +35,8 @@ import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import SingleCommunity from './Component/SingleCommunity/SingleCommunity';
 import { Layout, Menu, Breadcrumb, Avatar, Button } from "antd";
 import './Component/BoardGame/allStyle.css';
+import { FaUsers} from "react-icons/fa";
+
 import Axios from 'axios';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -169,6 +171,11 @@ class Routes extends React.Component {
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
+                <SubMenu title='Community' icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-6px' }} />}>
+                  <Menu.Item style={{overflow: 'hidden',marginLeft: '-15%',height: 'max-content'}} >
+                    <NavCom/>
+                  </Menu.Item>
+                </SubMenu>
                   <SubMenu title="Cafes" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
                     <Menu.Item className="m-item" key="14" >
                       <NavLink to='/cafeform'>Create Cafe</NavLink>
@@ -180,6 +187,7 @@ class Routes extends React.Component {
                       <NavLink to='/ownedcafe'>Owned Cafe</NavLink>
                     </Menu.Item>
                   </SubMenu>
+
 
                   <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
                     <NavLink to='/'>Exit</NavLink>
