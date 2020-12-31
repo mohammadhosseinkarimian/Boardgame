@@ -80,6 +80,7 @@ const formItemLayout = {
     axios.get(proxyurl + "/game/search_user/username/?search=" + value)
       .then(res => {
         const tmp = res.data.results;
+        console.log(tmp)
         this.setState(prevState => {
           return { suggestlist_user: tmp }
         })
@@ -87,13 +88,12 @@ const formItemLayout = {
   }
   
   onSelectuser = (value) => {
-
     var dict = { "username": value }
     this.state.members.push(dict);
     this.setState({ selected_user: value }, () => {
-     // console.log(this.state.selected_user, 'dealersOverallTotal1')
+      console.log(this.state.selected_user, 'dealersOverallTotal1')
     })
-   // console.log(this.state.members)
+    console.log(this.state.members)
 
   }
    onChangelock(checked) {
@@ -103,12 +103,13 @@ const formItemLayout = {
   })
   //  console.log(localStorage.getItem('lock'));
 
-//   this.setState({lock:checked});
+ //   this.setState({lock:checked});
 //     if(checked){
 //     this.setState({lock:"true"});
 // }
 // else{
 //     this.setState({lock:"false"});
+
 // }
   
 }
@@ -117,7 +118,7 @@ const formItemLayout = {
     const file=e.target.files[0];
    const base64= await this.Convert(file)
    this.setState({img:base64});
-  // console.log(this.state.img)
+   console.log(this.state.img)
    this.setState({edit:"true"})
   }
   Convert=(f)=>{
@@ -134,7 +135,7 @@ const formItemLayout = {
   }
     onChange = (e) => {
       e.persist();
-      //console.log(this.state);
+      console.log(this.state);
       this.setState((a) => {
         return {
           [e.target.name]: e.target.value,
@@ -157,7 +158,7 @@ const formItemLayout = {
     }
        if((this.state.name!=="") && (this.state.description!=="")){
       // e.target.reset();
-    //  console.log(data)
+      console.log(data)
       this.setState({necessary_inputs:"Ok"})
       axios.post(this.proxyurl+'/community/create_community/',JSON.stringify(data),{headers:{
         'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
@@ -165,12 +166,12 @@ const formItemLayout = {
         'Authorization' :`Bearer ${localStorage.getItem('access')}`
       }}
     ).then((res)=>{
-      //console.log(res.data+"reeee")
+      console.log(res.data+"reeee")
       this.setState({necessary_inputs:"added"})
     })
     .catch((error)=>
       {
-       // console.log(error.respose+"errrr")
+        console.log(error.respose+"errrr")
       })
     }
   else
@@ -257,9 +258,9 @@ const formItemLayout = {
               placeholder="users"
               defaultValue={[]}
               filterOption={false}
-              onChange={this.handleChange}
+              //onChange={this.onSelectuser}
               onSearch={this.handleChange}
-              onSelect={this.onSelectuser}
+              onChange={this.onSelectuser}
             >
               {
                 this.state.suggestlist_user.map(d => (
