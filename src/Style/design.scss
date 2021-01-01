@@ -684,13 +684,31 @@ border-color: $layout1 !important;
  }
 .ant-select-multiple .ant-select-selection-item {
     border-radius: 25px !important;}
-    .ant-card{
+.ant-card{
       background-color:$layout5 !important;
     border:0;
-     }
-     .ant-card-head{
+}
+.ant-card-head{
       border-bottom: 0;
       border:0;
       color:$maintext;
     }
-    
+ .ant-modal-title{
+   text-align: center;
+   color: cyan;
+   font-size: 21px;
+   font-family: "Times New Roman", Times, serif;
+ }
+ .ant-modal-content {
+   background-color: $layout5;
+   border-bottom: 1px solid $layout7;
+
+ }
+ .ant-modal-header {
+  background-color: $layout5;
+  border-bottom: 1px solid $layout7;
+}
+.ant-modal-footer{
+  border-top: 1px solid $layout7;
+
+}
