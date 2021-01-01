@@ -44,6 +44,15 @@ let a="";
               this.setState(prevState => {
                 return {cafes: cafe_list}
                 })
+              
+              
+            })
+            Axios.get( 'http://localhost:8010/proxy/community/day_communities_list/')
+            .then(res => {
+              const cafe_list=res.data;
+              this.setState(prevState => {
+                return {communitys: cafe_list}
+                })
                this.setState(prevState =>{
                  return {requests: "true"}
                }) 
@@ -63,6 +72,10 @@ let a="";
           const arrays = this.state.cafes.reduce(function (arrays, key, index) { 
             return (index % 5 == 0 ? arrays.push([key]) 
               : arrays[arrays.length-1].push(key)) && arrays;
+          }, []);
+          const coms = this.state.communitys.reduce(function (coms, key, index) { 
+            return (index % 5 == 0 ? coms.push([key]) 
+              : coms[coms.length-1].push(key)) && coms;
           }, []);
 
          
@@ -267,7 +280,7 @@ let a="";
                 <h3 >JOIN A COMMUNITY:
                      
                      </h3>
-                     {arrays.map(cafe => (
+                     {coms.map(cafe => (
                          <Row justify='start' style={{marginTop: '2%'}}>
                              <Col span={8} >
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
@@ -275,20 +288,20 @@ let a="";
                                    
                                  <Col span={11}>
                                  <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[0].gallery.length===0?Com:cafe[0].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+                                 <img src={cafe[0].image.base64===''?Com:cafe[0].image.base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
 
                                 </div></Col>
                                  <Col span={13}>
                                  <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
                                <Link to={'/allcafes/:'+cafe[0].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[0].name}</h5></Link>
-                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[0].description}</h6>
+                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[0].description.length>16?cafe[0].description.substring(0,16):cafe[0].description}</h6>
                                <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
        
           style={{marginTop: '-7%',paddingTop: '0%'}}
         >
-          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
-          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[0].id-120}</Avatar>
+          <Avatar src={cafe[0].members[0].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe[0].members[0].username[0]}</Avatar>
+          <Avatar src={cafe[0].members[1].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe[0].members[1].username[0]}</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}} hidden={cafe[0].members.length<3}>+{cafe[0].members.length-2}</Avatar>
         </Avatar.Group></div>
                                
                                  </div>
@@ -304,81 +317,14 @@ let a="";
                         </Row>
                         </Row> 
                              </Col>
-                             <Col span={8} >
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
-                               <Row style={{height: '80%' ,width: '100%'}}>
-                                   
-                                 <Col span={11}>
-                                 <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[1].gallery.length===0?Com:cafe[1].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
-
-                                </div></Col>
-                                 <Col span={13}>
-                                 <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
-                               <Link to={'/allcafes/:'+cafe[1].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[1].name}</h5></Link>
-                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[1].description}</h6>
-                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
-       
-          style={{marginTop: '-7%',paddingTop: '0%'}}
-        >
-          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
-          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[1].id-120}</Avatar>
-        </Avatar.Group></div>
-                               
-                                 </div>
-                                 </Col>
                         
-                        </Row>
-                        <Row justify='center' style={{width: '100%'}}>
-                        <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
-                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
-                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
-
-                         </div>  
-                        </Row>
-                        </Row> 
-                             </Col>
-                             <Col span={8} >
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
-                               <Row style={{height: '80%' ,width: '100%'}}>
-                                   
-                                 <Col span={11}>
-                                 <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[2].gallery.length===0?Com:cafe[2].gallery[0].base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
-
-                                </div></Col>
-                                 <Col span={13}>
-                                 <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
-                               <Link to={'/allcafes/:'+cafe[2].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[2].name}</h5></Link>
-                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[2].description}</h6>
-                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
-       
-          style={{marginTop: '-7%',paddingTop: '0%'}}
-        >
-          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{borderColor: 'transparent'}}/>
-          <Avatar style={{ backgroundColor: 'rgb(38 156 21)' ,borderColor: 'transparent'}}>K</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}}>+{cafe[2].id-120}</Avatar>
-        </Avatar.Group></div>
-                               
-                                 </div>
-                                 </Col>
-                        
-                        </Row>
-                        <Row justify='center' style={{width: '100%'}}>
-                        <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
-                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
-                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
-
-                         </div>  
-                        </Row>
-                        </Row> 
-                             </Col>
 
                              </Row>
                      ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
                       <div style={{marginLeft: '40%', marginTop: '10%'}}>
                         <Link to='/createCommunity'>clik to create community</Link>
+                        <Link to="/Search_Com">clik to Search</Link>
+                        
                       </div>
                 </div>
 
