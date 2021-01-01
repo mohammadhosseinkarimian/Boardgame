@@ -12,6 +12,7 @@ import AddPlay from './Component/Play/AddPlay';
 import EditPlay from './Component/Play/editPlay'
 import Community from './Component/Community/Community-form'
 import LogPlay from './Component/Play/ShowPlays'
+import SearchCommunity from './Component/Community/communitySearch'
 import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
 import {  MdAddCircle} from "react-icons/md";
 import {
@@ -32,15 +33,16 @@ import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import OwnedCafe_edit from './Component/OwnedCafes/Ownedcafe_edit'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import SingleCommunity from './Component/SingleCommunity/SingleCommunity';
-import { Layout, Menu, Breadcrumb, Avatar, Button ,List} from "antd";
+import { Layout, Menu, Breadcrumb, Avatar, Button ,List,Modal} from "antd";
 import './Component/BoardGame/allStyle.css';
 import noBg from './Component/Community/images.png';
+import CommunitySearch from './Component/Community/communitySearch';
 import Axios from 'axios';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;let a="";
 class Routes extends React.Component {
   state = {
-    
+    visible: false,
     accessed: '',
     collapsed: false,
     img: '',
@@ -49,7 +51,21 @@ class Routes extends React.Component {
     memberList: [],
     ownerList: [] 
   };
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
+  handleOk = () => {
+    setTimeout(() => {
+      this.setState({ visible: false });
+    }, 100);
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
   data = {
     refresh: localStorage.getItem('refresh')
   }
@@ -201,7 +217,7 @@ class Routes extends React.Component {
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu title= " Community" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-6px',paddingRight: '3%' }} />}>
+                <SubMenu title= " Community" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
                 {     <List
 size="large"
 itemLayout="horizontal"
@@ -240,7 +256,24 @@ renderItem={item => (
 /> }
 <Menu.Item className="m-item" key="added" style={{display: 'flex',alignItems: 'center',textAlign: 'center'}}>
   
-  <MdAddCircle style={{marginLeft: '22%',fontSize: '44px',color: 'hsl(22, 94%, 49%)'}}/>
+  <MdAddCircle style={{marginLeft: '22%',fontSize: '44px',color: 'hsl(22, 94%, 49%)'}} onClick={this.showModal}/>
+  <Modal
+          visible={this.state.visible}
+          title="Join A Community"
+          onOk={this.handleOk}
+          style={{height: '36vh'}}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button className="btn btn-primary" key="back" onClick={this.handleCancel}>
+              Return
+            </Button>
+          ]}
+        >
+          <h6>Enter the name of a community</h6>
+          <div style={{alignContent: 'center' ,marginLeft: 'auto',marginRight: 'auto',alignItems: 'center',textAlign: 'center'}}>
+          <CommunitySearch/>
+          </div>
+        </Modal>
 </Menu.Item>
 
                  
@@ -288,6 +321,7 @@ renderItem={item => (
                     <Route exact path="/createCommunity" component={Community} />
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community" component={SingleCommunity} />
+                    <Route exact path="/Search_Com" component={CommunitySearch} />
 
                     <Route exact path="/showplay/" component={LogPlay} />
                     <Route exact path="/editplay/:id" component={EditPlay} />
