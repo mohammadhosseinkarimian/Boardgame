@@ -1,5 +1,4 @@
 import React from 'react';
-import antd, { Row, Col } from "antd";
 import Axios from 'axios';
 import '../../Style/design.scss';
 import FormItem from 'antd/lib/form/FormItem';
@@ -12,7 +11,9 @@ import {
     Tabs,
     Checkbox,
     message,
-    AutoComplete
+    AutoComplete,
+    Row, Col 
+
 } from "antd";
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -34,6 +35,7 @@ class EditPlay extends React.Component {
         place: "",
         msg: "",
         players: [],
+        
         suggestlist_game: [],
         suggestlist_user: [],
         selected_game: "",
@@ -43,7 +45,8 @@ class EditPlay extends React.Component {
         deafult_player_username: [],
         suggestlist_cafe: [],
         selected_cafe: "",
-        game_name:""
+        game_name:"",
+        Members:[]
 
 
     }
@@ -63,6 +66,11 @@ class EditPlay extends React.Component {
             .then(res => {
                 let temp = []
                 console.log(res.data)
+                const members=[];
+                res.data.players.forEach(user=>{
+                    members.push(user.username);
+                })
+                this.setState({Members: members})
                 this.setState({ date: res.data.date });
                 this.setState({ place: res.data.place });
                 this.setState({ selected_game: res.data.game });
@@ -73,7 +81,6 @@ class EditPlay extends React.Component {
                     temp.push(item.username)
                 })
                 this.setState({ deafult_player_username: temp })
-                console.log(res.data.players)
             })
             
             .catch(error => {
@@ -169,12 +176,46 @@ class EditPlay extends React.Component {
  
 
 
+    changePlayer(value,key,e){
+        let items = [...this.state.players];
+        let item = {...items[key]};
+        item.color=e.target.value;
+        items[key] = item;
+
+        this.setState({ players: items })
+      };
+      changePos(value,key,e){
+        let items = [...this.state.players];
+        let item = {...items[key]};
+        item.starting_position=e.target.value;
+        items[key] = item;
+
+        this.setState({ players: items })
+      };
+      changeScore(value,key,e){
+        let items = [...this.state.players];
+        let item = {...items[key]};
+        item.score=e.target.value;
+        items[key] = item;
+
+        this.setState({ players: items })
+      };
+      changeWin(value,key,e){
+        let items = [...this.state.players];
+        let item = {...items[key]};
+        item.is_won=e.target.value;
+        items[key] = item;
+
+        this.setState({ players: items })
+      };
+
     onSelectCafe = (value) => {
 
         this.setState({ selected_cafe: value })
         this.setState({ place: value })
     
       }
+
       onSearchcafe = (value) => {
         Axios.get(proxyurl + "/cafe/search_cafe/name?search=" + value)
           .then(res => {
@@ -188,11 +229,13 @@ class EditPlay extends React.Component {
     render() {
 
         return (
-            <div className="Login_container" style={{ backgroundColor: '#333' }}>
+            <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%'}}>
                 <Form   {...layout}>
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Play" key="1">
-                            <Form.Item style={{ width: '100%' }}
+                            <Row>
+                            <Col span={8}>
+                            <Form.Item  style={{width: '85%'}}
                                 name="date"
                                 rules={[
                                     {
@@ -206,7 +249,10 @@ class EditPlay extends React.Component {
                             >
                                 <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{ width: '100%' }} placeholder={this.state.date} onChange={this.onyearChangedate} picker="date" />
                             </Form.Item>
-                            <Form.Item>
+                            </Col>
+                            <Col span={8}>
+
+                            <Form.Item  style={{width: '85%'}}>
                                 <Select
                                     showSearch
                                     style={{ width: '100%' }}
@@ -223,7 +269,7 @@ class EditPlay extends React.Component {
 
                                 </Select>
                             </Form.Item>
-                           
+                           </Col>
                                 {/* {
                                     this.state.deafult_players.forEach(element => {
                                         this.state.deafult_player_username.push(element)
@@ -247,8 +293,8 @@ class EditPlay extends React.Component {
                                 </Select> */}
                            
 
-
-                            <FormItem>
+                                <Col span={8}>
+                            <FormItem  style={{width: '85%'}}>
                                 <AutoComplete
                                     onSelect={this.onSelectCafe}
                                     onSearch={this.onSearchcafe}
@@ -262,15 +308,78 @@ class EditPlay extends React.Component {
                                     }
                                 </AutoComplete>
                             </FormItem>
+                            </Col>
+                            {Object.entries(this.state.players).map(([key, value]) => (
+                                <div style={{width: '100%'}}>
+                                      <h4 style={{fontSize: '17px',marginLeft: '1%'}}>{value.username+" :"}</h4>
+                                    <Row>
+                                  
+                                    <Col span={6}>
+                                    <Form.Item
+                                          >
+                                           
+                                            <Input
+                                             style={{width: '85%',marginLeft: '5%'}}
 
+                                             value={this.state.players[key].color}
+                                             placeholder={this.state.players[key].color===''?"Player's color":this.state.players[key].color}
+                                             onChange={(e) => this.changePlayer(value,key,e)}
+                                             />
+                                    </Form.Item>
+                                    </Col>
+                                    <Col span={6}>
+                                    <Form.Item
+                                         onChange={this.onChange} >
+                                           
+                                            <Input
+                                             style={{width: '85%',marginLeft: '5%'}}
+                                             placeholder={value.starting_position===''?"Starting position":value.starting_position}
+                                             onChange={(e) => this.changePos(value,key,e)}
+                                             />
+                                    </Form.Item>
+                                    </Col>
+                                    <Col span={6}>
+                                    <Form.Item
+                                         onChange={this.onChange} >
+                                           
+                                            <Input
+                                             style={{width: '85%',marginLeft: '5%'}}
+                                             placeholder={value.score===''?"Score":value.score}
+                                             onChange={(e) => this.changeScore(value,key,e)}
+                                             />
+                                    </Form.Item>
+                                    </Col>
+                                    <Col span={6}>
+                                    <Form.Item
+                                         name="Is_won"
+                                         onChange={this.onChange} >
+                                           
+                                            <Input
+                                             style={{width: '85%',marginLeft: '5%'}}
+                                             name="Is_won"
+                                             placeholder={value.is_won===false?"Did player win?":value.is_won}
+                                             onChange={(e) => this.changePlayer(value,key,e)}
+                                             />
+                                    </Form.Item>
+                                    </Col>
+                                    </Row>
+                          
+                              </div>
+))}
+                            </Row>
+                           
+                            
                             <Form.Item >
                                 <Button className="btn btn-primary" style={{ width: '100%' }} shape="round" onClick={this.onSave} >Save</Button>
                             </Form.Item>
+
+                           
                         </TabPane>
                     </Tabs>
 
 
                 </Form>
+               
             </div>
 
         );
