@@ -26,6 +26,11 @@ const columns = [
         key: 'date',
     },
     {
+        title: 'Users',
+        dataIndex: 'users',
+        key: 'users',
+    },
+    {
         title: 'Place',
         dataIndex: 'place',
         key: 'place',
@@ -39,6 +44,7 @@ class LogPlay extends React.Component {
         dataSource: [],
         allgames: {},
         editbool: false,
+        Members: []
         
     }
     
@@ -57,8 +63,12 @@ class LogPlay extends React.Component {
             const tmp = res.data;
             this.setState({ dataSource: tmp })
             this.state.dataSource.forEach(element => {
-            
-                tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id})
+                const members=[];
+                element.players.forEach(user=>{
+                    members.push(user.username);
+                })
+                this.setState({Members: members})
+                tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id,users: members})
             });
         })
             .catch((error) => {
@@ -114,6 +124,9 @@ class LogPlay extends React.Component {
     renderItems = () => {
         return (
             this.state.dataSource.map(item => (
+                <div>
+
+               
                 <Card className="play_card"
                     actions={
                         [
@@ -126,7 +139,8 @@ class LogPlay extends React.Component {
                             <div style={{marginTop: '10%',height: '20vh'}}>
                             <p> {item.game.name}</p>
                             <p> {item.place}</p>
-                             <p> {item.date}</p> 
+                             <p> {item.date}</p>
+                             <p>{item.users}</p> 
                             </div>
                    
                      
@@ -134,6 +148,10 @@ class LogPlay extends React.Component {
                      
                                    
                 </Card>
+                <div style={{backgroundColor: 'red',height: '40px',width: '120px'}}>
+                        {this.state.Members}
+                </div>
+                </div>
             )
             )
         )
