@@ -9,6 +9,7 @@ import {
     Button,
     DatePicker,
     Tabs,
+    Radio,
     Checkbox,
     message,
     AutoComplete,
@@ -32,10 +33,12 @@ const layout = {
 class EditPlay extends React.Component {
     state = {
         date: "",
+        suggestlist: [],
+        selected_cafe: "1",
         place: "",
         msg: "",
         players: [],
-        
+        check : [],
         suggestlist_game: [],
         suggestlist_user: [],
         selected_game: "",
@@ -147,7 +150,7 @@ class EditPlay extends React.Component {
             players: this.state.players,
             game: this.state.selected_game,
             date: this.state.date,
-            place: this.state.place,
+            place: this.state.selected_cafe,
             semi_players: this.state.semi_players
 
         }
@@ -174,7 +177,21 @@ class EditPlay extends React.Component {
 
     }
  
+    onSelectCafe = (value) => {
 
+        this.setState({ selected_cafe: value });
+
+
+    }
+    onSearchCafe = (value) => {
+        Axios.get(proxyurl + "/cafe/search_cafe/name?search=" + value)
+            .then(res => {
+                const tmp = res.data.results;
+                this.setState(prevState => {
+                    return { suggestlist: tmp }
+                })
+            })
+    }
 
     changePlayer(value,key,e){
         let items = [...this.state.players];
@@ -209,31 +226,17 @@ class EditPlay extends React.Component {
         this.setState({ players: items })
       };
 
-    onSelectCafe = (value) => {
-
-        this.setState({ selected_cafe: value })
-        this.setState({ place: value })
     
-      }
-
-      onSearchcafe = (value) => {
-        Axios.get(proxyurl + "/cafe/search_cafe/name?search=" + value)
-          .then(res => {
-            const tmp = res.data.results;
-            this.setState(prevState => {
-              return { suggestlist_cafe: tmp }
-            })
-          })
-      }
+      
 
     render() {
 
         return (
             <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%'}}>
-                <Form   {...layout}>
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="Play" key="1">
-                            <Row>
+                <Form  autoComplete={false} {...layout}>
+                    <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Edit Play</h4>
+                    
+                            <Row style={{marginLeft: '0.5%'}}>
                             <Col span={8}>
                             <Form.Item  style={{width: '85%'}}
                                 name="date"
@@ -295,18 +298,20 @@ class EditPlay extends React.Component {
 
                                 <Col span={8}>
                             <FormItem  style={{width: '85%'}}>
-                                <AutoComplete
+                                <Select
+                                    showSearch
+                                    optionFilterProp="children"
+
                                     onSelect={this.onSelectCafe}
-                                    onSearch={this.onSearchcafe}
+                                    onSearch={this.onSearchCafe}
                                     placeholder={this.state.place}
-                                    onChange={this.onSelectCafe}
                                 >
 
-                                    {this.state.suggestlist_cafe.map(item => (
+                                    {this.state.suggestlist.map(item => (
                                         <Option value={item.name}>{item.name}</Option>
                                     ))
                                     }
-                                </AutoComplete>
+                                </Select>
                             </FormItem>
                             </Col>
                             {Object.entries(this.state.players).map(([key, value]) => (
@@ -351,15 +356,14 @@ class EditPlay extends React.Component {
                                     </Col>
                                     <Col span={6}>
                                     <Form.Item
-                                         name="Is_won"
-                                         onChange={this.onChange} >
+                                         style={{width: '85%',marginLeft: '5%'}} >
+                                            <Radio.Group   onChange={(e) => this.changeWin(value,key,e)} value={value.is_won}>
+                                              <Radio value={true}>Won</Radio>
+                                              <Radio value={false}>Lost</Radio>
+                                             
+                                             </Radio.Group>
                                            
-                                            <Input
-                                             style={{width: '85%',marginLeft: '5%'}}
-                                             name="Is_won"
-                                             placeholder={value.is_won===false?"Did player win?":value.is_won}
-                                             onChange={(e) => this.changePlayer(value,key,e)}
-                                             />
+                                          
                                     </Form.Item>
                                     </Col>
                                     </Row>
@@ -369,14 +373,11 @@ class EditPlay extends React.Component {
                             </Row>
                            
                             
-                            <Form.Item >
-                                <Button className="btn btn-primary" style={{ width: '100%' }} shape="round" onClick={this.onSave} >Save</Button>
-                            </Form.Item>
+                            <div style={{ display: 'flex',alignContent: 'center',alignItems: 'center',textAlign:'center' }}>
+                                <Button className="btn btn-primary" style={{ width: '25%',marginLeft: 'auto',marginRight: 'auto' }} shape="round" onClick={this.onSave} >Save</Button>
+                            </div>
 
-                           
-                        </TabPane>
-                    </Tabs>
-
+                         
 
                 </Form>
                
