@@ -6,14 +6,20 @@ import { AiFillDelete, } from "react-icons/ai"
 import 'font-awesome/css/font-awesome.min.css';
 import '../../Style/play.css'
 import {
-    Card,Row,
+    Card,Row,Col,
     Table,
     message
 } from "antd";
 const proxyurl = "http://localhost:8010/proxy";
 const { Meta } = Card;
-const tabledata=[]
-const columns = [
+
+    const columns = [
+        {
+            title: 'Number',
+            dataIndex: 'key',
+            key: 'key',
+    
+        },
     {
         title: 'Game',
         dataIndex: 'game',
@@ -21,20 +27,32 @@ const columns = [
 
     },
     {
-        title: 'date',
+        title: 'Place',
+        dataIndex: 'place',
+        key: 'place',
+    },
+    {
+        title: 'Date',
         dataIndex: 'date',
         key: 'date',
     },
     {
-        title: 'Users',
-        dataIndex: 'users',
-        key: 'users',
+        title: 'Players',
+        dataIndex: 'players',
+        key: 'players',
     },
     {
-        title: 'Place',
-        dataIndex: 'place',
-        key: 'place',
-    }]
+        title: 'Edit',
+        dataIndex: 'edit',
+        key: 'edit',
+
+    }, {
+        title: 'Delete',
+        dataIndex: 'delete',
+        key: 'delete',
+
+    }
+]
 
 
 
@@ -44,7 +62,9 @@ class LogPlay extends React.Component {
         dataSource: [],
         allgames: {},
         editbool: false,
-        Members: []
+        Members: [],
+        players:[],
+        Colors: []
         
     }
     
@@ -62,13 +82,18 @@ class LogPlay extends React.Component {
         ).then((res) => {
             const tmp = res.data;
             this.setState({ dataSource: tmp })
+            this.setState({players: tmp.players})
             this.state.dataSource.forEach(element => {
                 const members=[];
+                const colors=[];
+
                 element.players.forEach(user=>{
                     members.push(user.username);
+                    colors.push(user.color)
                 })
                 this.setState({Members: members})
-                tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id,users: members})
+
+                this.setState({Colors: colors})
             });
         })
             .catch((error) => {
@@ -161,11 +186,38 @@ class LogPlay extends React.Component {
     render() {
         
         return (
-            <div style={{ marginTop: '5%' }}>
+            <div style={{ marginTop: '4%' }}>
 
-               <Row>
-              {this.renderItems()}
-              </Row> 
+              <div style={{width: '80%',marginLeft: '10%'}}>
+                  <h5>List of plays</h5>
+              <Table columns={columns}    style={{marginTop: '2%'}}    pagination={false}  dataSource={
+                  Object.entries(this.state.dataSource).map(([k, value]) => (
+                  {  key: parseInt(k)+1,
+                    game: value.game.name,
+                    date: value.date,
+                    place: value.place,
+                    players:  Object.entries(value.players).map(([cnt, val]) => (
+                        <Row style={{display: 'flex',height: 'max-content'}}>
+                                <Col span={1}>
+                                    <div style={{width: '1vw',height: '1vw',borderRadius: '50%',backgroundColor: val.color===''?'gray':val.color }} />
+                                </Col>
+                                <Col span={23}>
+                                <p style={{fontSize: '12px',marginTop: '-1.2%',marginLeft: '2%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
+                                </Col>
+                                
+                        </Row>
+                    )),
+                    edit: <FaRegEdit style={{color: 'gold',marginLeft: '15%',marginTop: '-6%',fontSize: '18px'}} onClick={() => this.onClickedit(value.id)} />,
+                    delete: <AiFillDelete style={{color: 'gold',marginLeft: '25%',fontSize: '18px'}} onClick={() => this.onClickdelete(value.id)} />
+
+
+
+                    
+                }
+
+                  ))
+              } />
+              </div>
             </div>
             
             
