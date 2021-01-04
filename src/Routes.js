@@ -11,11 +11,17 @@ import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
 import EditPlay from './Component/Play/editPlay'
 import Community from './Component/Community/Community-form'
+import OwnedCommunity from './Component/Community/owned_community'
+import editCommunity from './Component/Community/edit_community'
+import Allcommunity from './Component/Allcommunity/allcommunity_list'
 import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
 import Event from './Component/event-form/event-form'
 import {  FaHome } from "react-icons/fa";
 
+import SearchCommunity from './Component/Community/communitySearch'
+import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
+import {  MdAddCircle} from "react-icons/md";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -34,21 +40,39 @@ import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import OwnedCafe_edit from './Component/OwnedCafes/Ownedcafe_edit'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import SingleCommunity from './Component/SingleCommunity/SingleCommunity';
-import { Layout, Menu, Breadcrumb, Avatar, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Avatar, Button ,List,Modal} from "antd";
 import './Component/BoardGame/allStyle.css';
+import noBg from './Component/Community/images.png';
+import CommunitySearch from './Component/Community/communitySearch';
 import Axios from 'axios';
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout;let a="";
 class Routes extends React.Component {
   state = {
-    
+    visible: false,
     accessed: '',
     collapsed: false,
     img: '',
     disp: 'none',
-    username: localStorage.getItem('user')
+    username: localStorage.getItem('user'),
+    memberList: [],
+    ownerList: [] 
+  };
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
   };
 
+  handleOk = () => {
+    setTimeout(() => {
+      this.setState({ visible: false });
+    }, 100);
+  };
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
   data = {
     refresh: localStorage.getItem('refresh')
   }
@@ -87,6 +111,8 @@ class Routes extends React.Component {
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   };
+  proxyurl= "http://localhost:8010/proxy";
+
   componentDidMount() {
 
     Axios.post('http://localhost:8010/proxy/auth/token/refresh/', JSON.stringify(this.data),
@@ -96,6 +122,34 @@ class Routes extends React.Component {
         localStorage.setItem('access', res.data.access);
         this.setState({ accessed: 'true' });
         this.getInfo();
+        Axios.get(this.proxyurl+'/community/owner_communities_list/',{headers:{
+          'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
+          'Accept' : 'application/json',
+          'Authorization' :`Bearer ${localStorage.getItem('access')}`
+        }}
+      ).then((res)=>{
+        //console.log(res.data+"reeee")
+        this.setState({ownerList: res.data})
+      })
+      .catch((error)=>
+        {
+         // console.log(error.respose+"errrr")
+        })
+
+
+    Axios.get(this.proxyurl+'/community/member_communities_list/',{headers:{
+      'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
+      'Accept' : 'application/json',
+      'Authorization' :`Bearer ${localStorage.getItem('access')}`
+    }}
+  ).then((res)=>{
+    //console.log(res.data+"reeee")
+    this.setState({memberList: res.data})
+  })
+  .catch((error)=>
+    {
+     // console.log(error.respose+"errrr")
+    })
 
       }).catch()
 
@@ -170,6 +224,67 @@ class Routes extends React.Component {
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
+                <SubMenu title= " Community" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
+                {     <List
+size="large"
+itemLayout="horizontal"
+dataSource={this.state.ownerList}
+renderItem={item => (
+  
+  this.state.ownerList.forEach(item => a=(item.image.base64)),
+  <Menu.Item  className="subed" key={item.name+item.id}>
+  <List.Item style={{borderColor: 'transparent'}}>
+    <List.Item.Meta  style={{borderColor: 'transparent'}}
+      avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
+      description={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaCrown style={{color: 'gold',marginTop: '-3%'}}/> {item.name}</p></Link>}
+    
+    
+/>  
+  </List.Item></Menu.Item>
+)}
+/> }
+{     <List
+size="large"
+itemLayout="horizontal"
+dataSource={this.state.memberList}
+renderItem={item => (
+  
+  this.state.memberList.forEach(item => a=(item.image.base64)),
+  <Menu.Item className="subed" key={item.name+item.id}>
+  <List.Item style={{borderColor: 'transparent'}}>
+    <List.Item.Meta  style={{borderColor: 'transparent'}}
+      avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
+      description={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/> {item.name}</p></Link>}
+    
+    
+/>  
+  </List.Item></Menu.Item>
+)}
+/> }
+<Menu.Item className="m-item" key="added" style={{display: 'flex',alignItems: 'center',textAlign: 'center'}}>
+  
+  <MdAddCircle style={{marginLeft: '22%',fontSize: '44px',color: 'hsl(22, 94%, 49%)'}} onClick={this.showModal}/>
+  <Modal
+          visible={this.state.visible}
+          title="Join A Community"
+          onOk={this.handleOk}
+          style={{height: '36vh'}}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button className="btn btn-primary" key="back" onClick={this.handleCancel}>
+              Return
+            </Button>
+          ]}
+        >
+          <h6>Enter the name of a community</h6>
+          <div style={{alignContent: 'center' ,marginLeft: 'auto',marginRight: 'auto',alignItems: 'center',textAlign: 'center'}}>
+          <CommunitySearch/>
+          </div>
+        </Modal>
+</Menu.Item>
+
+                 
+                </SubMenu>
                   <SubMenu title="Cafes" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
                     <Menu.Item className="m-item" key="14" >
                       <NavLink to='/cafeform'>Create Cafe</NavLink>
@@ -181,7 +296,11 @@ class Routes extends React.Component {
                       <NavLink to='/ownedcafe'>Owned Cafe</NavLink>
                     </Menu.Item>
                   </SubMenu>
-
+                  <SubMenu title="Create" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
+                    <Menu.Item className="m-item" key="15" >
+                      <NavLink to='/createCommunity'>Create Community</NavLink>
+                    </Menu.Item>
+                  </SubMenu>
                   <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
                     <NavLink to='/'>Exit</NavLink>
                   </Menu.Item>
@@ -210,10 +329,15 @@ class Routes extends React.Component {
                     <Route exact path="/editcafe/:id" component={OwnedCafe_edit} />
 
                     <Route exact path="/createCommunity" component={Community} />
+                    <Route exact path="/ownedCommunity" component={OwnedCommunity} />
+                    <Route exact path="/editCommunity/:id" component={editCommunity} />
+                    <Route exact path="/allCommunities" component={Allcommunity} />
                     <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community/:id" component={SingleCommunity} />
                     <Route exact path="/event/" component={Event} />
+                    <Route exact path="/community" component={SingleCommunity} />
+                    <Route exact path="/Search_Com" component={CommunitySearch} />
 
                     <Route exact path="/showplay/" component={LogPlay} />
                     <Route exact path="/editplay/:id" component={EditPlay} />

@@ -11,7 +11,7 @@ color: white;
     margin: 1%;
 }
 .mycafe_container{
-    width: 80%;
+    width: 90%;
     margin-left: 10%;
     margin-top: 5%;
 }
@@ -49,9 +49,4 @@ color: white;
   }
   .ant-card-head-wrapper{
     background-color:  #333;
-  }
-  .ant-card-head{
-    background-color:#575757 !important;
-  } .ant-card-head{
-    background-color:#575757 !important;
   }
