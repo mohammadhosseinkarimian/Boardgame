@@ -42,6 +42,11 @@ const { Meta } = Card;
         key: 'players',
     },
     {
+        title: 'Semi Players',
+        dataIndex: 'semiplayers',
+        key: 'semiplayers',
+    },
+    {
         title: 'Edit',
         dataIndex: 'edit',
         key: 'edit',
@@ -64,6 +69,8 @@ class LogPlay extends React.Component {
         editbool: false,
         Members: [],
         players:[],
+        semi_players:[],
+
         Colors: []
         
     }
@@ -86,6 +93,9 @@ class LogPlay extends React.Component {
             this.state.dataSource.forEach(element => {
                 const members=[];
                 const colors=[];
+                let aa=element.semi_players;
+     //           this.state.semi_players.push(aa.substring(0,aa.length-1).replace("(not a user)",''));
+                this.state.semi_players.push(aa.substring(0,aa.length-1));
 
                 element.players.forEach(user=>{
                     members.push(user.username);
@@ -197,16 +207,17 @@ class LogPlay extends React.Component {
                     date: value.date,
                     place: value.place,
                     players:  Object.entries(value.players).map(([cnt, val]) => (
-                        <Row style={{display: 'flex',height: 'max-content'}}>
+                        <Row style={{display: 'flex',alignContent: 'center',alignItems: 'center',height: 'max-content'}}>
                                 <Col span={1}>
                                     <div style={{width: '1vw',height: '1vw',borderRadius: '50%',backgroundColor: val.color===''?'gray':val.color }} />
                                 </Col>
                                 <Col span={23}>
-                                <p style={{fontSize: '12px',marginTop: '-1.2%',marginLeft: '2%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
+                                <p style={{fontSize: '12px',marginTop: '4%',marginLeft: '2%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
                                 </Col>
                                 
                         </Row>
                     )),
+                    semiplayers: this.state.semi_players[k],
                     edit: <FaRegEdit style={{color: 'gold',marginLeft: '15%',marginTop: '-6%',fontSize: '18px'}} onClick={() => this.onClickedit(value.id)} />,
                     delete: <AiFillDelete style={{color: 'gold',marginLeft: '25%',fontSize: '18px'}} onClick={() => this.onClickdelete(value.id)} />
 
