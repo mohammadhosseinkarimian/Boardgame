@@ -13,6 +13,7 @@ import EditPlay from './Component/Play/editPlay'
 import Community from './Component/Community/Community-form'
 import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
+import Event from './Component/event-form/event-form'
 import {  FaHome } from "react-icons/fa";
 
 import {
@@ -211,7 +212,8 @@ class Routes extends React.Component {
                     <Route exact path="/createCommunity" component={Community} />
                     <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
-                    <Route exact path="/community" component={SingleCommunity} />
+                    <Route exact path="/community/:id" component={SingleCommunity} />
+                    <Route exact path="/event/" component={Event} />
 
                     <Route exact path="/showplay/" component={LogPlay} />
                     <Route exact path="/editplay/:id" component={EditPlay} />
