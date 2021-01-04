@@ -409,6 +409,7 @@ class EditPlay extends React.Component {
                                      onChange={this.onChangeUser}
                                 >
 
+
 {
                 this.state.suggestlist_user.map(d => (
                   <Option key={d.username}>{d.username}</Option>
@@ -416,6 +417,8 @@ class EditPlay extends React.Component {
                                 </Select>
                             </FormItem>
                             </Col>
+                            <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1.5%',marginTop: '2%'}}>More information</h4>
+
                             {Object.entries(this.state.players).map(([key, value]) => (
                                 <div style={{width: '100%'}}>
                                       <h4 style={{fontSize: '17px',marginLeft: '1%'}}>{value.username+" :"}</h4>
@@ -429,7 +432,7 @@ class EditPlay extends React.Component {
                                              style={{width: '85%',marginLeft: '5%'}}
 
                                              value={this.state.players[key].color}
-                                             placeholder={this.state.players[key].color===''?"Player's color":this.state.players[key].color}
+                                             placeholder={this.state.players[key].color===''?"Player's color":this.state.players[key].color+" (color)"}
                                              onChange={(e) => this.changePlayer(value,key,e)}
                                              />
                                     </Form.Item>
@@ -440,7 +443,7 @@ class EditPlay extends React.Component {
                                            
                                             <Input
                                              style={{width: '85%',marginLeft: '5%'}}
-                                             placeholder={value.starting_position===''?"Starting position":value.starting_position}
+                                             placeholder={value.starting_position===''?"Starting position":value.starting_position+" (position)"}
                                              onChange={(e) => this.changePos(value,key,e)}
                                              />
                                     </Form.Item>
@@ -451,7 +454,7 @@ class EditPlay extends React.Component {
                                            
                                             <Input
                                              style={{width: '85%',marginLeft: '5%'}}
-                                             placeholder={value.score===''?"Score":value.score}
+                                             placeholder={value.score===''?"Score":value.score+" (score)"}
                                              onChange={(e) => this.changeScore(value,key,e)}
                                              />
                                     </Form.Item>
@@ -459,10 +462,10 @@ class EditPlay extends React.Component {
                                     <Col span={6}>
                                     <Form.Item
                                          style={{width: '85%',marginLeft: '5%'}} >
-                                            <Radio.Group   onChange={(e) => this.changeWin(value,key,e)} value={value.is_won}>
-                                              <Radio value={true}>Won</Radio>
-                                              <Radio value={false}>Lost</Radio>
-                                             
+                                            <Radio.Group buttonStyle="solid"  onChange={(e) => this.changeWin(value,key,e)} value={value.is_won}>
+                                              <Radio.Button value={true}>Won</Radio.Button>
+                                              <Radio.Button value={false}>Lost</Radio.Button>
+
                                              </Radio.Group>
                                            
                                           
