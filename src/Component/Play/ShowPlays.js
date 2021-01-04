@@ -94,8 +94,7 @@ class LogPlay extends React.Component {
                 const members=[];
                 const colors=[];
                 let aa=element.semi_players;
-     //           this.state.semi_players.push(aa.substring(0,aa.length-1).replace("(not a user)",''));
-                this.state.semi_players.push(aa.substring(0,aa.length-1));
+               this.state.semi_players.push(aa.substring(0,aa.length-1).replaceAll("(not a user)",''));
 
                 element.players.forEach(user=>{
                     members.push(user.username);
@@ -198,7 +197,7 @@ class LogPlay extends React.Component {
         return (
             <div style={{ marginTop: '4%' }}>
 
-              <div style={{width: '80%',marginLeft: '10%'}}>
+              <div style={{width: '90%',marginLeft: '5%'}}>
                   <h5>List of plays</h5>
               <Table columns={columns}    style={{marginTop: '2%'}}    pagination={false}  dataSource={
                   Object.entries(this.state.dataSource).map(([k, value]) => (
@@ -212,7 +211,7 @@ class LogPlay extends React.Component {
                                     <div style={{width: '1vw',height: '1vw',borderRadius: '50%',backgroundColor: val.color===''?'gray':val.color }} />
                                 </Col>
                                 <Col span={23}>
-                                <p style={{fontSize: '12px',marginTop: '4%',marginLeft: '2%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
+                                <p style={{fontSize: '12px',marginTop: '4.5%',marginLeft: '4%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
                                 </Col>
                                 
                         </Row>
