@@ -302,7 +302,7 @@ $barOnhover:silver;
 }
 
   .ant-list-item{
-    border-color: $layout5;
+    border-color: $layout5 !important;
   }
   .ant-list-item-meta{
     margin-left: 0px;
@@ -656,7 +656,7 @@ border-color: $layout1 !important;
  
  }
  .ant-card-actions{
-  background-color: $layout5 !important ;
+  background-color: $primary !important ;
   color: $primary !important ;
  }
  .span  :hover{
@@ -685,11 +685,11 @@ border-color: $layout1 !important;
  }
 .ant-select-multiple .ant-select-selection-item {
     border-radius: 25px !important;}
-.ant-card{
+    .ant-card{
       background-color:$layout5 !important;
     border:0;
-}
-.ant-card-head{
+     }
+     .ant-card-head{
       border-bottom: 0;
       border:0;
       color:$maintext;
@@ -743,80 +743,3 @@ background-color: $primary;
   background-color: $layout7;
   border-radius: 20px;
 }
-
- .ant-modal-title{
-   text-align: center;
-   color: cyan;
-   font-size: 21px;
-   font-family: "Times New Roman", Times, serif;
- }
- .ant-modal-content {
-   background-color: $layout5;
-   border-bottom: 1px solid $layout7;
-
- }
- .ant-modal-header {
-  background-color: $layout5;
-  border-bottom: 1px solid $layout7;
-}
-.ant-modal-footer{
-  border-top: 1px solid $layout7;
-
-}
-.ant-table-thead > tr > th{
-  color: $primary;
-  font-size: 19px;
-  background-color: $layout5;
-  border-bottom: 1px solid $layout6;
-
-}
-.ant-table-tbody > tr > td {
-  border-bottom: 1px solid $layout6;
-}
-.ant-table-tbody > tr.ant-table-row:hover > td{
-  background-color: $layout5;
-}
-.ant-table{
-  background-color: $layout4;
-  color: $secondtext;
-}
-.ant-radio-wrapper{
-  color: $secondtext;
-
-}
-.ant-radio-button-wrapper:last-child{
-  border-left: none !important;
-
-}
-.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
-  color: $layout7;
-  background: cyan;
-  border-color: cyan;
-
-}
-.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover{
-  color: $layout7 ;
-  background: rgb(22, 213, 219) ; 
-  border-color: rgb(22, 213, 219); 
-
-}
-.ant-radio-button-wrapper{
-  color: $maintext;
-  background-color: $layout6;
-  border-color: $layout6;
-  border-left: none !important;
-}
-
-.ant-radio-button-wrapper:first-child {
-  border-left: none;
-
-}
-.subed :hover{
-  background-color: $layout6 !important;
-}
-      
-    .ant-card-head-title
-    {
-      background-color: $layout5;
-    
-    }
