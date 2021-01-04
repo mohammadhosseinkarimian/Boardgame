@@ -25,6 +25,7 @@ import axios from 'axios';
 import "antd/dist/antd.css";
 import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled,CheckCircleFilled} from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
+import { Redirect } from "react-router-dom";
 const { RangePicker } = TimePicker;
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -138,7 +139,8 @@ class Event extends React.Component {
   ).then((res)=>{
     console.log(res.data+"reeee")
     this.setState({necessary_inputs:"added"})
-    window.location.href='/community/'+localStorage.getItem('com_id')
+     window.location.href='/community/:'+localStorage.getItem('com_id')
+    
   })
   .catch((error)=>
     {
