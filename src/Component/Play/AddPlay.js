@@ -56,9 +56,21 @@ class AddPlay extends React.Component {
       this.setState({ selected_user: value })
       this.setState({ suggestlist_user: [] })
     }
-
   }
+  onChangeUser=(value)=>
+{
+  
+  this.state.players=[]
+  this.state.semi_players='';
+  value.forEach(i=>{
+    if (i.includes("(not a user)")) {
+      this.state.semi_players += i + ",";
+    }
+    else{
+      this.state.players.push({"username":i});}
 
+    })
+}
   onUserSearch = (value) => {
     let searchvalue = value
     let tmp = []
@@ -196,7 +208,7 @@ class AddPlay extends React.Component {
               defaultValue={[user_username]}
               filterOption={false}
               onSearch={this.onUserSearch}
-              onSelect={this.onSelectuser}
+              onChange={this.onChangeUser}
               
             >
               {
