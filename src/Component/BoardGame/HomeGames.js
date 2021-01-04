@@ -10,7 +10,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import '../../Style/design.scss';
 import Im from '../../Style/a.png';
-import Com from '../../Style/com.jpg';
+import Com from '../../Style/com.png';
 
 import {
     Row, Col ,Avatar, Button
@@ -73,10 +73,7 @@ let a="";
             return (index % 5 == 0 ? arrays.push([key]) 
               : arrays[arrays.length-1].push(key)) && arrays;
           }, []);
-          const coms = this.state.communitys.reduce(function (coms, key, index) { 
-            return (index % 5 == 0 ? coms.push([key]) 
-              : coms[coms.length-1].push(key)) && coms;
-          }, []);
+          const coms = this.state.communitys.slice(0,6);
 
          
 
@@ -280,28 +277,29 @@ let a="";
                 <h3 >JOIN A COMMUNITY:
                      
                      </h3>
+                     <Row justify='start' style={{marginTop: '2%'}}>
                      {coms.map(cafe => (
-                         <Row justify='start' style={{marginTop: '2%'}}>
-                             <Col span={8} >
+                         
+                             <Col span={8} style={{marginTop: '2%'}}>
                              <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
                                <Row style={{height: '80%' ,width: '100%'}}>
                                    
                                  <Col span={11}>
                                  <div style={{marginLeft: '7%',width: '70%',overflow: 'hidden'}}>
-                                 <img src={cafe[0].image.base64===''?Com:cafe[0].image.base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
+                                 <img src={cafe.image.base64===''?Com:cafe.image.base64}style={{height: '7.77vw',borderRadius: '50%',marginTop: '14%',width: '7.77vw',boxShadow: 'none'}} />
 
                                 </div></Col>
                                  <Col span={13}>
                                  <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
-                               <Link to={'/allcafes/:'+cafe[0].id}> <h5 style={{paddingBottom: '3%'}}>{cafe[0].name}</h5></Link>
-                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe[0].description.length>16?cafe[0].description.substring(0,16):cafe[0].description}</h6>
+                               <Link to={'/allcafes/:'+cafe.id}> <h5 style={{paddingBottom: '3%'}}>{cafe.name}</h5></Link>
+                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe.description.length>16?cafe.description.substring(0,16):cafe.description}</h6>
                                <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
        
           style={{marginTop: '-7%',paddingTop: '0%'}}
         >
-          <Avatar src={cafe[0].members[0].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe[0].members[0].username[0]}</Avatar>
-          <Avatar src={cafe[0].members[1].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe[0].members[1].username[0]}</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}} hidden={cafe[0].members.length<3}>+{cafe[0].members.length-2}</Avatar>
+          <Avatar src={cafe.members[0].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe.members[0].username[0]}</Avatar>
+          <Avatar src={cafe.members[1].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe.members[1].username[0]}</Avatar>
+            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}} hidden={cafe.members.length<3}>+{cafe.members.length-2}</Avatar>
         </Avatar.Group></div>
                                
                                  </div>
@@ -319,8 +317,8 @@ let a="";
                              </Col>
                         
 
-                             </Row>
-                     ))}</div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                     ))}                             </Row>
+                     </div>                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
                       <div style={{marginLeft: '40%', marginTop: '10%'}}>
                         <Link to='/createCommunity'>clik to create community</Link>
                         <Link to="/Search_Com">clik to Search</Link>
