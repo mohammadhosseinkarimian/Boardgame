@@ -225,7 +225,7 @@ dataSource={this.state.ownerList}
 renderItem={item => (
   
   this.state.ownerList.forEach(item => a=(item.image.base64)),
-  <Menu.Item className="m-item" key={item.name+item.id}>
+  <Menu.Item  className="subed" key={item.name+item.id}>
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
@@ -243,7 +243,7 @@ dataSource={this.state.memberList}
 renderItem={item => (
   
   this.state.memberList.forEach(item => a=(item.image.base64)),
-  <Menu.Item className="m-item" key={item.name+item.id}>
+  <Menu.Item className="subed" key={item.name+item.id}>
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
