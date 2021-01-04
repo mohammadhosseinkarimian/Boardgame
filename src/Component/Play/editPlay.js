@@ -16,6 +16,7 @@ import {
     Row, Col 
 
 } from "antd";
+
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -44,12 +45,14 @@ class EditPlay extends React.Component {
         selected_game: "",
         selected_user: "",
         play_id: "",
+        semi_players: "",
         deafult_players: [],
         deafult_player_username: [],
         suggestlist_cafe: [],
         selected_cafe: "",
         game_name:"",
-        Members:[]
+        Members:[],
+        userr: ''
 
 
     }
@@ -73,11 +76,28 @@ class EditPlay extends React.Component {
                 res.data.players.forEach(user=>{
                     members.push(user.username);
                 })
+                let str=res.data.semi_players;
+                let semis=[];
+                if(str==='')
+                {
+
+                }
+                else{
+                   var r= str.substring(0,str.length-1).split(",");
+
+                    r.forEach(element => {
+                        members.push(element);
+
+                    });
+                }
+                this.setState({ semi_players: res.data.semi_players });
+
                 this.setState({Members: members})
+                this.setState({userr: 'members'})
+
                 this.setState({ date: res.data.date });
                 this.setState({ place: res.data.place });
                 this.setState({ selected_game: res.data.game });
-                this.setState({ semi_players: res.data.semi_players });
                 this.setState({ players: res.data.players })
                 this.setState({game_name: res.data.game.name })
                 res.data.players.map(item => {
@@ -226,18 +246,80 @@ class EditPlay extends React.Component {
         this.setState({ players: items })
       };
 
-    
+      onChangeUser=(value)=>
+      {
+        
+        let loc=[];
+        let mem=[];
+        this.state.semi_players='';
+        value.forEach(i=>{
+            mem.push(i);
+          if (i.includes("(not a user)")) {
+            this.state.semi_players += i + ",";
+          }
+          else{
+                let d={
+                    username: '',
+                    color: '',
+                    starting_position: '',
+                    score: '',
+                    is_won: false,
+                    is_first_time: false
+                }
+                let inside=true;
+              this.state.players.forEach(element => {
+                  if(i===element.username){
+                       d={
+                          username: element.username,
+                          color: element.color,
+                          starting_position: element.starting_position,
+                          score: element.score,
+                          is_won: element.is_won,
+                          is_first_time: element.is_first_time
+                      }
+                      inside=false;
+                  }
+
+              });   
+              if(inside){
+                  d.username=i;
+              }
+              loc.push(d);
+            }
+      
+          })
+          this.setState({players: loc})
+          this.setState({Members: mem})
+
+      }
+        onUserSearch = (value) => {
+          let searchvalue = value
+          let tmp = []
+          if (typeof searchvalue !== "string" && searchvalue !== "") {
+            searchvalue = ""
+          }
+          else {
+            tmp.push({ id: null, username: searchvalue + "(not a user)", email: "notAuser@gmail.com" })
+          }
+          Axios.get(proxyurl + "/game/search_user/username/?search=" + searchvalue)
+            .then(res => {
+              tmp = [...tmp, ...res.data.results]
+              this.setState({ suggestlist_user: tmp });
+              console.log(this.state.suggestlist_user)
+      
+            })
+        }
       
 
     render() {
-
+        const mmm=this.state.Members;
         return (
             <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%'}}>
                 <Form  autoComplete={false} {...layout}>
                     <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Edit Play</h4>
                     
                             <Row style={{marginLeft: '0.5%'}}>
-                            <Col span={8}>
+                            <Col span={12}>
                             <Form.Item  style={{width: '85%'}}
                                 name="date"
                                 rules={[
@@ -253,7 +335,7 @@ class EditPlay extends React.Component {
                                 <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{ width: '100%' }} placeholder={this.state.date} onChange={this.onyearChangedate} picker="date" />
                             </Form.Item>
                             </Col>
-                            <Col span={8}>
+                            <Col span={12}>
 
                             <Form.Item  style={{width: '85%'}}>
                                 <Select
@@ -296,7 +378,7 @@ class EditPlay extends React.Component {
                                 </Select> */}
                            
 
-                                <Col span={8}>
+                                <Col span={12}>
                             <FormItem  style={{width: '85%'}}>
                                 <Select
                                     showSearch
@@ -311,6 +393,26 @@ class EditPlay extends React.Component {
                                         <Option value={item.name}>{item.name}</Option>
                                     ))
                                     }
+                                </Select>
+                            </FormItem>
+                            </Col>
+                            <Col span={12}>
+                            <FormItem  style={{width: '85%'}}>
+                                <Select
+                                     mode="multiple"
+                                     allowClear
+                                     style={{ width: '100%' }}
+                                     placeholder="players"
+                                     value={mmm}
+                                     filterOption={false}
+                                     onSearch={this.onUserSearch}
+                                     onChange={this.onChangeUser}
+                                >
+
+{
+                this.state.suggestlist_user.map(d => (
+                  <Option key={d.username}>{d.username}</Option>
+                ))}
                                 </Select>
                             </FormItem>
                             </Col>
