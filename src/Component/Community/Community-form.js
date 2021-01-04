@@ -88,11 +88,11 @@ const formItemLayout = {
   }
   
   onSelectuser = (value) => {
-    console.log(value)
-    var dict = { "username": value }
-    this.state.members.push(dict);
+    this.state.members=[]
+    var dict =[]
+    value.forEach(v=> this.state.members.push({ "username": v}))
     this.setState({ selected_user: value }, () => {
-     
+      console.log(this.state.selected_user, 'dealersOverallTotal1')
     })
     console.log(this.state.members)
 
@@ -151,9 +151,11 @@ const formItemLayout = {
        const data={
         name:this.state.name,
         description:this.state.description,
+      //  owner:this.state.owner,
         members:this.state.members,
        image:this.state.img,
-       lock:this.state.lock
+       lock:this.state.lock,
+     //  owner:localStorage.getItem('id')
     }
        if((this.state.name!=="") && (this.state.description!=="")){
       // e.target.reset();

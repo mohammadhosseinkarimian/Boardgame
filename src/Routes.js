@@ -14,14 +14,13 @@ import Community from './Component/Community/Community-form'
 import OwnedCommunity from './Component/Community/owned_community'
 import editCommunity from './Component/Community/edit_community'
 import Allcommunity from './Component/Allcommunity/allcommunity_list'
-import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
 import SearchCommunity from './Component/Community/communitySearch'
 import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
 import {  MdAddCircle} from "react-icons/md";
 import {
   DesktopOutlined,
-  PieChartOutlined,
+  PieChartOutlined,TeamOutlined ,
   FileOutlined,
   EditOutlined,
   MenuOutlined,
@@ -221,7 +220,7 @@ class Routes extends React.Component {
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu title= " Community" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
+                <SubMenu title= " My communities" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
                 {     <List
 size="large"
 itemLayout="horizontal"
@@ -286,16 +285,17 @@ renderItem={item => (
                     <Menu.Item className="m-item" key="14" >
                       <NavLink to='/cafeform'>Create Cafe</NavLink>
                     </Menu.Item>
-                    <Menu.Item className="m-item" key="12" >
-                      <NavLink to='/allcafes/'>Show Cafe List</NavLink>
-                    </Menu.Item>
+                  
                     <Menu.Item className="m-item" key="13" >
                       <NavLink to='/ownedcafe'>Owned Cafe</NavLink>
                     </Menu.Item>
                   </SubMenu>
-                  <SubMenu title="Create" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
+                  <SubMenu title="Community" icon={<TeamOutlined  style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
                     <Menu.Item className="m-item" key="15" >
                       <NavLink to='/createCommunity'>Create Community</NavLink>
+                    </Menu.Item>
+                    <Menu.Item className="m-item" key="17" >
+                      <NavLink to='/ownedCommunity'>Owned Community</NavLink>
                     </Menu.Item>
                   </SubMenu>
                   <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
@@ -329,7 +329,6 @@ renderItem={item => (
                     <Route exact path="/ownedCommunity" component={OwnedCommunity} />
                     <Route exact path="/editCommunity/:id" component={editCommunity} />
                     <Route exact path="/allCommunities" component={Allcommunity} />
-                    <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community" component={SingleCommunity} />
                     <Route exact path="/Search_Com" component={CommunitySearch} />
