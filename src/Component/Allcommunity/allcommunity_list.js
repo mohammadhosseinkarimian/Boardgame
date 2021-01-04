@@ -130,10 +130,12 @@ class AllCommunity extends React.Component {
                   className="btn btn-primary"
                   disabled={item.lock}
                 > 
+                <Link to={'community/:'+item.id}>
                 <span hidden={!item.lock ||!this.state.member_id.includes(localStorage.getItem('user'))}  
                 style={{fontSize:"27px", textAlign:'center'}}>
                         view
                       </span>
+                      </Link>
                  <span hidden={!item.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
                         <LockFilled
                           style={{
@@ -144,8 +146,9 @@ class AllCommunity extends React.Component {
                           }}
                         />
                       </span>
-                     
+                      <Link to={'community/:'+item.id}>
                  <span hidden={item.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
+                 </Link>
                 </Button>
               </List.Item>
             )}

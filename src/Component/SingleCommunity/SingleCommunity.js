@@ -38,9 +38,9 @@ class SingleCommunity extends React.Component {
 
     componentDidMount() {
         const id=window.location.href.substring(33)
-       this.setState({id:id})
-        localStorage.setItem('com_id',this.state.id)
-        Axios.get(proxyUrl+'/community/community_info/' + this.state.id, {
+       //this.setState({id:id})
+        localStorage.setItem('com_id',id)
+        Axios.get(proxyUrl+'/community/community_info/' + id, {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
                 "Access-Control-Allow-Credentials": true,
