@@ -85,7 +85,7 @@ class AllCommunity extends React.Component {
                         style={{ color: "whitesmoke"}}
                         className="community_name"
                       >
-                        {item.name}
+                        <Link to={'community/'+ item.id}>{item.name}</Link>
                       </span>
                        <List.Item.Meta
                   avatar={
