@@ -273,7 +273,6 @@ renderItem={item => (
             </Button>
           ]}
         >
-          <h6>Enter the name of a community</h6>
           <div style={{alignContent: 'center' ,marginLeft: 'auto',marginRight: 'auto',alignItems: 'center',textAlign: 'center'}}>
           <CommunitySearch/>
           </div>
