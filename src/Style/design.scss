@@ -731,4 +731,35 @@ border-color: $layout1 !important;
 }
 .ant-radio-wrapper{
   color: $secondtext;
+
+}
+.ant-radio-button-wrapper:last-child{
+  border-left: none !important;
+
+}
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+  color: $layout7;
+  background: cyan;
+  border-color: cyan;
+
+}
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover{
+  color: $layout7 ;
+  background: rgb(22, 213, 219) ; 
+  border-color: rgb(22, 213, 219); 
+
+}
+.ant-radio-button-wrapper{
+  color: $maintext;
+  background-color: $layout6;
+  border-color: $layout6;
+  border-left: none !important;
+}
+
+.ant-radio-button-wrapper:first-child {
+  border-left: none;
+
+}
+.subed :hover{
+  background-color: $layout6 !important;
 }
