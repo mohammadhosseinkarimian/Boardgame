@@ -11,6 +11,10 @@ import SingleGame from './Component/BoardGame/SingleGame';
 import AddPlay from './Component/Play/AddPlay';
 import EditPlay from './Component/Play/editPlay'
 import Community from './Component/Community/Community-form'
+import OwnedCommunity from './Component/Community/owned_community'
+import editCommunity from './Component/Community/edit_community'
+import Allcommunity from './Component/Allcommunity/allcommunity_list'
+import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
 import SearchCommunity from './Component/Community/communitySearch'
 import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
@@ -289,8 +293,11 @@ renderItem={item => (
                       <NavLink to='/ownedcafe'>Owned Cafe</NavLink>
                     </Menu.Item>
                   </SubMenu>
-
-
+                  <SubMenu title="Create" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
+                    <Menu.Item className="m-item" key="15" >
+                      <NavLink to='/createCommunity'>Create Community</NavLink>
+                    </Menu.Item>
+                  </SubMenu>
                   <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
                     <NavLink to='/'>Exit</NavLink>
                   </Menu.Item>
@@ -319,6 +326,10 @@ renderItem={item => (
                     <Route exact path="/editcafe/:id" component={OwnedCafe_edit} />
 
                     <Route exact path="/createCommunity" component={Community} />
+                    <Route exact path="/ownedCommunity" component={OwnedCommunity} />
+                    <Route exact path="/editCommunity/:id" component={editCommunity} />
+                    <Route exact path="/allCommunities" component={Allcommunity} />
+                    <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community" component={SingleCommunity} />
                     <Route exact path="/Search_Com" component={CommunitySearch} />

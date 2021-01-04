@@ -27,6 +27,7 @@ class AllCommunity extends React.Component {
     lock: "",
     community: [],
     proxyurl: "http://localhost:8010/proxy/community/communities_list/",
+    member_id:[]
   };
 
   componentDidMount() {
@@ -117,14 +118,23 @@ class AllCommunity extends React.Component {
                }
                <Avatar style={{ backgroundColor: 'hsl(22, 94%, 49%)' }} hidden={item.members.length===2}>+{item.members.length-2}</Avatar>
            </Avatar.Group>
-           {/* ))} */}</p>
+           {/*            {this.state.member_id=[],
+                      item.members.map(element => this.state.member_id.push(element.username) ),
+                      console.log(this.state.member_id)} */}</p> 
+ {this.state.member_id=[],
+                      item.members.map(element => this.state.member_id.push(element.username) ),
+                      console.log(this.state.member_id)}
                 <Button
                   type="link"
                   style={{ marginLeft:"10%",marginTop:"2%",marginBottom:'5%',width:"80%"}}
                   className="btn btn-primary"
                   disabled={item.lock}
                 > 
-                 <span hidden={!item.lock}>
+                <span hidden={!item.lock ||!this.state.member_id.includes(localStorage.getItem('user'))}  
+                style={{fontSize:"27px", textAlign:'center'}}>
+                        view
+                      </span>
+                 <span hidden={!item.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
                         <LockFilled
                           style={{
                             position: "relative",
@@ -134,7 +144,8 @@ class AllCommunity extends React.Component {
                           }}
                         />
                       </span>
-                 <span hidden={item.lock} style={{fontSize:"27px", textAlign:'center'}}> join</span>
+                     
+                 <span hidden={item.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
                 </Button>
               </List.Item>
             )}

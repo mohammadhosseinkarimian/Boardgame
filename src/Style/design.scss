@@ -655,7 +655,7 @@ border-color: $layout1 !important;
  
  }
  .ant-card-actions{
-  background-color: $primary !important ;
+  background-color: $layout5 !important ;
   color: $primary !important ;
  }
  .span  :hover{
@@ -692,7 +692,9 @@ border-color: $layout1 !important;
       border-bottom: 0;
       border:0;
       color:$maintext;
-    }
+      background-color: $layout5;
+
+}
  .ant-modal-title{
    text-align: center;
    color: cyan;
@@ -763,3 +765,9 @@ border-color: $layout1 !important;
 .subed :hover{
   background-color: $layout6 !important;
 }
+      
+    .ant-card-head-title
+    {
+      background-color: $layout5;
+    
+    }
