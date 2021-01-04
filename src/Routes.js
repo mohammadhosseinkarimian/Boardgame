@@ -14,11 +14,8 @@ import Community from './Component/Community/Community-form'
 import OwnedCommunity from './Component/Community/owned_community'
 import editCommunity from './Component/Community/edit_community'
 import Allcommunity from './Component/Allcommunity/allcommunity_list'
-import NavCom from './Component/Community/NavCommunity'
 import LogPlay from './Component/Play/ShowPlays'
 import Event from './Component/event-form/event-form'
-import {  FaHome } from "react-icons/fa";
-
 import SearchCommunity from './Component/Community/communitySearch'
 import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
 import {  MdAddCircle} from "react-icons/md";
@@ -236,7 +233,7 @@ renderItem={item => (
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
-      description={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaCrown style={{color: 'gold',marginTop: '-3%'}}/> {item.name}</p></Link>}
+      description={<Link to={'/community/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaCrown style={{color: 'gold',marginTop: '-3%'}}/> {item.name}</p></Link>}
     
     
 />  
@@ -254,7 +251,7 @@ renderItem={item => (
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
-      description={<Link to={'/allcafes/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/> {item.name}</p></Link>}
+      description={<Link to={'/community/:'+item.id}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/> {item.name}</p></Link>}
     
     
 />  
@@ -332,7 +329,6 @@ renderItem={item => (
                     <Route exact path="/ownedCommunity" component={OwnedCommunity} />
                     <Route exact path="/editCommunity/:id" component={editCommunity} />
                     <Route exact path="/allCommunities" component={Allcommunity} />
-                    <Route exact path='/nav' component={NavCom}/>
                     <Route exact path="/addplay/" component={AddPlay} />
                     <Route exact path="/community/:id" component={SingleCommunity} />
                     <Route exact path="/event/" component={Event} />

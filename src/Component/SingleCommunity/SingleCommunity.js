@@ -18,7 +18,6 @@ import {
 } from "antd";
 import 'font-awesome/css/font-awesome.min.css';
 const { TabPane } = Tabs;
-let id=1
 const username=localStorage.getItem('user')
 const proxyUrl='http://localhost:8010/proxy';
 class SingleCommunity extends React.Component {
@@ -32,15 +31,16 @@ class SingleCommunity extends React.Component {
         events: [],
         is_a_member: false,
         members_username:[],
-        event_image:""
+        event_image:"",
+        id:''
      
     };
 
     componentDidMount() {
-        //const id= this.props.match.params.id
-        id=1
-        localStorage.setItem('com_id',id)
-        Axios.get(proxyUrl+'/community/community_info/' + id, {
+        const id=window.location.href.substring(33)
+       this.setState({id:id})
+        localStorage.setItem('com_id',this.state.id)
+        Axios.get(proxyUrl+'/community/community_info/' + this.state.id, {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
                 "Access-Control-Allow-Credentials": true,
@@ -64,7 +64,7 @@ class SingleCommunity extends React.Component {
     }
     onClickJoin=()=>{
         
-        Axios.put(proxyUrl+'/community/join_community/'+id+'/', {
+        Axios.put(proxyUrl+'/community/join_community/'+this.state.id+'/', {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
                 "Access-Control-Allow-Credentials": true,
@@ -79,7 +79,7 @@ class SingleCommunity extends React.Component {
         )
     }
     onClickLeave=()=>{
-        Axios.put(proxyUrl+'/community/leave_community/'+id+'/', {
+        Axios.put(proxyUrl+'/community/leave_community/'+this.state.id+'/', {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
                 "Access-Control-Allow-Credentials": true,
