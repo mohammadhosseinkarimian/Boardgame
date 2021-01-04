@@ -17,6 +17,7 @@ class CafeSearchShow extends React.Component {
         this.setState({ selected_cafe: value }, () => {
             console.log(this.state.selected_cafe, 'dealersOverallTotal1')
         })
+        
 
 
     }
