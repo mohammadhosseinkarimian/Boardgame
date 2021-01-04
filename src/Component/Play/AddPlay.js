@@ -8,7 +8,7 @@ import {
   Select,
   Button,
   DatePicker,
-  AutoComplete
+  AutoComplete,Row,Col
 } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -164,9 +164,12 @@ class AddPlay extends React.Component {
   render() {
 
     return (
-      <div className="Login_container" style={{ backgroundColor: '#333' }}>
+      <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%' }}>
         <Form   {...layout}>
-          <Form.Item style={{ width: '100%' }}
+        <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Create Play</h4>
+        <Row style={{marginLeft: '0.5%'}}>
+                            <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}
             name="date"
             rules={[
               {
@@ -179,8 +182,9 @@ class AddPlay extends React.Component {
             ]}
           >
             <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{ width: '100%' }} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
-          </Form.Item>
-          <Form.Item>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             <Select
               showSearch
               style={{ width: '100%' }}
@@ -198,8 +202,9 @@ class AddPlay extends React.Component {
               }
 
             </Select>
-          </Form.Item>
-          <Form.Item>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             <Select
               mode="multiple"
               allowClear
@@ -216,8 +221,9 @@ class AddPlay extends React.Component {
                   <Option key={d.username}>{d.username}</Option>
                 ))}
             </Select>
-          </Form.Item>
-          <FormItem>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             {/* <Select
               showSearch
               placeholder="Where did you play?"
@@ -260,10 +266,12 @@ class AddPlay extends React.Component {
               }
             </AutoComplete>
 
-          </FormItem>
-          <Form.Item >
-            <Button className="btn btn-primary" style={{ width: '100%' }} shape="round" onClick={this.onSave} >Add</Button>
-          </Form.Item>
+          </Form.Item></Col>          </Row>
+
+          <div style={{ display: 'flex',alignContent: 'center',alignItems: 'center',textAlign:'center' }}>
+            <Button className="btn btn-primary" style={{ width: '25%',marginLeft: 'auto',marginRight: 'auto' }}  shape="round" onClick={this.onSave} >Add</Button>
+          </div>
+
         </Form>
       </div>
 
