@@ -323,14 +323,7 @@ let a="";
                       </span>
                       </Link>
                  <span hidden={!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
-                        <LockFilled
-                          style={{
-                            position: "relative",
-                            marginLeft: "5%",
-                            marginRight:"0",
-                            fontSize: "27px",
-                          }}
-                        />
+                        
                       </span>
                       <Link to={'community/:'+cafe.id}>
                  <span hidden={cafe.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
