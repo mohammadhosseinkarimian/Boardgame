@@ -780,3 +780,23 @@ background-color: $primary;
   background-color: $layout7;
   border-radius: 20px;
 }
++.ant-table-thead > tr > th{
+  color: $primary;
+  font-size: 19px;
+  background-color: $layout5;
+  border-bottom: 1px solid $layout6;
+
+}
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid $layout6;
+}
+.ant-table-tbody > tr.ant-table-row:hover > td{
+  background-color: $layout5;
+}
+.ant-table{
+  background-color: $layout4;
+  color: $secondtext;
+}
+.ant-radio-wrapper{
+  color: $secondtext;
+}
