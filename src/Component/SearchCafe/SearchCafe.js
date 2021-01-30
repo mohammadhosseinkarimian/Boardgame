@@ -5,7 +5,7 @@ import { Select } from 'antd';
 
 
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = "http://gameboard.pythonanywhere.com";
 class CafeSearchShow extends React.Component {
     state = {
         suggestlist: [],

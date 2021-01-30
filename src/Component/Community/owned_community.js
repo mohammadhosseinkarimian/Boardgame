@@ -27,7 +27,7 @@ class OwnedCommunity extends React.Component {
     lock:"",
   done:"",
   edit:"",
-    proxyurl:'http://localhost:8010/proxy',
+    proxyurl:'http://gameboard.pythonanywhere.com',
   }
 
   showDeleteConfirm(id){
@@ -50,7 +50,7 @@ class OwnedCommunity extends React.Component {
     onClickDelete = (id) => {
    
       //console.log("click")
-      axios.delete('http://localhost:8010/proxy/community/edit_community/'+id+'/', {
+      axios.delete('http://gameboard.pythonanywhere.com/community/edit_community/'+id+'/', {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           'Access-Control-Allow-Credentials': true,

@@ -10,7 +10,7 @@ import {
     Table,
     message
 } from "antd";
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = "http://gameboard.pythonanywhere.com";
 const { Meta } = Card;
 
     const columns = [

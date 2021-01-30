@@ -28,7 +28,7 @@ class OwnedCafe extends React.Component {
     gallery: [],
     latitude: "",
     longitude: "",
-    proxyurl:'http://localhost:8010/proxy',
+    proxyurl:'http://gameboard.pythonanywhere.com',
   }
  
    showDeleteConfirm(){

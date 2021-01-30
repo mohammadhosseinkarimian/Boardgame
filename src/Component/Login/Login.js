@@ -39,7 +39,7 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= "http://gameboard.pythonanywhere.com";
   onSubmit=(e)=>{
     const login={
       username:this.state.username,

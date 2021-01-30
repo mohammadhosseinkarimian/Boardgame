@@ -26,12 +26,12 @@ class AllCommunity extends React.Component {
     gallery: "",
     lock: "",
     community: [],
-    proxyurl: "http://localhost:8010/proxy/community/communities_list/",
+    proxyurl: "http://gameboard.pythonanywhere.com/communities_list/",
     member_id:[]
   };
 
   componentDidMount() {
-    Axios.get("http://localhost:8010/proxy/community/communities_list/")
+    Axios.get("http://gameboard.pythonanywhere.com/community/communities_list/")
       .then((res) => {
         //alert("reeeee")
         const cafe_list = res.data;

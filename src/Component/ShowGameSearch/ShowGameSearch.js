@@ -10,7 +10,7 @@ import {Link } from 'react-router-dom';
 import Item from 'antd/lib/list/Item';
 import { Redirect } from 'react-router-dom';
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = "http://gameboard.pythonanywhere.com";
 class SearchShow extends React.Component {
   state={
     suggestlist:[],

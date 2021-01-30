@@ -19,7 +19,9 @@ import {
 import 'font-awesome/css/font-awesome.min.css';
 const { TabPane } = Tabs;
 const username=localStorage.getItem('user')
+//const proxyUrl='http://gameboard.pythonanywhere.com';
 const proxyUrl='http://localhost:8010/proxy';
+
 class SingleCommunity extends React.Component {
     state = {
         name: "",
@@ -32,7 +34,8 @@ class SingleCommunity extends React.Component {
         is_a_member: false,
         members_username:[],
         event_image:"",
-        id:''
+        id:'',
+        Com: []
      
     };
 
@@ -50,6 +53,8 @@ class SingleCommunity extends React.Component {
         }).then(res => {
             console.log(res.data)
             this.setState({ name: res.data.name })
+            this.setState({ Com: res.data })
+
             this.setState({ image: res.data.image })
             this.setState({ description: res.data.description })
             this.setState({ owner: res.data.owner })
@@ -64,12 +69,12 @@ class SingleCommunity extends React.Component {
     }
     onClickJoin=()=>{
         
-        Axios.put(proxyUrl+'/community/join_community/'+this.state.id+'/', {
+        Axios.put(proxyUrl+'/community/join_community/'+localStorage.getItem('com_id')+'/',JSON.stringify(this.state.Com), {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
                 "Access-Control-Allow-Credentials": true,
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
+                'Accept': "application/json",
+                'Authorization': `Bearer ${localStorage.getItem("access")}`,
             },
         }).then(
             res => {
@@ -79,19 +84,24 @@ class SingleCommunity extends React.Component {
         )
     }
     onClickLeave=()=>{
-        Axios.put(proxyUrl+'/community/leave_community/'+this.state.id+'/', {
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                "Access-Control-Allow-Credentials": true,
-                Accept: "application/json",
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
-            },
-        }).then(
-            res => {
-                console.log(res.data)
-                window.location.reload()
-            }
-        )
+     
+            Axios.put(proxyUrl+'/community/leave_community/'+localStorage.getItem('com_id')+'/',JSON.stringify(this.state.Com), {
+                headers: {
+         'Content-Type' : 'application/json;charset=utf-8',
+          'Access-Control-Allow-Credentials':true,
+          'Accept' : 'application/json',
+          'Authorization' :`Bearer ${localStorage.getItem('access')}`
+                },
+            }).then(
+                res => {
+                    console.log(res.data)
+                    window.location.reload()
+                }
+            ).catch(()=>{
+                alert(localStorage.getItem('com_id'))
+            })
+        
+      
     }
     onClickaddEvent=()=>{
         window.location.href='/event'
@@ -99,7 +109,7 @@ class SingleCommunity extends React.Component {
     render() {
         return (
             <div className="EditProfile_container"
-                style={{ width: "90%", marginTop: '3%' }}>
+                style={{ width: "90%", marginTop: '3%',borderRadius: '6px' }}>
                 <Row style={{ marginBottom: '2%' }}>
 
                     <Avatar className='avatarstyle'
@@ -135,7 +145,7 @@ class SingleCommunity extends React.Component {
 
 
                 <Row >
-                    <Col span={18} className='communitystyle'>
+                    <Col span={18} className='communitystyle' style={{borderRadius: '10px'}}>
                         {this.state.events.map(event=>(
                             <Row className='hoversingleevent' style={{width: '100%'}} >
                             <div  style={{width: '100%'}} className='event'>
@@ -167,7 +177,7 @@ class SingleCommunity extends React.Component {
                         }
                             
                     </Col>
-                    <Col span={5} className='communitystyle' style={{ marginLeft: "2%" }}>
+                    <Col span={4} className='communitystyle' style={{ marginLeft: "2%",borderRadius: '10px' }}>
                         <List
                             itemLayout="horizontal"
                             dataSource={this.state.members}
@@ -175,8 +185,8 @@ class SingleCommunity extends React.Component {
 
                                 <List.Item >
                                     <List.Item.Meta 
-                                        avatar={<Avatar size='large' className='memberprofile' src={item.avatar} >{item.username[0]}</Avatar>}
-                                        title={<p style={{marginTop: '4%'}}>{item.username}</p>}
+                                        avatar={<Avatar size='large' className='memberprofile' style={{width: '4vw',height: '4vw',lineHeight: '4vw' ,display: 'flex',alignItems: 'center'}} src={item.avatar} >{item.username[0]}</Avatar>}
+                                        title={<h5 style={{marginTop: '16%',fontSize: '19px'}}>{item.username}</h5>}
                                     />
                                 </List.Item>
                             )}

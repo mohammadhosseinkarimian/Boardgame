@@ -20,7 +20,7 @@ const layout = {
   },
 };
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = "http://gameboard.pythonanywhere.com";
 const dateFormat = 'YYYY-MM-DD';
 
 

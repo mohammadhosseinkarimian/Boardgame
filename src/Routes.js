@@ -76,14 +76,15 @@ class Routes extends React.Component {
   edit = () => {
     <Link to={"/editProfile/:" + localStorage.getItem('id')} />
   }
-  proxyurl = "http://localhost:8010/proxy";
+  proxyurl = "http://gameboard.pythonanywhere.com";
 
   getInfo = (e) => {
 
 
-
-    Axios.get(this.proxyurl + '/auth/edit_profile/', {
-      headers: {
+//    Axios.get('http://gameboard.pythonanywhere.com/auth/edit_profile/', {
+  Axios.get('http://localhost:8010/proxy/auth/edit_profile/', {
+  
+headers: {
         'Content-Type': 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials': true,
         'Accept': 'application/json',
@@ -108,19 +109,21 @@ class Routes extends React.Component {
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= "http://gameboard.pythonanywhere.com";
 
   componentDidMount() {
 
-    Axios.post('http://localhost:8010/proxy/auth/token/refresh/', JSON.stringify(this.data),
+    Axios.post('http://gameboard.pythonanywhere.com/auth/token/refresh/', JSON.stringify(this.data),
       {
         headers: { 'Content-Type': 'application/json' }
       }).then((res) => {
         localStorage.setItem('access', res.data.access);
         this.setState({ accessed: 'true' });
         this.getInfo();
-        Axios.get(this.proxyurl+'/community/owner_communities_list/',{headers:{
-          'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
+       // Axios.get('http://gameboard.pythonanywhere.com/community/owner_communities_list/',{headers:{
+          Axios.get('http://localhost:8010/proxy/community/owner_communities_list/',{headers:{
+
+          'Content-Type' : 'application/json',
           'Accept' : 'application/json',
           'Authorization' :`Bearer ${localStorage.getItem('access')}`
         }}
@@ -134,9 +137,8 @@ class Routes extends React.Component {
         })
 
 
-    Axios.get(this.proxyurl+'/community/member_communities_list/',{headers:{
-      'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
-      'Accept' : 'application/json',
+    Axios.get('http://localhost:8010/proxy/community/member_communities_list/',{headers:{
+      
       'Authorization' :`Bearer ${localStorage.getItem('access')}`
     }}
   ).then((res)=>{

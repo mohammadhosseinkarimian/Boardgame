@@ -36,7 +36,7 @@ class SingleGame extends React.Component {
 
     componentDidMount(){
        const id=window.location.href.substring(32);
-    Axios.get('http://localhost:8010/proxy/game/game_info/'+id)
+    Axios.get('http://gameboard.pythonanywhere.com/game/game_info/'+id)
    .then(res=>{
      const game=res.data;
      this.setState({name:game.name});

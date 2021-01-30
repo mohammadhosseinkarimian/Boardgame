@@ -106,7 +106,7 @@ onChange = (e) => {
     });
    // console.log(this.state);
 };
-proxyurl= "http://localhost:8010/proxy";
+proxyurl= "http://gameboard.pythonanywhere.com";
 
 
 getInfo=(e)=>

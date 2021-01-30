@@ -91,7 +91,7 @@ onChange = (e) => {
     });
    // console.log(this.state);
 };
-proxyurl= "http://localhost:8010/proxy";
+proxyurl= "http://gameboard.pythonanywhere.com";
 Upload=async(e)=>{
   const file=e.target.files[0];
  const base64= await this.Convert(file)

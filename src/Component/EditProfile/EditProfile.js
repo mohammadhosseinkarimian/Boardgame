@@ -122,7 +122,7 @@ class EditProfile extends React.Component {
         }) ;
       }
 
-      proxyurl= "http://localhost:8010/proxy";
+      proxyurl= "http://gameboard.pythonanywhere.com";
 
     onSaveGeneral = (e) => {
         if((this.state.edit==="true") &&(this.state.email.includes("@"))&&(this.state.email.includes(".com")))
