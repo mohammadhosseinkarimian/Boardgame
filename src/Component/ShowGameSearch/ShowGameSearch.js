@@ -73,4 +73,3 @@ render(){
   
 }
 export default SearchShow;
-
