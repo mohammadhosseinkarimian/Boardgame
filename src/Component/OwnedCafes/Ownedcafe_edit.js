@@ -106,7 +106,7 @@ onChange = (e) => {
     });
    // console.log(this.state);
 };
-proxyurl= "http://gameboard.pythonanywhere.com";
+proxyurl= localStorage.getItem('url');
 
 
 getInfo=(e)=>

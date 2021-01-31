@@ -36,7 +36,7 @@ class SingleGame extends React.Component {
 
     componentDidMount(){
        const id=window.location.href.substring(32);
-    Axios.get('http://gameboard.pythonanywhere.com/game/game_info/'+id)
+    Axios.get(localStorage.getItem('url')+'/game/game_info/'+id)
    .then(res=>{
      const game=res.data;
      this.setState({name:game.name});

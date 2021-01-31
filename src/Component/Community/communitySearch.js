@@ -5,7 +5,7 @@ import { Select } from 'antd';
 
 
 const { Option } = Select;
-const proxyurl = "http://gameboard.pythonanywhere.com";
+const proxyurl = localStorage.getItem('url');
 class CommunitySearch extends React.Component {
     state = {
         suggestlist: [],

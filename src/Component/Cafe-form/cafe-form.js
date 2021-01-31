@@ -138,7 +138,7 @@ class Cafe extends React.Component {
   };
  
  
-  proxyurl= "http://gameboard.pythonanywhere.com";
+  proxyurl= localStorage.getItem('url');
   onSubmit = (e) => {
      e.preventDefault();
      let list=(localStorage.getItem('base64'));

@@ -26,7 +26,7 @@ fileList:[],
  done:'',
 
 };
- proxyurl= "http://gameboard.pythonanywhere.com";
+ proxyurl= localStorage.getItem('url');
   handleCancel = async file => {
    console.log(file)
 if(file.name!=="cafe**image**base")

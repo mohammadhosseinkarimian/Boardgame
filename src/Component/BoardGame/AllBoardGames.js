@@ -50,7 +50,7 @@ class AllBoardGames extends React.Component {
   };
   componentDidMount() {
     
-    Axios.get('http://gameboard.pythonanywhere.com/game/games_list/')
+    Axios.get(localStorage.getItem('url')+'/game/games_list/')
        .then(res=>{
          const games_list=res.data;
          this.setState(prevState => {

@@ -112,7 +112,7 @@ class Event extends React.Component {
     if (e !== null) this.setState({ Open_time: e.format("LT") });
   };
  
-  proxyurl= "http://gameboard.pythonanywhere.com";
+  proxyurl= localStorage.getItem('url');
   onSubmit = (e) => {
      e.preventDefault();
      let list=(localStorage.getItem('base64'));

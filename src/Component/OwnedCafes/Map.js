@@ -14,7 +14,7 @@ const Map = Mapir.setToken({
     }
 });
  class CafeMap extends React.Component {
-  proxyurl= "http://gameboard.pythonanywhere.com";
+  proxyurl= localStorage.getItem('url');
     constructor(props) {
         super(props);
         this.state = {

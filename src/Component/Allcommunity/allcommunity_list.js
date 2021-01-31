@@ -31,7 +31,7 @@ class AllCommunity extends React.Component {
   };
 
   componentDidMount() {
-    Axios.get("http://gameboard.pythonanywhere.com/community/communities_list/")
+    Axios.get(localStorage.getItem('url')+"/community/communities_list/")
       .then((res) => {
         //alert("reeeee")
         const cafe_list = res.data;

@@ -20,7 +20,7 @@ import 'font-awesome/css/font-awesome.min.css';
 const { TabPane } = Tabs;
 const username=localStorage.getItem('user')
 //const proxyUrl='http://gameboard.pythonanywhere.com';
-const proxyUrl='http://localhost:8010/proxy';
+const proxyUrl=localStorage.getItem('url');
 
 class SingleCommunity extends React.Component {
     state = {

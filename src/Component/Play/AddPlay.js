@@ -20,7 +20,7 @@ const layout = {
   },
 };
 const { Option } = Select;
-const proxyurl = "http://gameboard.pythonanywhere.com";
+const proxyurl = localStorage.getItem('url');
 const dateFormat = 'YYYY-MM-DD';
 
 

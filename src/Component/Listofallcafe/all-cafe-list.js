@@ -32,11 +32,11 @@ class AllCafe extends React.Component {
       gallery:[],
       request: false,
       city:"", 
-      proxyurl : "http://gameboard.pythonanywhere.com/cafe/cafe_list/"
+      proxyurl : localStorage.getItem('url')
   };
       
   componentDidMount() {
-    Axios.get("http://gameboard.pythonanywhere.com/cafe/cafe_list/")
+    Axios.get(localStorage.getItem('url')+"/cafe/cafe_list/")
        .then(res=>{
         //alert("reeeee")
         const cafe_list=res.data;

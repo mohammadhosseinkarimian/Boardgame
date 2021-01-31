@@ -33,7 +33,7 @@ let a="";
         requests: "false"
     };
      componentDidMount() {
-         Axios.get( 'http://gameboard.pythonanywhere.com/game/hot_games/')
+         Axios.get( localStorage.getItem('url')+'/game/hot_games/')
             .then(res => {
                 const games_list = res.data;
                 this.setState(prevState => {
@@ -41,7 +41,7 @@ let a="";
                 })
             })
             
-            Axios.get( 'http://gameboard.pythonanywhere.com/cafe/day_cafe_list/')
+            Axios.get( localStorage.getItem('url')+'/cafe/day_cafe_list/')
             .then(res => {
               const cafe_list=res.data;
               this.setState(prevState => {
@@ -50,7 +50,7 @@ let a="";
               
               
             })
-            Axios.get( 'http://gameboard.pythonanywhere.com/community/day_communities_list/')
+            Axios.get( localStorage.getItem('url')+'/community/day_communities_list/')
             .then(res => {
               const cafe_list=res.data;
               this.setState(prevState => {

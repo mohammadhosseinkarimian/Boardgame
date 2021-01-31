@@ -22,7 +22,7 @@ const { RangePicker } = DatePicker;
 const { Option } = Select;
 const dateFormat = 'YYYY-MM-DD';
 const obj={id:0,name:""}
-const proxyurl = "http://gameboard.pythonanywhere.com";
+const proxyurl = localStorage.getItem('url');
 const user_username = localStorage.getItem('user')
 const layout = {
 

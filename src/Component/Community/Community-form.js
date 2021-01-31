@@ -21,7 +21,7 @@ import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled,CheckCircleFil
 import Av from './images.png';
 
 const { Option } = Select;
-const proxyurl = "http://gameboard.pythonanywhere.com";
+const proxyurl =localStorage.getItem('url');
 
 const formItemLayout = {
     labelCol: {
@@ -143,7 +143,7 @@ const formItemLayout = {
         };
       });
     };
-    proxyurl= "http://gameboard.pythonanywhere.com";
+    proxyurl= localStorage.getItem('url');
     onSubmit = (e) => {
        e.preventDefault();
       // let list=(localStorage.getItem('base64'));
