@@ -22,7 +22,7 @@ class HomePage extends React.Component {
     img:'',
     username:localStorage.getItem('user')
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
 
   getInfo=(e)=>
   {

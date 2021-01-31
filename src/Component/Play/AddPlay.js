@@ -20,7 +20,7 @@ const layout = {
   },
 };
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 const dateFormat = 'YYYY-MM-DD';
 
 
@@ -282,4 +282,3 @@ class AddPlay extends React.Component {
 }
 
 export default AddPlay;
-

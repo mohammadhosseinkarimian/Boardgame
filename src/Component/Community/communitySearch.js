@@ -5,7 +5,7 @@ import { Select } from 'antd';
 
 
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 class CommunitySearch extends React.Component {
     state = {
         suggestlist: [],

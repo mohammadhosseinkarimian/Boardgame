@@ -50,7 +50,7 @@ class Signup extends React.Component {
     msg:"",
     
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
   emailChange=e=>{
    this.setState({email:e.target.value})
   }

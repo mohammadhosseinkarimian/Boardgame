@@ -27,7 +27,7 @@ class OwnedCommunity extends React.Component {
     lock:"",
   done:"",
   edit:"",
-    proxyurl:'http://localhost:8010/proxy',
+    proxyurl:localStorage.getItem('url'),
   }
 
   showDeleteConfirm(id){
@@ -50,7 +50,7 @@ class OwnedCommunity extends React.Component {
     onClickDelete = (id) => {
    
       //console.log("click")
-      axios.delete('http://localhost:8010/proxy/community/edit_community/'+id+'/', {
+      axios.delete(localStorage.getItem('url')+'/community/edit_community/'+id+'/', {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           'Access-Control-Allow-Credentials': true,

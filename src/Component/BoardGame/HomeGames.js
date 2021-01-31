@@ -6,6 +6,8 @@ import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye } from "rea
 import {  FiMoreVertical} from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
+import { LockFilled   } from "@ant-design/icons";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import '../../Style/design.scss';
@@ -23,6 +25,7 @@ let a="";
  class HomeGames extends React.Component {
     state = {
         games: [],
+        member_id:[],
         cafes: [],
         gallery:[],
         communitys: [],
@@ -30,7 +33,7 @@ let a="";
         requests: "false"
     };
      componentDidMount() {
-         Axios.get( 'http://localhost:8010/proxy/game/hot_games/')
+         Axios.get( localStorage.getItem('url')+'/game/hot_games/')
             .then(res => {
                 const games_list = res.data;
                 this.setState(prevState => {
@@ -38,7 +41,7 @@ let a="";
                 })
             })
             
-            Axios.get( 'http://localhost:8010/proxy/cafe/day_cafe_list/')
+            Axios.get( localStorage.getItem('url')+'/cafe/day_cafe_list/')
             .then(res => {
               const cafe_list=res.data;
               this.setState(prevState => {
@@ -47,7 +50,7 @@ let a="";
               
               
             })
-            Axios.get( 'http://localhost:8010/proxy/community/day_communities_list/')
+            Axios.get( localStorage.getItem('url')+'/community/day_communities_list/')
             .then(res => {
               const cafe_list=res.data;
               this.setState(prevState => {
@@ -291,9 +294,10 @@ let a="";
                                 </div></Col>
                                  <Col span={13}>
                                  <div style={{marginLeft: '-13%',overflow: 'hidden',marginTop: '6%'}}>
-                               <Link to={'/allcafes/:'+cafe.id}> <h5 style={{paddingBottom: '3%'}}>{cafe.name}</h5></Link>
-                               <h6><FaQuoteRight style={{fill: 'orange'}}/> {cafe.description.length>16?cafe.description.substring(0,16):cafe.description}</h6>
-                               <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
+                               <h5 style={{paddingBottom: '3%'}}>{cafe.name}</h5>
+                              
+                 
+                                <div style={{height: '16%',marginTop: '13%',display: 'flex'}}><Avatar.Group
        
           style={{marginTop: '-7%',paddingTop: '0%'}}
         >
@@ -309,7 +313,21 @@ let a="";
                         <Row justify='center' style={{width: '100%'}}>
                         <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
                         marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
-                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/> view</h5>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/>  <Link to={'community/:'+cafe.id}>
+                               {this.state.member_id=[],
+                      cafe.members.map(element => this.state.member_id.push(element.username) ),
+                      console.log(this.state.member_id)}
+                <span hidden={!cafe.lock ||!this.state.member_id.includes(localStorage.getItem('user'))}  
+                style={{fontSize:"27px", textAlign:'center'}}>
+                        view
+                      </span>
+                      </Link>
+                 <span hidden={!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
+                        
+                      </span>
+                      <Link to={'community/:'+cafe.id}>
+                 <span hidden={cafe.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
+                 </Link></h5>
 
                          </div>  
                         </Row>
@@ -319,11 +337,7 @@ let a="";
 
                      ))}                             </Row>
                      </div>                < Link to='/community' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
-                      <div style={{marginLeft: '40%', marginTop: '10%'}}>
-                        <Link to='/createCommunity'>clik to create community</Link>
-                        <Link to="/Search_Com">clik to Search</Link>
-                        
-                      </div>
+                    
                 </div>
 
         );

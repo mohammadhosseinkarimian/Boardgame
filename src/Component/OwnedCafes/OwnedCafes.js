@@ -28,7 +28,7 @@ class OwnedCafe extends React.Component {
     gallery: [],
     latitude: "",
     longitude: "",
-    proxyurl:'http://localhost:8010/proxy',
+    proxyurl: localStorage.getItem('url'),
   }
  
    showDeleteConfirm(){
@@ -52,7 +52,7 @@ class OwnedCafe extends React.Component {
   onClickDelete = (id) => {
  
     //console.log("click")
-    axios.delete('http://localhost:8010/proxy/cafe/edit_cafe/'+id+'/', {
+    axios.delete(localStorage.getItem('url')+'/cafe/edit_cafe/'+id+'/', {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials': true,

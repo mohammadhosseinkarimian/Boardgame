@@ -39,7 +39,7 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
   onSubmit=(e)=>{
     const login={
       username:this.state.username,

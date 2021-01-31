@@ -21,7 +21,7 @@ import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled,CheckCircleFil
 import Av from './images.png';
 
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl =localStorage.getItem('url');
 
 const formItemLayout = {
     labelCol: {
@@ -143,7 +143,7 @@ const formItemLayout = {
         };
       });
     };
-    proxyurl= "http://localhost:8010/proxy";
+    proxyurl= localStorage.getItem('url');
     onSubmit = (e) => {
        e.preventDefault();
       // let list=(localStorage.getItem('base64'));

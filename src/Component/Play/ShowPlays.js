@@ -10,7 +10,7 @@ import {
     Table,
     message
 } from "antd";
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 const { Meta } = Card;
 
     const columns = [

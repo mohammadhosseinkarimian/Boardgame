@@ -138,7 +138,7 @@ class Cafe extends React.Component {
   };
  
  
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
   onSubmit = (e) => {
      e.preventDefault();
      let list=(localStorage.getItem('base64'));
