@@ -39,6 +39,7 @@ class Login extends React.Component {
     console.log(this.state)
 
   };
+  
   proxyurl= localStorage.getItem('url');
   onSubmit=(e)=>{
     const login={
@@ -49,7 +50,7 @@ class Login extends React.Component {
    )
    {
     this.setState({loggedIn:"logging in"})
-    Axios.post(this.proxyurl+'/auth/login/',JSON.stringify(this.state),
+    Axios.post('http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
