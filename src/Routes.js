@@ -62,9 +62,9 @@ class Routes extends React.Component {
   };
 
   handleOk = () => {
-    setTimeout(() => {
+    
       this.setState({ visible: false });
-    }, 100);
+      window.location.href=window.location.origin + "/community/:"+localStorage.getItem('searchCom')    
   };
 
   handleCancel = () => {
@@ -108,10 +108,10 @@ headers: {
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= "http://gameboard.pythonanywhere.com";
 
   componentDidMount() {
-    localStorage.setItem('url','http://gameboard.pythonanywhere.com');
+    localStorage.setItem('url','http://localhost:8010/proxy');
     const proxy=localStorage.getItem('url');
     Axios.post(proxy+'/auth/token/refresh/', JSON.stringify(this.data),
       {
@@ -227,7 +227,7 @@ headers: {
                     </Menu.Item>
                 </SubMenu>
                 <SubMenu title= " My communities" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
-                {     <List
+                { this.state.ownerList.length===0?'':    <List
 size="large"
 itemLayout="horizontal"
 dataSource={this.state.ownerList}
@@ -245,7 +245,7 @@ renderItem={item => (
   </List.Item></Menu.Item>
 )}
 /> }
-{     <List
+{ this.state.memberList.length===0?'':    <List
 size="large"
 itemLayout="horizontal"
 dataSource={this.state.memberList}
@@ -274,7 +274,11 @@ renderItem={item => (
           footer={[
             <Button className="btn btn-primary" key="back" onClick={this.handleCancel}>
               Return
-            </Button>
+            </Button>,
+            <Button key="submit" type="btn btn-primary" onClick={this.handleOk}>
+          <NavLink to={'../community/:'+localStorage.getItem('searchCom')}>Ok</NavLink>
+
+          </Button>
           ]}
         >
           <div style={{alignContent: 'center' ,marginLeft: 'auto',marginRight: 'auto',alignItems: 'center',textAlign: 'center'}}>
