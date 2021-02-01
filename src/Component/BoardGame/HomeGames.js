@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import StarRatings from 'react-star-ratings';
 import { GiTwoCoins,GiLevelFourAdvanced,GiLevelThreeAdvanced,GiLevelTwoAdvanced} from "react-icons/gi";
-import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye } from "react-icons/fa";
+import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye, FaLock } from "react-icons/fa";
 import {  FiMoreVertical} from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
@@ -312,22 +312,23 @@ let a="";
                         </Row>
                         <Row justify='center' style={{width: '100%'}}>
                         <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
-                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
-                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/>  <Link to={'community/:'+cafe.id}>
+                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '1%',alignContent: 'center',alignItems: 'center'}}>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}>  
                                {this.state.member_id=[],
                       cafe.members.map(element => this.state.member_id.push(element.username) ),
                       console.log(this.state.member_id)}
-                <span hidden={!cafe.lock ||!this.state.member_id.includes(localStorage.getItem('user'))}  
+               
+                      
+                 {!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))?<h5><Link to={'../community/:'+cafe.id}><span 
                 style={{fontSize:"27px", textAlign:'center'}}>
-                        view
-                      </span>
-                      </Link>
-                 <span hidden={!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
+                      <FaEye style={{fill: 'cyan',marginTop: '-3%'}}/> View
+                      </span></Link></h5>:<h5 style={{fontSize: '25px',marginTop: '3%'}}><span 
+                style={{ textAlign:'center'}}> <FaLock style={{fill: 'gold',fontSize: '20px',marginTop: '-5%'}}/> Private
+                </span></h5>
+                      }
                         
-                      </span>
-                      <Link to={'community/:'+cafe.id}>
-                 <span hidden={cafe.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
-                 </Link></h5>
+                      
+                     </h5>
 
                          </div>  
                         </Row>
