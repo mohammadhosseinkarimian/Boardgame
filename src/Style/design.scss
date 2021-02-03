@@ -1,21 +1,24 @@
 $primary:hsl(22, 94%, 49%);
 $extra: rgb(245, 176, 72);
-$background:#212121;//main background
-$layout1:#282828;//sider
-$layout2:#303030;//header
-$layout4:#333;//on hover
-$layout5:#414141;//on selection
-$layout3:#505050;
-$layout6:#575757;
-$layout7:#676767;
-$layout8:#818181;
-$layout9:#949494; //pagination next key
 
-$maintext:rgb(255, 255, 255);
-$secondtext:rgb(218, 212, 212);
-$bar:white;
-$barOnhover:silver;
+:root{
+  --background: #212121;
+  --layout1:#282828;//sider
+--layout2:#303030;//header
+--layout4:#333;//on hover
+--layout5:#414141;//on selection
+--layout3:#505050;
+--layout6:#575757;
+--layout7:#676767;
+--layout8:#818181;
+--layout9:#949494; //pagination next key
 
+--maintext:rgb(255, 255, 255);
+--secondtext:rgb(218, 212, 212);
+--bar:white;
+--barOnhover:silver;
+transition: all 0.4s ease-in;
+}
 .h2, h2 {
    
   color: $primary !important;   
@@ -24,24 +27,24 @@ $barOnhover:silver;
     margin: 0;
     width:100%;
     overflow: hidden;
-    background-color: $layout2 ;
+    background-color: var(--layout2) ;
   }
 .h3, h3 {
    
-    color: $maintext;
+    color: var(--maintext);
     margin-top: 5px;    
 }
 .h5, h5 {
-    color:$maintext;
+    color:var(--maintext);
     margin-top: 2px;    
 }
 .h4, h4{
-  color:$maintext !important;
+  color:var(--maintext) !important;
   font-size: 20px;
   font-family: "Times New Roman", Times, serif;
 }
 .h6, h6{
-  color:$maintext !important;
+  color:var(--maintext) !important;
  
   font-size: 17px;
   font-family: Courier, monospace;
@@ -65,17 +68,17 @@ $barOnhover:silver;
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: $layout4;  
+    background: var(--layout4);  
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: $layout6;  border-radius: 40px;
+    background: var(--layout6);  border-radius: 40px;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: $layout7; 
+    background: var(--layout7); 
   }
   @media (max-width:480px) {
     .member {
@@ -95,23 +98,23 @@ $barOnhover:silver;
 }
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link,
 .ant-pagination-item,.ant-pagination-jump-prev,.ant-pagination-jump-next {
-    background-color:$layout2;
+    background-color:var(--layout2);
   border-radius:6px 50%;
-  border-color: $layout4;
-  color: $secondtext !important;
+  border-color: var(--layout4);
+  color: var(--secondtext) !important;
 }
 .anticon svg ,.ant-pagination-item-ellipsis {
-   color: $secondtext !important;
+   color: var(--secondtext) !important;
 }
 .ant-pagination-prev .ant-pagination-item-link:hover, .ant-pagination-next .ant-pagination-item-link:hover,.ant-pagination-item:hover
 ,.ant-pagination-jump-prev:hover,.ant-pagination-jump-next:hover {  
-   color: $secondtext !important;
-    border-color: $layout6!important;
+   color: var(--secondtext) !important;
+    border-color: var(--layout6)!important;
 }
 .ant-pagination-prev .ant-pagination-item-link:active, .ant-pagination-next .ant-pagination-item-link:active,.ant-pagination-item:active
 ,.ant-pagination-jump-prev:active,.ant-pagination-jump-next:active {  
-   color: $secondtext !important;
-    background-color: $layout5!important;
+   color: var(--secondtext) !important;
+    background-color: var(--layout5)!important;
 }
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link{
   display: flex;
@@ -120,7 +123,7 @@ $barOnhover:silver;
 
 .ant-pagination-item-active{
   background-color:$primary;
-  color:$maintext;
+  color:var(--maintext);
   border-color: $primary !important;
 }
 
@@ -134,7 +137,7 @@ $barOnhover:silver;
     display: flex;
     align-items: center;
     text-align: center;
-    background: $layout5;
+    background: var(--layout5);
 
 }
 .imageinside{
@@ -142,7 +145,8 @@ $barOnhover:silver;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0px 7px 5px $background;
+  box-shadow: 0px 7px 5px var(--background);
+  transition: background-color 0.4s ease-in;
 
   height: auto;
   width: auto;
@@ -186,28 +190,28 @@ $barOnhover:silver;
 }
 //home
 .bar{
-    color: $bar;
+    color: var(--bar);
     size: 17px;
     font-size: 20px;
     margin-bottom: 12px;
   
   }
   .bar:hover{
-    color: $barOnhover;
+    color: var(--barOnhover);
     transform: scale(1.3);
     transform: scale(1.05);
     transition: 0.5s;
   }
   .ant-layout{
-    background-color: $layout1;
+    background-color: var(--layout1);
   
   }
   .ant-menu{
-    background-color: $layout1;
+    background-color: var(--layout1);
   }
   .ant-menu-item.m-item.ant-menu-item{
-    color: $maintext;
-    background-color: $layout1;
+    color: var(--maintext);
+    background-color: var(--layout1);
   }
   .img-text{
     opacity: 1;
@@ -220,35 +224,35 @@ $barOnhover:silver;
   }
   ///sub menu
   .ant-menu-submenu.ant-menu-submenu-inline{
-    background-color: $layout1;
+    background-color: var(--layout1);
   }
   .ant-menu-item.ant-menu-item-only-child{
-    background-color: $layout1;
+    background-color: var(--layout1);
     
   }
   .ant-menu-item.ant-menu-item-only-child.ant-menu-item-active{
-    background-color: $layout1;
+    background-color: var(--layout1);
   }
   .ant-menu.ant-menu-sub.ant-menu-inline{
-    background-color: $layout1;
+    background-color: var(--layout1);
   }
   //////
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline,
   .ant-menu.ant-menu-dark.ant-menu-inline-collapsed.ant-menu-root.ant-menu-vertical {
-    background:  $layout1;
+    background:  var(--layout1);
   }
   
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline :hover{
-    background-color: $layout4;
+    background-color: var(--layout4);
   }
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline :focus-within{
-   background-color: $layout5;
+   background-color: var(--layout5);
   }
   .ant-menu.ant-menu-dark.ant-menu-root.ant-menu-inline ::selection{
-    background-color: $layout5 !important;
+    background-color: var(--layout5) !important;
    }
   .ant-menu-item-selected{
-    background-color: $layout5 !important;
+    background-color: var(--layout5) !important;
   
    }
   /* li.ant-menu-item.m-item.ant-menu-item-active.ant-menu-item-selected {
@@ -258,7 +262,7 @@ $barOnhover:silver;
  
   .ant-layout-sider .ant-layout-sider-trigger {
     appearance: 1s;
-    background: $layout1;  color:$maintext;
+    background: var(--layout1);  color:var(--maintext);
   }
   
   /*****************/
@@ -275,8 +279,8 @@ $barOnhover:silver;
       font-style: italic;
       height: 53px;
       z-index: 99;
-      color: $maintext !important  ;
-    background-color: $layout2 !important;
+      color: var(--maintext) !important  ;
+    background-color: var(--layout2) !important;
   }
   .site-layout-background {
     width: 100%;  
@@ -286,15 +290,17 @@ $barOnhover:silver;
 background-attachment: fixed;
 background-position: center;
 background-size: cover;
-background-color: $background ;
-    color:$maintext;
+background-color: var(--background) ;transition: background-color 0.4s ease-in;
+
+    color:var(--maintext);
     }
     .ant-layout .site-layout {
       margin:0px;
     }
   /*****************/
   .ant-layout-content{
-    background: $background;
+    background: var(--background);transition: background-color 0.4s ease-in;
+
     min-height: 100%;
   }
   .ant-list-lg .ant-list-item {
@@ -307,7 +313,7 @@ background-color: $background ;
 }
 
   .ant-list-item{
-    border-color: $layout5 !important;
+    border-color: var(--layout5) !important;
   }
   .ant-list-item-meta{
     margin-left: 0px;
@@ -318,29 +324,29 @@ background-color: $background ;
     width: 30%;
     height:auto;
     position: relative;
-    border: 2px solid $layout5;
+    border: 2px solid var(--layout5);
     margin: 15% auto ;
     margin-top: 10% ;
     margin-bottom: 2%;
     padding:4% 4% ;
-    background-color: $layout4;
+    background-color: var(--layout4);
  
  
   }
 .ant-input::placeholder {
-  color: $maintext !important;
+  color: var(--maintext) !important;
 }
 .ant-input:focus, .ant-input-focused ,.ant-form-item-has-error .ant-input, .ant-form-item-has-error .ant-input-affix-wrapper,
  .ant-form-item-has-error .ant-input:hover, .ant-form-item-has-error .ant-input-affix-wrapper:hover{
-  background-color: $layout6 !important;
-    border-color: $layout7 !important;
-    color: $maintext !important;
+  background-color: var(--layout6) !important;
+    border-color: var(--layout7) !important;
+    color: var(--maintext) !important;
 }
 .ant-input{
-  background-color: $layout6;
-  border-color: $layout7;  border-radius: 25px !important;
+  background-color: var(--layout6);
+  border-color: var(--layout7);  border-radius: 25px !important;
 
-  color: $maintext;
+  color: var(--maintext);
   
 }
 input#register_password.ant-input ,input[type="password" i] 
@@ -351,65 +357,65 @@ input#register_password.ant-input ,input[type="password" i]
   border-radius: 25px;
 }
 .ant-form-item :hover  {
-  border-color: $layout9 !important;
+  border-color: var(--layout9) !important;
 }
 ::placeholder {
-  color: $maintext !important;
+  color: var(--maintext) !important;
   opacity: 0.85;
 }
 [required]::-webkit-input-placeholder { 
-  color: $maintext !important;  opacity: 0.85;
+  color: var(--maintext) !important;  opacity: 0.85;
 }
 [required]::-moz-placeholder { 
-  color: $maintext !important;  opacity: 0.85;
+  color: var(--maintext) !important;  opacity: 0.85;
 }
 [required]::-ms-input-placeholder {
-  color: $maintext !important;  opacity: 0.85;
+  color: var(--maintext) !important;  opacity: 0.85;
 }
 
 .ant-picker , .ant-picker-clear{
-  background-color: $layout6;
-  border-color: $layout6;
+  background-color: var(--layout6);
+  border-color: var(--layout6);
 }
 .ant-picker :hover{
-  border-color: $layout7 !important;
+  border-color: var(--layout7) !important;
 }
 .ant-picker-input > input{
-  color: $maintext;
+  color: var(--maintext);
 }
 .ant-picker-panel{
-  background-color: $layout7 !important;
+  background-color: var(--layout7) !important;
 }
 
 .ant-picker-header{
-  color: $secondtext !important;
+  color: var(--secondtext) !important;
 }
 .ant-picker-header :hover{
-  color: $maintext !important;
+  color: var(--maintext) !important;
 }
 .ant-picker-super-next-icon{
-  color: $secondtext;
+  color: var(--secondtext);
 }
 .ant-picker-cell-inner{
-  color: $secondtext;
+  color: var(--secondtext);
   
 }
 .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
  .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) .ant-picker-cell-inner {
-  background: $layout8;
+  background: var(--layout8);
 }
 
 .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
  .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
  .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
-  color: $maintext;
+  color: var(--maintext);
   background-color: $primary !important;
 }
 .ant-picker-super-prev-icon{
-  color: $secondtext;
+  color: var(--secondtext);
 }
 .ant-tabs-tab-btn{
-  color: $maintext;
+  color: var(--maintext);
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: $primary;
@@ -421,18 +427,18 @@ input#register_password.ant-input ,input[type="password" i]
   background-color: $primary;
 } 
 .ant-tabs-dropdown-menu-item ,.ant-tabs-dropdown-menu{
-  background-color: $layout7;
-  color: $maintext !important;
+  background-color: var(--layout7);
+  color: var(--maintext) !important;
 }
 .ant-tabs-dropdown-menu-item:hover{
-  background-color: $layout7;
+  background-color: var(--layout7);
 }
 .ant-input-affix-wrapper.ant-input-password{
-  background-color: $layout6;
-  border-color: $layout6;
+  background-color: var(--layout6);
+  border-color: var(--layout6);
 }
 .ant-input-password :hover{
-  background-color: $layout6;
+  background-color: var(--layout6);
 }
 .btn{
   line-height: 1;
@@ -440,6 +446,12 @@ input#register_password.ant-input ,input[type="password" i]
 .btn.btn-primary{
   background-color: $primary !important;
   border-color: $primary;
+  opacity: 1 !important; 
+}
+.cancelbutton{
+  background-color: var(--layout7) !important;
+  border-color: var(--layout7);
+  border-radius: 25px !important;
   opacity: 1 !important; 
 }
 .btn:hover {
@@ -485,7 +497,7 @@ input#register_password.ant-input ,input[type="password" i]
   }
 
   .ant-picker-today-btn {
-    color: $maintext;
+    color: var(--maintext);
 }
 .ant-picker-content th {
   color: rgb(106, 212, 204);
@@ -493,45 +505,45 @@ input#register_password.ant-input ,input[type="password" i]
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   border-radius: 25px !important;
 
-  background-color: $layout6;
-  border-color: $layout7;
+  background-color: var(--layout6);
+  border-color: var(--layout7);
   width: 100%;
-  color: $maintext;
+  color: var(--maintext);
 }
 .ant-select-show-search.ant-select-multiple .ant-select-selector {
-  background-color: $layout6;
+  background-color: var(--layout6);
   border-radius: 25px !important;
 
-  border-color: $layout7;
-  color: $maintext;
+  border-color: var(--layout7);
+  color: var(--maintext);
   cursor: text;
 }
 .ant-select-dropdown{
-  background-color: $layout7;
-  color: $maintext;
+  background-color: var(--layout7);
+  color: var(--maintext);
 }
 .ant-select-selection-placeholder {
-  color: $maintext;
+  color: var(--maintext);
 }
 .ant-select-selection-placeholder {
-  color: $maintext;
+  color: var(--maintext);
 }
 .ant-select-multiple .ant-select-selection-item{
-  background-color: $layout7;
+  background-color: var(--layout7);
   border-color: transparent;
 }
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-  background-color: $layout8;
-  color: $maintext;
+  background-color: var(--layout8);
+  color: var(--maintext);
 
 }
 .ant-select-item{
-  color: $maintext;
+  color: var(--maintext);
   
 }
 .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-  background-color: $layout8;
-  color: $maintext ;
+  background-color: var(--layout8);
+  color: var(--maintext) ;
 }
 .ant-select-clear{
   background-color: transparent;
@@ -542,18 +554,18 @@ input#register_password.ant-input ,input[type="password" i]
 }
 
 .ant-collapse-header{
-color: $maintext!important;
-background-color: $layout6;
-border-color: $layout1 !important;
+color: var(--maintext)!important;
+background-color: var(--layout6);
+border-color: var(--layout1) !important;
 }
 .ant-collapse-content-box{
-color: $maintext!important;
-background-color: $layout6 !important;
-border-color: $layout1 !important;
+color: var(--maintext)!important;
+background-color: var(--layout6) !important;
+border-color: var(--layout1) !important;
 }
 .ant-form-item-control-input-content{
-  color: $maintext!important;
-  border-color: $layout1 !important;
+  color: var(--maintext)!important;
+  border-color: var(--layout1) !important;
 }
 
 .ant-message{
@@ -564,9 +576,9 @@ border-color: $layout1 !important;
 }
 .btn.btn-primary{
   background-color: $primary !important;
-  border-color: $primary;border-radius: 25px;
+  border-color: $primary;border-radius: 25px !important;
   opacity: 1 !important;
-  box-shadow: 0px 5px 7px $layout2;
+  box-shadow: 0px 5px 7px var(--layout2);
 
 }
 .btn:hover ,.btn :focus,.btn :focus-within,.btn :active,.btn-primary,.btn-primary :active,.btn-primary :hover,.btn-primary :focus-within,.btn-primary :focus {
@@ -579,8 +591,8 @@ border-color: $layout1 !important;
   line-height: 1 !important;
 }
 .banner{
-  background-Color: $layout3;
-   border: 2px solid $layout7;
+  background-Color: var(--layout3);
+   border: 2px solid var(--layout7);
    max-height: 5%;
    height: 5%;
   //align-content: 'center';text-align: center;line-height: 1;
@@ -591,9 +603,9 @@ border-color: $layout1 !important;
   text-align: center;
 }
 .communitystyle{
-  background-Color: $layout3;
+  background-Color: var(--layout3);
   height: 61vh;
-  border: 2px solid $layout6;
+  border: 2px solid var(--layout6);
   
 }
 .ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight {
@@ -602,7 +614,7 @@ border-color: $layout1 !important;
 
 .cafe_specification_container{
     margin-top: 7%;
-    background-color: $layout5;
+    background-color: var(--layout5);
     width: 100%;
     height: 200px;
     padding-bottom: 0.6%;
@@ -612,7 +624,7 @@ border-color: $layout1 !important;
 }
 
 .game_card{
-  background-color:$layout5;
+  background-color:var(--layout5);
   font-size: small;
   float: left;
   display: block;
@@ -629,7 +641,7 @@ border-color: $layout1 !important;
  width: 100%;
  opacity: 0;
  transition: .5s ease;
- background-color: $layout5;}
+ background-color: var(--layout5);}
 
 .text_button{ 
   position: absolute;
@@ -643,10 +655,10 @@ border-color: $layout1 !important;
  transition: .5s ease;
  margin-Left:10%;
  padding-top: 2%;
- background-color: $layout4;}
+ background-color: var(--layout4);}
  
  .ant-switch{
-   background-color: $layout6;
+   background-color: var(--layout6);
  }
  .ant-switch-checked{
   background-color: $primary;
@@ -656,36 +668,36 @@ border-color: $layout1 !important;
 .play_card{
   margin-left: 2%;
   margin-top: 2% ;
-  border:$layout6 !important;
+  border:var(--layout6) !important;
   
  
  }
 
  .span  :hover{
-   fill: $layout9 !important;
-   stroke: $layout9 !important ;
+   fill: var(--layout9)  !important;
+   stroke: var(--layout9)  !important ;
  }
    :hover{
-   fill: $layout9 !important ;
-   stroke: $layout9 !important;
+   fill: var(--layout9)  !important ;
+   stroke: var(--layout9)  !important;
  }
  
  a:hover{
    opacity: 0.8 !important;
-   color: $maintext !important;
+   color: var(--maintext) !important;
  }
  a{
-   color: $maintext !important;
+   color: var(--maintext) !important;
  }
  .ant-card-body{
    height: 0 ;
-   background-color:$layout5 !important;
-   color: $maintext !important;
+   background-color:var(--layout5) !important;
+   color: var(--maintext) !important;
 
 }
 
  .ant-card{
-  background-color:$layout5 !important;
+  background-color:var(--layout5) !important;
     border:0;
     display: inline;
     float: left;
@@ -694,55 +706,55 @@ border-color: $layout1 !important;
  }
  
  p{
-   color: $secondtext !important;
+   color: var(--secondtext) !important;
  }
 .ant-select-multiple .ant-select-selection-item {
     border-radius: 25px !important;}
     .ant-card{
-      background-color:$layout5 !important;
+      background-color:var(--layout5) !important;
     border:0;
      }
      .ant-card-head{
       border-bottom: 0;
       border:0;
-      color:$maintext;
+      color:var(--maintext);
     }
     .ant-card-head-title
 {
-  background-color: $layout6;
+  background-color: var(--layout6);
 
-      background-color: $layout5;
+      background-color: var(--layout5);
 
 }
  .ant-modal-title{
    text-align: center;
-   color: $maintext !important;
+   color: var(--maintext) !important;
    font-size: 21px !important;
    font-family: "Times New Roman", Times, serif !important;
  }
  .ant-modal-content {
-   background-color: $layout5 !important;
-   border-bottom: 1px solid $layout7 !important;
+   background-color: var(--layout5) !important;
+   border-bottom: 1px solid var(--layout7) !important;
 
  }
  .ant-modal-body {
-  background-color: $layout5 !important;
-  border-bottom: 1px solid $layout7 !important;
+  background-color: var(--layout5) !important;
+  border-bottom: 1px solid var(--layout7) !important;
 
 }
  .ant-modal-header {
-  background-color: $layout5 !important;
-  border-bottom: 1px solid $layout7 !important;
+  background-color: var(--layout5) !important;
+  border-bottom: 1px solid var(--layout7) !important;
 }
 .ant-modal-footer{
-  border-top: 1px solid $layout7 !important;
+  border-top: 1px solid var(--layout7) !important;
 }
 .avatarstyle{
-  color: $layout1;
+  color: var(--layout1);
   background-color: $primary;
 }
 .memberprofile{
-  color: $maintext;
+  color: var(--maintext);
   text-align: center; 
 
   background-color: rgb(38, 156, 21);
@@ -766,7 +778,7 @@ background-color: $primary;
   max-height: 20%;
   width: 100%;
   height: 100px;
-  background-color: $layout8;
+  background-color: var(--layout8);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -785,26 +797,42 @@ background-color: $primary;
   display: flex;
 }
 .hoversingleevent :hover{
-  background-color: $layout7;
+  background-color: var(--layout7);
   border-radius: 20px;
 }
-+.ant-table-thead > tr > th{
-  color: $primary;
+.ant-modal-footer{
+  border-top: 1px solid var(--layout7);
+
+}
+.ant-table-thead > tr > th{
+  color:var(--maintext);
   font-size: 19px;
-  background-color: $layout5;
-  border-bottom: 1px solid $layout6;
+  background-color: var(--layout5);
+  border-bottom: 1px solid var(--layout6);
 
 }
 .ant-table-tbody > tr > td {
-  border-bottom: 1px solid $layout6;
+  border-bottom: 1px solid var(--layout6);
 }
 .ant-table-tbody > tr.ant-table-row:hover > td{
-  background-color: $layout5;
+  background-color: var(--layout5);
 }
 .ant-table{
-  background-color: $layout4;
-  color: $secondtext;
+  background-color: var(--layout4);
+  color: var(--secondtext);
 }
 .ant-radio-wrapper{
-  color: $secondtext;
+  color: var(--secondtext);
+}
+.ant-radio-wrapper{
+  color: var(--secondtext);
+}
+.ant-select-arrow {
+ 
+  top: 85% !important;
+}
+.homestyle{
+background-color: var(--layout4) !important;
+transition: all 0.4s ease-in;
+
 }
