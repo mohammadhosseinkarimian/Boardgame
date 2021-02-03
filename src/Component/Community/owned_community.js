@@ -72,8 +72,8 @@ class OwnedCommunity extends React.Component {
       
     };
     onClickedit = (id) => {
-      localStorage.setItem("communityid",id)
-      console.log(localStorage.getItem("communityid")+"=="+ id);
+      localStorage.setItem("com_id",id)
+      console.log(localStorage.getItem("com_id")+"=="+ id);
       window.location.href = "/editCommunity/:" + id;
     };
   getInfo=(e)=>
@@ -101,7 +101,7 @@ class OwnedCommunity extends React.Component {
     return (
       <div className="mycafe_container">
       { this.state.mycommunity.map(item =>(
-        //localStorage.setItem("communityid",item.id),
+        //localStorage.setItem("com_id",item.id),
        // console.log(localStorage.getItem('cafeid')),
       this.state.img=(item.image.base64),
       <Card className="mycafe_card"

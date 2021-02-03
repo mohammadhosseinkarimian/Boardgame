@@ -152,6 +152,44 @@ headers: {
       }).catch()
 
   }
+  setV() {
+   if( document.documentElement.style.getPropertyValue('--background')==='#212121'){
+    document.documentElement.style.setProperty('--background','#f9f9f9');
+    document.documentElement.style.setProperty('--layout1','#ececec');
+    document.documentElement.style.setProperty('--layout2','#d8d8d8');
+    document.documentElement.style.setProperty('--layout4','#c5c5c5');
+    document.documentElement.style.setProperty('--layout5','#b1b1b1');
+    document.documentElement.style.setProperty('--layout3','#9e9e9e');
+    document.documentElement.style.setProperty('--layout6','#8e8e8e');
+    document.documentElement.style.setProperty('--layout7','#7e7e7e');
+    document.documentElement.style.setProperty('--layout8','#6f6f6f');
+    document.documentElement.style.setProperty('--layout9','#5f5f5f');
+    document.documentElement.style.setProperty('--maintext','black');
+    document.documentElement.style.setProperty('--secondtext','#212121');
+    document.documentElement.style.setProperty('--bar','black');
+    document.documentElement.style.setProperty('--barOnhover','#212121');
+
+  }
+   else{
+    document.documentElement.style.setProperty('--background','#212121');
+    document.documentElement.style.setProperty('--layout1','#282828');
+    document.documentElement.style.setProperty('--layout2','#303030');
+    document.documentElement.style.setProperty('--layout4','#333');
+    document.documentElement.style.setProperty('--layout5','#414141');
+    document.documentElement.style.setProperty('--layout3','#505050');
+    document.documentElement.style.setProperty('--layout6','#575757');
+    document.documentElement.style.setProperty('--layout7','#676767');
+    document.documentElement.style.setProperty('--layout8','#818181');
+    document.documentElement.style.setProperty('--layout9','#949494');
+    document.documentElement.style.setProperty('--maintext','rgb(255, 255, 255)');
+    document.documentElement.style.setProperty('--secondtext','rgb(218, 212, 212)');
+    document.documentElement.style.setProperty('--bar','white');
+    document.documentElement.style.setProperty('--barOnhover','silver');
+
+   }
+    
+
+  };
   exit = () => {
     this.setState({ accessed: 'false' });
     
@@ -252,7 +290,7 @@ dataSource={this.state.memberList}
 renderItem={item => (
   
   this.state.memberList.forEach(item => a=(item.image.base64)),
-  <Menu.Item className="subed" key={item.name+item.id}>
+  <Menu.Item className="subed" hidden={item.owner===localStorage.getItem('user')} key={item.name+item.id}>
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
@@ -272,11 +310,11 @@ renderItem={item => (
           style={{height: '36vh'}}
           onCancel={this.handleCancel}
           footer={[
-            <Button className="btn btn-primary" key="back" onClick={this.handleCancel}>
+            <Button className="btn btn-primary, cancelbutton" key="close" onClick={this.handleCancel}>
               Return
             </Button>,
-            <Button key="submit" type="btn btn-primary" onClick={this.handleOk}>
-          <NavLink to={'../community/:'+localStorage.getItem('searchCom')}>Ok</NavLink>
+            <Button key="ok" className="btn btn-primary" onClick={this.handleOk}>
+          <NavLink to={'../community/:'+localStorage.getItem('searchCom')}>Select</NavLink>
 
           </Button>
           ]}
@@ -308,6 +346,11 @@ renderItem={item => (
                   </SubMenu>
                   <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
                     <NavLink to='/'>Exit</NavLink>
+                  </Menu.Item>
+                  <Menu.Item>
+                  <Button className="btn btn-primary" onClick={this.setV}>
+              Return
+            </Button>
                   </Menu.Item>
           </Menu>
         </Sider>
