@@ -147,30 +147,29 @@ class SingleCommunity extends React.Component {
                 <Row >
                     <Col span={18} className='communitystyle' style={{borderRadius: '10px'}}>
                         {this.state.events.map(event=>(
-                            <Row className='hoversingleevent' style={{width: '100%'}} >
+                          
                             <div  style={{width: '100%'}} className='event'>
                                      <Col span={6}>
                                      <div >
-                                        
                                      <img className='event_pic' src={event.gallery.length==0 ? eventpic :event.gallery[0].base64} /> 
                                     </div> 
-                                </Col> 
-                                 
-
-                                <Col span={6} >
-                                    <div >
+                                    </Col> 
+                            
+                                <Col span={14} >
+                                    <div style={{marginLeft:'20%'}} >
                                     <h5 ><MdPlace /> {event.place ===''?'-':event.place}</h5>
-                                    </div>
-                                </Col>
-                                <Col span={12} >
-                                    <div >
                                     <h6 ><SiGooglecalendar /> {event.date}</h6>
                                     <h6 ><FaClock /> {event.time}</h6>
                                     <h6 ><RiGroupFill /> players: {event.maxMember}</h6>
                                     </div>
                                 </Col>
+                                <Col span={4} >
+                                    <link>view</link>
+                                </Col>
+
                             </div>
-                        </Row>
+                        
+                      
                         
 
                         ))

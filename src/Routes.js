@@ -111,7 +111,7 @@ headers: {
   proxyurl= "http://localhost:8010/proxy";
 
   componentDidMount() {
-    localStorage.setItem('url','http://gameboard.pythonanywhere.com');
+    localStorage.setItem('url',"http://localhost:8010/proxy");
     const proxy=localStorage.getItem('url');
     Axios.post(proxy+'/auth/token/refresh/', JSON.stringify(this.data),
       {
