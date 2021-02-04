@@ -281,6 +281,8 @@ transition: all 0.4s ease-in;
       z-index: 99;
       color: var(--maintext) !important  ;
     background-color: var(--layout2) !important;
+    transition: all 0.4s ease-in;
+
   }
   .site-layout-background {
     width: 100%;  
@@ -835,4 +837,42 @@ background-color: $primary;
 background-color: var(--layout4) !important;
 transition: all 0.4s ease-in;
 
+}
+.siderstyle{
+  background-Color: var(--layout1);
+  transition: all 0.2s ease-in;
+
+}
+.iconstyle{
+  fill: var(--maintext);
+  transition: all 0.2s ease-in;
+
+}
+.ant-menu.ant-menu-dark{
+  color: var(--maintext) !important;
+  transition: all 0.2s ease-in;
+}
+.ant-menu-dark .ant-menu-submenu-open {
+  color: var(--maintext) !important;
+  transition: all 0.2s ease-in;
+}
+.ant-menu-dark.ant-menu-inline ,.ant-menu-submenu-title:hover{
+  color: var(--maintext) !important;
+  transition: all 0.2s ease-in;
+}
+.txtstyle{
+  color: var(--maintext);
+  transition: all 0.2s ease-in;
+
+}
+.ant-switch-inner{
+  color: var(--maintext) !important;
+  background-color: var(--layout5) !important;
+  transition: all 0.2s ease-in;
+
+}
+.ant-switch{
+  color: var(--maintext) !important;
+  background-color: var(--layout5) !important;
+  transition: all 0.2s ease-in;
 }
