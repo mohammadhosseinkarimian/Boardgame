@@ -37,7 +37,7 @@ import OwnedCafe from './Component/OwnedCafes/OwnedCafes'
 import OwnedCafe_edit from './Component/OwnedCafes/Ownedcafe_edit'
 import CafeSearchShow from './Component/SearchCafe/SearchCafe'
 import SingleCommunity from './Component/SingleCommunity/SingleCommunity';
-import { Layout, Menu, Breadcrumb, Avatar, Button ,List,Modal} from "antd";
+import { Layout, Menu, Breadcrumb, Avatar, Button ,List,Modal,Switch } from "antd";
 import './Component/BoardGame/allStyle.css';
 import noBg from './Component/Community/images.png';
 import CommunitySearch from './Component/Community/communitySearch';
@@ -62,9 +62,9 @@ class Routes extends React.Component {
   };
 
   handleOk = () => {
-    setTimeout(() => {
+    
       this.setState({ visible: false });
-    }, 100);
+      window.location.href=window.location.origin + "/community/:"+localStorage.getItem('searchCom')    
   };
 
   handleCancel = () => {
@@ -108,7 +108,7 @@ headers: {
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= "http://gameboard.pythonanywhere.com";
 
   componentDidMount() {
     localStorage.setItem('url',"http://localhost:8010/proxy");
@@ -152,6 +152,44 @@ headers: {
       }).catch()
 
   }
+  setV() {
+   if( document.documentElement.style.getPropertyValue('--background')==='#212121'){
+    document.documentElement.style.setProperty('--background','#f9f9f9');
+    document.documentElement.style.setProperty('--layout1','#ececec');
+    document.documentElement.style.setProperty('--layout2','#d8d8d8');
+    document.documentElement.style.setProperty('--layout4','#c5c5c5');
+    document.documentElement.style.setProperty('--layout5','#b1b1b1');
+    document.documentElement.style.setProperty('--layout3','#9e9e9e');
+    document.documentElement.style.setProperty('--layout6','#8e8e8e');
+    document.documentElement.style.setProperty('--layout7','#7e7e7e');
+    document.documentElement.style.setProperty('--layout8','#6f6f6f');
+    document.documentElement.style.setProperty('--layout9','#5f5f5f');
+    document.documentElement.style.setProperty('--maintext','black');
+    document.documentElement.style.setProperty('--secondtext','#212121');
+    document.documentElement.style.setProperty('--bar','black');
+    document.documentElement.style.setProperty('--barOnhover','#212121');
+
+  }
+   else{
+    document.documentElement.style.setProperty('--background','#212121');
+    document.documentElement.style.setProperty('--layout1','#282828');
+    document.documentElement.style.setProperty('--layout2','#303030');
+    document.documentElement.style.setProperty('--layout4','#333');
+    document.documentElement.style.setProperty('--layout5','#414141');
+    document.documentElement.style.setProperty('--layout3','#505050');
+    document.documentElement.style.setProperty('--layout6','#575757');
+    document.documentElement.style.setProperty('--layout7','#676767');
+    document.documentElement.style.setProperty('--layout8','#818181');
+    document.documentElement.style.setProperty('--layout9','#949494');
+    document.documentElement.style.setProperty('--maintext','rgb(255, 255, 255)');
+    document.documentElement.style.setProperty('--secondtext','rgb(218, 212, 212)');
+    document.documentElement.style.setProperty('--bar','white');
+    document.documentElement.style.setProperty('--barOnhover','silver');
+
+   }
+    
+
+  };
   exit = () => {
     this.setState({ accessed: 'false' });
     
@@ -196,10 +234,11 @@ headers: {
         >
           <Sider
             collapsible
+            className="siderstyle"
 
             collapsed={collapsed}
             onCollapse={this.onCollapse}
-            style={{ backgroundColor: "#282828", display: this.state.disp }}
+            style={{  display: this.state.disp }}
 
           >
             <Menu
@@ -208,26 +247,30 @@ headers: {
               mode="inline"
               style={{ position: "sticky", marginTop: '67px' }}>
 
+            <Menu.Item key="switch" >
+            <Switch checkedChildren="dark" unCheckedChildren="light" onClick={this.setV}/>
 
-              <Menu.Item key="3" icon={<FaHome style={{ verticalAlign: 'middle', marginTop: '-4px' }} />}>
+              </Menu.Item>
+
+              <Menu.Item key="3" icon={<FaHome style={{ verticalAlign: 'middle', marginTop: '-4px' }} className="iconstyle" />}>
                 <NavLink to="/homePage/:id">{' ' + 'Home'}</NavLink>
 
               </Menu.Item>
-              <Menu.Item className="m-item" key="0" icon={<EditOutlined style={{ verticalAlign: 'middle', marginTop: '-4px' }} />}
+              <Menu.Item className="m-item" key="0" icon={<EditOutlined style={{ verticalAlign: 'middle', marginTop: '-4px' }}  className="iconstyle" />}
                 style={{ height: "6%", marginTop: "4%", marginBottom: "5%" }}>
 
-                <NavLink to={"/editProfile/:" + localStorage.getItem('id')}> {this.state.username + '(tap to edit)'}</NavLink>
+                <NavLink to={"/editProfile/:" + localStorage.getItem('id')}>{this.state.username + '(tap to edit)'}</NavLink>
               </Menu.Item >
-                <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix style={{ verticalAlign: 'middle', marginTop: '-4px' }}/>} title={' '+"Play"}>
-                  <Menu.Item className="m-item" key="2" icon={<AiOutlinePlusCircle style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
+                <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix style={{ verticalAlign: 'middle', marginTop: '-4px' }} className="iconstyle" />} title={' '+"Play"}>
+                  <Menu.Item className="m-item" key="2" icon={<AiOutlinePlusCircle style={{ verticalAlign: 'middle', marginTop: '-5px' }}  className="iconstyle" />}>
                     <NavLink to='/addplay/'> Create play</NavLink>
                     </Menu.Item>
-                    <Menu.Item className="m-item" key="1" icon={<PlayCircleOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
+                    <Menu.Item className="m-item" key="1" icon={<PlayCircleOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} className="iconstyle"  />}>
                       <NavLink to='/showplay/'>Show play</NavLink>
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu title= " My communities" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} />}>
-                {     <List
+                <SubMenu title= " My communities" icon ={<FaUsers style={{ verticalAlign: 'middle', marginTop: '-4px',paddingRight: '3%',fontSize: '19px' }} className="iconstyle"  />}>
+                { this.state.ownerList.length===0?'':    <List
 size="large"
 itemLayout="horizontal"
 dataSource={this.state.ownerList}
@@ -238,25 +281,25 @@ renderItem={item => (
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
-      description={<Link onClick={()=>{this.onclickcommunity(item.id)}}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaCrown style={{color: 'gold',marginTop: '-3%'}}/> {item.name}</p></Link>}
+      description={<Link onClick={()=>{this.onclickcommunity(item.id)}}><p style={{fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}className="txtstyle" ><FaCrown style={{color: 'gold',marginTop: '-3%'}}/> {item.name}</p></Link>}
     
     
 />  
   </List.Item></Menu.Item>
 )}
 /> }
-{     <List
+{ this.state.memberList.length===0?'':    <List
 size="large"
 itemLayout="horizontal"
 dataSource={this.state.memberList}
 renderItem={item => (
   
   this.state.memberList.forEach(item => a=(item.image.base64)),
-  <Menu.Item className="subed" key={item.name+item.id}>
+  <Menu.Item className="subed" hidden={item.owner===localStorage.getItem('user')} key={item.name+item.id}>
   <List.Item style={{borderColor: 'transparent'}}>
     <List.Item.Meta  style={{borderColor: 'transparent'}}
       avatar={item.image.base64===''?<img src={noBg} style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>:<img src={item.image.base64}style={{width: "40px",height: "40px",borderRadius: '10px'}} className="cafe_img"/>}
-      description={<Link onClick={()=>{this.onclickcommunity(item.id)}}><p style={{color: 'whitesmoke',fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/> {item.name}</p></Link>}
+      description={<Link onClick={()=>{this.onclickcommunity(item.id)}}><p style={{fontSize: '16px',marginLeft: '1%',marginTop: '4%'}}className="txtstyle"  ><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/> {item.name}</p></Link>}
     
 />  
   </List.Item></Menu.Item>
@@ -272,9 +315,13 @@ renderItem={item => (
           style={{height: '36vh'}}
           onCancel={this.handleCancel}
           footer={[
-            <Button className="btn btn-primary" key="back" onClick={this.handleCancel}>
+            <Button className="btn btn-primary, cancelbutton" key="close" onClick={this.handleCancel}>
               Return
-            </Button>
+            </Button>,
+            <Button key="ok" className="btn btn-primary" onClick={this.handleOk}>
+          <NavLink to={'../community/:'+localStorage.getItem('searchCom')}>Select</NavLink>
+
+          </Button>
           ]}
         >
           <div style={{alignContent: 'center' ,marginLeft: 'auto',marginRight: 'auto',alignItems: 'center',textAlign: 'center'}}>
@@ -285,26 +332,27 @@ renderItem={item => (
 
                  
                 </SubMenu>
-                  <SubMenu title="Cafes" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
+                  <SubMenu title="Cafes" icon={<CoffeeOutlined style={{ verticalAlign: 'middle', marginTop: '-6px' }}className="iconstyle"  />}>
                     <Menu.Item className="m-item" key="14" >
-                      <NavLink to='/cafeform'>Create Cafe</NavLink>
+                      <NavLink to='/cafeform' className="txtstyle">Create Cafe</NavLink>
                     </Menu.Item>
                   
                     <Menu.Item className="m-item" key="13" >
-                      <NavLink to='/ownedcafe'>Owned Cafe</NavLink>
+                      <NavLink to='/ownedcafe' className="txtstyle">Owned Cafe</NavLink>
                     </Menu.Item>
                   </SubMenu>
-                  <SubMenu title="Community" icon={<TeamOutlined  style={{ verticalAlign: 'middle', marginTop: '-6px' }}/>}>
+                  <SubMenu title="Community" icon={<TeamOutlined  style={{ verticalAlign: 'middle', marginTop: '-6px' }}className="iconstyle"  />}>
                     <Menu.Item className="m-item" key="15" >
-                      <NavLink to='/createCommunity'>Create Community</NavLink>
+                      <NavLink to='/createCommunity' className="txtstyle" >Create Community</NavLink>
                     </Menu.Item>
                     <Menu.Item className="m-item" key="17" >
-                      <NavLink to='/ownedCommunity'>Owned Community</NavLink>
+                      <NavLink to='/ownedCommunity' className="txtstyle"  >Owned Community</NavLink>
                     </Menu.Item>
                   </SubMenu>
-                  <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} />}>
-                    <NavLink to='/'>Exit</NavLink>
+                  <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} className="iconstyle" />}>
+                    <NavLink to='/' className="txtstyle" >Exit</NavLink>
                   </Menu.Item>
+      
           </Menu>
         </Sider>
 

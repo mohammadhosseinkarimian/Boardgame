@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, {Component } from 'react';
 import 'antd/dist/antd.css';
 import axios from 'axios';
 import { Select } from 'antd';
+import { Redirect,Link,withRouter } from 'react-router-dom';
 
 
 const { Option } = Select;
 const proxyurl = localStorage.getItem('url');
-class CommunitySearch extends React.Component {
+class CommunitySearch extends Component {
     state = {
         suggestlist: [],
         selected_com: "1",
     };
 
     onSelect = (value) => {
-
-        this.setState({ selected_com: value }, () => {
-            console.log(this.state.selected_com, 'dealersOverallTotal1')
-        })
+        localStorage.setItem('searchCom',value);
+        this.setState({ selected_com: value });
 
 
     }

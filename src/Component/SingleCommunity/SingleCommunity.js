@@ -5,7 +5,7 @@ import '../../Style/design.scss';
 import 'antd/dist/antd.css';
 import {SiGooglecalendar} from "react-icons/si"
 import {MdPlace} from "react-icons/md"
-import {FaClock} from "react-icons/fa"
+import {FaClock,FaCrown,FaUserAlt} from "react-icons/fa"
 import {RiGroupFill}  from "react-icons/ri"
 import eventpic from '../SingleCommunity/event.jpg'
 import {
@@ -98,7 +98,6 @@ class SingleCommunity extends React.Component {
                     window.location.reload()
                 }
             ).catch(()=>{
-                alert(localStorage.getItem('com_id'))
             })
         
       
@@ -128,15 +127,18 @@ class SingleCommunity extends React.Component {
                     </Col>
                     <Col span={5}>
                     <span hidden={!this.state.members_username.includes(localStorage.getItem('user'))}  >
-                    <Button onClick={this.onClickLeave} type="primary"  style={{marginLeft: '10%'}}>
+                    <Button onClick={this.onClickLeave} className="btn btn-primary" hidden={this.state.owner.username===localStorage.getItem('user')} style={{marginLeft: '10%'}}>
                     Leave 
                     </Button>
-                    <Button onClick={this.onClickaddEvent} type="primary"  style={{marginLeft: '10%'}}>
+                    <Button  className="btn btn-primary" hidden={this.state.owner.username!==localStorage.getItem('user')} style={{marginLeft: '10%'}}>
+                    <Link to={"/editCommunity/:"+localStorage.getItem('com_id')}>Edit</Link>  
+                    </Button>
+                    <Button onClick={this.onClickaddEvent} className="btn btn-primary"  style={{marginLeft: '10%'}}>
                     Add Event
                     </Button>
                     </span>
                     <span hidden={this.state.members_username.includes(localStorage.getItem('user'))}  >
-                    <Button onClick={this.onClickJoin} type="primary"  style={{marginLeft: '10%'}}>
+                    <Button onClick={this.onClickJoin} className="btn btn-primary"  style={{marginLeft: '10%'}}>
                     Join 
                     </Button>
                     </span>
@@ -145,7 +147,7 @@ class SingleCommunity extends React.Component {
 
 
                 <Row >
-                    <Col span={18} className='communitystyle' style={{borderRadius: '10px'}}>
+                    <Col span={18} className='communitystyle' style={{borderRadius: '10px',display: 'flex'}}>
                         {this.state.events.map(event=>(
                           
                             <div  style={{width: '100%'}} className='event'>
@@ -176,16 +178,29 @@ class SingleCommunity extends React.Component {
                         }
                             
                     </Col>
-                    <Col span={4} className='communitystyle' style={{ marginLeft: "2%",borderRadius: '10px' }}>
+                    <Col span={4} className='communitystyle' style={{ marginLeft: "2%",borderRadius: '10px',overflow: 'hidden'  }}>
+                        <List  
+                        dataSource={this.state.members}
+                        renderItem={item => (
+
+                            <List.Item hidden={item.username!==this.state.owner.username}>
+                                <List.Item.Meta 
+                                    avatar={<Avatar size='large' className='avatarstyle' style={{width: '4vw',height: '4vw',backgroundColor: "lime",lineHeight: '4vw' ,display: 'flex',alignItems: 'center'}} src={item.avatar} >{item.username[0]}</Avatar>}
+                                    title={<h5 style={{marginTop: '16%',fontSize: '19px'}}><FaCrown style={{color: 'gold',marginTop: '-3%'}}/>  {item.username}</h5>}
+                                />
+                            </List.Item>
+                        )}
+                        />
                         <List
+                            
                             itemLayout="horizontal"
                             dataSource={this.state.members}
                             renderItem={item => (
 
-                                <List.Item >
+                                <List.Item hidden={item.username===this.state.owner.username}>
                                     <List.Item.Meta 
-                                        avatar={<Avatar size='large' className='memberprofile' style={{width: '4vw',height: '4vw',lineHeight: '4vw' ,display: 'flex',alignItems: 'center'}} src={item.avatar} >{item.username[0]}</Avatar>}
-                                        title={<h5 style={{marginTop: '16%',fontSize: '19px'}}>{item.username}</h5>}
+                                        avatar={<Avatar size='large' className='avatarstyle' style={{width: '4vw',height: '4vw',backgroundColor: "lime",lineHeight: '4vw' ,display: 'flex',alignItems: 'center'}} src={item.avatar} >{item.username[0]}</Avatar>}
+                                        title={<h5 style={{marginTop: '16%',fontSize: '19px'}}><FaUserAlt style={{fontSize: '14px',color: 'cyan',marginTop: '-5%'}}/>  {item.username}</h5>}
                                     />
                                 </List.Item>
                             )}

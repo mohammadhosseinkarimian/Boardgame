@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import StarRatings from 'react-star-ratings';
 import { GiTwoCoins,GiLevelFourAdvanced,GiLevelThreeAdvanced,GiLevelTwoAdvanced} from "react-icons/gi";
-import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye } from "react-icons/fa";
+import {  FaMapMarkerAlt,FaClock,FaPenNib,FaPhone,FaQuoteRight,FaEye, FaLock } from "react-icons/fa";
 import {  FiMoreVertical} from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 import 'antd/dist/antd.css';
@@ -63,10 +63,14 @@ let a="";
             
             
     }
+
     seeAll(){
         this.setState({vision:"true"});
 
     }
+   
+  
+    
     caro(){
         const rows = this.state.games.reduce(function (rows, key, index) { 
             return (index % 4 == 0 ? rows.push([key]) 
@@ -99,7 +103,7 @@ let a="";
                     <body style={{backgroundColor: 'transparent',height: '35vh',marginTop: '1%'}}>
                     <Row  justify='start'>
                     <Col span={8}>
-                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                         <Col span={12} >
                                <div className='roundedcircle' style={{marginLeft: '7%'}}>
                                <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image}  className='imageinside' /></Link>
@@ -127,7 +131,7 @@ let a="";
                         </Row>
                         </Col>
                         <Col span={8}>
-                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                         <Col span={12} >
                                <div className='roundedcircle' style={{marginLeft: '7%'}}>
                                <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  className='imageinside' /></Link>
@@ -155,7 +159,7 @@ let a="";
                         </Row>
                         </Col>
                         <Col span={8}>
-                        <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                         <Col span={12} >
                                <div className='roundedcircle' style={{marginLeft: '7%'}}>
                                <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  className='imageinside' /></Link>
@@ -201,7 +205,7 @@ let a="";
                      {arrays.map(cafe => (
                          <Row justify='start' style={{marginTop: '2%'}}>
                              <Col span={8} >
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                              <Col span={12} >
                                <div>
                                <img src={cafe[0].gallery.length===0?Im:cafe[0].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
@@ -225,7 +229,7 @@ let a="";
                         </Row>
                              </Col>
                              <Col span={8} >
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                              <Col span={12} >
                                <div>
                                <img src={cafe[1].gallery.length===0?Im:cafe[1].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
@@ -248,7 +252,7 @@ let a="";
                              
                         </Row>
                              </Col><Col span={8} >
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
                              <Col span={12} >
                                <div>
                                <img src={cafe[2].gallery.length===0?Im:cafe[2].gallery[0].base64} className='imageinside' style={{maxWidth: '90%',width: '90%',height: '20vh',boxShadow: 'none'}} />
@@ -284,7 +288,7 @@ let a="";
                      {coms.map(cafe => (
                          
                              <Col span={8} style={{marginTop: '2%'}}>
-                             <Row style={{borderRadius: '4%',background: '#333',width: '95%',height: '28vh',display: 'flex'}}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex'}}className="homestyle">
                                <Row style={{height: '80%' ,width: '100%'}}>
                                    
                                  <Col span={11}>
@@ -302,9 +306,10 @@ let a="";
           style={{marginTop: '-7%',paddingTop: '0%'}}
         >
           <Avatar src={cafe.members[0].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe.members[0].username[0]}</Avatar>
-          <Avatar src={cafe.members[1].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe.members[1].username[0]}</Avatar>
-            <Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}} hidden={cafe.members.length<3}>+{cafe.members.length-2}</Avatar>
-        </Avatar.Group></div>
+         {cafe.members.length<=1?'':<Avatar src={cafe.members[1].avatar} style={{borderColor: '#414141',backgroundColor: 'rgb(38 156 21)'}}>{cafe.members[1].username[0]}</Avatar>
+            } 
+            {cafe.members.length<=1?'':<Avatar style={{  backgroundColor: '#f56a00' ,borderColor: 'transparent'}} hidden={cafe.members.length<3}>+{cafe.members.length-2}</Avatar>
+    }</Avatar.Group></div>
                                
                                  </div>
                                  </Col>
@@ -312,22 +317,23 @@ let a="";
                         </Row>
                         <Row justify='center' style={{width: '100%'}}>
                         <div style={{overflow: 'hidden',display: 'flex',marginTop: '-2%',
-                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '2%'}}>
-                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}><FaEye style={{fill: 'cyan'}}/>  <Link to={'community/:'+cafe.id}>
+                        marginLeft: '5%',width: '90%',textAlign: 'center',borderTop: '2px dotted gray',paddingTop: '1%',alignContent: 'center',alignItems: 'center'}}>
+                                                       <h5 style={{marginLeft: 'auto',marginRight: 'auto'}}>  
                                {this.state.member_id=[],
                       cafe.members.map(element => this.state.member_id.push(element.username) ),
                       console.log(this.state.member_id)}
-                <span hidden={!cafe.lock ||!this.state.member_id.includes(localStorage.getItem('user'))}  
+               
+                      
+                 {!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))?<h5><Link to={'../community/:'+cafe.id}><span 
                 style={{fontSize:"27px", textAlign:'center'}}>
-                        view
-                      </span>
-                      </Link>
-                 <span hidden={!cafe.lock ||this.state.member_id.includes(localStorage.getItem('user'))}>
+                      <FaEye style={{fill: 'cyan',marginTop: '-3%'}}/> View
+                      </span></Link></h5>:<h5 style={{fontSize: '25px',marginTop: '3%'}}><span 
+                style={{ textAlign:'center'}}> <FaLock style={{fill: 'gold',fontSize: '20px',marginTop: '-5%'}}/> Private
+                </span></h5>
+                      }
                         
-                      </span>
-                      <Link to={'community/:'+cafe.id}>
-                 <span hidden={cafe.lock} style={{fontSize:"27px", textAlign:'center'}}>view</span>
-                 </Link></h5>
+                      
+                     </h5>
 
                          </div>  
                         </Row>
@@ -337,8 +343,13 @@ let a="";
 
                      ))}                             </Row>
                      </div>                < Link to='/community' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
+                    <br/>
+                    <div style={{height: '19vh',paddingBottom: '20%',marginTop: '5%',color: 'green'}}>
+
                     
+                    </div>
                 </div>
+                
 
         );
     }

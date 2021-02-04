@@ -117,8 +117,8 @@ getInfo=(e)=>
     
     if(this.state.done==="")
     {
-let communityid=localStorage.getItem("communityid")    
-    axios.get(this.proxyurl+'/community/edit_community/'+communityid,{headers:{
+let com_id=localStorage.getItem("com_id")    
+    axios.get(this.proxyurl+'/community/edit_community/'+com_id,{headers:{
         'Content-Type' : 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials':true,
 'Accept' : 'application/json',
