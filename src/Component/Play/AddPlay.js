@@ -164,7 +164,7 @@ class AddPlay extends React.Component {
   render() {
 
     return (
-      <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%' }}>
+      <div className="createplay" style={{ width: '70%' }}> 
         <Form   {...layout}>
         <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Create Play</h4>
         <Row style={{marginLeft: '0.5%'}}>

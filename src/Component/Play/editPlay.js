@@ -52,7 +52,8 @@ class EditPlay extends React.Component {
         selected_cafe: "",
         game_name:"",
         Members:[],
-        userr: ''
+        userr: '',
+        requests: 'false'
 
 
     }
@@ -104,6 +105,7 @@ class EditPlay extends React.Component {
                     temp.push(item.username)
                 })
                 this.setState({ deafult_player_username: temp })
+                this.setState({requests: 'true'})
             })
             
             .catch(error => {
@@ -313,8 +315,18 @@ class EditPlay extends React.Component {
 
     render() {
         const mmm=this.state.Members;
+        if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
         return (
-            <div className="Login_container" style={{ backgroundColor: '#333' ,width: '70%'}}>
+            <div className="createplay" style={{ width: '70%'}}>
                 <Form  autoComplete={false} {...layout}>
                     <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Edit Play</h4>
                     

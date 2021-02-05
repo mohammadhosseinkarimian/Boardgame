@@ -70,7 +70,7 @@ class LogPlay extends React.Component {
         Members: [],
         players:[],
         semi_players:[],
-
+        requests: 'false',
         Colors: []
         
     }
@@ -104,6 +104,7 @@ class LogPlay extends React.Component {
 
                 this.setState({Colors: colors})
             });
+            this.setState({requests: 'true'})
         })
             .catch((error) => {
                 message.error('somthing went wrong')
@@ -194,7 +195,19 @@ class LogPlay extends React.Component {
 
     render() {
         
+        if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
+
         return (
+            
             <div style={{ marginTop: '4%' }}>
 
               <div style={{width: '90%',marginLeft: '5%'}}>
@@ -217,8 +230,8 @@ class LogPlay extends React.Component {
                         </Row>
                     )),
                     semiplayers: this.state.semi_players[k],
-                    edit: <FaRegEdit style={{color: 'gold',marginLeft: '15%',marginTop: '-6%',fontSize: '18px'}} onClick={() => this.onClickedit(value.id)} />,
-                    delete: <AiFillDelete style={{color: 'gold',marginLeft: '25%',fontSize: '18px'}} onClick={() => this.onClickdelete(value.id)} />
+                    edit: <FaRegEdit style={{color: 'orange',marginLeft: '15%',marginTop: '-6%',fontSize: '18px'}} onClick={() => this.onClickedit(value.id)} />,
+                    delete: <AiFillDelete style={{color: 'orange',marginLeft: '25%',fontSize: '18px'}} onClick={() => this.onClickdelete(value.id)} />
 
 
 
