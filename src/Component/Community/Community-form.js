@@ -185,6 +185,7 @@ const formItemLayout = {
     render() {
  return (
           <div className="EditProfile_container" style={{with:'36%'}}>
+       <h2  style={{marginLeft:"-0.5%"}}>Create Community</h2>
            
             <Form
               {...formItemLayout}
@@ -298,7 +299,7 @@ const formItemLayout = {
               ></span>
               {this.state.necessary_inputs === "added"
                 ? "ََAdded"
-                : "Create"}
+                : "Add Community"}
             </Button>
             {/* <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "added"

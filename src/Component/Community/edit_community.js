@@ -75,7 +75,7 @@ class Cafeedit extends React.Component {
       requests: 'false',
     done:"",
     edit:"",
-
+    loggedIn:""
 
   };
   onFinish = (values) => {
@@ -192,7 +192,7 @@ onSaveGeneral = (e) => {
   if((this.state.edit==="true"))
   {
       e.preventDefault();
-
+      this.setState({loggedIn:"logging in"})
   const data={
       id:this.state.id,
       name:this.state.name,
@@ -211,10 +211,12 @@ onSaveGeneral = (e) => {
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
   }}
 ).then((res)=>{  
+  message.open({content: 'Changes have been made successfully.',duration: 2,style: {color: 'lime'}});
   this.setState({edit:""});
    this.setState({msg:"done"});
    this.setState({done:""});
    this.getInfo();
+   this.setState({loggedIn:""});
 
 
 } )
@@ -223,14 +225,16 @@ onSaveGeneral = (e) => {
 this.setState({edit:""});
 this.setState({loggedIn:""});
 this.setState({msg:"something went wrong please try again."});
-      } 
+message.open({content: 'something went wrong please try again.',duration:2,style: {color: 'red'}});
+} 
       )
   
   }
 
 
   else
-  {
+  { 
+    message.open({content: "You haven't changed any information.",duration:2,style: {color: 'red'}});
       this.setState({msg:"You haven't changed any information."});
       this.setState({loggedIn:""});
   }
@@ -252,9 +256,9 @@ componentDidMount() {
 <span class="sr-only" >Loading...</span>
 </div>
 </div></div>)}
-        return (   
-            <div className="createplay" style={{with:'36%'}}>
+        return (    <div className="createplay" style={{with:'36%'}}>
        
+       <h2  style={{marginLeft:"-0.5%"}}>Edit Community</h2>
         <Form
           {...formItemLayout}
           // form={this.form}
