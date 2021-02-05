@@ -16,8 +16,9 @@ import editCommunity from './Component/Community/edit_community'
 import Allcommunity from './Component/Allcommunity/allcommunity_list'
 import LogPlay from './Component/Play/ShowPlays'
 import Event from './Component/event-form/event-form'
+import Landing from './Component/Landing-page/landing';
 import SearchCommunity from './Component/Community/communitySearch'
-import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
+import {  FaDoorOpen,FaHome,FaCrown ,FaUserAlt,FaUsers,FaMoon,FaSun } from "react-icons/fa";
 import {  MdAddCircle} from "react-icons/md";
 import {
   DesktopOutlined,
@@ -51,6 +52,7 @@ class Routes extends React.Component {
     collapsed: false,
     img: '',
     disp: 'none',
+    theme: true,
     username: localStorage.getItem('user'),
     memberList: [],
     ownerList: [] 
@@ -108,10 +110,12 @@ headers: {
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   };
-  proxyurl= "http://gameboard.pythonanywhere.com";
+  proxyurl= "http://goardbame.ir:8000";
 
   componentDidMount() {
-    localStorage.setItem('url','http://localhost:8010/proxy');
+    document.title = "goardbame";
+    localStorage.setItem('url','http://goardbame.ir:8000');
+
     const proxy=localStorage.getItem('url');
     Axios.post(proxy+'/auth/token/refresh/', JSON.stringify(this.data),
       {
@@ -152,42 +156,45 @@ headers: {
       }).catch()
 
   }
-  setV() {
-   if( document.documentElement.style.getPropertyValue('--background')==='#212121'){
-    document.documentElement.style.setProperty('--background','#f9f9f9');
-    document.documentElement.style.setProperty('--layout1','#ececec');
-    document.documentElement.style.setProperty('--layout2','#d8d8d8');
-    document.documentElement.style.setProperty('--layout4','#c5c5c5');
-    document.documentElement.style.setProperty('--layout5','#b1b1b1');
-    document.documentElement.style.setProperty('--layout3','#9e9e9e');
-    document.documentElement.style.setProperty('--layout6','#8e8e8e');
-    document.documentElement.style.setProperty('--layout7','#7e7e7e');
-    document.documentElement.style.setProperty('--layout8','#6f6f6f');
-    document.documentElement.style.setProperty('--layout9','#5f5f5f');
-    document.documentElement.style.setProperty('--maintext','black');
-    document.documentElement.style.setProperty('--secondtext','#212121');
-    document.documentElement.style.setProperty('--bar','black');
-    document.documentElement.style.setProperty('--barOnhover','#212121');
+  setDark = () =>{
+    if(this.state.theme)
+    {
+      document.documentElement.style.setProperty('--background','#f9f9f9');
+      document.documentElement.style.setProperty('--layout1','#ececec');
+      document.documentElement.style.setProperty('--layout2','#d8d8d8');
+      document.documentElement.style.setProperty('--layout4','#c5c5c5');
+      document.documentElement.style.setProperty('--layout5','#b1b1b1');
+      document.documentElement.style.setProperty('--layout3','#9e9e9e');
+      document.documentElement.style.setProperty('--layout6','#8e8e8e');
+      document.documentElement.style.setProperty('--layout7','#7e7e7e');
+      document.documentElement.style.setProperty('--layout8','#6f6f6f');
+      document.documentElement.style.setProperty('--layout9','#5f5f5f');
+      document.documentElement.style.setProperty('--maintext','black');
+      document.documentElement.style.setProperty('--secondtext','#212121');
+      document.documentElement.style.setProperty('--bar','black');
+      document.documentElement.style.setProperty('--barOnhover','#212121');
+      this.setState({theme: false})
 
-  }
-   else{
-    document.documentElement.style.setProperty('--background','#212121');
-    document.documentElement.style.setProperty('--layout1','#282828');
-    document.documentElement.style.setProperty('--layout2','#303030');
-    document.documentElement.style.setProperty('--layout4','#333');
-    document.documentElement.style.setProperty('--layout5','#414141');
-    document.documentElement.style.setProperty('--layout3','#505050');
-    document.documentElement.style.setProperty('--layout6','#575757');
-    document.documentElement.style.setProperty('--layout7','#676767');
-    document.documentElement.style.setProperty('--layout8','#818181');
-    document.documentElement.style.setProperty('--layout9','#949494');
-    document.documentElement.style.setProperty('--maintext','rgb(255, 255, 255)');
-    document.documentElement.style.setProperty('--secondtext','rgb(218, 212, 212)');
-    document.documentElement.style.setProperty('--bar','white');
-    document.documentElement.style.setProperty('--barOnhover','silver');
-
-   }
-    
+    }
+   
+    else{
+        
+      document.documentElement.style.setProperty('--background','#212121');
+      document.documentElement.style.setProperty('--layout1','#282828');
+      document.documentElement.style.setProperty('--layout2','#303030');
+      document.documentElement.style.setProperty('--layout4','#333');
+      document.documentElement.style.setProperty('--layout5','#414141');
+      document.documentElement.style.setProperty('--layout3','#505050');
+      document.documentElement.style.setProperty('--layout6','#575757');
+      document.documentElement.style.setProperty('--layout7','#676767');
+      document.documentElement.style.setProperty('--layout8','#818181');
+      document.documentElement.style.setProperty('--layout9','#949494');
+      document.documentElement.style.setProperty('--maintext','rgb(255, 255, 255)');
+      document.documentElement.style.setProperty('--secondtext','rgb(218, 212, 212)');
+      document.documentElement.style.setProperty('--bar','white');
+      document.documentElement.style.setProperty('--barOnhover','silver');
+      this.setState({theme: true})
+    }
 
   };
   exit = () => {
@@ -215,6 +222,7 @@ headers: {
     }
     return (
       <Layout style={{ minHeight: "100vh", backgroundColor: "#282828" }}>
+        
         <Header
           id="head"
           className="ant-layout-header"
@@ -247,8 +255,9 @@ headers: {
               mode="inline"
               style={{ position: "sticky", marginTop: '67px' }}>
 
-            <Menu.Item key="switch" >
-            <Switch checkedChildren="dark" unCheckedChildren="light" onClick={this.setV}/>
+            <Menu.Item key="switch" icon={this.state.theme?<FaMoon style={{ verticalAlign: 'middle', marginTop: '0.7%' }} className="iconstyle" />
+            :<FaSun style={{ verticalAlign: 'middle', marginTop: '1%' }} className="iconstyle" />}>
+            <Switch checkedChildren='Dark' unCheckedChildren='Light' defaultChecked={true} onClick={this.setDark} style={{width: '40%'}}/>
 
               </Menu.Item>
 
@@ -349,8 +358,8 @@ renderItem={item => (
                       <NavLink to='/ownedCommunity' className="txtstyle"  >Owned Community</NavLink>
                     </Menu.Item>
                   </SubMenu>
-                  <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FileOutlined style={{ verticalAlign: 'middle', marginTop: '-5px' }} className="iconstyle" />}>
-                    <NavLink to='/' className="txtstyle" >Exit</NavLink>
+                  <Menu.Item className="m-item" key="9" onClick={this.exit} icon={<FaDoorOpen style={{ verticalAlign: 'middle', marginTop: '-2%' }} className="iconstyle" />}>
+                    <NavLink to='/' className="txtstyle" > Exit</NavLink>
                   </Menu.Item>
       
           </Menu>
