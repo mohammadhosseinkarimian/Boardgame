@@ -177,7 +177,7 @@ transition: all 0.4s ease-in;
 .carousel.carousel-slider .control-arrow {
   background: transparent !important;
   padding: 0.5% !important;
-  top: 71% !important;
+  top: 74% !important;
   font-size: 24px !important;
 }
 
@@ -260,6 +260,7 @@ transition: all 0.4s ease-in;
   .ant-layout-sider .ant-layout-sider-trigger {
     appearance: 1s;
     background: var(--layout1);  color:var(--maintext);
+    visibility: hidden;
   }
   
   /*****************/
