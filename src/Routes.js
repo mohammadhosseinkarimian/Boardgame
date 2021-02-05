@@ -16,6 +16,7 @@ import editCommunity from './Component/Community/edit_community'
 import Allcommunity from './Component/Allcommunity/allcommunity_list'
 import LogPlay from './Component/Play/ShowPlays'
 import Event from './Component/event-form/event-form'
+import SingleEvent from './Component/SingleEvent/SingleEvent'
 import SearchCommunity from './Component/Community/communitySearch'
 import {  FaHome,FaCrown ,FaUserAlt,FaUsers } from "react-icons/fa";
 import {  MdAddCircle} from "react-icons/md";
@@ -386,7 +387,7 @@ renderItem={item => (
                     <Route exact path="/event/" component={Event} />
                     <Route exact path="/community" component={Allcommunity} />
                     <Route exact path="/Search_Com" component={CommunitySearch} />
-
+                    <Route exact path="/event/:id" component={SingleEvent} />
                     <Route exact path="/showplay/" component={LogPlay} />
                     <Route exact path="/editplay/:id" component={EditPlay} />
 

@@ -109,7 +109,7 @@ class Event extends React.Component {
   };
   
   timeChange = (e) => {
-    if (e !== null) this.setState({ Open_time: e.format("LT") });
+    if (e !== null) this.setState({ time: e.format("LT") });
   };
  
   proxyurl= localStorage.getItem('url');

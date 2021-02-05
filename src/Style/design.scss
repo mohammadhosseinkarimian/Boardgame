@@ -593,11 +593,12 @@ border-color: var(--layout1) !important;
   line-height: 1 !important;
 }
 .banner{
-  background-Color: var(--layout3);
-   border: 2px solid var(--layout7);
+  background-Color: Transparent;
+  // border: 2px solid var(--layout7);
    max-height: 5%;
-   height: 5%;
-  //align-content: 'center';text-align: center;line-height: 1;
+   height: 30vh;
+   max-width: 75%;
+   margin-bottom: 5%;
 }
 .centeredtext{
   margin-left: auto;
@@ -608,6 +609,8 @@ border-color: var(--layout1) !important;
   background-Color: var(--layout3);
   height: 61vh;
   border: 2px solid var(--layout6);
+  overflow-y:scroll;
+  overflow-x: auto;
   
 }
 .ant-popover-placement-top, .ant-popover-placement-topLeft, .ant-popover-placement-topRight {
@@ -780,26 +783,29 @@ background-color: $primary;
   max-height: 40%;
   width: 100%;
   height: 20vh;
-  background-color: $layout7;
-  height: 100px;
-  background-color: var(--layout8);
+  background-color: var(--layout7);
   border-radius: 20px;
   display: flex;
   align-items: center;
   margin-top: 2%;
-  border: $layout1;
+  margin-right: 2%;
+  border: var(--layout1);
 }
 .event:hover{
-  background-color: $layout8;
+  background-color: var(--layout8);
   border-radius: 20px;
 }
-
-
+.event_text{
+  margin-top: 10%;
+}
+.event_avatar{
+  margin-top: 50%;
+}
 .event_pic{
   max-width: 100%;
   margin-left: 7%;
   margin-bottom: 5%;
-  margin-top: 5%;
+  margin-top: 10%;
   width: 100%;
   height: 15vh;
   border-radius: 20px;
@@ -882,4 +888,17 @@ transition: all 0.4s ease-in;
   color: var(--maintext) !important;
   background-color: var(--layout5) !important;
   transition: all 0.2s ease-in;
+}
+.event_main{
+    width: 50%;
+    height:50vh;
+    border-Radius: 20px;
+    border: 2px solid var(--layout5);
+    margin: 15% auto ;
+    margin-top: 10% ;
+    margin-bottom: 2%;
+    padding:4% 4% ;
+    background-color: var(--layout4);
+    display: flex
+ 
 }
