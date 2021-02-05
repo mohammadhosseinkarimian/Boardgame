@@ -8,7 +8,7 @@ import '../../Style/OwnedCafes.css'
 import '../../Style/design.scss'
 import Av from './default_picture.png';
 import { GiTwoCoins } from "react-icons/gi";
-import { Modal, Button, Space } from 'antd';
+import { Modal, Button, Space ,message} from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 let a="";
 const { Meta } = Card;
@@ -28,7 +28,8 @@ class OwnedCafe extends React.Component {
     gallery: [],
     latitude: "",
     longitude: "",
-    proxyurl:'http://localhost:8010/proxy',
+    loggedIn:"",
+    proxyurl: localStorage.getItem('url'),
   }
  
    showDeleteConfirm(){
@@ -50,9 +51,10 @@ class OwnedCafe extends React.Component {
   });
 } 
   onClickDelete = (id) => {
+    this.setState({loggedIn:"logging in"})
  
     //console.log("click")
-    axios.delete('http://localhost:8010/proxy/cafe/edit_cafe/'+id+'/', {
+    axios.delete(localStorage.getItem('url')+'/cafe/edit_cafe/'+id+'/', {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials': true,
@@ -62,13 +64,17 @@ class OwnedCafe extends React.Component {
     }
     )
       .then(res => {
+        message.open({content: 'Cafe deleted successfully.',duration: 2,style: {color: 'lime'}});
         const data = res.data;
        // console.log(data);
        // alert("Cafe Deleted")
+ this.setState({loggedIn:""});
         this.getInfo();
       })
       .catch((error) => {
       //  alert("somthing went wrong!")
+      message.open({content: "something went wrong please try again.",duration: 2,style: {color: 'lime'}});
+      this.setState({loggedIn:""});
       }
       )
     

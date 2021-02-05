@@ -83,7 +83,8 @@ class Cafe extends React.Component {
     fileList: [],
     necessary_inputs:"",
     accept:false,
-    massage:""
+    massage:"",
+    loggedIn:""
   };
 
   onChange = (e) => {
@@ -138,9 +139,11 @@ class Cafe extends React.Component {
   };
  
  
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
   onSubmit = (e) => {
      e.preventDefault();
+     this.setState({loggedIn:"logging in"})
+
      let list=(localStorage.getItem('base64'));
      console.log(JSON.parse(list))
      const data={
@@ -167,16 +170,22 @@ class Cafe extends React.Component {
       'Authorization' :`Bearer ${localStorage.getItem('access')}`
     }}
   ).then((res)=>{
+    message.open({content: 'Cafe added successfully.',duration: 2,style: {color: 'lime'}});
+    this.setState({loggedIn:""});
     console.log(res.data+"reeee")
     this.setState({necessary_inputs:"added"})
   })
   .catch((error)=>
     {
+   this.setState({loggedIn:""});
+   message.open({content: 'something went wrong please try again.',duration:2,style: {color: 'red'}});
       console.log(error.respose+"errrr")
     })
   }
 else
 this.setState({necessary_inputs:"!Ok"})
+message.open({content: 'Some required inputs not filled',duration:2,style: {color: 'red'}});
+this.setState({loggedIn:""});
   };
 
   onSearchgame = (value) => {
@@ -215,7 +224,7 @@ onChangegame=(value)=>
     const previewTitle = this.state.previewTitle;
     return (
       <div className="Cafe_container" style={{with:'36%'}}>
-       <h2 >Create Cafe</h2>
+       <h2  style={{marginLeft:"-0.5%"}}>Create Cafe</h2>
         <Form
           {...formItemLayout}
           // form={this.form}
@@ -424,14 +433,14 @@ onChangegame=(value)=>
                 ? "ََAdded"
                 : "Add Caffe"}
             </Button>
-            <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
+            {/* <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "added"
                     ? "Cafe added successfuly"
                     : ""
             }</p><p style={{color:"red", width:'100%',fontSize:'11px', marginLeft:'-1%',marginTop:'2%'}} className ="ant-form-item-extra2 ">
               { this.state.necessary_inputs === "!Ok"
             ? "*All nessecory inputs should write"
-            : ""}</p>
+            : ""}</p> */}
           </Form.Item>
         </Form>
       </div>
