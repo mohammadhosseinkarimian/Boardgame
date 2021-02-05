@@ -25,6 +25,7 @@ const proxyUrl=localStorage.getItem('url');
 class SingleCommunity extends React.Component {
     state = {
         name: "",
+        requests:'false',
         owner: "",
         image: "",
         members: [],
@@ -61,7 +62,7 @@ class SingleCommunity extends React.Component {
             this.setState({ lock: res.data.lock })
             this.setState({ members: res.data.members })
             this.setState({ events: res.data.events })
-            
+            this.setState({requests: 'true'});
            
             
         })
@@ -106,6 +107,16 @@ class SingleCommunity extends React.Component {
         window.location.href='/event'
     }
     render() {
+        if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
         return (
             <div className="EditProfile_container"
                 style={{ width: "90%", marginTop: '3%',borderRadius: '6px' }}>
