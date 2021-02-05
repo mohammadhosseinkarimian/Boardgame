@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {Modal, Card} from 'antd';
+import {Modal, Card,message} from 'antd';
 import { FaCoffee } from "react-icons/fa";
 import { AiFillDelete,AiFillClockCircle,AiOutlinePhone } from "react-icons/ai"
 import { EditOutlined ,DeleteFilled,EditFilled} from '@ant-design/icons';
@@ -27,12 +27,13 @@ class OwnedCommunity extends React.Component {
     lock:"",
   done:"",
   edit:"",
+  loggedIn:"",
     proxyurl:localStorage.getItem('url'),
   }
 
   showDeleteConfirm(id){
     confirm({
-      title: 'Are you sure delete this cafe?',
+      title: 'Are you sure delete this community?',
       icon: <ExclamationCircleOutlined />,
       content: '',
       okText: 'Yes',
@@ -48,6 +49,7 @@ class OwnedCommunity extends React.Component {
     });
   } 
     onClickDelete = (id) => {
+      this.setState({loggedIn:"logging in"})
    
       //console.log("click")
       axios.delete(localStorage.getItem('url')+'/community/edit_community/'+id+'/', {
@@ -60,12 +62,16 @@ class OwnedCommunity extends React.Component {
       }
       )
         .then(res => {
+    message.open({content: 'Community deleted successfully.',duration: 2,style: {color: 'lime'}});
           const data = res.data;
          // console.log(data);
          // alert("Cafe Deleted")
+   this.setState({loggedIn:""});
           this.getInfo();
         })
         .catch((error) => {
+    message.open({content: "something went wrong please try again.",duration: 2,style: {color: 'lime'}});
+    this.setState({loggedIn:""});
         //  alert("somthing went wrong!")
         }
         )

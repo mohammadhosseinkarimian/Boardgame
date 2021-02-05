@@ -84,7 +84,8 @@ class Event extends React.Component {
     suggestlist_game:[],
     suggestlist_cafe: [],
     selected_cafe: "",
-    community:[]
+    community:[],
+    loggedIn:""
   };
 
   
@@ -115,6 +116,8 @@ class Event extends React.Component {
   proxyurl= localStorage.getItem('url');
   onSubmit = (e) => {
      e.preventDefault();
+     this.setState({loggedIn:"logging in"})
+
      let list=(localStorage.getItem('base64'));
      console.log(JSON.parse(list))
      const data={
@@ -137,13 +140,15 @@ class Event extends React.Component {
       'Authorization' :`Bearer ${localStorage.getItem('access')}`
     }}
   ).then((res)=>{
-    console.log(res.data+"reeee")
+    message.open({content: 'Event added successfully.',duration: 2,style: {color: 'lime'}});
+    this.setState({loggedIn:""});
     this.setState({necessary_inputs:"added"})
      window.location.href='/community/:'+localStorage.getItem('com_id')
     
   })
   .catch((error)=>
-    {
+    {this.setState({loggedIn:""});
+    message.open({content: 'something went wrong please try again.',duration:2,style: {color: 'red'}}); 
       console.log(error.respose+"errrr")
     })
   };
@@ -379,31 +384,16 @@ class Event extends React.Component {
               onClick={(this.onSubmit)}
               name="submit"
             >
-              <span
-                class={
-                  this.state.necessary_inputs === "Ok"
-                    ? "spinner-border spinner-border-sm"
-                    : "all"
-                }
-                role={this.state.necessary_inputs === "Ok"
-                ? "spinner-border spinner-border-sm"
-                : "all"}
-                aria-hidden={this.state.necessary_inputs === "Ok"
-                ? "spinner-border spinner-border-sm"
-                : "all"}
-              ></span>
-              {this.state.necessary_inputs === "added"
-                ? "Added"
-                : "Add Event"}
+               <span
+                        class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+                         role={this.state.loggedIn==="logging in" ?"status":""}
+                        aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+                        </span>
+                        {this.state.loggedIn==="logging in" ? "Loading...":"Add Event" }
+                  
             </Button>
-            <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
-                  this.state.necessary_inputs === "added"
-                    ? "Cafe added successfuly"
-                    : ""
-            }</p><p style={{color:"red", width:'100%',fontSize:'11px', marginLeft:'-1%',marginTop:'2%'}} className ="ant-form-item-extra2 ">
-              { this.state.necessary_inputs === "!Ok"
-            ? "*All nessecory inputs should write"
-            : ""}</p>
+
           </Form.Item>
        </Form>
       </div>

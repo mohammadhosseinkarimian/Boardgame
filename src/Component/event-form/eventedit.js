@@ -94,7 +94,7 @@ class Eventedit extends React.Component {
       lock:"",
     done:"",
     edit:"",
-
+    loggedIn:""
 
   };
   onFinish = (values) => {
@@ -322,6 +322,7 @@ onSaveGeneral = (e) => {
 
 
       e.preventDefault();
+      this.setState({loggedIn:"logging in"})
       let list=(localStorage.getItem('base64'));
        p=( localStorage.getItem("plays"))
        console.log(p.split(','))
@@ -357,9 +358,11 @@ onSaveGeneral = (e) => {
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
   }}
 ).then((res)=>{  
+    message.open({content: 'Changes have been made successfully',duration: 2,style: {color: 'lime'}});
   this.setState({edit:""});
    this.setState({msg:"done"});
    this.setState({done:""});
+   this.setState({loggedIn:""});
    this.getInfo();
 
 
@@ -369,18 +372,22 @@ onSaveGeneral = (e) => {
 this.setState({edit:""});
 this.setState({loggedIn:""});
 this.setState({msg:"something went wrong please try again."});
-      } 
+message.open({content: 'something went wrong please try again.',duration:2,style: {color: 'red'}});
+    
+} 
       )
   
   }
 if(this.state.memberstring.length>this.state.maxmember)
 {
-    console.log("bishtar")
+    message.open({content: 'The selected members are more than maxmember ',duration:2,style: {color: 'red'}});
+
 }
 
   else
   {
-      this.setState({msg:"You haven't changed any information."});
+    message.open({content: "You haven't changed any information.",duration:2,style: {color: 'red'}});
+      this.setState({msg:""});
       this.setState({loggedIn:""});
   }
 
@@ -548,28 +555,19 @@ componentDidMount() {
           </Form.Item> 
           <p></p>
           <Form.Item {...tailFormItemLayout}>
-            <Button
-             className="btn btn-primary" style={{width: '100%'}}
-              onClick={(this.onSaveGeneral)}
-              name="submit"
-            >
-              <span
-                class={
-                  this.state.necessary_inputs === "Ok"
-                    ? "spinner-border spinner-border-sm"
-                    : "all"
-                }
-                role={this.state.necessary_inputs === "Ok"
-                ? "spinner-border spinner-border-sm"
-                : "all"}
-                aria-hidden={this.state.necessary_inputs === "Ok"
-                ? "spinner-border spinner-border-sm"
-                : "all"}
-              ></span>
-              {this.state.necessary_inputs === "added"
-                ? "Added"
-                : "Add Event"}
-            </Button>
+          <button type="button" class="btn btn-primary" style={{width: '100%'}}
+  
+  onClick={this.onSaveGeneral}  name="submit">
+
+
+  <span
+  class= {this.state.loggedIn==="logging in" ?"spinner-border spinner-border-sm":""}
+   role={this.state.loggedIn==="logging in" ?"status":""}
+  aria-hidden={this.state.loggedIn==="logging in" ?"true":""}>
+
+  </span>
+  {this.state.loggedIn==="logging in" ? "Loading...":"Change password" }
+</button>
             <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "added"
                     ? "Cafe added successfuly"
