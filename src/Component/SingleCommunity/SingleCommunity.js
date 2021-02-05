@@ -124,8 +124,6 @@ class SingleCommunity extends React.Component {
                     </Avatar>
                     <h3 style={{ color: 'hsl(22, 94%, 49%)',marginLeft: "5%" ,display: "inline"}}>{this.state.name}</h3>
                     </Col>
-
-
                     <Col span={12}>
                     <div style={{ marginLeft: "35%",display: "inline"}}>
                         <span hidden={!this.state.members_username.includes(localStorage.getItem('user'))}  >
@@ -156,7 +154,7 @@ class SingleCommunity extends React.Component {
                 <Row >
                     <Col span={18} className='communitystyle' style={{ borderRadius: '10px', display: 'flex' }}>
                         <List
-                            grid={{ column: 2, gutter: 8 }}
+                            grid={{ column: 2, gutter: 16 }}
                             size="large"
                             itemLayout="horizontal"
                             dataSource={this.state.events}
@@ -194,6 +192,7 @@ class SingleCommunity extends React.Component {
                                                 </Tooltip>
                                                 <Avatar style={{ backgroundColor: 'hsl(22, 94%, 49%)' }} hidden={item.members.length === 2}>+{item.members.length - 2}</Avatar>
                                             </Avatar.Group>
+                                            <Link to={"/event/:"+item.id} >View</Link>
                                         </Col>
                                     </Row>
                                 </List.Item>
