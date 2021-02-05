@@ -50,7 +50,7 @@ class Login extends React.Component {
    )
    {
     this.setState({loggedIn:"logging in"})
-    Axios.post('http://gameboard.pythonanywhere.com/auth/login/',JSON.stringify(this.state),
+    Axios.post('http://goardbame.ir:8000/auth/login/',JSON.stringify(this.state),
     {
       headers:{'Content-Type':'application/json'}
     }).then((res)=>{
