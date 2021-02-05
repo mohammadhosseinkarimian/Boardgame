@@ -168,9 +168,6 @@ transition: all 0.4s ease-in;
 .carousel-status{
   visibility: hidden;
 }
-.carousel .control-dots{
-  margin: 0px;
-}
 .ant-empty-description{
   visibility: hidden;
 }
@@ -179,8 +176,8 @@ transition: all 0.4s ease-in;
 }
 .carousel.carousel-slider .control-arrow {
   background: transparent !important;
-  padding: 0% !important;
-  top: 79% !important;
+  padding: 0.5% !important;
+  top: 71% !important;
   font-size: 24px !important;
 }
 
@@ -345,10 +342,10 @@ background-color: var(--background) ;transition: background-color 0.4s ease-in;
     color: var(--maintext) !important;
 }
 .ant-input{
-  background-color: var(--layout6);
+  background-color: var(--layout6) !important;
   border-color: var(--layout7);  border-radius: 25px !important;
 
-  color: var(--maintext);
+  color: var(--maintext) !important;
   
 }
 input#register_password.ant-input ,input[type="password" i] 
@@ -569,9 +566,35 @@ border-color: var(--layout1) !important;
   color: var(--maintext)!important;
   border-color: var(--layout1) !important;
 }
+.ant-message-notice-content {
+  display: inline-block;
+  padding: 10px 16px;
+  background: var(--layout3);
+}
+.ant-message-notice {
+  padding: 8px;
+  text-align: center;
+}
 
-.ant-message{
-  color: $primary !important;
+
+.ant-message {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color:var(--maintext);
+  font-size: 18px;
+  font-variant: tabular-nums;
+  line-height: 1;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', "tnum";
+  position: fixed;
+  top: 8%;
+  left: 0;
+  z-index: 1010;
+  width: 100%;
+  pointer-events: none;
 }
 .ant-picker {
   border-radius: 25px;
@@ -725,9 +748,58 @@ border-color: var(--layout1) !important;
 {
   background-color: var(--layout6);
 
-      background-color: var(--layout5);
 
 }
+.ant-card-head-title {
+  color: var(--maintext) !important;
+}
+.ant-card-head-wrapper{
+  background-color: var(--layout4) !important;
+}
+.ant-card-head{
+  background-color:var(--layout6) !important;
+} .ant-card-head{
+  background-color:var(--layout6) !important;
+}
+.ant-card-body{
+  background-color:var(--layout5) ;
+ padding: 0;
+}
+.ant-card, .ant-card-actions {
+  background-color: var(--layout6) ;
+}
+.ant-card-head{
+  border-bottom: 0;
+}
+.ant-card-bordered{
+  border: 1px solid  var(--layout5);
+}
+.ant-card-actions{
+  border-top: 0;
+}
+.ant-card-actions > li:not(:last-child){
+  border-right:1px solid  var(--layout6);
+}
+.ant-card-body {
+  background-color: var(--layout4);
+}
+.ant-card-head,.ant-card-head-wrapper{
+  background-color:  var(--layout5);
+}
+.ant-modal-content{
+  background-color:  var(--layout5) ;
+
+}
+.ant-modal-confirm-body .ant-modal-confirm-title
+{
+  color: var(--maintext);
+}
+.ant-btn, .ant-btn:hover ,.ant-btn-dangerous:hover, .ant-btn-dangerous:focus,.ant-btn-dangerous,.ant-btn .ant-btn-dangerous,.ant-btn-dangerous:hover{
+  background-color: var(--layout4);
+color: var(--maintext);
+border:0;
+
+  }
  .ant-modal-title{
    text-align: center;
    color: var(--maintext) !important;
@@ -867,12 +939,46 @@ transition: all 0.4s ease-in;
 }
 .ant-switch-inner{
   color: var(--maintext) !important;
-  background-color: var(--layout5) !important;
+  background-color: var(--layout3) !important;
   transition: all 0.2s ease-in;
 
 }
 .ant-switch{
   color: var(--maintext) !important;
-  background-color: var(--layout5) !important;
+  background-color: var(--layout3) !important;
   transition: all 0.2s ease-in;
+}
+.carousel .control-dots .dot{
+  margin: 0 0.7% !important;
+  background-color: var(--maintext) !important;
+}
+.carousel.carousel-slider .control-arrow{
+  color: var(--maintext) !important;
+}
+.carousel .control-prev.control-arrow:before {
+    border-right: 8px solid var(--maintext) !important;
+}
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid var(--maintext) !important;
+}
+.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before {
+    margin: 0 5px;
+    display: inline-block;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    content: '';
+}
+.ant-picker, .ant-picker-input > input,.ant-input, .ant-input-focuse-visible-added, .ant-select-input, .ant-picker, .ant-picker-time-panel, .ant-picker-ranges, .ant-select-selector, .ant-upload.ant-upload-select-picture-card, .ant-upload, .ant-select-selector, .ant-select-dropdown .ant-select-dropdown-empty .ant-select-dropdown-placement-bottomLeft .ant-select-dropdown-hidden, .ant-select-multiple .ant-select-selector{
+   background-color: var(--layout6) !important;
+  color: var(--maintext) !important;
+}
+.createplay{
+  background-color: var(--layout4);
+  color: var(--maintext);
+  height: 15%;
+   margin: 15% auto ;
+   margin-top: 6% ;
+   margin-bottom: 2%;
+  padding:2% 2% ;
+  border-radius: 16px;
 }
