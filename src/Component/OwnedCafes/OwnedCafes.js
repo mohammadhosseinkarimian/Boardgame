@@ -29,6 +29,7 @@ class OwnedCafe extends React.Component {
     latitude: "",
     longitude: "",
     proxyurl: localStorage.getItem('url'),
+    requests: 'false'
   }
  
    showDeleteConfirm(){
@@ -84,6 +85,7 @@ class OwnedCafe extends React.Component {
   ).then((res)=>{ 
     console.log(res.data)
     this.setState({mycafe:res.data})
+    this.setState({requests: 'true'});
   }
   ).catch((error)=>{
    // alert('some thing is wrong')
@@ -99,6 +101,16 @@ onClickedit = (id) => {
 };
   render() {
     //alert('an');
+    if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
     return (
       <div className="mycafe_container">
       { this.state.mycafe.map(item =>(

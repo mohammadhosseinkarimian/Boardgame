@@ -12,7 +12,7 @@ import {
     Form,
     Input,
     Tabs,
-    DatePicker
+    DatePicker,message 
 } from "antd";
 import{
     EditOutlined
@@ -142,7 +142,8 @@ class EditProfile extends React.Component {
   'Accept' : 'application/json',
   'Authorization' :`Bearer ${localStorage.getItem('access')}`
         }}
-    ).then((res)=>{  
+    ).then((res)=>{ 
+        message.open({content: 'Changes have been made successfully',duration: 2,style: {color: 'lime'}});
         this.setState({edit:""});
          this.setState({msg:"done"});
          this.setState({loggedIn:""});
@@ -151,6 +152,7 @@ class EditProfile extends React.Component {
          localStorage.setItem('email',data.email);
          this.setState({done:""});
          this.getInfo();
+        
 
 
     } )
@@ -158,6 +160,7 @@ class EditProfile extends React.Component {
     {
      this.setState({edit:""});
      this.setState({loggedIn:""});
+     message.open({content: 'Failed to apply your changes',duration: 2,style: {color: 'red'}});
      this.setState({msg:"something went wrong please try again."});
             } 
             )
@@ -216,7 +219,8 @@ class EditProfile extends React.Component {
     
     e.preventDefault();
     this.setState({loggedIn:"logging in"})
-    
+    message.open({content: 'Changes have been made successfully',duration: 2,style: {color: 'lime'}});
+
         const data={
             old_password:this.state.password,
             password:this.state.newPassword
@@ -242,6 +246,8 @@ class EditProfile extends React.Component {
     {
 
      this.setState({loggedIn:""});
+     message.open({content: 'Failed to apply your changes',duration: 2,style: {color: 'red'}});
+
      this.setState({msg:"something went wrong please try again."});
      localStorage.setItem('pass',data.password);
             } 
@@ -363,14 +369,9 @@ componentDidMount() {
                         {this.state.loggedIn==="logging in" ? "Loading...":"Save changes" }
                     </button>
                     </Form.Item>
-                    <p className ="ant-form-item-extra" >{this.state.msg==="You haven't changed any information."?
-    "You haven't changed any information.":""}</p>
-    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
-    "Something went wrong please try again.":""}</p>
 
                 
-                <p className ="ant-form-item-extra2 "  >{this.state.msg==="done"?
-                    "Changes have been saved successfuly":""}</p>
+             
 
                 </TabPane>
 
@@ -440,10 +441,7 @@ componentDidMount() {
                     >
                         <Input.Password placeholder='repeat password' />
                     </Form.Item>
-                    <p className ="ant-form-item-extra" >{this.state.msg==="Password is not correct!"?
-    "Password is incorrect!":""}</p>
-    <p className ="ant-form-item-extra" >{this.state.msg==="something went wrong please try again."?
-    "Something went wrong please try again.":""}</p>
+                   
 
                     <Form.Item {...tailFormItemLayout}>
                     <button type="button" class="btn btn-primary" style={{width: '100%'}}
@@ -460,8 +458,7 @@ componentDidMount() {
                         {this.state.loggedIn==="logging in" ? "Loading...":"Change password" }
                     </button>
                     </Form.Item>
-                    <p className ="ant-form-item-extra2 "  >{this.state.msg==="done"?
-    "Password has successfuly changed.":""}</p>
+                  
                     </TabPane>
                 </Tabs>
                 </Form>
