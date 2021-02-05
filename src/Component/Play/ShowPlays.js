@@ -6,14 +6,20 @@ import { AiFillDelete, } from "react-icons/ai"
 import 'font-awesome/css/font-awesome.min.css';
 import '../../Style/play.css'
 import {
-    Card,Row,
+    Card,Row,Col,
     Table,
     message
 } from "antd";
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 const { Meta } = Card;
-const tabledata=[]
-const columns = [
+
+    const columns = [
+        {
+            title: 'Number',
+            dataIndex: 'key',
+            key: 'key',
+    
+        },
     {
         title: 'Game',
         dataIndex: 'game',
@@ -21,15 +27,37 @@ const columns = [
 
     },
     {
-        title: 'date',
+        title: 'Place',
+        dataIndex: 'place',
+        key: 'place',
+    },
+    {
+        title: 'Date',
         dataIndex: 'date',
         key: 'date',
     },
     {
-        title: 'Place',
-        dataIndex: 'place',
-        key: 'place',
-    }]
+        title: 'Players',
+        dataIndex: 'players',
+        key: 'players',
+    },
+    {
+        title: 'Semi Players',
+        dataIndex: 'semiplayers',
+        key: 'semiplayers',
+    },
+    {
+        title: 'Edit',
+        dataIndex: 'edit',
+        key: 'edit',
+
+    }, {
+        title: 'Delete',
+        dataIndex: 'delete',
+        key: 'delete',
+
+    }
+]
 
 
 
@@ -39,6 +67,11 @@ class LogPlay extends React.Component {
         dataSource: [],
         allgames: {},
         editbool: false,
+        Members: [],
+        players:[],
+        semi_players:[],
+        requests: 'false',
+        Colors: []
         
     }
     
@@ -56,10 +89,22 @@ class LogPlay extends React.Component {
         ).then((res) => {
             const tmp = res.data;
             this.setState({ dataSource: tmp })
+            this.setState({players: tmp.players})
             this.state.dataSource.forEach(element => {
-            
-                tabledata.push({game: element.game.name,date: element.date, place: element.place, id: element.id})
+                const members=[];
+                const colors=[];
+                let aa=element.semi_players;
+               this.state.semi_players.push(aa.substring(0,aa.length-1).replaceAll("(not a user)",''));
+
+                element.players.forEach(user=>{
+                    members.push(user.username);
+                    colors.push(user.color)
+                })
+                this.setState({Members: members})
+
+                this.setState({Colors: colors})
             });
+            this.setState({requests: 'true'})
         })
             .catch((error) => {
                 message.error('somthing went wrong')
@@ -114,6 +159,9 @@ class LogPlay extends React.Component {
     renderItems = () => {
         return (
             this.state.dataSource.map(item => (
+                <div>
+
+               
                 <Card className="play_card"
                     actions={
                         [
@@ -126,7 +174,8 @@ class LogPlay extends React.Component {
                             <div style={{marginTop: '10%',height: '20vh'}}>
                             <p> {item.game.name}</p>
                             <p> {item.place}</p>
-                             <p> {item.date}</p> 
+                             <p> {item.date}</p>
+                             <p>{item.users}</p> 
                             </div>
                    
                      
@@ -134,6 +183,10 @@ class LogPlay extends React.Component {
                      
                                    
                 </Card>
+                <div style={{backgroundColor: 'red',height: '40px',width: '120px'}}>
+                        {this.state.Members}
+                </div>
+                </div>
             )
             )
         )
@@ -142,12 +195,52 @@ class LogPlay extends React.Component {
 
     render() {
         
-        return (
-            <div style={{ marginTop: '5%' }}>
+        if( this.state.requests==='false')
+        {
 
-               <Row>
-              {this.renderItems()}
-              </Row> 
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
+
+        return (
+            
+            <div style={{ marginTop: '4%' }}>
+
+              <div style={{width: '90%',marginLeft: '5%'}}>
+                  <h5>List of plays</h5>
+              <Table columns={columns}    style={{marginTop: '2%'}}    pagination={false}  dataSource={
+                  Object.entries(this.state.dataSource).map(([k, value]) => (
+                  {  key: parseInt(k)+1,
+                    game: value.game.name,
+                    date: value.date,
+                    place: value.place,
+                    players:  Object.entries(value.players).map(([cnt, val]) => (
+                        <Row style={{display: 'flex',alignContent: 'center',alignItems: 'center',height: 'max-content'}}>
+                                <Col span={1}>
+                                    <div style={{width: '1vw',height: '1vw',borderRadius: '50%',backgroundColor: val.color===''?'gray':val.color }} />
+                                </Col>
+                                <Col span={23}>
+                                <p style={{fontSize: '12px',marginTop: '4.5%',marginLeft: '4%'}}>{val.username} scored {val.score===''?'-':val.score} started at {val.starting_position===''?'-':val.starting_position} and {val.is_won?'won':'lost'}.</p>
+                                </Col>
+                                
+                        </Row>
+                    )),
+                    semiplayers: this.state.semi_players[k],
+                    edit: <FaRegEdit style={{color: 'orange',marginLeft: '15%',marginTop: '-6%',fontSize: '18px'}} onClick={() => this.onClickedit(value.id)} />,
+                    delete: <AiFillDelete style={{color: 'orange',marginLeft: '25%',fontSize: '18px'}} onClick={() => this.onClickdelete(value.id)} />
+
+
+
+                    
+                }
+
+                  ))
+              } />
+              </div>
             </div>
             
             

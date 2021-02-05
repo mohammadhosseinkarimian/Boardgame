@@ -21,7 +21,7 @@ import { QuestionCircleOutlined, CheckCircleOutlined,DeleteFilled,CheckCircleFil
 import Av from './images.png';
 
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl =localStorage.getItem('url');
 
 const formItemLayout = {
     labelCol: {
@@ -66,8 +66,8 @@ const formItemLayout = {
       fileList: [],
       necessary_inputs:"",
       suggestlist_user: [],
-      lock:"true",
-    };
+      lock: false
+        };
       nameChange = (e) => {
         this.setState({ name: e.target.value });
       };
@@ -80,6 +80,7 @@ const formItemLayout = {
     axios.get(proxyurl + "/game/search_user/username/?search=" + value)
       .then(res => {
         const tmp = res.data.results;
+        console.log(tmp)
         this.setState(prevState => {
           return { suggestlist_user: tmp }
         })
@@ -87,28 +88,33 @@ const formItemLayout = {
   }
   
   onSelectuser = (value) => {
-
-    var dict = { "username": value }
-    this.state.members.push(dict);
+    this.state.members=[]
+    var dict =[]
+    value.forEach(v=> this.state.members.push({ "username": v}))
     this.setState({ selected_user: value }, () => {
-     // console.log(this.state.selected_user, 'dealersOverallTotal1')
+      console.log(this.state.selected_user, 'dealersOverallTotal1')
     })
-   // console.log(this.state.members)
+    console.log(this.state.members)
 
   }
-   onChangelock(checked) {
-  //  console.log(`switch to ${checked}`);
-  this.setState(prevState =>{
-    return {lock: checked}
-  })
+  onChangelock=()=>{
+    //  console.log(`switch to ${checked}`);
+    if(this.state.lock){
+      this.setState({lock: false});
+    }
+    else{
+      this.setState({lock: true});
+    }
+   
   //  console.log(localStorage.getItem('lock'));
 
-//   this.setState({lock:checked});
+ //   this.setState({lock:checked});
 //     if(checked){
 //     this.setState({lock:"true"});
 // }
 // else{
 //     this.setState({lock:"false"});
+
 // }
   
 }
@@ -117,7 +123,7 @@ const formItemLayout = {
     const file=e.target.files[0];
    const base64= await this.Convert(file)
    this.setState({img:base64});
-  // console.log(this.state.img)
+   console.log(this.state.img)
    this.setState({edit:"true"})
   }
   Convert=(f)=>{
@@ -134,14 +140,14 @@ const formItemLayout = {
   }
     onChange = (e) => {
       e.persist();
-      //console.log(this.state);
+      console.log(this.state);
       this.setState((a) => {
         return {
           [e.target.name]: e.target.value,
         };
       });
     };
-    proxyurl= "http://localhost:8010/proxy";
+    proxyurl= localStorage.getItem('url');
     onSubmit = (e) => {
        e.preventDefault();
       // let list=(localStorage.getItem('base64'));
@@ -149,15 +155,15 @@ const formItemLayout = {
        const data={
         name:this.state.name,
         description:this.state.description,
-        owner:this.state.owner,
+      //  owner:this.state.owner,
         members:this.state.members,
        image:this.state.img,
        lock:this.state.lock,
-       owner:localStorage.getItem('id')
+     //  owner:localStorage.getItem('id')
     }
        if((this.state.name!=="") && (this.state.description!=="")){
       // e.target.reset();
-    //  console.log(data)
+      console.log(data)
       this.setState({necessary_inputs:"Ok"})
       axios.post(this.proxyurl+'/community/create_community/',JSON.stringify(data),{headers:{
         'Content-Type' : 'application/json','Access-Control-Allow-Credentials':true,
@@ -165,12 +171,12 @@ const formItemLayout = {
         'Authorization' :`Bearer ${localStorage.getItem('access')}`
       }}
     ).then((res)=>{
-      //console.log(res.data+"reeee")
+      console.log(res.data+"reeee")
       this.setState({necessary_inputs:"added"})
     })
     .catch((error)=>
       {
-       // console.log(error.respose+"errrr")
+        console.log(error.respose+"errrr")
       })
     }
   else
@@ -179,6 +185,7 @@ const formItemLayout = {
     render() {
  return (
           <div className="EditProfile_container" style={{with:'36%'}}>
+       <h2  style={{marginLeft:"-0.5%"}}>Create Community</h2>
            
             <Form
               {...formItemLayout}
@@ -257,9 +264,9 @@ const formItemLayout = {
               placeholder="users"
               defaultValue={[]}
               filterOption={false}
-              onChange={this.handleChange}
+              //onChange={this.onSelectuser}
               onSearch={this.handleChange}
-              onSelect={this.onSelectuser}
+              onChange={this.onSelectuser}
             >
               {
                 this.state.suggestlist_user.map(d => (
@@ -292,7 +299,7 @@ const formItemLayout = {
               ></span>
               {this.state.necessary_inputs === "added"
                 ? "ََAdded"
-                : "Create"}
+                : "Add Community"}
             </Button>
             {/* <p style={{color:"green", width:'100%',fontSize:'11px', marginLeft:'-1%'}} className ="ant-form-item-extra2 ">{
                   this.state.necessary_inputs === "added"

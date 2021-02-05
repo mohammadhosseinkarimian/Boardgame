@@ -1,3 +1,4 @@
+
 import React from "react";
 import Axios from "axios";
 import {Link} from "react-router-dom";
@@ -49,7 +50,7 @@ class AllBoardGames extends React.Component {
   };
   componentDidMount() {
     
-    Axios.get('http://localhost:8010/proxy/game/games_list/')
+    Axios.get(localStorage.getItem('url')+'/game/games_list/')
        .then(res=>{
          const games_list=res.data;
          this.setState(prevState => {

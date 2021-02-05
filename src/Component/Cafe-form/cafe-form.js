@@ -223,8 +223,8 @@ onChangegame=(value)=>
     const fileList = this.state.fileList;
     const previewTitle = this.state.previewTitle;
     return (
-      <div className="Cafe_container" style={{with:'36%'}}>
-       <h2  style={{marginLeft:"-0.5%"}}>Create Cafe</h2>
+      <div className="createplay" style={{with:'36%'}}>
+       <h2 >Create Cafe</h2>
         <Form
           {...formItemLayout}
           // form={this.form}

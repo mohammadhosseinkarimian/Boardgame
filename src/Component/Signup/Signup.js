@@ -50,7 +50,7 @@ class Signup extends React.Component {
     msg:"",
     
   };
-  proxyurl= "http://localhost:8010/proxy";
+  proxyurl= localStorage.getItem('url');
   emailChange=e=>{
    this.setState({email:e.target.value})
   }
@@ -71,7 +71,7 @@ class Signup extends React.Component {
     e.preventDefault();
     this.setState({loggedIn:"logging in"})
     
-    axios.post(this.proxyurl+'/auth/register/',JSON.stringify(this.state) 
+    axios.post('http://goardbame.ir:8000/auth/register/',JSON.stringify(this.state) 
     ,{
       headers:
       {'Content-Type': 'application/json',

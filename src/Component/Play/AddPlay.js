@@ -8,7 +8,7 @@ import {
   Select,
   Button,
   DatePicker,
-  AutoComplete
+  AutoComplete,Row,Col
 } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -20,7 +20,7 @@ const layout = {
   },
 };
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 const dateFormat = 'YYYY-MM-DD';
 
 
@@ -56,9 +56,21 @@ class AddPlay extends React.Component {
       this.setState({ selected_user: value })
       this.setState({ suggestlist_user: [] })
     }
-
   }
+  onChangeUser=(value)=>
+{
+  
+  this.state.players=[]
+  this.state.semi_players='';
+  value.forEach(i=>{
+    if (i.includes("(not a user)")) {
+      this.state.semi_players += i + ",";
+    }
+    else{
+      this.state.players.push({"username":i});}
 
+    })
+}
   onUserSearch = (value) => {
     let searchvalue = value
     let tmp = []
@@ -152,9 +164,12 @@ class AddPlay extends React.Component {
   render() {
 
     return (
-      <div className="Login_container" style={{ backgroundColor: '#333' }}>
+      <div className="createplay" style={{ width: '70%' }}> 
         <Form   {...layout}>
-          <Form.Item style={{ width: '100%' }}
+        <h4 style={{marginLeft: '0.5%' ,paddingBottom: '1%'}}>Create Play</h4>
+        <Row style={{marginLeft: '0.5%'}}>
+                            <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}
             name="date"
             rules={[
               {
@@ -167,8 +182,9 @@ class AddPlay extends React.Component {
             ]}
           >
             <DatePicker allowEmpty={false} name="date" format={dateFormat} style={{ width: '100%' }} defaultValue={moment('2020-1-1')} onChange={this.onyearChangedate} picker="date" />
-          </Form.Item>
-          <Form.Item>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             <Select
               showSearch
               style={{ width: '100%' }}
@@ -186,8 +202,9 @@ class AddPlay extends React.Component {
               }
 
             </Select>
-          </Form.Item>
-          <Form.Item>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             <Select
               mode="multiple"
               allowClear
@@ -196,7 +213,7 @@ class AddPlay extends React.Component {
               defaultValue={[user_username]}
               filterOption={false}
               onSearch={this.onUserSearch}
-              onSelect={this.onSelectuser}
+              onChange={this.onChangeUser}
               
             >
               {
@@ -204,8 +221,9 @@ class AddPlay extends React.Component {
                   <Option key={d.username}>{d.username}</Option>
                 ))}
             </Select>
-          </Form.Item>
-          <FormItem>
+          </Form.Item></Col>
+          <Col span={12}>
+                            <Form.Item  style={{width: '85%'}}>
             {/* <Select
               showSearch
               placeholder="Where did you play?"
@@ -248,10 +266,12 @@ class AddPlay extends React.Component {
               }
             </AutoComplete>
 
-          </FormItem>
-          <Form.Item >
-            <Button className="btn btn-primary" style={{ width: '100%' }} shape="round" onClick={this.onSave} >Add</Button>
-          </Form.Item>
+          </Form.Item></Col>          </Row>
+
+          <div style={{ display: 'flex',alignContent: 'center',alignItems: 'center',textAlign:'center' }}>
+            <Button className="btn btn-primary" style={{ width: '25%',marginLeft: 'auto',marginRight: 'auto' }}  shape="round" onClick={this.onSave} >Add</Button>
+          </div>
+
         </Form>
       </div>
 
@@ -262,4 +282,3 @@ class AddPlay extends React.Component {
 }
 
 export default AddPlay;
-

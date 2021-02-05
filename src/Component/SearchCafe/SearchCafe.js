@@ -5,7 +5,7 @@ import { Select } from 'antd';
 
 
 const { Option } = Select;
-const proxyurl = "http://localhost:8010/proxy";
+const proxyurl = localStorage.getItem('url');
 class CafeSearchShow extends React.Component {
     state = {
         suggestlist: [],
@@ -17,6 +17,7 @@ class CafeSearchShow extends React.Component {
         this.setState({ selected_cafe: value }, () => {
             console.log(this.state.selected_cafe, 'dealersOverallTotal1')
         })
+        
 
 
     }

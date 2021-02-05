@@ -90,7 +90,8 @@ class Cafeedit extends React.Component {
     Gameget:[],
     latitude: "",
     longitude: "",
-    loggedIn:""
+    loggedIn:"",
+    requests: 'false'
 
   };
   onFinish = (values) => {
@@ -123,7 +124,7 @@ let cafeid=localStorage.getItem("cafeid")
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
     }}
 ).then((res)=>{  
-    
+    this.setState({requests: 'true'});
     this.setState({name:res.data.name});
     this.setState({description:res.data.description});
     this.setState({List_of_board_games:res.data.games});
@@ -311,6 +312,16 @@ componentDidMount() {
 }
 
     render() {
+      if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
         return (   
             <div className="Cafe_container">
        <h2 style={{marginLeft:"-0.5%"}}>Edit Cafe</h2>
