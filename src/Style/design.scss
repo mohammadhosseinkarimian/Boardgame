@@ -889,3 +889,16 @@ transition: all 0.4s ease-in;
   background-color: var(--layout5) !important;
   transition: all 0.2s ease-in;
 }
+.event_main{
+    width: 50%;
+    height:50vh;
+    border-Radius: 20px;
+    border: 2px solid var(--layout5);
+    margin: 15% auto ;
+    margin-top: 10% ;
+    margin-bottom: 2%;
+    padding:4% 4% ;
+    background-color: var(--layout4);
+    display: flex
+ 
+}
