@@ -30,7 +30,9 @@ let a="";
         gallery:[],
         communitys: [],
         vision: "",
-        requests: "false"
+        request1: "false",
+        request2: "false",
+        request3: "false"
     };
      componentDidMount() {
          Axios.get( localStorage.getItem('url')+'/game/hot_games/')
@@ -39,6 +41,9 @@ let a="";
                 this.setState(prevState => {
                     return { games: games_list }
                 })
+                this.setState(prevState =>{
+                  return {request1: "true"}
+                }) 
             })
             
             Axios.get( localStorage.getItem('url')+'/cafe/day_cafe_list/')
@@ -47,6 +52,9 @@ let a="";
               this.setState(prevState => {
                 return {cafes: cafe_list}
                 })
+                this.setState(prevState =>{
+                  return {request2: "true"}
+                }) 
               
               
             })
@@ -57,7 +65,7 @@ let a="";
                 return {communitys: cafe_list}
                 })
                this.setState(prevState =>{
-                 return {requests: "true"}
+                 return {request3: "true"}
                }) 
             })
             
@@ -87,121 +95,142 @@ let a="";
         return(
             
             <div style={{paddingTop: "2%",marginTop: "2%",height: 'max-content',width: '90%',marginLeft: '5%'}}>
-                
-                <h3 > THE HOT GAMES
+                      {this.state.request1==='false'?<div style={{marginTop: '9%'}}><h3 > THE HOT GAMES
                      
-                </h3>
-                <span>
-                    
-                <h5 style={{fontSize: "13px",verticalAlign: 'middle'}}>Top 15 most rated games
-                
-                </h5>  </span>
-                
-                <Carousel infiniteLoop   autoPlay  width="100%" >
-                    
-                  {rows.map(game => (
-                    <body style={{backgroundColor: 'transparent',height: '35vh',marginTop: '1%'}}>
-                    <Row  justify='start'>
-                    <Col span={8}>
-                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
-                        <Col span={12} >
-                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
-                               <Link to={'/allgames/:'+game[0].id}> <img src={game[0].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
-                       <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
-                               <h5 >{game[0].name}</h5>
-                              
-                                <StarRatings
-                                 rating={parseFloat((parseFloat(game[0].rate)/2).toFixed(2))}
-              
-                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
-                                 numberOfStars={5}
-                                 name='rating' 
-                                 />
-            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[0].description.substring(0,48)}...</h6>
-
-                                 </div>
-                               </Col>
-
-                        
-                             
-                        </Row>
-                        </Col>
-                        <Col span={8}>
-                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
-                        <Col span={12} >
-                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
-                               <Link to={'/allgames/:'+game[1].id}> <img src={game[1].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
-                        <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
-                               <h5 >{game[1].name}</h5>
-                              
-                                <StarRatings
-                                 rating={parseFloat((parseFloat(game[1].rate)/2).toFixed(2))}
-              
-                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
-                                 numberOfStars={5}
-                                 name='rating' 
-                                 />
-            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[1].description.substring(0,48)}...</h6>
-
-                                 </div>
-                               </Col>
-
-                          
-                             
-                        </Row>
-                        </Col>
-                        <Col span={8}>
-                        <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
-                        <Col span={12} >
-                               <div className='roundedcircle' style={{marginLeft: '7%'}}>
-                               <Link to={'/allgames/:'+game[2].id}> <img src={game[2].image}  className='imageinside' /></Link>
-    
-                               </div>
-                               </Col> 
-                        <Col span={12}>
-                               <div style={{marginLeft: '7%'}}>
-                               <h5 >{game[2].name}</h5>
-                              
-                                <StarRatings
-                                 rating={parseFloat((parseFloat(game[2].rate)/2).toFixed(2))}
-              
-                                 starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
-                                 numberOfStars={5}
-                                 name='rating' 
-                                 />
-            <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[2].description.substring(0,48)}...</h6>
-
-                                 </div>
-                               </Col>
-
-                         
-                             
-                        </Row>
-                        </Col>
-                    </Row>
-                   
-                   
-                   
-                   
-                    
-                     </body>
-                     
-                    ))
-                    }
-                </Carousel>
-                < Link to='/allgames' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '-5.5%'}}>See More Games <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
-                <div style={{height: 'max-content',width: '100%'}}>
-                <h3 >VISIT CAFES:
+                     </h3><div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+          <span class="sr-only" >Loading...</span>
+          </div>
+          </div></div>:<div>  <h3 > THE HOT GAMES
                      
                      </h3>
+                     <span>
+                       
+                     <h4 style={{fontSize: "13px",verticalAlign: 'middle'}}>
+                     < Link to='/allgames' style={{color: "cyan",marginRight: "2%",fontSize: "18px",lineHeight: '0.5'}}><GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/> Click to see more</Link>
+                     
+                     </h4>  </span>
+                     
+                     <Carousel infiniteLoop   autoPlay  width="100%" >
+                         
+                       {rows.map(game => (
+                         <body style={{backgroundColor: 'transparent',height: '35vh',marginTop: '1%'}}>
+                         <Row  justify='start'>
+                         <Col span={8}>
+                         <Link to={'/allgames/:'+game[0].id}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
+                             <Col span={12} >
+                                    <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                                     <img src={game[0].image}  className='imageinside' />
+         
+                                    </div>
+                                    </Col> 
+                            <Col span={12}>
+                                    <div style={{marginLeft: '7%'}}>
+                                    <h5 >{game[0].name}</h5>
+                                   
+                                     <StarRatings
+                                      rating={parseFloat((parseFloat(game[0].rate)/2).toFixed(2))}
+                   
+                                      starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                      numberOfStars={5}
+                                      name='rating' 
+                                      />
+                 <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[0].description.substring(0,48)}...</h6>
+     
+                                      </div>
+                                    </Col>
+     
+                             
+                                  
+                             </Row></Link>
+                             </Col>
+                             <Col span={8}><Link to={'/allgames/:'+game[1].id}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
+                             <Col span={12} >
+                                    <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                                     <img src={game[1].image}  className='imageinside' />
+         
+                                    </div>
+                                    </Col> 
+                             <Col span={12}>
+                                    <div style={{marginLeft: '7%'}}>
+                                    <h5 >{game[1].name}</h5>
+                                   
+                                     <StarRatings
+                                      rating={parseFloat((parseFloat(game[1].rate)/2).toFixed(2))}
+                   
+                                      starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                      numberOfStars={5}
+                                      name='rating' 
+                                      />
+                 <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[1].description.substring(0,48)}...</h6>
+     
+                                      </div>
+                                    </Col>
+     
+                               
+                                  
+                             </Row></Link>
+                             </Col>
+                             <Col span={8}><Link to={'/allgames/:'+game[2].id}>
+                             <Row style={{borderRadius: '4%',width: '95%',height: '28vh',display: 'flex',alignItems: 'center'}}className="homestyle">
+                             <Col span={12} >
+                                    <div className='roundedcircle' style={{marginLeft: '7%'}}>
+                                     <img src={game[2].image}  className='imageinside' />
+         
+                                    </div>
+                                    </Col> 
+                             <Col span={12}>
+                                    <div style={{marginLeft: '7%'}}>
+                                    <h5 >{game[2].name}</h5>
+                                   
+                                     <StarRatings
+                                      rating={parseFloat((parseFloat(game[2].rate)/2).toFixed(2))}
+                   
+                                      starRatedColor="yellow" starDimension='17px' starSpacing='2px' starEmptyColor='#757575'
+                                      numberOfStars={5}
+                                      name='rating' 
+                                      />
+                 <h6 style={{fontSize: '15px',fontFamily: 'Courier, monospace',marginTop: '9px'}}><FaQuoteRight style={{fill: 'orange'}}/> {game[2].description.substring(0,48)}...</h6>
+     
+                                      </div>
+                                    </Col>
+     
+                              
+                                  
+                             </Row></Link>
+                             </Col>
+                         </Row>
+                        
+                        
+                        
+                        
+                         
+                          </body>
+                          
+                         ))
+                         }
+                     </Carousel></div>}
+          
+          
+         
+              
+                     {this.state.request2==='false'?<div style={{marginTop: '9%'}}> <h3 >VISIT CAFES
+                     
+                     </h3><div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+          <span class="sr-only" >Loading...</span>
+          </div>
+          </div></div>:<div style={{height: 'max-content',width: '100%'}}>
+                <h3 >VISIT CAFES
+                     
+                     </h3>
+                     <span>
+                    
+                    <h4 style={{fontSize: "13px",verticalAlign: 'middle'}}>
+                     < Link to='/allcafes' style={{color: "cyan",marginRight: "2%",fontSize: "18px",lineHeight: '0.5'}}><GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/> Click to see more</Link>
+                    </h4></span>
                      {arrays.map(cafe => (
                          <Row justify='start' style={{marginTop: '2%'}}>
                              <Col span={8} >
@@ -277,14 +306,22 @@ let a="";
                              </Col>
                          </Row>
                      ))}
-                </div>
-                < Link to='/allcafes' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Cafes  <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
-
-                <div style={{height: 'max-content',width: '100%',marginTop: '7%'}}>
-                <h3 >JOIN A COMMUNITY:
+                </div>}
+                {this.state.request3==='false'?<div style={{marginTop: '9%'}}> <h3 >JOIN A COMMUNITY
                      
-                     </h3>
-                     <Row justify='start' style={{marginTop: '2%'}}>
+                     </h3><div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+          <span class="sr-only" >Loading...</span>
+          </div>
+          </div></div>:<div style={{height: 'max-content',width: '100%',marginTop: '7%',paddingBottom: '7%'}}>
+                <h3 >JOIN A COMMUNITY</h3>
+                <span>
+                    
+                    <h4 style={{fontSize: "13px",verticalAlign: 'middle'}}>
+                    < Link to='/community' style={{color: "cyan",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}><GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/> Click to see more</Link>
+ 
+                      </h4></span>
+                     <Row justify='start' style={{marginTop: '-1%'}}>
                      {coms.map(cafe => (
                          
                              <Col span={8} style={{marginTop: '2%'}}>
@@ -342,12 +379,8 @@ let a="";
                         
 
                      ))}                             </Row>
-                     </div>                < Link to='/community' style={{color: "cyan",float: "right",marginRight: "2%",fontSize: "20px",lineHeight: '0.5',marginTop: '1%'}}>See More Communities <GiLevelFourAdvanced style={{color: "cyan",marginTop: '-3'}}/></Link>
-                    <br/>
-                    <div style={{height: '19vh',paddingBottom: '20%',marginTop: '5%',color: 'green'}}>
-
-                    
-                    </div>
+                     </div>}             <br/>
+                   
                 </div>
                 
 
@@ -356,15 +389,7 @@ let a="";
 
 
     render(){
-        if(this.state.requests==='false'){
-          return (
-          <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
-          <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
-          <span class="sr-only" >Loading...</span>
-          </div>
-          </div>
-          
-          )}
+       
          return this.caro();
          
     }
