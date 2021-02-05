@@ -66,8 +66,8 @@ const formItemLayout = {
       fileList: [],
       necessary_inputs:"",
       suggestlist_user: [],
-      lock:"true",
-    };
+      lock: false
+        };
       nameChange = (e) => {
         this.setState({ name: e.target.value });
       };
@@ -97,11 +97,15 @@ const formItemLayout = {
     console.log(this.state.members)
 
   }
-   onChangelock(checked) {
-  //  console.log(`switch to ${checked}`);
-  this.setState(prevState =>{
-    return {lock: checked}
-  })
+  onChangelock=()=>{
+    //  console.log(`switch to ${checked}`);
+    if(this.state.lock){
+      this.setState({lock: false});
+    }
+    else{
+      this.setState({lock: true});
+    }
+   
   //  console.log(localStorage.getItem('lock'));
 
  //   this.setState({lock:checked});

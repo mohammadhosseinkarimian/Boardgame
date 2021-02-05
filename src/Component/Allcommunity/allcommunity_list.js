@@ -111,11 +111,9 @@ class AllCommunity extends React.Component {
              <Tooltip title={item.members[0].username} placement="top">
              <Avatar  src={item.members[0].avatar===""?'':item.members[0].avatar} style={{background:'hsl(22, 94%, 49%)' }}><p style={{margintop:'-15em',fontSize:'20px'}}>{item.members[0].username[0]}</p></Avatar> 
                </Tooltip>
-               <Tooltip title={item.members[1].username} placement="top">
+             {item.members.length<=1?'': <Tooltip title={item.members[1].username} placement="top">
              <Avatar  src={item.members[1].avatar===""?'':item.members[1].avatar} style={{background:'hsl(22, 94%, 49%)'}}><p style={{margintop:'-15em',fontSize:'20px'}}>{item.members[1].username[0]}</p></Avatar> 
-               </Tooltip>{
-                 console.log(item.members.length)
-               }
+               </Tooltip>}  
                <Avatar style={{ backgroundColor: 'hsl(22, 94%, 49%)' }} hidden={item.members.length===2}>+{item.members.length-2}</Avatar>
            </Avatar.Group>
            {/*            {this.state.member_id=[],

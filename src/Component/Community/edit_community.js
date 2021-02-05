@@ -71,7 +71,8 @@ class Cafeedit extends React.Component {
       memberList: [],
       necessary_inputs:"",
       suggestlist_user: [],
-      lock:"",
+      lock: false,
+      requests: 'false',
     done:"",
     edit:"",
 
@@ -133,8 +134,7 @@ let com_id=localStorage.getItem("com_id")
     this.setState({image:res.data.image.base64});
     this.setState({lock:res.data.lock});
     this.state.members.map(m=>this.state.memberList.push(m.username) )
-    console.log(this.state.memberList)
-    console.log(this.state.lock)
+    this.setState({requests: 'true'});
 
 this.setState({done:"yes"});
 })
@@ -178,11 +178,15 @@ descChange=e=>{
   this.setState({edit:"true"});
   //console.log(this.state.description);
 };
-onChangelock(checked) {
+onChangelock=()=>{
   //  console.log(`switch to ${checked}`);
-  this.setState(prevState =>{
-    return {lock: checked}
-  })
+  if(this.state.lock){
+    this.setState({lock: false});
+  }
+  else{
+    this.setState({lock: true});
+  }
+ 
   this.setState({edit:"true"});}
 onSaveGeneral = (e) => {
   if((this.state.edit==="true"))
@@ -238,8 +242,18 @@ componentDidMount() {
 }
 
     render() {
+      if( this.state.requests==='false')
+        {
+
+        
+        return( <div style={{marginTop: '23%'}}> 
+        <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
+<div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
+<span class="sr-only" >Loading...</span>
+</div>
+</div></div>)}
         return (   
-            <div className="EditProfile_container" style={{with:'36%'}}>
+            <div className="createplay" style={{with:'36%'}}>
        
         <Form
           {...formItemLayout}
@@ -331,7 +345,7 @@ componentDidMount() {
           </Form.Item>
           <Form.Item>
               <p>Set community private:</p>
-          <Switch defaultChecked={!this.state.lock} onChange={this.onChangelock} />
+          <Switch defaultChecked={this.state.lock} onChange={this.onChangelock} />
           </Form.Item>
 
           <div>
