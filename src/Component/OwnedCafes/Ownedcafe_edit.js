@@ -90,6 +90,7 @@ class Cafeedit extends React.Component {
     Gameget:[],
     latitude: "",
     longitude: "",
+    loggedIn:""
 
   };
   onFinish = (values) => {
@@ -106,7 +107,7 @@ onChange = (e) => {
     });
    // console.log(this.state);
 };
-proxyurl= "http://localhost:8010/proxy";
+proxyurl= localStorage.getItem('url');
 
 
 getInfo=(e)=>
@@ -133,6 +134,9 @@ let cafeid=localStorage.getItem("cafeid")
     this.state.List_of_board_games.forEach((element) => {
       this.state.Gameget.push(element.name/* +"#"+element.id */)
       });
+      this.state.List_of_board_games.forEach((element) => {
+        this.state.Gamestring.push({"name":element.name ,"id":element.id})
+        });
 console.log(this.state.List_of_board_games)
 
 this.setState({ latitude: res.data.latitude });
@@ -247,7 +251,7 @@ onSaveGeneral = (e) => {
       e.preventDefault();
       let list=(localStorage.getItem('base64'));
     //  console.log(JSON.parse(list))
-     // this.setState({loggedIn:"logging in"})
+      this.setState({loggedIn:"logging in"})
   const data={
       id:localStorage.getItem("cafeid"),
       name:this.state.name,
@@ -268,6 +272,7 @@ onSaveGeneral = (e) => {
 'Authorization' :`Bearer ${localStorage.getItem('access')}`
   }}
 ).then((res)=>{  
+  message.open({content: 'Changes have been made successfully.',duration: 2,style: {color: 'lime'}});
   this.setState({edit:""});
    this.setState({msg:"done"});
    this.setState({loggedIn:""});
@@ -277,13 +282,15 @@ onSaveGeneral = (e) => {
    this.setState({done:""});
    this.getInfo();
 
-console.log("tttt")
+//console.log("tttt")
 } )
 .catch((error)=>
 {
 this.setState({edit:""});
 this.setState({loggedIn:""});
 this.setState({msg:"something went wrong please try again."});
+message.open({content: 'something went wrong please try again.',duration:2,style: {color: 'red'}});
+
       } 
       )
   
@@ -291,7 +298,8 @@ this.setState({msg:"something went wrong please try again."});
 
 
   else
-  {
+   { 
+     message.open({content: "You haven't changed any information.",duration:2,style: {color: 'red'}});
       this.setState({msg:"You haven't changed any information."});
       this.setState({loggedIn:""});
   }
@@ -305,6 +313,7 @@ componentDidMount() {
     render() {
         return (   
             <div className="Cafe_container">
+       <h2 style={{marginLeft:"-0.5%"}}>Edit Cafe</h2>
        
         <Form
           {...formItemLayout}
@@ -496,7 +505,6 @@ componentDidMount() {
           </Form.Item>
 
           <div>
-             <CafeMap  />
             <Button
              className="btn btn-primary" style={{width: '100%'}}
               onClick={this.onSaveGeneral} 
@@ -516,7 +524,7 @@ componentDidMount() {
                 : "all"}
               ></span>
               {this.state.necessary_inputs === "added"
-                ? "ََAdded"
+                ? "ََEdited"
                 : "Edit Caffe"}
             </Button>
           </div>
