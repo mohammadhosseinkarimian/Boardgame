@@ -97,6 +97,7 @@ class Eventedit extends React.Component {
     loggedIn:""
 
   };
+ 
   onFinish = (values) => {
   //  console.log("Received values of form: ", values);
 };
@@ -138,7 +139,7 @@ getInfo=(e)=>
     if(this.state.done==="")
     {
 let com_id=localStorage.getItem("com_id")    
-    axios.get(this.proxyurl+'/community/edit_event/'+3+"/",{headers:{
+    axios.get(this.proxyurl+'/community/edit_event/'+this.state.id+"/",{headers:{
         'Content-Type' : 'application/json;charset=utf-8',
         'Access-Control-Allow-Credentials':true,
 'Accept' : 'application/json',
@@ -394,7 +395,9 @@ if(this.state.memberstring.length>this.state.maxmember)
   
   }
 componentDidMount() {
-    this.getInfo();
+  this.state.id=localStorage.getItem("event_id");
+  this.getInfo();
+   
 }
 
     render() {

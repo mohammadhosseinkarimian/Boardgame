@@ -40,6 +40,7 @@ class SingleEvent extends React.Component {
     componentDidMount() {
         const id = window.location.href.substring(27);
         this.setState({ id: id });
+        localStorage.setItem("event_id",id)
         Axios.get(proxyUrl + "/community/event_info/" + id + "/", {
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -109,9 +110,7 @@ class SingleEvent extends React.Component {
 
 
     }
-    onClickEditEvent = () => {
-        window.location.href = ''
-    }
+   
     render() {
         this.state.members.map(element => { this.state.members_username.push(element.username) })
         return (
@@ -145,8 +144,10 @@ class SingleEvent extends React.Component {
                                     <Button className="btn btn-primary" style={{ width: "15vh" }} hidden={this.state.owner.username !== localStorage.getItem('user')} style={{ marginLeft: '10%' }}>
                                         <Link to={"/editCommunity/:" + localStorage.getItem('com_id')}>Edit</Link>
                                     </Button>
-                                    <Button onClick={this.onClickEditEvent} className="btn btn-primary" style={{ marginLeft: '5%', width: "15vh" }}>
+                                    <Button  className="btn btn-primary" style={{ marginLeft: '5%', width: "15vh" }}>
+                                        <Link to={"/editevent/:"+this.state.id}>
                                         Edit Event
+                                        </Link>
                                     </Button>
                                 </span>
                                 <span hidden={this.state.members_username.includes(localStorage.getItem('user'))}  >

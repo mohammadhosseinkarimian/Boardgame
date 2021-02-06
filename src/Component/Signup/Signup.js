@@ -153,7 +153,7 @@ class Signup extends React.Component {
           autocomplete="off"
           onSubmit={this.onSubmit.bind(this)}
         >
-           <p className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
+           <p style={{textAlign: "center"}} className ="ant-form-item-extra" >{this.state.msg==="There was something wrong with the server please try again"?
     "There was something wrong with the server please try again":""}</p>
           <Form.Item
             name="username"
@@ -168,7 +168,7 @@ class Signup extends React.Component {
           >
             <Input name="username" placeholder='Username' required onChange={this.onChange , this.userChange} />
           </Form.Item>
-          <p className ="ant-form-item-extra" >{this.state.msg==="A user with that username already exists."? 
+          <p style={{textAlign: "center"}} className ="ant-form-item-extra" >{this.state.msg==="A user with that username already exists."? 
     "A user with that username already exists.":""}</p>
           <Form.Item
             name="email"
@@ -187,7 +187,7 @@ class Signup extends React.Component {
           >
             <Input name="email" placeholder="E-mail" required onChange={this.onChange , this.emailChange} />
           </Form.Item>
-            <p className ="ant-form-item-extra" >{this.state.msg==="There is already an account with this email"?
+            <p style={{textAlign: "center"}} className ="ant-form-item-extra" >{this.state.msg==="There is already an account with this email"?
     "There is already an account with this email":""}</p>
           <Form.Item
             name="password"

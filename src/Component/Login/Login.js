@@ -147,8 +147,8 @@ class Login extends React.Component {
           </Form.Item>
 
           
-          <p className ="ant-form-item-extra" >
-            {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong. try again!":""}</p>
+          <p style={{marginLeft: "20%"}} className ="ant-form-item-extra" >
+            {this.state.msg==="Username or Password is wrong."?"Username or Password is wrong":""}</p>
           <Form.Item {...tailLayout}>
             <Button className="btn btn-primary" htmlType="submit" name="submit"  style={{width: "100%"}} onClick={this.onSubmit}>
             <span

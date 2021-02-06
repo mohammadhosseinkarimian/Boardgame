@@ -43,6 +43,7 @@ import { Layout, Menu, Breadcrumb, Avatar, Button ,List,Modal,Switch } from "ant
 import './Component/BoardGame/allStyle.css';
 import noBg from './Component/Community/images.png';
 import CommunitySearch from './Component/Community/communitySearch';
+import Eventedit from './Component/event-form/eventedit'
 import Axios from 'axios';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;let a="";
@@ -405,6 +406,7 @@ renderItem={item => (
                     <Route exact path="/event/:id" component={SingleEvent} />
                     <Route exact path="/showplay/" component={LogPlay} />
                     <Route exact path="/editplay/:id" component={EditPlay} />
+                    <Route exact path="/editevent/:id" component={Eventedit} />
 
                     <Route exact path='/'>
                       <Redirect to="/homePage"/>
