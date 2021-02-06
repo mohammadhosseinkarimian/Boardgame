@@ -62,7 +62,9 @@ class Login extends React.Component {
       localStorage.setItem('email', this.state.email);
       localStorage.setItem('id',res.data.id);
       localStorage.setItem('pass', this.state.password);
-      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
+      window.location.href=window.location.origin + "/homePage";
+      localStorage.setItem('cango','true');
+
       this.setState({msg:"loged_in"});
 
     })

@@ -86,7 +86,9 @@ class Signup extends React.Component {
       localStorage.setItem('email', this.state.email);
       localStorage.setItem('pass', this.state.password);
       localStorage.setItem('id',res.data.id);
-      window.location.href=window.location.origin + "/homePage/:"+res.data.id;
+      window.location.href=window.location.origin + "/homePage";
+      localStorage.setItem('cango','true');
+
       this.setState({msg:"signed_in"});
        
     })
@@ -257,7 +259,7 @@ class Signup extends React.Component {
 
         </Form>
         <Divider style={{marginLeft: "0%" ,color: "white" }}>OR</Divider>
-      <div style={{display: 'flex',position: 'relative',width: '100%',textAlign: 'center'}}>  <p className ="ant-form-item-change"style={{marginLeft: "auto",marginRight: 'auto',color: "white" }}  >Already have an account? <Link to="/">Log in</Link></p></div>
+      <div style={{display: 'flex',position: 'relative',width: '100%',textAlign: 'center'}}>  <p className ="ant-form-item-change"style={{marginLeft: "auto",marginRight: 'auto',color: "white" }}  >Already have an account? <Link to="login">Log in</Link></p></div>
       </div>
       </div>
     );

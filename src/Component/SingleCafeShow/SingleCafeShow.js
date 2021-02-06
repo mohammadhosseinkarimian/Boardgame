@@ -43,7 +43,7 @@ class SingleCafeShow extends React.Component {
   };
 
   componentDidMount() {
-    const id = window.location.href.substring(32);
+    const id = window.location.href.substring(30);
     Axios.get(localStorage.getItem('url')+"/cafe/cafe_info/" + id + "/", {
       headers: {
         "Content-Type": "application/json;charset=utf-8",

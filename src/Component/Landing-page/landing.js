@@ -14,6 +14,7 @@ import instagram from "./I.jpg";
 import telegram from "./telegram2.png";
 import "../../Style/design.scss";
 import { Button } from "antd";
+import {Link} from 'react-router-dom'
 import { Row, Col, Slider } from "antd";
 class Land extends React.Component {
   render() {
@@ -132,7 +133,7 @@ class Land extends React.Component {
            stay <b>together</b>
            
           </p>
-         
+         <Link to="/signup">
           <Button
             className="btn btn-primary"
             style={{ width: "20%" , marginLeft:"8%"}}
@@ -140,7 +141,7 @@ class Land extends React.Component {
             name="submit"
           >
             Join us
-          </Button>
+          </Button></Link>
         </div>
         <div className="description" style={{marginLeft:"20%",marginTop:"9%"}}>
           

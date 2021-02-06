@@ -35,7 +35,7 @@ class SingleGame extends React.Component {
     };
 
     componentDidMount(){
-       const id=window.location.href.substring(32);
+       const id=window.location.href.substring(30);
     Axios.get(localStorage.getItem('url')+'/game/game_info/'+id)
    .then(res=>{
      const game=res.data;

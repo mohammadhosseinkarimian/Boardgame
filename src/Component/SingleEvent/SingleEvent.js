@@ -38,7 +38,7 @@ class SingleEvent extends React.Component {
     };
 
     componentDidMount() {
-        const id = window.location.href.substring(29);
+        const id = window.location.href.substring(27);
         this.setState({ id: id });
         Axios.get(proxyUrl + "/community/event_info/" + id + "/", {
             headers: {

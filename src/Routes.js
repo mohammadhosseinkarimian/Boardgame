@@ -96,7 +96,7 @@ headers: {
     ).then((res) => {
 
       localStorage.setItem('avatar', res.data.avatar);
-
+      localStorage.setItem('id', res.data.id);
 
     })
       .catch((error) => {
@@ -123,6 +123,8 @@ headers: {
         headers: { 'Content-Type': 'application/json' }
       }).then((res) => {
         localStorage.setItem('access', res.data.access);
+        localStorage.setItem('cango','true');
+
         this.setState({ accessed: 'true' });
         this.getInfo();
           Axios.get(proxy+'/community/owner_communities_list/',{headers:{
@@ -154,7 +156,11 @@ headers: {
      // console.log(error.respose+"errrr")
     })
 
-      }).catch()
+      }).catch((error)=>{
+        localStorage.setItem('cango','');
+        this.setState({'accessed': 'false'});
+
+      })
 
   }
   setDark = () =>{
@@ -263,13 +269,13 @@ headers: {
               </Menu.Item>
 
               <Menu.Item key="3" icon={<FaHome style={{ verticalAlign: 'middle', marginTop: '-4px' }} className="iconstyle" />}>
-                <NavLink to="/homePage/:id">{' ' + 'Home'}</NavLink>
+                <NavLink to="/homePage">{' ' + 'Home'}</NavLink>
 
               </Menu.Item>
               <Menu.Item className="m-item" key="0" icon={<EditOutlined style={{ verticalAlign: 'middle', marginTop: '-4px' }}  className="iconstyle" />}
                 style={{ height: "6%", marginTop: "4%", marginBottom: "5%" }}>
 
-                <NavLink to={"/editProfile/:" + localStorage.getItem('id')}>{this.state.username + '(tap to edit)'}</NavLink>
+                <NavLink to={"/editProfile/"}>{this.state.username + '(tap to edit)'}</NavLink>
               </Menu.Item >
                 <SubMenu key="sub1" icon={<GiPerspectiveDiceSixFacesSix style={{ verticalAlign: 'middle', marginTop: '-4px' }} className="iconstyle" />} title={' '+"Play"}>
                   <Menu.Item className="m-item" key="2" icon={<AiOutlinePlusCircle style={{ verticalAlign: 'middle', marginTop: '-5px' }}  className="iconstyle" />}>
@@ -377,8 +383,8 @@ renderItem={item => (
                   style={{ marginTop: "4%", minHeight: "100vh", overflow: 'hidden', height: 'max-content' }}
                 >
                   <switch>
-                    <Route exact path="/homePage/:id" component={HomeGames} />
-                    <Route exact path="/editProfile/:id" component={EditProfile} />
+                    <Route exact path="/homePage" component={HomeGames} />
+                    <Route exact path="/editProfile/" component={EditProfile} />
                     <Route exact path="/allgames" component={AllBoardGames} />
                     <Route exact path="/allgames/:id" component={SingleGame} />
                     <Route exact path="/allcafes" component={AllCafe} />
@@ -401,11 +407,9 @@ renderItem={item => (
                     <Route exact path="/editplay/:id" component={EditPlay} />
 
                     <Route exact path='/'>
-                      <Redirect to="/homePage/:id" />
+                      <Redirect to="/homePage"/>
                     </Route>
-                    <Route exact path='/signup'>
-                      <Redirect to="/homePage/:id" />
-                    </Route>
+                    
 
                   </switch>
 
@@ -417,49 +421,58 @@ renderItem={item => (
 
 }
     render() {
-      if(this.state.accessed==='')
-      {
-        <div class="d-flex justify-content-center" style={{marginTop: '23%'}}>
+      
+     if(localStorage.getItem('cango')==="true")
+     {
+      return(
+
+        <Router>
+              <switch>
+                <Route component={this.cntrl} />
+  
+  
+              </switch>
+  
+  
+            </Router>
+            
+        );
+      
+      }
+      else{
+
+        if(this.state.accessed==='false'){
+          return(
+            <Router>
+             <switch>
+               <Route exact path='/'>
+                 <Landing />
+               </Route>
+               <Route exact path="/homePage">
+                 <Redirect to='/' />
+               </Route>
+               <Route exact path='/login/'>
+                 <Login />
+               </Route>
+     
+               <Route exact path='/signup/'>
+                 <Signup />
+               </Route>
+             </switch>
+           </Router>)
+        }
+        else{
+          return(
+            <div class="d-flex justify-content-center" style={{marginTop: '0%'}}>
           <div class="spinner-grow"style={{backgroundColor: 'hsl(22, 94%, 49%)'}} role="status">
           <span class="sr-only" >Loading...</span>
           </div>
           </div>
-      }
-     else if(this.state.accessed==='false')
-     {
-       return(
-        <Router>
-            <switch>
-              <Route exact path='/'>
-                <Login />
-              </Route>
-              <Route exact path="/homePage/:id">
-                <Redirect to='/' />
-              </Route>
-
-              <Route exact path='/signup'>
-                <Signup />
-              </Route>
-            </switch>
-          </Router>
-       )
-      }
-      else{
-
+          )
+        }
+       
           }
-      return(
-
-      <Router>
-            <switch>
-              <Route component={this.cntrl} />
-
-
-            </switch>
-
-
-          </Router>
-          
-      );
+      
 
       }
        

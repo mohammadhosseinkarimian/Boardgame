@@ -42,7 +42,7 @@ class SingleCommunity extends React.Component {
     };
 
     componentDidMount() {
-        const id = window.location.href.substring(33)
+        const id = window.location.href.substring(31)
         //this.setState({id:id})
         localStorage.setItem('com_id', id)
         Axios.get(proxyUrl + '/community/community_info/' + id, {
